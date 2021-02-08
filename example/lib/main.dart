@@ -34,33 +34,50 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Map<ScreenScope, Style> beginStyle = {
-    ScreenScope(): Style(
-        alignment: Alignment.center,
-        width: 300.toPXLength,
-        height: 20.toVHLength,
-        margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
-        backgroundDecoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.red, Colors.amber])),
-        borderColor: Colors.green,
-        borderThickness: 5,
-        shape: ArcShape(),
-        shadows: [
-          DynamicBoxShadow(
-              blurRadius: 2.toPXLength,
-              color: Colors.grey,
-              offset: DynamicOffset(2.toPXLength, 2.toPXLength))
-        ],
-        translationX: -50,
-        translationY: 50,
-        childAlignment: Alignment.centerLeft,
-        opacity: 0.8,
-        textStyle:
-            DynamicTextStyle(fontSize: 2.toVWLength, color: Colors.black))
-  };
+  Style beginStyle = Style(
+      alignment: Alignment.center,
+      width: 300.toPXLength,
+      height: 20.toVHLength,
+      margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+      backgroundDecoration: BoxDecoration(
+          gradient: LinearGradient(colors: [Colors.red, Colors.amber])),
+      borderColor: Colors.green,
+      borderThickness: 5,
+      shape: ArcShape(),
+      shadows: [
+        DynamicBoxShadow(
+            blurRadius: 2.toPXLength,
+            color: Colors.grey,
+            offset: DynamicOffset(2.toPXLength, 2.toPXLength))
+      ],
+      translationX: -50,
+      translationY: 50,
+      childAlignment: Alignment.centerLeft,
+      opacity: 0.8,
+      textStyle: DynamicTextStyle(fontSize: 2.toVWLength, color: Colors.black));
 
   Map<ScreenScope, Style> endStyle = {
-    ScreenScope(): Style(
+    typicalTabletScreenScope: Style(
+        alignment: Alignment.center,
+        width: 300.toPXLength,
+        height: 300.toPXLength,
+        margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+        backgroundDecoration: BoxDecoration(
+            gradient: LinearGradient(colors: [Colors.red, Colors.red])),
+        borderColor: Colors.blueAccent,
+        borderThickness: 1,
+        shape: PolygonShape(sides: 12, cornerRadius: 50.toPXLength),
+        shadows: [
+          DynamicBoxShadow(
+              blurRadius: 10.toPXLength,
+              color: Colors.grey,
+              offset: DynamicOffset(10.toPXLength, 10.toPXLength))
+        ],
+        translationX: 0,
+        translationY: 0,
+        textStyle:
+            DynamicTextStyle(fontSize: 3.toVWLength, color: Colors.blueAccent)),
+    typicalDesktopScreenScope: Style(
         alignment: Alignment.center,
         width: 300.toPXLength,
         height: 300.toPXLength,
@@ -93,7 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     //debugPrint(json.encode(beginStyle.toJson()));
 
     return Scaffold(

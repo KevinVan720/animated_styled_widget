@@ -1,6 +1,6 @@
 # styled_widget
 
-Lets you use a serializable style/style map to make responsive and animated widgets.
+Lets you use a serializable style/style map to make responsive and animatable widgets.
 
 ## Getting Started
 
@@ -54,9 +54,7 @@ MorphableShape shape
 bool visible
 double opacity
 ```
-
 4. Transformation
-
 ```
 double rotationX
 double rotationY
@@ -66,23 +64,21 @@ double skewY
 double translationX
 double translationY
 ```
-
 5. Typography
-
 ```
 DynamicTextStyle textStyle
 TextAlign textAlign
 ```
 
-All of the properties that is of type Length or a type call DynamicXXX is fully responsive in that the
-actual dimension is calculated based on the size of the widget or the size of the screen, just like CSS.
+All of the properties that are of type Length or type called DynamicXXX are fully responsive in the sense  
+that the actual dimensions are calculated based on the size of the widget or the size of the screen, just like CSS.
 
-A example of a responsive style:
+An example of a responsive style:
 ```
 Style style=Style(
         alignment: Alignment.center,
-        width: 300.toPXLength,
-        height: 300.toPXLength,
+        width: 30.toPercentLength, //30% of the parent constraint with
+        height: 30.toVHLength, //30% of the screen height
         margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(colors: [
@@ -91,7 +87,7 @@ Style style=Style(
         ])),
         borderColor: Colors.redAccent,
         borderThickness: 10,
-        shape: PolygonShape(sides: 6, cornerRadius: 20.toPXLength),
+        shape: PolygonShape(sides: 6, cornerRadius: 20.toPercentLength),
         shadows: [
           DynamicBoxShadow(
               blurRadius: 10.toPXLength,
@@ -103,13 +99,13 @@ Style style=Style(
         childAlignment: Alignment.centerLeft,
         opacity: 0.8,
         textStyle: DynamicTextStyle(
-            fontSize: 3.toVWLength,
+            fontSize: 3.toVWLength, //3% of the screen width
             fontWeight: FontWeight.bold,
             color: Colors.blueAccent)
         );
 ```
 
-After you have defined a style or a style map, use
+After you have defined a style, use
 ```
 var widget=StyledContainer(
             style: style,
@@ -117,7 +113,7 @@ var widget=StyledContainer(
             );
 ```
 which will render something like this:
-![style_demo1](https://i.imgur.com/00JT5jK.png)
+![style_demo1](https://i.imgur.com/iwrqDVS.png)
 
 You can also pass in the style map:
 ```
@@ -126,6 +122,35 @@ var widget=StyledContainer(
             child: ...
             );
 ```
-and the StyledContainer will determine the actual style to use for you. If some ScreenScope overlaps,  
-the resolution is similar to CSS as well, the last valid style in the map is used.
+and the StyledContainer will determine the actual style to use automatically. If some ScreenScope overlaps,  
+the resolution is similar to CSS as well: the last valid style in the map is used.
 
+## Animation
+Almost every property in the Style class can be animated implicitly  
+(rotation or skew are not supported by Matrix4Tween right now). See the
+following GIF for a demonstration:
+
+Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the
+animation can not only be triggered by providing a new style/style map, but also by window resize/screen rotation  
+as long as you provide different styles for the before/after screen size.
+![style_demo2](https://i.imgur.com/DmoSGuK.gif)
+
+## Serialization
+The style class can be easily serialized/deserialized:
+```
+String styleJson=json.encode(style.toJson());
+Style newStyle=Style.fromJson(json.decode(styleJson));
+```
+
+A style map, as a matter of fact, can also do:
+```
+String styleJson=json.encode(styles.toJson());
+```
+
+and you can call this function to parse a style or a style map:
+```
+dynamic? parsePossibleStyleMap(Map<String, dynamic>? style)
+```
+and use the result directly in the StyledContainer class.
+
+All the features mentioned above can be explored in the example app.
