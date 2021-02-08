@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 import 'package:morphable_shape/animated_shadowd_shape.dart';
+import 'package:styled_widget/screen_scope.dart';
 import 'style.dart';
 
 export 'to_json.dart';
@@ -19,7 +20,9 @@ export 'animated_styled_container.dart';
 
 abstract class StyledWidget extends StatefulWidget {
   final dynamic style;
-  StyledWidget({Key? key, required this.style}) : super(key: key);
+  StyledWidget({Key? key, required this.style})
+      : assert(style is Style || style is Map<ScreenScope, Style>),
+        super(key: key);
 }
 
 abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {

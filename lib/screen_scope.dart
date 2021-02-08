@@ -1,9 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 
-const double screenMaxDimension = 10000;
+const double screenMaxDimension = 100000;
 
-class ScreenScope{
+const double mobileScreenWidthTypical = 360;
+const double tabletScreenWidthTypical = 600;
+const double desktopScreenWidthTypical = 1024.0;
+
+const double mobileScreenWidthLimit = 480.0;
+const double tabletScreenWidthLimit = 840.0;
+const double desktopScreenWidthLimit = 2000.0;
+
+const typicalMobileScreenScope = ScreenScope(maxWidth: mobileScreenWidthLimit);
+const typicalTabletScreenScope = ScreenScope(
+    minWidth: mobileScreenWidthLimit, maxWidth: tabletScreenWidthLimit);
+const typicalDesktopScreenScope = ScreenScope(minWidth: tabletScreenWidthLimit);
+
+class ScreenScope {
   final double minWidth;
   final double maxWidth;
   final double minHeight;
@@ -58,10 +71,10 @@ class ScreenScope{
   @override
   bool operator ==(Object other) {
     if (other is ScreenScope) {
-      if(this.minWidth==other.minWidth &&
-       this.maxWidth ==other.maxWidth &&
-      this.minHeight==other.minHeight &&
-      this.maxHeight==other.maxHeight) {
+      if (this.minWidth == other.minWidth &&
+          this.maxWidth == other.maxWidth &&
+          this.minHeight == other.minHeight &&
+          this.maxHeight == other.maxHeight) {
         return true;
       }
     }
@@ -70,5 +83,4 @@ class ScreenScope{
 
   @override
   int get hashCode => hashValues(minWidth, maxWidth, minHeight, maxHeight);
-
 }

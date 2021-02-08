@@ -293,11 +293,7 @@ class Style {
     }
   }
 
-
-
 }
-
-
 
 dynamic chooseFrom(dynamic input, MediaQueryData data) {
   dynamic rst;
