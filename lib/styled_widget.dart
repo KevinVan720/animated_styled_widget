@@ -1,10 +1,11 @@
-library styled_widget;
+library responsive_styled_widget;
 
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 import 'package:morphable_shape/animated_shadowd_shape.dart';
-import 'package:styled_widget/screen_scope.dart';
+
+import 'screen_scope.dart';
 import 'style.dart';
 
 export 'to_json.dart';

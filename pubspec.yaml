@@ -1,4 +1,4 @@
-name: styled_widget
+name: responsive_styled_widget
 description: Lets you use a serializable style/style map to make responsive and animated widgets.
 version: 0.0.1
 homepage: https://github.com/KevinVan720/styled_widget
