@@ -133,7 +133,7 @@ following GIF for a demonstration:
 Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the
 animation can not only be triggered by providing a new style/style map, but also by window resize/screen rotation  
 as long as you provide different styles for the before/after screen size.
-![style_demo2](https://i.imgur.com/DmoSGuK.gif)
+![style_demo2](https://i.imgur.com/eWazcer.gif)
 
 ## Serialization
 The style class can be easily serialized/deserialized:
