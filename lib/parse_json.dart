@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:length_unit/length_unit.dart';
+import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/parse_json.dart';
 
+import 'styled_widget.dart';
 import 'style.dart';
 import 'screen_scope.dart';
 import 'dynamic_text_style.dart';
-import 'dynamic_edge_insets.dart';
 import 'dynamic_shadow.dart';
 
 ScreenScope parseScreenScope(Map<String, dynamic> map) {
@@ -30,10 +30,6 @@ dynamic? parsePossibleStyleMap(Map<String, dynamic>? style) {
         MapEntry(parseScreenScope(json.decode(key)), Style.fromJson(value)));
   }
   return Style.fromJson(style);
-}
-
-Length? parseLength(String? string) {
-  return Length.fromJson(string);
 }
 
 DynamicShadow? parseDynamicShadow(Map<String, dynamic>? map) {
@@ -84,8 +80,8 @@ DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
   double? decorationThickness = map['decorationThickness'];
 
   double? height = map['height'];
-  double? letterSpacing = map['letterSpacing'];
-  double? wordSpacing = map['wordSpacing'];
+  Length? letterSpacing = parseLength(map['letterSpacing']);
+  Length? wordSpacing = parseLength(map['wordSpacing']);
 
   List<DynamicShadow>? shadows =
       map["shadows"]?.map((e) => parseDynamicShadow(e)!).toList();
@@ -107,16 +103,16 @@ DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
       shadows: shadows);
 }
 
-DynamicEdgeInsets? parseDynamicEdgeInsets(Map<String, dynamic>? map) {
-  if (map == null) return null;
-  Length? top = parseLength(map['top']);
-  Length? bottom = parseLength(map['bottom']);
-  Length? left = parseLength(map['left']);
-  Length? right = parseLength(map['right']);
-  return DynamicEdgeInsets.only(
-    top: top,
-    bottom: bottom,
-    left: left,
-    right: right,
-  );
+
+SmoothMatrix4OperationType? parseSmoothSupportedOperations(String? string) {
+  SmoothMatrix4OperationType? rst;
+  SmoothMatrix4OperationType.values.forEach((element) {
+    if (string == element.toJson()) rst = element;
+  });
+  return rst;
+}
+
+SmoothMatrix4? parseSmoothMatrix4(List<dynamic>? list) {
+  if (list == null) return null;
+  return SmoothMatrix4.fromJson(list);
 }

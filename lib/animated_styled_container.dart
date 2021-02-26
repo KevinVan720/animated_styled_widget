@@ -12,9 +12,15 @@ class AnimatedStyledContainer extends StyledWidget {
     required this.duration,
     this.curve,
     required this.child,
+    onMouseEnter,
+    onMouseHover,
+    onMouseExit,
   }) : super(
           key: key,
           style: style,
+          onMouseEnter: onMouseEnter,
+          onMouseHover: onMouseHover,
+          onMouseExit: onMouseExit,
         );
 
   @override
@@ -29,10 +35,15 @@ class _AnimatedStyledContainerState
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      chooseStyle();
-      parentMaxWidth = constraints.maxWidth;
-      parentMaxHeight = constraints.maxHeight;
-      chooseProperties();
+      print(constraints);
+      prepareStyle();
+      parentMaxWidth = constraints.maxWidth == double.infinity
+          ? screenSize.width
+          : constraints.maxWidth;
+      parentMaxHeight = constraints.maxHeight == double.infinity
+          ? screenSize.height
+          : constraints.maxHeight;
+      prepareProperties();
 
       return buildAnimatedStyledContainer(
           child: widget.child, duration: widget.duration, curve: widget.curve);

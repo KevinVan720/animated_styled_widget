@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:length_unit/length_unit.dart';
+import 'package:dimension/dimension.dart';
 import 'package:flutter_class_parser/to_json.dart';
 
 class DynamicShadow {
   final Color color;
   final DynamicOffset offset;
-  final Length blurRadius;
+  final Dimension blurRadius;
 
   const DynamicShadow({
     this.color = Colors.black,
@@ -24,7 +24,7 @@ class DynamicShadow {
   DynamicShadow copyWith({
     Color? color,
     DynamicOffset? offset,
-    Length? blurRadius,
+    Dimension? blurRadius,
   }) {
     return DynamicShadow(
       color: color ?? this.color,
@@ -37,13 +37,13 @@ class DynamicShadow {
     Offset offset =
         this.offset.toOffset(size: constraintSize, screenSize: screenSize);
     double blurRadius = this.blurRadius.toPX(
-        constraintSize: constraintSize.shortestSide, screenSize: screenSize);
+        constraint: constraintSize.shortestSide, screenSize: screenSize);
     return Shadow(color: this.color, offset: offset, blurRadius: blurRadius);
   }
 }
 
 class DynamicBoxShadow extends DynamicShadow {
-  final Length spreadRadius;
+  final Dimension spreadRadius;
 
   const DynamicBoxShadow({
     this.spreadRadius = const Length(0.0),
@@ -60,10 +60,9 @@ class DynamicBoxShadow extends DynamicShadow {
 
   DynamicShadow copyWith({
     Color? color,
-    double? angle,
     DynamicOffset? offset,
-    Length? blurRadius,
-    Length? spreadRadius,
+    Dimension? blurRadius,
+    Dimension? spreadRadius,
   }) {
     return DynamicBoxShadow(
       color: color ?? this.color,
@@ -78,9 +77,9 @@ class DynamicBoxShadow extends DynamicShadow {
     Offset offset =
         this.offset.toOffset(size: constraintSize, screenSize: screenSize);
     double blurRadius = this.blurRadius.toPX(
-        constraintSize: constraintSize.shortestSide, screenSize: screenSize);
+        constraint: constraintSize.shortestSide, screenSize: screenSize);
     double spreadRadius = this.spreadRadius.toPX(
-        constraintSize: constraintSize.shortestSide, screenSize: screenSize);
+        constraint: constraintSize.shortestSide, screenSize: screenSize);
     return BoxShadow(
         color: this.color,
         offset: offset,
