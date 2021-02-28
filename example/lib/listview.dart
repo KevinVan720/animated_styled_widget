@@ -28,7 +28,7 @@ class _ListViewPageState extends State<ListViewPage> {
 
     beginStyle = Style(
       alignment: Alignment.center,
-      //width: 50.toVWLength,
+      width: 50.toVWLength,
       height: 120.toPXLength,
       margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
       backgroundDecoration: BoxDecoration(
@@ -57,20 +57,25 @@ class _ListViewPageState extends State<ListViewPage> {
       ScreenScope(): Style(
           alignment: Alignment.center,
           width: 200.toPXLength,
-          height: 140.toPXLength,
+          height: 100.toPXLength,
           margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
-          backgroundDecoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            Color.fromARGB(255, 210, 243, 224),
-            Color.fromARGB(255, 210, 243, 224),
-          ])),
           shape: RectangleShape(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(50.toPXLength)),
-              border: DynamicBorderSide(
-                  width: 10, color: Color.fromARGB(255, 246, 167, 186))),
+              border: DynamicBorderSide.none),
           childAlignment: Alignment.center,
-          opacity: 0.8),
+          shadows: [
+            DynamicShapeShadow(
+                blurRadius: 0.toPXLength,
+                spreadRadius: 0.toPXLength,
+                color: Colors.lightGreen,
+                offset: DynamicOffset((0).toPXLength, (0).toPXLength)),
+            DynamicShapeShadow(
+                blurRadius: 5.toPXLength,
+                spreadRadius: -5.toPXLength,
+                color: Color.fromARGB(255, 240, 255, 240),
+                offset: DynamicOffset((0).toPXLength, (0).toPXLength))
+          ]),
       typicalTabletScreenScope: Style(
         alignment: Alignment.center,
         width: 200.toPXLength,
@@ -80,7 +85,7 @@ class _ListViewPageState extends State<ListViewPage> {
         transform: SmoothMatrix4()..rotateZ(pi),
         shadows: [
           DynamicShapeShadow(
-              blurRadius: 0.1.toPXLength,
+              blurRadius: 20.toPXLength,
               color: Colors.grey.shade700,
               offset: DynamicOffset((-20).toPXLength, (-20).toPXLength))
         ],

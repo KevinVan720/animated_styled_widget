@@ -9,3 +9,7 @@ Gradient shadows, dimension, morphable shapes...
 ## [0.0.3] - 02/27/2021
 
 Update README
+
+## [0.0.4] - 02/28/2021
+
+Supports inner shadow

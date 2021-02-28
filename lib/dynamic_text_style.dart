@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:dimension/dimension.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/to_json.dart';
+
 import 'dynamic_shadow.dart';
 
 class DynamicTextStyle {
@@ -25,7 +26,7 @@ class DynamicTextStyle {
   final Color? backgroundColor;
 
   final String? fontFamily;
-  final Length? fontSize;
+  final Dimension? fontSize;
   final FontWeight? fontWeight;
   final FontStyle? fontStyle;
 
@@ -69,7 +70,7 @@ class DynamicTextStyle {
     Color? color,
     Color? backgroundColor,
     String? fontFamily,
-    Length? fontSize,
+    Dimension? fontSize,
     FontWeight? fontWeight,
     FontStyle? fontStyle,
     Dimension? letterSpacing,
@@ -105,15 +106,16 @@ class DynamicTextStyle {
       {required Size screenSize,
       required Size constraintSize,
       double constraintWidth = 100}) {
-    double fontSize = this.fontSize?.toPX(
-            constraint: constraintSize.width, screenSize: screenSize) ??
+    double fontSize = this
+            .fontSize
+            ?.toPX(constraint: constraintSize.width, screenSize: screenSize) ??
         10;
-    double? letterSpacing= this.letterSpacing?.toPX(
-        constraint: constraintSize.width, screenSize: screenSize
-    );
-    double? wordSpacing= this.wordSpacing?.toPX(
-        constraint: constraintSize.width, screenSize: screenSize
-    );
+    double? letterSpacing = this
+        .letterSpacing
+        ?.toPX(constraint: constraintSize.width, screenSize: screenSize);
+    double? wordSpacing = this
+        .wordSpacing
+        ?.toPX(constraint: constraintSize.width, screenSize: screenSize);
     List<Shadow>? shadows = this
         .shadows
         ?.map((e) =>

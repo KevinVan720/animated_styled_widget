@@ -46,9 +46,11 @@ class DynamicShadow {
 
 class DynamicShapeShadow extends DynamicShadow {
   final Gradient? gradient;
+  final Dimension spreadRadius;
 
   const DynamicShapeShadow({
     this.gradient,
+    this.spreadRadius = const Length(0.0),
     color = Colors.black,
     offset = const DynamicOffset(Length(0), Length(0)),
     blurRadius = const Length(0),
@@ -57,6 +59,7 @@ class DynamicShapeShadow extends DynamicShadow {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> rst = super.toJson();
     rst.updateNotNull("gradient", gradient?.toJson());
+    rst.updateNotNull("spreadRadius", spreadRadius.toJson());
     return rst;
   }
 
@@ -64,12 +67,14 @@ class DynamicShapeShadow extends DynamicShadow {
     Color? color,
     DynamicOffset? offset,
     Dimension? blurRadius,
+    Dimension? spreadRadius,
     Gradient? gradient,
   }) {
     return DynamicShapeShadow(
       color: color ?? this.color,
       offset: offset ?? this.offset,
       blurRadius: blurRadius ?? this.blurRadius,
+      spreadRadius: spreadRadius ?? this.spreadRadius,
       gradient: gradient ?? this.gradient,
     );
   }
@@ -81,10 +86,14 @@ class DynamicShapeShadow extends DynamicShadow {
     double blurRadius = this
         .blurRadius
         .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize);
+    double spreadRadius = this
+        .spreadRadius
+        .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize);
     return ShapeShadow(
         color: this.color,
         offset: offset,
         blurRadius: blurRadius,
+        spreadRadius: spreadRadius,
         gradient: this.gradient);
   }
 }

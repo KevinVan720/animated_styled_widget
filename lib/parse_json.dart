@@ -42,7 +42,7 @@ DynamicShadow? parseDynamicShadow(Map<String, dynamic>? map) {
   Color color = parseColor(map['color']) ?? Colors.black;
   DynamicOffset offset =
       parseDynamicOffset(map["offset"]) ?? DynamicOffset.zero;
-  Length blurRadius = parseLength(map['blurRadius']) ?? Length(0);
+  Dimension blurRadius = parseDimension(map['blurRadius']) ?? Length(0);
   return DynamicShadow(
     color: color,
     offset: offset,
@@ -55,12 +55,14 @@ DynamicShapeShadow? parseDynamicShapeShadow(Map<String, dynamic>? map) {
   Color color = parseColor(map['color']) ?? Colors.black;
   DynamicOffset offset =
       parseDynamicOffset(map["offset"]) ?? DynamicOffset.zero;
-  Length blurRadius = parseLength(map['blurRadius']) ?? Length(0);
+  Dimension blurRadius = parseDimension(map['blurRadius']) ?? Length(0);
+  Dimension spreadRadius = parseDimension(map['spreadRadius']) ?? Length(0);
   Gradient? gradient = parseGradient(map['gradient']);
   return DynamicShapeShadow(
     color: color,
     offset: offset,
     blurRadius: blurRadius,
+    spreadRadius: spreadRadius,
     gradient: gradient,
   );
 }
@@ -72,7 +74,7 @@ DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
   Color? backgroundColor = parseColor(map['backgroundColor']);
 
   String? fontFamily = map['fontFamily'];
-  Length? fontSize = parseLength(map['fontSize']);
+  Dimension? fontSize = parseDimension(map['fontSize']);
   FontStyle? fontStyle =
       'italic' == map['fontStyle'] ? FontStyle.italic : FontStyle.normal;
   FontWeight? fontWeight =
@@ -85,8 +87,8 @@ DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
   double? decorationThickness = map['decorationThickness'];
 
   double? height = map['height'];
-  Length? letterSpacing = parseLength(map['letterSpacing']);
-  Length? wordSpacing = parseLength(map['wordSpacing']);
+  Dimension? letterSpacing = parseDimension(map['letterSpacing']);
+  Dimension? wordSpacing = parseDimension(map['wordSpacing']);
 
   List<DynamicShadow>? shadows =
       map["shadows"]?.map((e) => parseDynamicShadow(e)!).toList();
