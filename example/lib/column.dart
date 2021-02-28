@@ -1,10 +1,11 @@
 import 'dart:math';
+
+import 'package:dimension/dimension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:responsive_styled_widget/styled_widget.dart';
-import 'package:dimension/dimension.dart';
 import 'package:morphable_shape/morphable_shape.dart';
+import 'package:responsive_styled_widget/styled_widget.dart';
 
 class ColumnPage extends StatefulWidget {
   ColumnPage({this.title = "Column"});
@@ -55,7 +56,7 @@ class _ColumnPageState extends State<ColumnPage> {
 
     endStyle = {
       ScreenScope(): Style(
-        visible: false,
+          visible: false,
           alignment: Alignment.center,
           width: 200.toPXLength,
           height: 140.toPXLength,
@@ -81,7 +82,7 @@ class _ColumnPageState extends State<ColumnPage> {
         shape: PolygonShape(sides: 8),
         transform: SmoothMatrix4()..rotateZ(pi),
         shadows: [
-          DynamicBoxShadow(
+          DynamicShapeShadow(
               blurRadius: 0.1.toPXLength,
               color: Colors.grey.shade700,
               offset: DynamicOffset((-20).toPXLength, (-20).toPXLength))
@@ -106,12 +107,13 @@ class _ColumnPageState extends State<ColumnPage> {
         child: Column(
           children: [
             AnimatedStyledContainer(
-                duration: Duration(seconds: 3),
-                style: toggleStyle ? beginStyle : endStyle,
-                child: Container(
+              duration: Duration(seconds: 3),
+              style: toggleStyle ? beginStyle : endStyle,
+              child: Container(
                   //color: Colors.amber,
-                ),
-              ),
+                  ),
+            ),
+
             ///You can't animate from a null height to a finite height
             AnimatedContainer(
               duration: Duration(seconds: 3),

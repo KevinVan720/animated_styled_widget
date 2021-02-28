@@ -1,15 +1,10 @@
-import 'dart:math';
 import 'dart:convert';
+
+import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:responsive_styled_widget/styled_widget.dart';
-import 'package:dimension/dimension.dart';
 import 'package:morphable_shape/morphable_shape.dart';
-
-void printWrapped(String text) {
-  final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
-  pattern.allMatches(text).forEach((match) => print(match.group(0)));
-}
+import 'package:responsive_styled_widget/styled_widget.dart';
 
 class TransformPage extends StatefulWidget {
   TransformPage({this.title = "Transform"});
@@ -61,32 +56,31 @@ class _TransformPageState extends State<TransformPage> {
 
     endStyle = {
       ScreenScope(): Style(
-          alignment: Alignment.center,
-          width: 200.toPXLength,
-          height: 140.toPXLength,
-          margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
-          backgroundDecoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color.fromARGB(255, 210, 243, 224),
-                Color.fromARGB(255, 210, 243, 224),
-              ])),
-          shape: RectangleShape(
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(50.toPXLength)),
-              border: DynamicBorderSide(
-                  width: 10, color: Color.fromARGB(255, 246, 167, 186))),
-          childAlignment: Alignment.center,
-        transform: SmoothMatrix4()..translate(-50.0.toVWLength-50.toPercentLength),),
+        alignment: Alignment.center,
+        width: 200.toPXLength,
+        height: 140.toPXLength,
+        margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+        backgroundDecoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Color.fromARGB(255, 210, 243, 224),
+          Color.fromARGB(255, 210, 243, 224),
+        ])),
+        shape: RectangleShape(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
+            border: DynamicBorderSide(
+                width: 10, color: Color.fromARGB(255, 246, 167, 186))),
+        childAlignment: Alignment.center,
+        transform: SmoothMatrix4()
+          ..translate(-50.0.toVWLength - 50.toPercentLength),
+      ),
     };
 
     printWrapped(json.encode(beginStyle.toJson()));
-    printWrapped(json.encode(endStyle.toJson()));
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

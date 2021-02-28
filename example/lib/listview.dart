@@ -1,10 +1,11 @@
 import 'dart:math';
+
+import 'package:dimension/dimension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:responsive_styled_widget/styled_widget.dart';
-import 'package:dimension/dimension.dart';
 import 'package:morphable_shape/morphable_shape.dart';
+import 'package:responsive_styled_widget/styled_widget.dart';
 
 class ListViewPage extends StatefulWidget {
   ListViewPage({this.title = "Transform"});
@@ -60,9 +61,9 @@ class _ListViewPageState extends State<ListViewPage> {
           margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
           backgroundDecoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-                Color.fromARGB(255, 210, 243, 224),
-                Color.fromARGB(255, 210, 243, 224),
-              ])),
+            Color.fromARGB(255, 210, 243, 224),
+            Color.fromARGB(255, 210, 243, 224),
+          ])),
           shape: RectangleShape(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(50.toPXLength)),
@@ -71,19 +72,19 @@ class _ListViewPageState extends State<ListViewPage> {
           childAlignment: Alignment.center,
           opacity: 0.8),
       typicalTabletScreenScope: Style(
-          alignment: Alignment.center,
-          width: 200.toPXLength,
-          height: 200.toPXLength,
-          margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
-          shape: PolygonShape(sides: 8),
-          transform: SmoothMatrix4()..rotateZ(pi),
-          shadows: [
-            DynamicBoxShadow(
-                blurRadius: 0.1.toPXLength,
-                color: Colors.grey.shade700,
-                offset: DynamicOffset((-20).toPXLength, (-20).toPXLength))
-          ],),
-
+        alignment: Alignment.center,
+        width: 200.toPXLength,
+        height: 200.toPXLength,
+        margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+        shape: PolygonShape(sides: 8),
+        transform: SmoothMatrix4()..rotateZ(pi),
+        shadows: [
+          DynamicShapeShadow(
+              blurRadius: 0.1.toPXLength,
+              color: Colors.grey.shade700,
+              offset: DynamicOffset((-20).toPXLength, (-20).toPXLength))
+        ],
+      ),
     };
   }
 
@@ -102,18 +103,19 @@ class _ListViewPageState extends State<ListViewPage> {
       body: Center(
         child: ListView(
           children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: 500,
-              maxHeight: 500,
-            ),
-            child: AnimatedStyledContainer(
-              duration: Duration(seconds: 3),
-              style: toggleStyle ? beginStyle : endStyle,
-              child: Container(),
-            ),
-          )
-        ],),
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 500,
+                maxHeight: 500,
+              ),
+              child: AnimatedStyledContainer(
+                duration: Duration(seconds: 3),
+                style: toggleStyle ? beginStyle : endStyle,
+                child: Container(),
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.refresh),

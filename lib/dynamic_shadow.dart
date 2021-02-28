@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:dimension/dimension.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/to_json.dart';
+import 'package:morphable_shape/morphable_shape.dart';
 
 class DynamicShadow {
   final Color color;
@@ -36,17 +37,18 @@ class DynamicShadow {
   Shadow toShadow({required Size constraintSize, required Size screenSize}) {
     Offset offset =
         this.offset.toOffset(size: constraintSize, screenSize: screenSize);
-    double blurRadius = this.blurRadius.toPX(
-        constraint: constraintSize.shortestSide, screenSize: screenSize);
+    double blurRadius = this
+        .blurRadius
+        .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize);
     return Shadow(color: this.color, offset: offset, blurRadius: blurRadius);
   }
 }
 
-class DynamicBoxShadow extends DynamicShadow {
-  final Dimension spreadRadius;
+class DynamicShapeShadow extends DynamicShadow {
+  final Gradient? gradient;
 
-  const DynamicBoxShadow({
-    this.spreadRadius = const Length(0.0),
+  const DynamicShapeShadow({
+    this.gradient,
     color = Colors.black,
     offset = const DynamicOffset(Length(0), Length(0)),
     blurRadius = const Length(0),
@@ -54,7 +56,7 @@ class DynamicBoxShadow extends DynamicShadow {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> rst = super.toJson();
-    rst["spreadRadius"] = spreadRadius.toJson();
+    rst.updateNotNull("gradient", gradient?.toJson());
     return rst;
   }
 
@@ -62,28 +64,27 @@ class DynamicBoxShadow extends DynamicShadow {
     Color? color,
     DynamicOffset? offset,
     Dimension? blurRadius,
-    Dimension? spreadRadius,
+    Gradient? gradient,
   }) {
-    return DynamicBoxShadow(
+    return DynamicShapeShadow(
       color: color ?? this.color,
       offset: offset ?? this.offset,
       blurRadius: blurRadius ?? this.blurRadius,
-      spreadRadius: spreadRadius ?? this.spreadRadius,
+      gradient: gradient ?? this.gradient,
     );
   }
 
-  BoxShadow toBoxShadow(
+  ShapeShadow toShapeShadow(
       {required Size screenSize, required Size constraintSize}) {
     Offset offset =
         this.offset.toOffset(size: constraintSize, screenSize: screenSize);
-    double blurRadius = this.blurRadius.toPX(
-        constraint: constraintSize.shortestSide, screenSize: screenSize);
-    double spreadRadius = this.spreadRadius.toPX(
-        constraint: constraintSize.shortestSide, screenSize: screenSize);
-    return BoxShadow(
+    double blurRadius = this
+        .blurRadius
+        .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize);
+    return ShapeShadow(
         color: this.color,
         offset: offset,
         blurRadius: blurRadius,
-        spreadRadius: spreadRadius);
+        gradient: this.gradient);
   }
 }

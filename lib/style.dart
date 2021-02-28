@@ -1,15 +1,15 @@
-import 'package:flutter/rendering.dart';
-import 'package:flutter_class_parser/to_json.dart';
-import 'package:flutter_class_parser/parse_json.dart';
-import 'package:flutter/material.dart';
 import 'package:dimension/dimension.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_class_parser/parse_json.dart';
+import 'package:flutter_class_parser/to_json.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 
-import 'styled_widget.dart';
-import 'screen_scope.dart';
-import 'dynamic_text_style.dart';
 import 'dynamic_shadow.dart';
+import 'dynamic_text_style.dart';
 import 'parse_json.dart';
+import 'screen_scope.dart';
+import 'styled_widget.dart';
 
 class Style {
   ///children properties in layoutWidgets
@@ -30,7 +30,7 @@ class Style {
   DynamicEdgeInsets? padding;
 
   BoxDecoration? backgroundDecoration;
-  List<DynamicBoxShadow>? shadows;
+  List<DynamicShapeShadow>? shadows;
   Shape? shape;
 
   SmoothMatrix4? transform;
@@ -84,7 +84,7 @@ class Style {
     backgroundDecoration = parseBoxDecoration(map["backgroundDecoration"]);
 
     shadows = (map["shadows"] as List?)
-        ?.map((e) => parseDynamicBoxShadow(e)!)
+        ?.map((e) => parseDynamicShapeShadow(e)!)
         .toList();
     shape = parseShape(map["shape"]);
 
@@ -144,7 +144,7 @@ class Style {
     bool? visible,
     double? opacity,
     BoxDecoration? backgroundDecoration,
-    List<DynamicBoxShadow>? shadows,
+    List<DynamicShapeShadow>? shadows,
     Shape? shape,
     SmoothMatrix4? transform,
     Alignment? transformAlignment,

@@ -4,11 +4,16 @@ import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/parse_json.dart';
 
-import 'styled_widget.dart';
-import 'style.dart';
-import 'screen_scope.dart';
-import 'dynamic_text_style.dart';
 import 'dynamic_shadow.dart';
+import 'dynamic_text_style.dart';
+import 'screen_scope.dart';
+import 'style.dart';
+import 'styled_widget.dart';
+
+void printWrapped(String text) {
+  final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
+  pattern.allMatches(text).forEach((match) => print(match.group(0)));
+}
 
 ScreenScope parseScreenScope(Map<String, dynamic> map) {
   double minWidth = map["minWidth"] ?? 0;
@@ -45,18 +50,18 @@ DynamicShadow? parseDynamicShadow(Map<String, dynamic>? map) {
   );
 }
 
-DynamicBoxShadow? parseDynamicBoxShadow(Map<String, dynamic>? map) {
+DynamicShapeShadow? parseDynamicShapeShadow(Map<String, dynamic>? map) {
   if (map == null) return null;
   Color color = parseColor(map['color']) ?? Colors.black;
   DynamicOffset offset =
       parseDynamicOffset(map["offset"]) ?? DynamicOffset.zero;
   Length blurRadius = parseLength(map['blurRadius']) ?? Length(0);
-  Length spreadRadius = parseLength(map['spreadRadius']) ?? Length(0);
-  return DynamicBoxShadow(
+  Gradient? gradient = parseGradient(map['gradient']);
+  return DynamicShapeShadow(
     color: color,
     offset: offset,
     blurRadius: blurRadius,
-    spreadRadius: spreadRadius,
+    gradient: gradient,
   );
 }
 
@@ -102,7 +107,6 @@ DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
       wordSpacing: wordSpacing,
       shadows: shadows);
 }
-
 
 SmoothMatrix4OperationType? parseSmoothSupportedOperations(String? string) {
   SmoothMatrix4OperationType? rst;

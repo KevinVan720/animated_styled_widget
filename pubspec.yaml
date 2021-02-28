@@ -15,7 +15,7 @@ dependencies:
 
   flutter_class_parser: ^0.0.9
 
-  morphable_shape: 1.1.9
+  morphable_shape: 1.2.0
 
 dev_dependencies:
   flutter_test:

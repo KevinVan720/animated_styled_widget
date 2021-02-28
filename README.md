@@ -70,8 +70,7 @@ DynamicTextStyle textStyle
 TextAlign textAlign
 ```
 
-All of the properties that are of type Length or type called DynamicXXX are fully responsive in the sense  
-that the actual dimensions are calculated based on the size of the widget or the size of the screen, just like CSS.
+All of the properties that are of type Length or type called DynamicXXX are fully responsive in the sense that the actual dimensions are calculated based on the size of the widget or the size of the screen, just like CSS.
 
 An example of a responsive style:
 ```
@@ -122,17 +121,14 @@ var widget=StyledContainer(
             child: ...
             );
 ```
-and the StyledContainer will determine the actual style to use automatically. If some ScreenScope overlaps,  
-the resolution is similar to CSS as well: the last valid style in the map is used.
+and the StyledContainer will determine the actual style to use automatically. If some ScreenScope overlaps, the resolution is similar to CSS as well: the last valid style in the map is used.
 
 ## Animation
-Almost every property in the Style class can be animated implicitly  
-(rotation or skew are not supported by Matrix4Tween right now). See the
+Almost every property in the Style class can be animated implicitly (rotation or skew are not supported by Matrix4Tween right now). See the
 following GIF for a demonstration:
 
 Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the
-animation can not only be triggered by providing a new style/style map, but also by window resize/screen rotation  
-as long as you provide different styles for the before/after screen size.
+animation can not only be triggered by providing a new style/style map, but also by window resize/screen rotation as long as you provide different styles for the before/after screen size.
 ![style_demo2](https://i.imgur.com/eWazcer.gif)
 
 ## Serialization

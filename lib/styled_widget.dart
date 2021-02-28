@@ -2,24 +2,25 @@ library responsive_styled_widget;
 
 import 'dart:math';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 import 'package:morphable_shape/animated_shadowd_shape.dart';
+import 'package:morphable_shape/morphable_shape.dart';
 
 import 'screen_scope.dart';
 import 'style.dart';
 
-export 'smooth_matrix4.dart';
-export 'to_json.dart';
-export 'parse_json.dart';
-export 'style.dart';
-export 'screen_scope.dart';
-export 'screen_scope.dart';
-export 'dynamic_text_style.dart';
-export 'dynamic_shadow.dart';
-export 'styled_container.dart';
 export 'animated_styled_container.dart';
+export 'dynamic_shadow.dart';
+export 'dynamic_text_style.dart';
+export 'parse_json.dart';
+export 'screen_scope.dart';
+export 'screen_scope.dart';
+export 'smooth_matrix4.dart';
+export 'style.dart';
+export 'styled_container.dart';
+export 'to_json.dart';
 
 abstract class StyledWidget extends StatefulWidget {
   final dynamic style;
@@ -58,7 +59,7 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   double borderThickness = 0.0;
   Shape shape = RectangleShape();
 
-  List<BoxShadow> shadows = [];
+  List<ShapeShadow> shadows = [];
 
   Alignment childAlignment = Alignment.center;
 
@@ -103,7 +104,7 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
         Size(width ?? parentMaxWidth, height ?? parentMaxHeight);
 
     shadows = style.shadows
-            ?.map((e) => e.toBoxShadow(
+            ?.map((e) => e.toShapeShadow(
                 constraintSize: constraintSize, screenSize: screenSize))
             .toList() ??
         [];

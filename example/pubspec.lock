@@ -44,7 +44,7 @@ packages:
     source: hosted
     version: "1.15.0"
   dimension:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dimension
       url: "https://pub.dartlang.org"
@@ -74,13 +74,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  length_unit:
-    dependency: "direct main"
-    description:
-      name: length_unit
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   matcher:
     dependency: transitive
     description:
@@ -101,7 +94,7 @@ packages:
       name: morphable_shape
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.9"
+    version: "1.2.0"
   path:
     dependency: transitive
     description:

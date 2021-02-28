@@ -35,7 +35,6 @@ class _AnimatedStyledContainerState
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      print(constraints);
       prepareStyle();
       parentMaxWidth = constraints.maxWidth == double.infinity
           ? screenSize.width
