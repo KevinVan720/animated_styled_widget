@@ -13,3 +13,7 @@ Update README
 ## [0.0.4] - 02/28/2021
 
 Supports inner shadow
+
+## [0.0.5] - 02/28/2021
+
+Update README

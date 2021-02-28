@@ -122,6 +122,10 @@ Just replace the StyledContainer with AnimatedStyledContainer and provide a dura
 animation can not only be triggered by providing a new style/style map, but also by window resize/screen rotation as long as you provide different styles for the before/after screen size.
 ![style_demo2](https://i.imgur.com/x1pYq0J.gif)
 
+![style_demo3](https://i.imgur.com/W2LAgEe.gif)
+
+![style_demo4](https://i.imgur.com/quJBVvl.gif)
+
 ## Serialization
 The style class can be easily serialized/deserialized:
 ```
