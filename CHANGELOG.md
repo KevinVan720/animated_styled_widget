@@ -6,3 +6,6 @@ Initial release.
 
 Gradient shadows, dimension, morphable shapes...
 
+## [0.0.3] - 02/27/2021
+
+Update README

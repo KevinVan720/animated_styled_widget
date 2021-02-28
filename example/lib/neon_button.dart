@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -125,13 +123,11 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
           ],
         ));
 
-    printWrapped(json.encode(beginStyle.toJson()));
+    //printWrapped(json.encode(beginStyle.toJson()));
   }
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint(json.encode(beginStyle.toJson()));
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
