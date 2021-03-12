@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
 import 'styled_widget.dart';
 
 class AnimatedStyledContainer extends StyledWidget {
   final Widget child;
   final Duration duration;
   final Curve? curve;
+  final PointerEnterEventListener? onMouseEnter;
+  final PointerExitEventListener? onMouseExit;
 
   AnimatedStyledContainer({
     Key? key,
@@ -12,15 +16,11 @@ class AnimatedStyledContainer extends StyledWidget {
     required this.duration,
     this.curve,
     required this.child,
-    onMouseEnter,
-    onMouseHover,
-    onMouseExit,
+    this.onMouseEnter,
+    this.onMouseExit,
   }) : super(
           key: key,
           style: style,
-          onMouseEnter: onMouseEnter,
-          onMouseHover: onMouseHover,
-          onMouseExit: onMouseExit,
         );
 
   @override
@@ -45,7 +45,11 @@ class _AnimatedStyledContainerState
       prepareProperties();
 
       return buildAnimatedStyledContainer(
-          child: widget.child, duration: widget.duration, curve: widget.curve);
+          child: widget.child,
+          duration: widget.duration,
+          curve: widget.curve,
+          onMouseEnter: widget.onMouseEnter,
+          onMouseExit: widget.onMouseExit);
     });
   }
 }

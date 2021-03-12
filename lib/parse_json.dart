@@ -16,10 +16,10 @@ void printWrapped(String text) {
 }
 
 ScreenScope parseScreenScope(Map<String, dynamic> map) {
-  double minWidth = map["minWidth"] ?? 0;
-  double maxWidth = map["maxWidth"] ?? screenMaxDimension;
-  double minHeight = map["minHeight"] ?? 0;
-  double maxHeight = map["maxHeight"] ?? screenMaxDimension;
+  double minWidth = map["minWidth"].toDouble() ?? 0;
+  double maxWidth = map["maxWidth"].toDouble() ?? screenMaxDimension;
+  double minHeight = map["minHeight"].toDouble() ?? 0;
+  double maxHeight = map["maxHeight"].toDouble() ?? screenMaxDimension;
   return ScreenScope(
       minWidth: minWidth,
       minHeight: minHeight,
@@ -84,9 +84,9 @@ DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
   Color? decorationColor = parseColor(map["decorationColor"]);
   TextDecorationStyle? decorationStyle =
       parseTextDecorationStyle(map['decorationStyle']);
-  double? decorationThickness = map['decorationThickness'];
+  double? decorationThickness = map['decorationThickness'].toDouble();
 
-  double? height = map['height'];
+  double? height = map['height'].toDouble();
   Dimension? letterSpacing = parseDimension(map['letterSpacing']);
   Dimension? wordSpacing = parseDimension(map['wordSpacing']);
 

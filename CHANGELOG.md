@@ -17,3 +17,39 @@ Supports inner shadow
 ## [0.0.5] - 02/28/2021
 
 Update README
+
+## [0.0.6] - 03/04/2021
+
+Put mouse enter/exit callbacks at container widget level
+
+## [0.0.7] - 03/06/2021
+
+Font size is now based on DefaultTextStyle font size
+
+## [0.0.8] - 03/06/2021
+
+Use shape border instead of shape in style
+
+## [0.0.9] - 03/08/2021
+
+Add predefined material shadows
+
+## [0.1.0] - 03/09/2021
+
+Fix missing two commas
+
+## [0.1.1] - 03/09/2021
+
+Fix inherit text style
+
+## [0.1.2] - 03/09/2021
+
+Update dependence
+
+## [0.1.3] - 03/09/2021
+
+Fix double to int problem
+
+## [0.1.4] - 03/11/2021
+
+Merge explicit animated styled container code

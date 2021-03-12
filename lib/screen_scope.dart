@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 
 const double screenMaxDimension = 100000;
 
@@ -27,17 +28,18 @@ class ScreenScope {
     this.maxWidth = screenMaxDimension,
     this.minHeight = 0.0,
     this.maxHeight = screenMaxDimension,
-  }) : assert(minWidth >= 0 &&
+  }) : assert(minWidth >= 0.0 &&
             minWidth <= maxWidth &&
             maxWidth <= screenMaxDimension &&
-            minHeight >= 0 &&
+            minHeight >= 0.0 &&
             minHeight <= maxHeight &&
             maxHeight <= screenMaxDimension);
 
+  /*
   static fromJson(Map<String, dynamic> map) {
-    double minWidth = map["minWidth"] ?? 0;
+    double minWidth = map["minWidth"] ?? 0.0;
     double maxWidth = map["maxWidth"] ?? screenMaxDimension;
-    double minHeight = map["minHeight"] ?? 0;
+    double minHeight = map["minHeight"] ?? 0.0;
     double maxHeight = map["maxHeight"] ?? screenMaxDimension;
     return ScreenScope(
       maxWidth: maxWidth,
@@ -46,6 +48,7 @@ class ScreenScope {
       minHeight: minHeight,
     );
   }
+  */
 
   String toJson() {
     var rst = {};

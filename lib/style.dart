@@ -31,7 +31,7 @@ class Style {
 
   BoxDecoration? backgroundDecoration;
   List<DynamicShapeShadow>? shadows;
-  Shape? shape;
+  MorphableShapeBorder? shapeBorder;
 
   SmoothMatrix4? transform;
   Alignment? transformAlignment;
@@ -57,7 +57,7 @@ class Style {
     this.opacity,
     this.backgroundDecoration,
     this.shadows,
-    this.shape,
+    this.shapeBorder,
     this.transform,
     this.transformAlignment,
     this.childAlignment,
@@ -86,7 +86,7 @@ class Style {
     shadows = (map["shadows"] as List?)
         ?.map((e) => parseDynamicShapeShadow(e)!)
         .toList();
-    shape = parseShape(map["shape"]);
+    shapeBorder = parseMorphableShapeBorder(map["shapeBorder"]);
 
     transform = parseSmoothMatrix4(map["transform"]);
     transformAlignment = parseAlignment(map["transformAlignment"]);
@@ -117,7 +117,7 @@ class Style {
     rst.updateNotNull("visible", visible);
     rst.updateNotNull("opacity", opacity);
     rst.updateNotNull("backgroundDecoration", backgroundDecoration?.toJson());
-    rst.updateNotNull("shape", shape?.toJson());
+    rst.updateNotNull("shapeBorder", shapeBorder?.toJson());
     rst.updateNotNull("shadows", shadows?.map((e) => e.toJson()).toList());
 
     rst.updateNotNull("transform", transform?.toJson());
@@ -145,7 +145,7 @@ class Style {
     double? opacity,
     BoxDecoration? backgroundDecoration,
     List<DynamicShapeShadow>? shadows,
-    Shape? shape,
+    MorphableShapeBorder? shapeBorder,
     SmoothMatrix4? transform,
     Alignment? transformAlignment,
     Alignment? childAlignment,
@@ -167,7 +167,7 @@ class Style {
       opacity: opacity ?? this.opacity,
       backgroundDecoration: backgroundDecoration ?? this.backgroundDecoration,
       shadows: shadows ?? this.shadows,
-      shape: shape ?? this.shape,
+      shapeBorder: shapeBorder ?? this.shapeBorder,
       transform: transform ?? this.transform,
       transformAlignment: transformAlignment ?? this.transformAlignment,
       childAlignment: childAlignment ?? this.childAlignment,
@@ -195,7 +195,7 @@ class Style {
         opacity: style.opacity,
         backgroundDecoration: style.backgroundDecoration,
         shadows: style.shadows,
-        shape: style.shape,
+        shapeBorder: style.shapeBorder,
         transform: style.transform,
         transformAlignment: style.transformAlignment,
         childAlignment: style.childAlignment,

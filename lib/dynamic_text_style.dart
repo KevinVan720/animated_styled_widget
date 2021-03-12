@@ -104,18 +104,19 @@ class DynamicTextStyle {
 
   TextStyle toTextStyle(
       {required Size screenSize,
-      required Size constraintSize,
+        required Size constraintSize,
+      required double parentFontSize,
       double constraintWidth = 100}) {
     double fontSize = this
             .fontSize
-            ?.toPX(constraint: constraintSize.width, screenSize: screenSize) ??
+            ?.toPX(constraint: parentFontSize, screenSize: screenSize) ??
         10;
     double? letterSpacing = this
         .letterSpacing
-        ?.toPX(constraint: constraintSize.width, screenSize: screenSize);
+        ?.toPX(constraint: parentFontSize, screenSize: screenSize);
     double? wordSpacing = this
         .wordSpacing
-        ?.toPX(constraint: constraintSize.width, screenSize: screenSize);
+        ?.toPX(constraint: parentFontSize, screenSize: screenSize);
     List<Shadow>? shadows = this
         .shadows
         ?.map((e) =>

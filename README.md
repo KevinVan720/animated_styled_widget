@@ -41,7 +41,7 @@ DynamicEdgeInsets padding
 ```dart
 BoxDecorartion backgroundDecoration
 List<ShapeShadow> shadows
-MorphableShape shape
+MorphableShapeBorder shapeBorder
 ```
 3. Visibility
 ```dart
@@ -75,7 +75,8 @@ Style style=Style(
       backgroundDecoration: BoxDecoration(
           gradient:
               LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
-      shape: RoundedRectangleShape(
+      shapeBorder: MorphableShapeBorder(
+          shape:RoundedRectangleShape(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           borders: RectangleBorders.only(
@@ -92,7 +93,8 @@ Style style=Style(
               left: DynamicBorderSide(
                   color: Colors.cyanAccent.shade200, width: 12),
               right: DynamicBorderSide(color: Colors.purpleAccent, width: 28)))
-              );
+          )
+      );
 ```
 
 After you have defined a style, use

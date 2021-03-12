@@ -24,29 +24,30 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
     super.initState();
 
     beginStyle = Style(
-        width: Dimension.max(50.toVWLength, 500.toPXLength),
-        margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+        width: Dimension.max(50.toVWLength, 400.toPXLength),
+        padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Colors.cyanAccent, Colors.purpleAccent])),
-        shape: RoundedRectangleShape(
-            borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
-            borders: RectangleBorders.only(
-                top: DynamicBorderSide(
-                    gradient: LinearGradient(colors: [
-                      Colors.cyanAccent.shade100,
-                      Colors.purpleAccent.shade100
-                    ]),
-                    width: 12),
-                bottom: DynamicBorderSide(
-                    gradient:
-                        LinearGradient(colors: [Colors.cyan, Colors.purple]),
-                    width: 28),
-                left: DynamicBorderSide(
-                    color: Colors.cyanAccent.shade200, width: 12),
-                right:
-                    DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
+        shapeBorder: MorphableShapeBorder(
+            shape: RoundedRectangleShape(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(15.toPXLength)),
+                borders: RectangleBorders.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          Colors.cyanAccent.shade100,
+                          Colors.purpleAccent.shade100
+                        ]),
+                        width: 12),
+                    bottom: DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [Colors.cyan, Colors.purple]),
+                        width: 28),
+                    left: DynamicBorderSide(
+                        color: Colors.cyanAccent.shade200, width: 12),
+                    right: DynamicBorderSide(
+                        color: Colors.purpleAccent, width: 28)))),
         shadows: [
           DynamicShapeShadow(
               blurRadius: 25.toPXLength,
@@ -55,8 +56,8 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
               offset: DynamicOffset(0.toPXLength, 0.toPXLength)),
         ],
         textStyle: DynamicTextStyle(
-          letterSpacing: 2.toVWLength,
-          fontSize: 6.toVWLength,
+          letterSpacing: 0.8.toVWLength,
+          fontSize: 300.toPercentLength,
           fontWeight: FontWeight.w900,
           color: Colors.white,
           shadows: [
@@ -78,22 +79,24 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         mouseCursor: SystemMouseCursors.click);
 
     endStyle = beginStyle.copyWith(
-        shape: (beginStyle.shape as RoundedRectangleShape).copyWith(
-            borders: RectangleBorders.only(
-                top: DynamicBorderSide(
-                    gradient: LinearGradient(colors: [
-                      Colors.cyanAccent.shade100,
-                      Colors.purpleAccent.shade100
-                    ]),
-                    width: 20),
-                bottom: DynamicBorderSide(
-                    gradient:
-                        LinearGradient(colors: [Colors.cyan, Colors.purple]),
-                    width: 20),
-                left: DynamicBorderSide(
-                    color: Colors.cyanAccent.shade200, width: 20),
-                right:
-                    DynamicBorderSide(color: Colors.purpleAccent, width: 20))),
+        shapeBorder: MorphableShapeBorder(
+            shape: (beginStyle.shapeBorder?.shape as RoundedRectangleShape)
+                .copyWith(
+                    borders: RectangleBorders.only(
+                        top: DynamicBorderSide(
+                            gradient: LinearGradient(colors: [
+                              Colors.cyanAccent.shade100,
+                              Colors.purpleAccent.shade100
+                            ]),
+                            width: 20),
+                        bottom: DynamicBorderSide(
+                            gradient: LinearGradient(
+                                colors: [Colors.cyan, Colors.purple]),
+                            width: 20),
+                        left: DynamicBorderSide(
+                            color: Colors.cyanAccent.shade200, width: 20),
+                        right: DynamicBorderSide(
+                            color: Colors.purpleAccent, width: 20)))),
         shadows: [
           DynamicShapeShadow(
               blurRadius: 40.toPXLength,
@@ -103,8 +106,8 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         ],
         textAlign: TextAlign.center,
         textStyle: DynamicTextStyle(
-          letterSpacing: 2.2.toVWLength,
-          fontSize: 6.0.toVWLength,
+          letterSpacing: 1.0.toVWLength,
+          fontSize: 300.toPercentLength,
           fontWeight: FontWeight.w900,
           color: Colors.white,
           shadows: [
@@ -156,7 +159,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
             child: AnimatedStyledContainer(
                 duration: Duration(milliseconds: 100),
                 style: toggleStyle ? beginStyle : endStyle,
-                child: Text("Hello World")),
+                child: Text("TAP ME")),
           )
         ],
       )),

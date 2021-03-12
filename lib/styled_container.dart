@@ -1,23 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
 import 'styled_widget.dart';
 
 class StyledContainer extends StyledWidget {
   final Widget child;
+  final PointerEnterEventListener? onMouseEnter;
+  final PointerExitEventListener? onMouseExit;
 
   StyledContainer({
     Key? key,
     dynamic style,
     required this.child,
-    onMouseEnter,
-    onMouseHover,
-    onMouseExit,
+    this.onMouseEnter,
+    this.onMouseExit,
   }) : super(
           key: key,
           style: style,
-          onMouseEnter: onMouseEnter,
-          onMouseHover: onMouseHover,
-          onMouseExit: onMouseExit,
         );
 
   @override
@@ -41,7 +41,10 @@ class _StyledContainerState extends StyledWidgetState<StyledContainer> {
           : constraints.maxHeight;
       prepareProperties();
 
-      return buildStyledContainer(child: widget.child);
+      return buildStyledContainer(
+          child: widget.child,
+          onMouseEnter: widget.onMouseEnter,
+          onMouseExit: widget.onMouseExit);
     });
   }
 }

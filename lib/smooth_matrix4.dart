@@ -1,6 +1,6 @@
+import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
-import 'package:dimension/dimension.dart';
 
 import 'styled_widget.dart';
 

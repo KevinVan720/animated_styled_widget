@@ -3,6 +3,7 @@ library responsive_styled_widget;
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/animated_shadowd_shape.dart';
@@ -12,28 +13,28 @@ import 'screen_scope.dart';
 import 'style.dart';
 
 export 'animated_styled_container.dart';
+export 'animation_provider.dart';
 export 'dynamic_shadow.dart';
 export 'dynamic_text_style.dart';
+export 'explicit_animated_styled_container.dart';
+export 'named_animation.dart';
 export 'parse_json.dart';
+export 'predefined_elevation_shadow.dart';
 export 'screen_scope.dart';
 export 'screen_scope.dart';
 export 'smooth_matrix4.dart';
 export 'style.dart';
 export 'styled_container.dart';
 export 'to_json.dart';
+export 'visibility_detector/visibility_detector.dart';
+export 'visibility_detector/visibility_detector_controller.dart';
 
 abstract class StyledWidget extends StatefulWidget {
   final dynamic style;
-  final PointerEnterEventListener? onMouseEnter;
-  final PointerHoverEventListener? onMouseHover;
-  final PointerExitEventListener? onMouseExit;
-  StyledWidget(
-      {Key? key,
-      required this.style,
-      this.onMouseEnter,
-      this.onMouseExit,
-      this.onMouseHover})
-      : assert(style is Style || style is Map<ScreenScope, Style>),
+  StyledWidget({
+    Key? key,
+    required this.style,
+  })   : assert(style is Style || style is Map<ScreenScope, Style>),
         super(key: key);
 }
 
@@ -57,7 +58,8 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   BoxDecoration backgroundDecoration = BoxDecoration();
   Color borderColor = Colors.transparent;
   double borderThickness = 0.0;
-  Shape shape = RectangleShape();
+  MorphableShapeBorder shapeBorder =
+      MorphableShapeBorder(shape: RectangleShape());
 
   List<ShapeShadow> shadows = [];
 
@@ -77,9 +79,9 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   }
 
   void prepareProperties() {
+    Size constraintSize = Size(parentMaxWidth, parentMaxHeight);
     margin = style.margin?.toEdgeInsets(
-            constraintSize: Size(parentMaxWidth, parentMaxHeight),
-            screenSize: screenSize) ??
+            constraintSize: constraintSize, screenSize: screenSize) ??
         EdgeInsets.all(0.0);
 
     width = style.width
@@ -92,23 +94,20 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
     alignment = style.alignment ?? Alignment.center;
 
     padding = style.padding?.toEdgeInsets(
-            constraintSize: Size(parentMaxWidth, parentMaxHeight),
-            screenSize: screenSize) ??
+            constraintSize: constraintSize, screenSize: screenSize) ??
         EdgeInsets.all(0.0);
 
     visible = style.visible ?? true;
     opacity = style.opacity ?? 1;
     backgroundDecoration = style.backgroundDecoration ?? BoxDecoration();
 
-    Size constraintSize =
-        Size(width ?? parentMaxWidth, height ?? parentMaxHeight);
-
     shadows = style.shadows
             ?.map((e) => e.toShapeShadow(
                 constraintSize: constraintSize, screenSize: screenSize))
             .toList() ??
         [];
-    shape = style.shape ?? RectangleShape();
+    shapeBorder =
+        style.shapeBorder ?? MorphableShapeBorder(shape: RectangleShape());
 
     transform = style.transform?.toMatrix4(
             screenSize: screenSize, constraintSize: constraintSize) ??
@@ -117,7 +116,9 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
 
     childAlignment = style.childAlignment ?? Alignment.center;
     textStyle = style.textStyle?.toTextStyle(
-            constraintSize: constraintSize, screenSize: screenSize) ??
+            parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0,
+            constraintSize: constraintSize,
+            screenSize: screenSize) ??
         DefaultTextStyle.of(context).style;
     textAlign = style.textAlign ?? TextAlign.start;
 
@@ -144,17 +145,15 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   }
 
   Widget buildShadowedShape({required Widget child}) {
-    ShapeBorder materialShape = MorphableShapeBorder(shape: shape);
-    return ShadowedShape(shape: materialShape, shadows: shadows, child: child);
+    return ShadowedShape(shape: shapeBorder, shadows: shadows, child: child);
   }
 
   Widget buildAnimatedShadowedShape(
       {required Widget child,
       required Duration duration,
       required Curve curve}) {
-    ShapeBorder materialShape = MorphableShapeBorder(shape: shape);
     return AnimatedShadowedShape(
-      shape: materialShape,
+      shape: shapeBorder,
       shadows: shadows,
       child: child,
       duration: duration,
@@ -162,16 +161,18 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
     );
   }
 
-  Widget buildStyledContainer({required Widget child}) {
+  Widget buildStyledContainer(
+      {required Widget child,
+      PointerEnterEventListener? onMouseEnter,
+      PointerExitEventListener? onMouseExit}) {
     Widget innerContainer = MouseRegion(
-        onEnter: widget.onMouseEnter,
-        onHover: widget.onMouseHover,
-        onExit: widget.onMouseExit,
+        onEnter: onMouseEnter,
+        onExit: onMouseExit,
         cursor: mouseCursor,
         child: Container(
             width: width,
             height: height,
-            padding: padding.add(shape.dimensions),
+            padding: padding.add(shapeBorder.shape.dimensions),
             alignment: childAlignment,
             decoration: backgroundDecoration,
             child: updateDefaultTextStyle(child: child)));
@@ -192,19 +193,22 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   }
 
   Widget buildAnimatedStyledContainer(
-      {required Widget child, required Duration duration, Curve? curve}) {
+      {required Widget child,
+      required Duration duration,
+      Curve? curve,
+      PointerEnterEventListener? onMouseEnter,
+      PointerExitEventListener? onMouseExit}) {
     curve = curve ?? Curves.linear;
     Widget innerContainer = MouseRegion(
-        onEnter: widget.onMouseEnter,
-        onHover: widget.onMouseHover,
-        onExit: widget.onMouseExit,
+        onEnter: onMouseEnter,
+        onExit: onMouseExit,
         cursor: mouseCursor,
         child: AnimatedContainer(
             duration: duration,
             curve: curve,
             width: width,
             height: height,
-            padding: padding.add(shape.dimensions),
+            padding: padding.add(shapeBorder.shape.dimensions),
             alignment: childAlignment,
             decoration: backgroundDecoration,
             child: updateAnimatedDefaultTextStyle(
