@@ -52,19 +52,20 @@ class _MyHomePageState extends State<MyHomePage> {
       localAnimations: {
         AnimationTrigger.tap: RainbowLinearGradientAnimation(
                 duration: Duration(seconds: 30))
-            .getAnimationSequences()
+            .getAnimationSequence()
               ..merge(WobbleAnimation(
-                repeats: 2,
+                repeats: 3,
                 translation: 2.toVWLength,
-                angle: 0,
+                angle: 3.1415 / 6,
+                alignment: Alignment.center,
                 delay: Duration(seconds: 0),
                 duration: Duration(seconds: 6),
-              ).getAnimationSequences())
+              ).getAnimationSequence())
               ..merge(FlashAnimation(
                 repeats: 1,
                 delay: Duration(seconds: 1),
                 duration: Duration(seconds: 4),
-              ).getAnimationSequences())
+              ).getAnimationSequence())
               ..merge(MultiAnimationSequence(sequences: {
                 AnimationProperty.shadows: AnimationSequence(animationData: [])
                   ..add(duration: Duration(seconds: 6), value: [
@@ -84,6 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ..add(duration: Duration(seconds: 8), value: [
                     DynamicShapeShadow(
                         gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
                             colors: [Colors.redAccent, Colors.blueAccent]),
                         offset: DynamicOffset(20.toPXLength, 20.toPXLength),
                         spreadRadius: 30.toPXLength,
@@ -116,18 +119,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               fontSize: 400.toPercentLength)),
                 AnimationProperty.width: AnimationSequence(animationData: [])
                   ..add(duration: Duration(seconds: 5), value: 200.toPXLength)
+                  ..add(duration: Duration(seconds: 5), value: 50.toVMINLength)
                   ..add(
-                      duration: Duration(seconds: 5), value: 50.toPercentLength)
-                  ..add(
-                      duration: Duration(seconds: 10),
-                      value: 70.toPercentLength),
+                      duration: Duration(seconds: 10), value: 70.toVMINLength),
                 AnimationProperty.height: AnimationSequence(animationData: [])
                   ..add(duration: Duration(seconds: 5), value: 200.toPXLength)
+                  ..add(duration: Duration(seconds: 5), value: 50.toVMINLength)
                   ..add(
-                      duration: Duration(seconds: 5), value: 50.toPercentLength)
-                  ..add(
-                      duration: Duration(seconds: 10),
-                      value: 70.toPercentLength),
+                      duration: Duration(seconds: 10), value: 70.toVMINLength),
                 AnimationProperty.shapeBorder:
                     AnimationSequence(animationData: [])
                       ..add(value: MorphableShapeBorder(shape: CircleShape()))
@@ -378,6 +377,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   }) ??
                                   RectangleShape()))
                       ..add(
+                          duration: Duration(seconds: 4),
                           value: MorphableShapeBorder(
                               shape: CircleShape(
                                   border: DynamicBorderSide(

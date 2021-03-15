@@ -52,6 +52,11 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
                 right:
                     DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
       ),
+      shadows: [
+        DynamicShapeShadow(
+            offset: DynamicOffset(0.toPXLength, 0.toPXLength),
+            blurRadius: 0.toPXLength)
+      ],
       transform: SmoothMatrix4()..scale(1.2),
     );
 
@@ -105,7 +110,7 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
       ),
       body: Center(
         child: AnimatedStyledContainer(
-          curve: Curves.easeInOut,
+          curve: Curves.elasticInOut,
           duration: Duration(seconds: 1),
           style: toggleStyle ? beginStyle : endStyle,
           child: Container(),

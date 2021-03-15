@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ExplicitAnimatedStyledContainer(
             style: Style(
                 alignment: Alignment.center,
-                width: Dimension.min(50.toVWLength, 400.toPXLength),
+                width: Dimension.min(80.toVWLength, 400.toPXLength),
                 height: 120.toPXLength,
                 padding: DynamicEdgeInsets.all(1.toPercentLength),
                 margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
@@ -83,6 +83,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 mouseCursor: SystemMouseCursors.click),
             localAnimations: {
               AnimationTrigger.mouseEnter: MultiAnimationSequence(sequences: {
+                AnimationProperty.width: AnimationSequence()
+                  ..add(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.easeIn,
+                      value: 440.toPXLength),
                 AnimationProperty.backgroundDecoration:
                     AnimationSequence<BoxDecoration>(animationData: [])
                       ..add(
@@ -123,9 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                     right: DynamicBorderSide(
                                         color: Colors.purpleAccent,
                                         width: 20))),
-                          ))
+                          )),
               }),
               AnimationTrigger.mouseExit: MultiAnimationSequence(sequences: {
+                AnimationProperty.width: AnimationSequence()
+                  ..add(
+                      duration: Duration(milliseconds: 1500),
+                      curve: Curves.elasticIn,
+                      value: Dimension.min(80.toVWLength, 400.toPXLength)),
                 AnimationProperty.backgroundDecoration:
                     AnimationSequence<BoxDecoration>(animationData: [])
                       ..add(
@@ -163,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     right: DynamicBorderSide(
                                         color: Colors.purpleAccent,
                                         width: 28))),
-                          ))
+                          )),
               }),
             },
             child: Text("HELLO"),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import 'named_animation.dart';
+import 'animation_sequence.dart';
+import 'global_animation.dart';
 
-export 'preset_animations/attention_seeker.dart';
-export 'preset_animations/base.dart';
-export 'preset_animations/entrance.dart';
-export 'preset_animations/exit.dart';
+export '../preset_explicit_animations/attention_seeker.dart';
+export '../preset_explicit_animations/base.dart';
+export '../preset_explicit_animations/entrance.dart';
+export '../preset_explicit_animations/exit.dart';
 
 class GlobalAnimationNotifier extends ChangeNotifier {
   Map<String, GlobalAnimation> animationPool = {};

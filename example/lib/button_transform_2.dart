@@ -55,30 +55,40 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
 
     endStyle = {
       ScreenScope(): Style(
-        alignment: Alignment.center,
-        width: 200.toPXLength,
-        height: 120.toPXLength,
-        margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
-        shadows: [
-          DynamicShapeShadow(
-              blurRadius: 2.toPXLength,
-              spreadRadius: -0.toPXLength,
-              color: Colors.lightGreen.shade700,
-              offset: DynamicOffset((0).toPXLength, (0).toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 8.toPXLength,
-              spreadRadius: -6.toPXLength,
-              color: Color.fromARGB(255, 240, 255, 240),
-              offset: DynamicOffset((-4).toPXLength, (-3).toPXLength))
-        ],
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(20.toPXLength)),
-                border: DynamicBorderSide(
-                    width: 3, color: Colors.lightGreen.shade700))),
-        childAlignment: Alignment.center,
-      ),
+          alignment: Alignment.center,
+          width: 200.toPXLength,
+          height: 120.toPXLength,
+          margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+          shadows: [
+            DynamicShapeShadow(
+                blurRadius: 2.toPXLength,
+                spreadRadius: -0.toPXLength,
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [
+                      0,
+                      0.5
+                    ],
+                    colors: [
+                      Colors.lightGreen.shade300,
+                      Colors.lightGreen.shade700
+                    ]),
+                offset: DynamicOffset((0).toPXLength, (0).toPXLength)),
+            DynamicShapeShadow(
+                blurRadius: 8.toPXLength,
+                spreadRadius: -6.toPXLength,
+                color: Color.fromARGB(255, 240, 255, 240),
+                offset: DynamicOffset((-4).toPXLength, (-3).toPXLength))
+          ],
+          shapeBorder: MorphableShapeBorder(
+              shape: RectangleShape(
+                  borderRadius: DynamicBorderRadius.all(
+                      DynamicRadius.circular(20.toPXLength)),
+                  border: DynamicBorderSide(
+                      width: 3, color: Colors.lightGreen.shade700))),
+          childAlignment: Alignment.center,
+          transform: SmoothMatrix4()..rotateZ(3.1416)),
     };
   }
 

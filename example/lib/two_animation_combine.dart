@@ -21,7 +21,7 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
 
   @override
   void initState() {
-    animationName1 = "Elevate";
+    animationName1 = "Rainbow";
     animationName2 = "Wobble";
     control = CustomAnimationControl.MIRROR;
     isMerge = true;
@@ -34,20 +34,20 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
     return OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
       MultiAnimationSequence sequence =
-          presetAllAnimations[animationName1]!.getAnimationSequences();
+          presetAllAnimations[animationName1]!.getAnimationSequence();
       if (isMerge) {
-        sequence.merge(
-            presetAllAnimations[animationName2]!.getAnimationSequences());
+        sequence
+            .merge(presetAllAnimations[animationName2]!.getAnimationSequence());
       } else {
         sequence.extend(
-            presetAllAnimations[animationName2]!.getAnimationSequences());
+            presetAllAnimations[animationName2]!.getAnimationSequence());
       }
       sequence.control = control;
 
       return MaterialApp(
           home: Scaffold(
               appBar: AppBar(
-                title: Text("Two Animation Combine"),
+                title: Text("Two Animation Combined"),
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {

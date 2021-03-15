@@ -7,9 +7,10 @@ import 'package:responsive_styled_widget/styled_widget.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:tuple/tuple.dart';
 
-import 'animation_provider.dart';
-import 'named_animation.dart';
-import 'visibility_detector/visibility_detector.dart';
+import 'custom_visibility_detector/visibility_detector.dart';
+import 'explicit_animations/animation_provider.dart';
+import 'explicit_animations/animation_sequence.dart';
+import 'explicit_animations/global_animation.dart';
 
 class ParentScroll extends InheritedWidget {
   static of(BuildContext context) =>
@@ -35,14 +36,12 @@ class ParentScroll extends InheritedWidget {
 class ExplicitAnimatedStyledContainer extends StyledWidget {
   final Widget child;
   final GestureTapCallback? onTap;
-  final VisibilityChangedCallback? onVisibilityChange;
+  final VisibilityChangedCallback? onVisible;
   final PointerEnterEventListener? onMouseEnter;
   final PointerExitEventListener? onMouseExit;
   final String? id;
   final Map<AnimationTrigger, MultiAnimationSequence> localAnimations;
   final Map<AnimationTrigger, String> globalAnimationIds;
-
-  final bool onlyLocal;
 
   ExplicitAnimatedStyledContainer({
     Key? key,
@@ -52,11 +51,10 @@ class ExplicitAnimatedStyledContainer extends StyledWidget {
     this.onMouseEnter,
     this.onMouseExit,
     this.onTap,
-    this.onVisibilityChange,
+    this.onVisible,
     this.localAnimations = const {},
     this.globalAnimationIds = const {},
-  })  : onlyLocal = id == null,
-        super(
+  }) : super(
           key: key,
           style: style,
         );
@@ -68,12 +66,20 @@ class ExplicitAnimatedStyledContainer extends StyledWidget {
 
 class _ExplicitAnimatedStyledContainerState
     extends StyledWidgetState<ExplicitAnimatedStyledContainer> {
-  bool isVisible = false;
+  bool onlyLocal = true;
+
+  bool visibilityDetected = false;
 
   double beginOffset = 0.0;
   double currentOffset = 0.0;
   double endOffset = 1.0;
   double currentScrollOffset = 0.0;
+
+  @override
+  void initState() {
+    onlyLocal = widget.id == null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +102,8 @@ class _ExplicitAnimatedStyledContainerState
               onVisibilityChanged: (VisibilityInfo visibilityInfo) {
                 triggerScrollAnimation(context, visibilityInfo);
                 triggerVisibilityChangeAnimation(context, visibilityInfo);
-                if (widget.onVisibilityChange != null) {
-                  widget.onVisibilityChange!(visibilityInfo);
+                if (widget.onVisible != null) {
+                  widget.onVisible!(visibilityInfo);
                 }
               },
               child: GestureDetector(
@@ -200,23 +206,26 @@ class _ExplicitAnimatedStyledContainerState
 
   void triggerVisibilityChangeAnimation(
       BuildContext context, VisibilityInfo visibilityInfo) {
-    if (widget.globalAnimationIds.containsKey(AnimationTrigger.visible)) {
-      String animationId = widget.globalAnimationIds[AnimationTrigger.visible]!;
-      CustomAnimationControl? control =
-          Provider.of<GlobalAnimationNotifier>(context, listen: false)
-              .animationPool[animationId]
-              ?.control;
+    if (mounted) {
+      if (widget.globalAnimationIds.containsKey(AnimationTrigger.visible)) {
+        String animationId =
+            widget.globalAnimationIds[AnimationTrigger.visible]!;
+        CustomAnimationControl? control =
+            Provider.of<GlobalAnimationNotifier>(context, listen: false)
+                .animationPool[animationId]
+                ?.control;
 
-      Provider.of<GlobalAnimationNotifier>(context, listen: false)
-          .updateAnimationStatus(
-              widget.globalAnimationIds[AnimationTrigger.visible]!,
-              control ?? CustomAnimationControl.PLAY);
-    }
-    if (widget.localAnimations.containsKey(AnimationTrigger.visible)) {
-      Provider.of<LocalAnimationNotifier>(context, listen: false)
-          .updateAnimationStatus(
-              widget.localAnimations[AnimationTrigger.visible]!,
-              widget.localAnimations[AnimationTrigger.visible]!.control);
+        Provider.of<GlobalAnimationNotifier>(context, listen: false)
+            .updateAnimationStatus(
+                widget.globalAnimationIds[AnimationTrigger.visible]!,
+                control ?? CustomAnimationControl.PLAY);
+      }
+      if (widget.localAnimations.containsKey(AnimationTrigger.visible)) {
+        Provider.of<LocalAnimationNotifier>(context, listen: false)
+            .updateAnimationStatus(
+                widget.localAnimations[AnimationTrigger.visible]!,
+                widget.localAnimations[AnimationTrigger.visible]!.control);
+      }
     }
   }
 
@@ -256,7 +265,7 @@ class _ExplicitAnimatedStyledContainerState
     }
 
     if (mounted) {
-      if (!isVisible) {
+      if (!visibilityDetected) {
         double beginShift = 0.0, endShift = 0.0;
         if (widget.globalAnimationIds.containsKey(AnimationTrigger.scroll)) {
           String animationId =
@@ -303,7 +312,7 @@ class _ExplicitAnimatedStyledContainerState
           Provider.of<GlobalAnimationNotifier>(context, listen: false)
                   .animationProgressNotifiers[globalScrollAnimationName] =
               ContinuousAnimationProgressNotifier(
-                  (currentOffset) / (endOffset - beginOffset));
+                  (endOffset - currentOffset) / (endOffset - beginOffset));
           Provider.of<GlobalAnimationNotifier>(context, listen: false)
               .updateContinuousAnimationStatus(globalScrollAnimationName, true);
           (ParentScroll.of(context).controller)
@@ -313,7 +322,7 @@ class _ExplicitAnimatedStyledContainerState
           Provider.of<LocalAnimationNotifier>(context, listen: false)
                   .animationProgressNotifier =
               ContinuousAnimationProgressNotifier(
-                  (currentOffset) / (endOffset - beginOffset));
+                  (endOffset - currentOffset) / (endOffset - beginOffset));
           Provider.of<LocalAnimationNotifier>(context, listen: false)
               .updateContinuousAnimationStatus(
                   widget.localAnimations[AnimationTrigger.scroll], true);
@@ -321,7 +330,7 @@ class _ExplicitAnimatedStyledContainerState
               ?.addListener(localScrollProgressCallBack);
         }
         setState(() {
-          isVisible = true;
+          visibilityDetected = true;
         });
       }
     } else {
@@ -341,7 +350,7 @@ class _ExplicitAnimatedStyledContainerState
       (ParentScroll.of(context).controller)
           ?.removeListener(localScrollProgressCallBack);
       setState(() {
-        isVisible = false;
+        visibilityDetected = false;
       });
     }
   }
@@ -370,7 +379,7 @@ class _ExplicitAnimatedStyledContainerState
   }
 
   Widget buildGlobalAnimationWidget({required Widget child}) {
-    if (!widget.onlyLocal) {
+    if (!onlyLocal) {
       return Selector<GlobalAnimationNotifier,
               Tuple2<CustomAnimationControl?, MultiAnimationSequence?>>(
           selector: (_, notifier) => Tuple2(
@@ -415,7 +424,7 @@ class _ExplicitAnimatedStyledContainerState
   }
 
   Widget buildGlobalContinuousAnimationWidget({required Widget child}) {
-    if (!widget.onlyLocal) {
+    if (!onlyLocal) {
       return Selector<GlobalAnimationNotifier, MultiAnimationSequence?>(
           selector: (_, notifier) =>
               notifier.currentContinuousAnimations[widget.id],

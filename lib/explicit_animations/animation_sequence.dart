@@ -3,14 +3,15 @@ import 'package:flutter_class_parser/flutter_class_parser.dart';
 import 'package:flutter_class_parser/to_json.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 import 'package:responsive_styled_widget/parse_json.dart';
-import 'package:responsive_styled_widget/smooth_matrix4.dart';
 import 'package:responsive_styled_widget/styled_widget.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-extension CustomAnimationControlToJson on CustomAnimationControl {
-  String toJson() {
-    return this.toString().stripFirstDot();
-  }
+import '../dynamic_ui_classes/dynamic_text_style.dart';
+import '../dynamic_ui_classes/smooth_matrix4.dart';
+
+extension Typing<T> on List<T> {
+  /// Provide access to the generic type at runtime.
+  Type get genericType => T;
 }
 
 enum AnimationTrigger {
@@ -19,20 +20,6 @@ enum AnimationTrigger {
   tap,
   visible,
   scroll,
-}
-
-extension AnimationTriggerToJson on AnimationTrigger {
-  String toJson() {
-    return this.toString().stripFirstDot();
-  }
-}
-
-AnimationTrigger? parseAnimationTrigger(String str) {
-  AnimationTrigger? trigger;
-  AnimationTrigger.values.forEach((element) {
-    if (element.toJson() == str) trigger = element;
-  });
-  return trigger;
 }
 
 enum AnimationProperty {
@@ -88,25 +75,6 @@ Map<AnimationProperty, dynamic> AnimationPropertyDefaultInitMap = {
   AnimationProperty.childAlignment: Alignment.center,
   AnimationProperty.textStyle: TextStyle(),
 };
-
-extension AnimationPropertyToJson on AnimationProperty {
-  String toJson() {
-    return this.toString().stripFirstDot();
-  }
-}
-
-AnimationProperty parseAnimationProperty(String str) {
-  AnimationProperty property = AnimationProperty.opacity;
-  AnimationProperty.values.forEach((element) {
-    if (element.toJson() == str) property = element;
-  });
-  return property;
-}
-
-extension Typing<T> on List<T> {
-  /// Provide access to the generic type at runtime.
-  Type get genericType => T;
-}
 
 class AnimationData<T> {
   late Duration duration;
@@ -510,67 +478,5 @@ class MultiAnimationSequence {
                 .round());
       });
     });
-  }
-}
-
-class GlobalAnimation {
-  static const double progressMaxTime = 10000;
-
-  CustomAnimationControl control = CustomAnimationControl.PLAY;
-  double beginShift = 0.0;
-  double endShift = 1.0;
-
-  Map<String, MultiAnimationSequence> sequences = {};
-
-  GlobalAnimation(
-      {required this.sequences,
-      this.beginShift = 0.0,
-      this.endShift = 0.0,
-      this.control = CustomAnimationControl.PLAY});
-
-  GlobalAnimation.fromJson(Map map) {
-    sequences = (map["sequences"] as Map).map((key, value) {
-      return MapEntry(key, MultiAnimationSequence.fromJson(value));
-    });
-  }
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> rst = {};
-    rst["sequences"] =
-        sequences.map((key, value) => MapEntry(key, value.toJson()));
-    return rst;
-  }
-
-  List<double> getAllTimeStamps() {
-    List<double> timeStamps = [];
-    sequences.forEach((name, value) {
-      value.getAllTimeStamps().forEach((time) {
-        if (!timeStamps.contains(time)) {
-          timeStamps.add(time);
-        }
-      });
-    });
-    timeStamps.sort();
-    return timeStamps;
-  }
-
-  void rescaleTime(Duration maxDuration) {
-    sequences.forEach((name, value) {
-      value.rescaleTime(maxDuration);
-    });
-  }
-}
-
-class ContinuousAnimationProgressNotifier extends ValueNotifier<double> {
-  ContinuousAnimationProgressNotifier(value) : super(value);
-
-  @override
-  double get value => super.value;
-
-  @override
-  set value(double newValue) {
-    if (super.value == newValue) return;
-    super.value = newValue.clamp(0.0, 1.0);
-    notifyListeners();
   }
 }

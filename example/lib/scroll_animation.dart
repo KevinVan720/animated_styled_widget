@@ -96,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
         localAnimations: {
           AnimationTrigger.scroll:
               SlideInAnimation(direction: AxisDirection.right)
-                  .getAnimationSequences()
+                  .getAnimationSequence()
+                    ..beginShift = 1
         },
         child: Text("Fly in from right"),
       ),
@@ -127,9 +128,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     localAnimations: {
                       AnimationTrigger.scroll:
                           ZoomInAnimation(curve: Curves.bounceOut)
-                              .getAnimationSequences()
+                              .getAnimationSequence()
                                 ..merge(FadeInAnimation(curve: Curves.bounceOut)
-                                    .getAnimationSequences())
+                                    .getAnimationSequence())
                                 ..endShift = -1.0
                     },
                     child: Text("Zoom and fade in"),
@@ -179,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: Style(width: dimension.toPXLength),
                     localAnimations: {
                       AnimationTrigger.scroll:
-                          RainbowAnimation().getAnimationSequences()
+                          RainbowAnimation().getAnimationSequence()
                     },
                     child: Builder(
                       builder: (BuildContext context) {
@@ -211,21 +212,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         backgroundDecoration:
                             BoxDecoration(color: Colors.deepPurpleAccent)),
                     localAnimations: {
-                      AnimationTrigger.scroll: SlideInAnimation(
-                              direction: AxisDirection.up)
-                          .getAnimationSequences()
-                            ..merge(MultiAnimationSequence(sequences: {
-                              AnimationProperty.shapeBorder: AnimationSequence()
-                                ..add(
-                                    value: MorphableShapeBorder(
-                                        shape: RectangleShape(
-                                            borderRadius:
-                                                DynamicBorderRadius.all(
-                                                    DynamicRadius.circular(
-                                                        50.toPercentLength)))))
-                            }))
+                      AnimationTrigger.scroll:
+                          MultiAnimationSequence(sequences: {
+                        AnimationProperty.shapeBorder: AnimationSequence()
+                          ..add(
+                              value: MorphableShapeBorder(
+                                  shape: RectangleShape(
+                                      borderRadius: DynamicBorderRadius.all(
+                                          DynamicRadius.circular(
+                                              50.toPercentLength)))))
+                      })
                     },
-                    child: Text("Fly up"),
+                    child: Text("Shape morph"),
                   ),
                   Container(
                     width: dimension,

@@ -29,7 +29,6 @@ class StyledContainer extends StyledWidget {
 class _StyledContainerState extends StyledWidgetState<StyledContainer> {
   @override
   Widget build(BuildContext context) {
-    ///in principle can make layoutwidget accept positioned as well, but that brings a lot of questions...
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       prepareStyle();

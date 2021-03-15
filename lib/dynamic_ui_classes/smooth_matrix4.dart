@@ -2,7 +2,7 @@ import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
 
-import 'styled_widget.dart';
+import '../styled_widget.dart';
 
 enum SmoothMatrix4OperationType { scale, rotate, translate }
 

@@ -39,7 +39,8 @@ class DynamicShadow {
         this.offset.toOffset(size: constraintSize, screenSize: screenSize);
     double blurRadius = this
         .blurRadius
-        .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize);
+        .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize)
+        .clamp(0.0, double.infinity);
     return Shadow(color: this.color, offset: offset, blurRadius: blurRadius);
   }
 }
@@ -85,7 +86,8 @@ class DynamicShapeShadow extends DynamicShadow {
         this.offset.toOffset(size: constraintSize, screenSize: screenSize);
     double blurRadius = this
         .blurRadius
-        .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize);
+        .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize)
+        .clamp(0.0, double.infinity);
     double spreadRadius = this
         .spreadRadius
         .toPX(constraint: constraintSize.shortestSide, screenSize: screenSize);

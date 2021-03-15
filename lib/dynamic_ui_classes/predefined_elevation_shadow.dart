@@ -1,7 +1,7 @@
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 
-import 'styled_widget.dart';
+import '../styled_widget.dart';
 
 const Color _kKeyUmbraOpacity = Color(0x33000000); // alpha = 0.2
 const Color _kKeyPenumbraOpacity = Color(0x24000000); // alpha = 0.14

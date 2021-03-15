@@ -13,21 +13,21 @@ import 'screen_scope.dart';
 import 'style.dart';
 
 export 'animated_styled_container.dart';
-export 'animation_provider.dart';
-export 'dynamic_shadow.dart';
-export 'dynamic_text_style.dart';
+export 'custom_visibility_detector/visibility_detector.dart';
+export 'custom_visibility_detector/visibility_detector_controller.dart';
+export 'dynamic_ui_classes/dynamic_shadow.dart';
+export 'dynamic_ui_classes/dynamic_text_style.dart';
+export 'dynamic_ui_classes/predefined_elevation_shadow.dart';
+export 'dynamic_ui_classes/smooth_matrix4.dart';
 export 'explicit_animated_styled_container.dart';
-export 'named_animation.dart';
+export 'explicit_animations/animation_provider.dart';
+export 'explicit_animations/animation_sequence.dart';
+export 'explicit_animations/global_animation.dart';
 export 'parse_json.dart';
-export 'predefined_elevation_shadow.dart';
 export 'screen_scope.dart';
-export 'screen_scope.dart';
-export 'smooth_matrix4.dart';
 export 'style.dart';
 export 'styled_container.dart';
 export 'to_json.dart';
-export 'visibility_detector/visibility_detector.dart';
-export 'visibility_detector/visibility_detector_controller.dart';
 
 abstract class StyledWidget extends StatefulWidget {
   final dynamic style;
@@ -71,7 +71,7 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   late TextStyle textStyle;
   TextAlign textAlign = TextAlign.start;
 
-  SystemMouseCursor mouseCursor = SystemMouseCursors.basic;
+  MouseCursor mouseCursor = SystemMouseCursors.basic;
 
   void prepareStyle() {
     screenSize = MediaQuery.of(context).size;
@@ -86,10 +86,10 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
 
     width = style.width
         ?.toPX(constraint: parentMaxWidth, screenSize: screenSize)
-        ?.clamp(0.0, max(0.0, parentMaxWidth - margin.left - margin.right));
+        .clamp(0.0, max(0.0, parentMaxWidth - margin.left - margin.right));
     height = style.height
         ?.toPX(constraint: parentMaxHeight, screenSize: screenSize)
-        ?.clamp(0.0, max(0.0, parentMaxHeight - margin.top - margin.right));
+        .clamp(0.0, max(0.0, parentMaxHeight - margin.top - margin.right));
 
     alignment = style.alignment ?? Alignment.center;
 

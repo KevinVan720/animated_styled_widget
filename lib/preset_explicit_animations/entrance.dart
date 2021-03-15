@@ -1,48 +1,39 @@
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:morphable_shape/morphable_shape.dart';
-import 'package:responsive_styled_widget/smooth_matrix4.dart';
 import 'package:responsive_styled_widget/styled_widget.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../named_animation.dart';
+import '../dynamic_ui_classes/smooth_matrix4.dart';
+import '../explicit_animations/animation_sequence.dart';
 import 'base.dart';
 
 class SlideInAnimation extends PresetAnimation {
-  AxisDirection direction;
-  Dimension? distance;
-  SlideInAnimation(
-      {this.distance,
+  final AxisDirection direction;
+  final Dimension distance;
+  const SlideInAnimation(
+      {this.distance = const Length(100, unit: LengthUnit.vmax),
       this.direction = AxisDirection.up,
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
       CustomAnimationControl control = CustomAnimationControl.PLAY})
-      : super(
-            duration: duration, delay: delay, curve: curve, control: control) {
-    if (distance == null) {
-      if (direction == AxisDirection.up || direction == AxisDirection.down) {
-        distance = 100.toVHLength;
-      } else {
-        distance = 100.toVWLength;
-      }
-    }
-  }
+      : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     SmoothMatrix4 transform = SmoothMatrix4();
     switch (direction) {
       case AxisDirection.up:
-        transform.translate(0.toPXLength, distance!);
+        transform.translate(0.toPXLength, distance);
         break;
       case AxisDirection.down:
-        transform.translate(0.toPXLength, -distance!);
+        transform.translate(0.toPXLength, -distance);
         break;
       case AxisDirection.left:
-        transform.translate(-distance!, 0.toPXLength);
+        transform.translate(-distance, 0.toPXLength);
         break;
       case AxisDirection.right:
-        transform.translate(distance!, 0.toPXLength);
+        transform.translate(distance, 0.toPXLength);
         break;
     }
     return MultiAnimationSequence(control: control, sequences: {
@@ -59,14 +50,14 @@ class SlideInAnimation extends PresetAnimation {
 }
 
 class FadeInAnimation extends PresetAnimation {
-  FadeInAnimation(
+  const FadeInAnimation(
       {Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
       CustomAnimationControl control = CustomAnimationControl.PLAY})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     return MultiAnimationSequence(control: control, sequences: {
       AnimationProperty.opacity: AnimationSequence<double>(animationData: [])
         ..add(value: 0, duration: Duration.zero, delay: Duration.zero)
@@ -76,8 +67,8 @@ class FadeInAnimation extends PresetAnimation {
 }
 
 class ZoomInAnimation extends PresetAnimation {
-  double scale;
-  ZoomInAnimation(
+  final double scale;
+  const ZoomInAnimation(
       {this.scale = 0.001,
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
@@ -85,7 +76,7 @@ class ZoomInAnimation extends PresetAnimation {
       CustomAnimationControl control = CustomAnimationControl.PLAY})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     SmoothMatrix4 transform = SmoothMatrix4();
     transform.scale(scale);
 

@@ -4,8 +4,10 @@ import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/parse_json.dart';
 
-import 'dynamic_shadow.dart';
-import 'dynamic_text_style.dart';
+import 'dynamic_ui_classes/dynamic_shadow.dart';
+import 'dynamic_ui_classes/dynamic_text_style.dart';
+import 'dynamic_ui_classes/smooth_matrix4.dart';
+import 'explicit_animations/animation_sequence.dart';
 import 'screen_scope.dart';
 import 'style.dart';
 import 'styled_widget.dart';
@@ -121,4 +123,20 @@ SmoothMatrix4OperationType? parseSmoothSupportedOperations(String? string) {
 SmoothMatrix4? parseSmoothMatrix4(List<dynamic>? list) {
   if (list == null) return null;
   return SmoothMatrix4.fromJson(list);
+}
+
+AnimationTrigger? parseAnimationTrigger(String str) {
+  AnimationTrigger? trigger;
+  AnimationTrigger.values.forEach((element) {
+    if (element.toJson() == str) trigger = element;
+  });
+  return trigger;
+}
+
+AnimationProperty parseAnimationProperty(String str) {
+  AnimationProperty property = AnimationProperty.opacity;
+  AnimationProperty.values.forEach((element) {
+    if (element.toJson() == str) property = element;
+  });
+  return property;
 }

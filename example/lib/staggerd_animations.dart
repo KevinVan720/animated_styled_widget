@@ -15,7 +15,7 @@ class StaggeredAnimationsPage extends StatelessWidget {
               curve: Curves.bounceIn,
               duration: Duration(seconds: 2),
               distance: 200.toPXLength)
-          .getAnimationSequences()
+          .getAnimationSequence()
             ..merge(MultiAnimationSequence(sequences: {
               AnimationProperty.shapeBorder:
                   AnimationSequence(animationData: [])
@@ -60,14 +60,14 @@ class StaggeredAnimationsPage extends StatelessWidget {
               delay: Duration(seconds: 2),
               duration: Duration(seconds: 2),
               distance: 200.toPXLength)
-          .getAnimationSequences()
+          .getAnimationSequence()
             ..merge(ElevateAnimation(
               beginElevation: 0,
               endElevation: 24,
               curve: Curves.bounceIn,
               delay: Duration(seconds: 2),
               duration: Duration(seconds: 2),
-            ).getAnimationSequences())
+            ).getAnimationSequence())
             ..merge(MultiAnimationSequence(sequences: {
               AnimationProperty.shapeBorder: AnimationSequence()
                 ..add(

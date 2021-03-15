@@ -1,4 +1,4 @@
-# styled_widget
+# responsive_styled_widget
 
 Lets you use a serializable style/style map to make responsive and animatable widgets.
 
@@ -146,3 +146,7 @@ dynamic? parsePossibleStyleMap(Map<String, dynamic>? style)
 and use the result directly in the StyledContainer class.
 
 All the features mentioned above can be explored in the example app.
+
+## Explicit Animation
+
+Documentation coming up...

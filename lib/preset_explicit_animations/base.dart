@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../animation_provider.dart';
-import '../named_animation.dart';
+import '../explicit_animations/animation_provider.dart';
+import '../explicit_animations/animation_sequence.dart';
+import 'attention_seeker.dart';
 import 'entrance.dart';
 import 'exit.dart';
 
 abstract class PresetAnimation {
-  Duration delay;
-  Duration duration;
-  Curve curve;
-  CustomAnimationControl control;
+  final Duration delay;
+  final Duration duration;
+  final Curve curve;
+  final CustomAnimationControl control;
 
-  PresetAnimation(
+  const PresetAnimation(
       {this.delay = Duration.zero,
       this.duration = Duration.zero,
       this.curve = Curves.linear,
       this.control = CustomAnimationControl.PLAY});
 
-  MultiAnimationSequence getAnimationSequences();
+  MultiAnimationSequence getAnimationSequence();
 }
 
 Map<String, PresetAnimation> presetEntranceAnimations = {

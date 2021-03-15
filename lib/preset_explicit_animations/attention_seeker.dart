@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:morphable_shape/morphable_shape.dart';
-import 'package:responsive_styled_widget/smooth_matrix4.dart';
 import 'package:responsive_styled_widget/styled_widget.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../named_animation.dart';
+import '../dynamic_ui_classes/smooth_matrix4.dart';
+import '../explicit_animations/animation_sequence.dart';
 import 'base.dart';
 
 class FlipAnimation extends PresetAnimation {
-  Axis direction;
-  double angle;
-  FlipAnimation(
+  final Axis direction;
+  final double angle;
+  const FlipAnimation(
       {this.direction = Axis.vertical,
       this.angle = pi,
       Duration duration = const Duration(seconds: 1),
@@ -22,7 +22,7 @@ class FlipAnimation extends PresetAnimation {
       CustomAnimationControl control = CustomAnimationControl.PLAY})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     SmoothMatrix4 transform = SmoothMatrix4();
     switch (direction) {
       case Axis.vertical:
@@ -42,15 +42,15 @@ class FlipAnimation extends PresetAnimation {
 }
 
 class FlashAnimation extends PresetAnimation {
-  int repeats;
-  FlashAnimation(
+  final int repeats;
+  const FlashAnimation(
       {this.repeats = 3,
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear})
       : super(duration: duration, delay: delay, curve: curve);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
     var sequence = AnimationSequence<double>(animationData: []);
@@ -72,8 +72,8 @@ class FlashAnimation extends PresetAnimation {
 }
 
 class PulseAnimation extends PresetAnimation {
-  double scale;
-  PulseAnimation(
+  final double scale;
+  const PulseAnimation(
       {this.scale = 1.5,
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
@@ -81,7 +81,7 @@ class PulseAnimation extends PresetAnimation {
       CustomAnimationControl control = CustomAnimationControl.PLAY})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     SmoothMatrix4 transform = SmoothMatrix4();
     transform.scale(scale);
 
@@ -102,10 +102,10 @@ class PulseAnimation extends PresetAnimation {
 }
 
 class SwingAnimation extends PresetAnimation {
-  int repeats;
-  double angle;
-  Alignment alignment;
-  SwingAnimation(
+  final int repeats;
+  final double angle;
+  final Alignment alignment;
+  const SwingAnimation(
       {this.alignment = Alignment.topCenter,
       this.repeats = 2,
       this.angle = pi / 12,
@@ -115,7 +115,7 @@ class SwingAnimation extends PresetAnimation {
       CustomAnimationControl control = CustomAnimationControl.PLAY})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
     var sequence = AnimationSequence<SmoothMatrix4>(animationData: []);
@@ -153,11 +153,11 @@ class SwingAnimation extends PresetAnimation {
 }
 
 class WobbleAnimation extends PresetAnimation {
-  int repeats;
-  double angle;
-  Dimension translation;
-  Alignment alignment;
-  WobbleAnimation(
+  final int repeats;
+  final double angle;
+  final Dimension translation;
+  final Alignment alignment;
+  const WobbleAnimation(
       {this.alignment = Alignment.bottomCenter,
       this.repeats = 3,
       this.angle = pi / 30,
@@ -168,7 +168,7 @@ class WobbleAnimation extends PresetAnimation {
       CustomAnimationControl control = CustomAnimationControl.PLAY})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
     var sequence = AnimationSequence<SmoothMatrix4>(animationData: []);
@@ -211,14 +211,14 @@ class WobbleAnimation extends PresetAnimation {
 }
 
 class RainbowAnimation extends PresetAnimation {
-  RainbowAnimation(
+  const RainbowAnimation(
       {Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
       CustomAnimationControl control = CustomAnimationControl.PLAY})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / 7).round());
     var sequence = AnimationSequence<BoxDecoration>(animationData: []);
@@ -259,14 +259,14 @@ class RainbowAnimation extends PresetAnimation {
 }
 
 class RainbowLinearGradientAnimation extends PresetAnimation {
-  RainbowLinearGradientAnimation(
+  const RainbowLinearGradientAnimation(
       {Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
       CustomAnimationControl control = CustomAnimationControl.PLAY})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / 7).round());
     var sequence = AnimationSequence<BoxDecoration>(animationData: []);
@@ -314,28 +314,27 @@ class RainbowLinearGradientAnimation extends PresetAnimation {
 }
 
 class ElevateAnimation extends PresetAnimation {
-  int beginElevation;
-  int endElevation;
-  ElevateAnimation(
+  final int beginElevation;
+  final int endElevation;
+  const ElevateAnimation(
       {this.beginElevation = 1,
       this.endElevation = 6,
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
       CustomAnimationControl control = CustomAnimationControl.PLAY})
-      : assert(preDefinedDynamicShapeShadow.containsKey(beginElevation)),
-        assert(preDefinedDynamicShapeShadow.containsKey(endElevation)),
-        super(duration: duration, delay: delay, curve: curve, control: control);
+      : super(duration: duration, delay: delay, curve: curve, control: control);
 
-  MultiAnimationSequence getAnimationSequences() {
+  MultiAnimationSequence getAnimationSequence() {
     var sequence = AnimationSequence<List<DynamicShadow>>(animationData: []);
 
     sequence.add(
-        value: preDefinedDynamicShapeShadow[beginElevation]!,
+        value: preDefinedDynamicShapeShadow[beginElevation] ?? [],
         delay: delay,
         duration: Duration.zero);
     sequence.add(
-        value: preDefinedDynamicShapeShadow[endElevation]!, duration: duration);
+        value: preDefinedDynamicShapeShadow[endElevation] ?? [],
+        duration: duration);
 
     return MultiAnimationSequence(
         control: control, sequences: {AnimationProperty.shadows: sequence});

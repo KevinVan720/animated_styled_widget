@@ -4,6 +4,7 @@ import 'package:example/neon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'button_transform_3.dart';
 import 'long_animated_button.dart';
 import 'neon_button_explicit.dart';
 import 'scroll_animation.dart';
@@ -76,6 +77,14 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context) => ButtonTransform2Page()));
                       },
                       child: Text("Button Transform 2")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ButtonTransform3Page()));
+                      },
+                      child: Text("Button Transform 3")),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

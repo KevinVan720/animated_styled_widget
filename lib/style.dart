@@ -5,19 +5,14 @@ import 'package:flutter_class_parser/parse_json.dart';
 import 'package:flutter_class_parser/to_json.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 
-import 'dynamic_shadow.dart';
-import 'dynamic_text_style.dart';
+import 'dynamic_ui_classes/dynamic_shadow.dart';
+import 'dynamic_ui_classes/dynamic_text_style.dart';
+import 'dynamic_ui_classes/smooth_matrix4.dart';
 import 'parse_json.dart';
 import 'screen_scope.dart';
 import 'styled_widget.dart';
 
 class Style {
-  ///children properties in layoutWidgets
-  int? flex;
-  int? gridColumnCount;
-  int? gridRowCount;
-  DynamicEdgeInsets? stackPosition;
-
   bool? visible;
   double? opacity;
 
@@ -42,6 +37,13 @@ class Style {
   TextAlign? textAlign;
 
   SystemMouseCursor? mouseCursor;
+
+  ///possible children properties in layoutWidgets like flex, grid, stack
+  ///not used for now
+  int? flex;
+  int? gridColumnCount;
+  int? gridRowCount;
+  DynamicEdgeInsets? stackPosition;
 
   Style({
     this.flex,

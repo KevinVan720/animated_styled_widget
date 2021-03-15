@@ -24,7 +24,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
     super.initState();
 
     beginStyle = Style(
-        width: Dimension.max(50.toVWLength, 400.toPXLength),
+        width: Dimension.min(80.toVWLength, 400.toPXLength),
         padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(
@@ -57,7 +57,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         ],
         textStyle: DynamicTextStyle(
           letterSpacing: 0.8.toVWLength,
-          fontSize: 300.toPercentLength,
+          fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
           fontWeight: FontWeight.w900,
           color: Colors.white,
           shadows: [
@@ -107,7 +107,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         textAlign: TextAlign.center,
         textStyle: DynamicTextStyle(
           letterSpacing: 1.0.toVWLength,
-          fontSize: 300.toPercentLength,
+          fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
           fontWeight: FontWeight.w900,
           color: Colors.white,
           shadows: [
