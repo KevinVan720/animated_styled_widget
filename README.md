@@ -104,17 +104,17 @@ Style style=Style(
 ```
 
 After you have defined a style, use the StyledContainer widget:
-```
+```dart
 var widget=StyledContainer(
             style: style,
             child: ...
             );
-```
+```dart
 which will render something like this:
-![style_demo1](https://i.imgur.com/IVOilbI.png)
+![style_demo1](https://i.imgur.com/ytv4ToG.png)
 
 You can also pass in a style map:
-```
+```dart
 var widget=StyledContainer(
             style: styles,
             child: ...
@@ -141,6 +141,89 @@ following GIF for a demonstration:
 Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the animation can not only be triggered by providing a new style/style map, but also by window resizing/screen rotation as long as you provide the appropriate styles.
 
 ## Explicit Animation
+
+Implicit animations are easy to use but can not achieve every effect we want. That's when the ExplicitAnimatedStyledContainer comes in:
+
+```dart
+Widget widget = ExplicitAnimatedStyledContainer(
+  style: style,
+  child: child,
+  localAnimations: localAnimations,
+  globalAnimationIds: globalAnimationIds,
+  id: id,
+  ...
+);
+```
+
+You still provide an initial style to the widget, but then you use local/global animations to animate the widget’s style. Let’s first talk about the localAnimations:
+
+```dart
+Map<AnimationTrigger, MultiAnimationSequence> localAnimations
+```
+
+It is a map between AnimationTrigger and MultiAnimationSequence. Currently supported AnimationTrigger are the following:
+
+```dart
+enum AnimationTrigger {
+  mouseEnter,
+  mouseExit,
+  tap,
+  visible,
+  scroll,
+}
+```
+
+When a trigger event happens(e.g. you tapped this widget), the corresponding MultiAnimationSequence is fired. A MultiAnimationSequence contains a sequences map:
+
+```dart
+Map<AnimationProperty, AnimationSequence> sequences
+```
+
+where AnimationProperty is an enum class corresponding to every property the Style class has, and AnimationSequence is a list of generic values, durations, delays, and curves that tells us how a certain animation property is evolved. For example:
+
+```dart
+MultiAnimationSequence(sequences: {
+AnimationProperty.width: AnimationSequence()
+  ..add(
+      delay: Duration(seconds: 1),
+      duration: Duration(milliseconds: 200),
+      curve: Curves.linear,
+      value: 100.toPXLength)
+ ..add(
+      duration: Duration(milliseconds: 200),
+      curve: Curves.easeIn,
+      value: 200.toPXLength)
+});
+```
+
+will delay 1 second, then animate the width from its current value to 100 px in 200ms, then to 200 px in 200ms. You can animate other properties using the same syntax.
+
+![style_demo8](https://i.imgur.com/Gcii4AZ.gif)
+
+The above mouse hover effect is achieved by writing:
+
+```dart
+Widget widget = ExplicitAnimatedStyledContainer(
+  style: style,
+  child: child,
+  localAnimations: {
+  AnimationTrigger.mouseEnter: enterSequence,
+  AnimationTrigger.mouseExit: exitSequence,
+  }
+);
+```
+
+You can have different durations and curves for mouse entering and exiting, and also for different style properties.
+
+Now let's talk about other animation triggers. The AnimationTrigger.tap is easy to understand. The AnimationTrigger.visible is triggered when the widget becomes visible in the viewport (by using the visibility_detector package). The AnimationTrigger.scroll is triggered when the widget is inside a Scrollable (like a ListView). Then the widget will animate according to its position along the scroll direction:
+
+![scroll_progress](https://i.imgur.com/ycwqF0r.png)
+
+The animation progress by default is calculated as shown in the figure above (if scrolled horizontally). But you can also make the animation start/end earlier or later using two percentage offsets.
+
+![style_demo9](https://i.imgur.com/ct1ott8.gif)
+
+![style_demo10](https://i.imgur.com/pvu399i.gif)
 
 
 ## Serialization
