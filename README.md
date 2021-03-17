@@ -225,6 +225,132 @@ The animation progress by default is calculated as shown in the figure above (if
 
 ![style_demo10](https://i.imgur.com/JA0MvRD.gif)
 
+![style_demo11](https://i.imgur.com/NcIPyrf.gif)
+
+### Preset Animation
+
+Now those MultiAnimationSequence stuff looks powerful, but also complicated to code. I’ve prepared some predefined animations for general usages. They are categorized into entrance, attention seeker, and exit. For example, one common entrance animation called SlideInAnimation is defined as:
+
+```dart
+class SlideInAnimation extends PresetAnimation {
+  final AxisDirection direction;
+  final Dimension distance;
+  const SlideInAnimation(
+      {this.distance = const Length(100, unit: LengthUnit.vmax),
+      this.direction = AxisDirection.up,
+      Duration duration = const Duration(seconds: 1),
+      Duration delay = Duration.zero,
+      Curve curve = Curves.linear,
+      CustomAnimationControl control = CustomAnimationControl.PLAY})
+      : super(duration: duration, delay: delay, curve: curve, control: control);
+  ...
+}
+```
+
+You can configure the slide distance and direction, as well as duration, delay, curve, and control (whether the animation should play once or infinitely). Other predefined animations are:
+
+```dart
+FadeInAnimation
+ZoomInAnimation
+FadeOutAnimation
+SlideOutAnimation
+ZoomOutAnimation
+FlipAnimation
+FlashAnimation
+PulseAnimation
+SwingAnimation
+WobbleAnimation
+RainbowAnimation
+ElevateAnimation
+...
+```
+
+You can use them like this:
+
+```
+Widget widget = ExplicitAnimatedStyledContainer(
+  style: style,
+  child: child,
+  localAnimations: {
+  AnimationTrigger.visible:                                                       FadeInAnimation().getAnimationSequences()
+  }
+);
+```
+
+Then every time the widget moves into the screen it will fade in (opacity from 0 to 1). Another feature of MultiAnimationSequence is the ability to merge or extend other MultiAnimationSequence. So you can do something like this:
+
+```dart
+Widget widget = ExplicitAnimatedStyledContainer(
+  style: style,
+  child: child,
+  localAnimations: {
+  AnimationTrigger.visible: FadeInAnimation().getAnimationSequences()..merge(
+SlideInAnimation().getAnimationSequences())
+  }
+);
+```
+
+Then the widget will both fade and slide in. If you use extend, the animation will play one after another. Preset animations make animations much easier to use while still offer you great flexibility.
+
+![style_demo12](https://i.imgur.com/1GXSxxq.gif)
+
+### Global Explicit Animations
+
+If we want to stagger animations across different widgets, we can do that by providing global animations. A global animation contains a map between String and MultiAnimationSequence where the String is the identifier of a widget. You provide all the global animations you want to use in an animation pool. Then you can trigger a global animation like this:
+
+```dart
+var animationPool = {
+"animation1": GlobalAnimation(sequences: {
+"container1" : sequence1,
+"container2": sequence2,
+...})
+}
+...
+ChangeNotifierProvider<GlobalAnimationNotifier>(
+    create: (_) =>
+        GlobalAnimationNotifier(animationPool: animationPool), child: child
+)
+...
+Widget widget = ExplicitAnimatedStyledContainer(
+  id: "container1",
+  style: style,
+  child: child,
+  globalAnimationIds: {
+  AnimationTrigger.visible: "animation1"
+  }
+);
+```
+
+The id does not need to be unique. You can have multiple widgets with the same id so they will all animate under the same global animation. Notice if a widget does not use global animations at all, there is no need for an id.
+
+![style_demo13](https://i.imgur.com/YzSsevQ.gif)
+
+### Other things to notice
+
+The explicit animations uses the [provider](https://pub.dev/packages/provider) and [simple_animation](https://pub.dev/packages/simple_animations) package.
+
+You can programmatically change the state of the animation by calling something like the following inside the child of a ExplicitAnimatedStyledContainer:
+
+```dart
+Provider.of<LocalAnimationNotifier>(context, listen: false)
+ .updateAnimationStatus(animationSequence, status);
+Provider.of<GlobalAnimationNotifier>(context, listen: false)
+ .updateAnimationStatus(animationId, status);
+```
+which will update the animation status (like PLAY, STOP, LOOP, etc).
+
+You can also provide callbacks to the AnimationTrigger events along with animations:
+
+```dart
+Widget widget = ExplicitAnimatedStyledContainer(
+  style: style,
+  child: child,
+  localAnimations: {
+  AnimationTrigger.visible: animationSequence
+  },
+  onVisible: onVisible,
+);
+```
 
 ## Serialization
 The style class can be easily serialized/deserialized:
@@ -243,4 +369,5 @@ dynamic? parsePossibleStyleMap(Map<String, dynamic>? style)
 ```
 and use the result directly in the StyledContainer class.
 
-All the features mentioned above can be explored in the example app.
+AnimationSequence and GlobalAnimation class will support serialization shortly.
+

@@ -54,6 +54,6 @@ Fix double to int problem
 
 Merge explicit animated styled container code
 
-## [0.1.5] - 03/16/2021
+## [0.1.5] - 03/17/2021
 
-Merge explicit animated styled container code
+Update README
