@@ -67,9 +67,9 @@ SystemMouseCursor mouseCursor
 
 All of the properties that are of type Dimension or named DynamicXXX are fully responsive in the sense that the actual dimensions are calculated based on the size of the widget's parent constraint or the size of the screen, just like CSS.
 
-![Layout model](https://i.imgur.com/0hE1Zpd.png)
+![Layout model](https://i.imgur.com/HGyFFbc.png)
 
-![Paint order](https://i.imgur.com/m36xBfM.png)
+![Paint order](https://i.imgur.com/bDCjlpr.png)
 
 An example of a responsive style:
 ```dart
@@ -132,11 +132,11 @@ following GIF for a demonstration:
 
 ![style_demo4](https://i.imgur.com/2HvZG4m.gif)
 
-![style_demo5](https://i.imgur.com/BAmzURR.gif)
+![style_demo5](https://i.imgur.com/y5WISxE.gif)
 
-![style_demo6](https://i.imgur.com/JJDEdfV.gif)
+![style_demo6](https://i.imgur.com/lYD1SFs.gif)
 
-![style_demo7](https://i.imgur.com/JYk0DUw.gif)
+![style_demo7](https://i.imgur.com/97iuDpS.gif)
 
 Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the animation can not only be triggered by providing a new style/style map, but also by window resizing/screen rotation as long as you provide the appropriate styles.
 
