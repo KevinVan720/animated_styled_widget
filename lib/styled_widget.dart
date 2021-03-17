@@ -6,7 +6,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/animated_shadowd_shape.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 
 import 'screen_scope.dart';
@@ -56,12 +55,14 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   bool visible = true;
   double opacity = 1;
   BoxDecoration backgroundDecoration = BoxDecoration();
+  BoxDecoration foregroundDecoration = BoxDecoration();
   Color borderColor = Colors.transparent;
   double borderThickness = 0.0;
   MorphableShapeBorder shapeBorder =
       MorphableShapeBorder(shape: RectangleShape());
 
-  List<ShapeShadow> shadows = [];
+  List<ShapeShadow> shadows = <ShapeShadow>[];
+  List<ShapeShadow> insetShadows = <ShapeShadow>[];
 
   Alignment childAlignment = Alignment.center;
 
@@ -100,8 +101,14 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
     visible = style.visible ?? true;
     opacity = style.opacity ?? 1;
     backgroundDecoration = style.backgroundDecoration ?? BoxDecoration();
+    foregroundDecoration = style.foregroundDecoration ?? BoxDecoration();
 
     shadows = style.shadows
+            ?.map((e) => e.toShapeShadow(
+                constraintSize: constraintSize, screenSize: screenSize))
+            .toList() ??
+        [];
+    insetShadows = style.insetShadows
             ?.map((e) => e.toShapeShadow(
                 constraintSize: constraintSize, screenSize: screenSize))
             .toList() ??
@@ -144,17 +151,24 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
         child: child);
   }
 
-  Widget buildShadowedShape({required Widget child}) {
-    return ShadowedShape(shape: shapeBorder, shadows: shadows, child: child);
+  Widget buildDecoratedShadowedShape({required Widget child}) {
+    return DecoratedShadowedShape(
+        decoration: backgroundDecoration,
+        shape: shapeBorder,
+        shadows: shadows,
+        insetShadows: insetShadows,
+        child: child);
   }
 
-  Widget buildAnimatedShadowedShape(
+  Widget buildAnimatedDecoratedShadowedShape(
       {required Widget child,
       required Duration duration,
       required Curve curve}) {
-    return AnimatedShadowedShape(
+    return AnimatedDecoratedShadowedShape(
+      decoration: backgroundDecoration,
       shape: shapeBorder,
       shadows: shadows,
+      insetShadows: insetShadows,
       child: child,
       duration: duration,
       curve: curve,
@@ -174,10 +188,11 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
             height: height,
             padding: padding.add(shapeBorder.shape.dimensions),
             alignment: childAlignment,
-            decoration: backgroundDecoration,
+            foregroundDecoration: foregroundDecoration,
             child: updateDefaultTextStyle(child: child)));
 
-    Widget materialContainer = buildShadowedShape(child: innerContainer);
+    Widget materialContainer =
+        buildDecoratedShadowedShape(child: innerContainer);
 
     return Visibility(
         visible: visible,
@@ -210,11 +225,11 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
             height: height,
             padding: padding.add(shapeBorder.shape.dimensions),
             alignment: childAlignment,
-            decoration: backgroundDecoration,
+            foregroundDecoration: foregroundDecoration,
             child: updateAnimatedDefaultTextStyle(
                 child: child, curve: curve, duration: duration)));
 
-    Widget materialContainer = buildAnimatedShadowedShape(
+    Widget materialContainer = buildAnimatedDecoratedShadowedShape(
         child: innerContainer, curve: curve, duration: duration);
 
     return Visibility(

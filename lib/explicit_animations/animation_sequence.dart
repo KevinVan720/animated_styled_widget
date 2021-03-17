@@ -34,7 +34,9 @@ enum AnimationProperty {
   padding,
 
   backgroundDecoration,
+  foregroundDecoration,
   shadows,
+  insetShadows,
   shapeBorder,
 
   transform,
@@ -52,7 +54,9 @@ const Map<AnimationProperty, Type> AnimationPropertyTypeMap = {
   AnimationProperty.margin: DynamicEdgeInsets,
   AnimationProperty.padding: DynamicEdgeInsets,
   AnimationProperty.backgroundDecoration: BoxDecoration,
+  AnimationProperty.foregroundDecoration: BoxDecoration,
   AnimationProperty.shadows: List,
+  AnimationProperty.insetShadows: List,
   AnimationProperty.shapeBorder: MorphableShapeBorder,
   AnimationProperty.transform: SmoothMatrix4,
   AnimationProperty.transformAlignment: Alignment,
@@ -68,7 +72,9 @@ Map<AnimationProperty, dynamic> AnimationPropertyDefaultInitMap = {
   AnimationProperty.margin: EdgeInsets.zero,
   AnimationProperty.padding: EdgeInsets.zero,
   AnimationProperty.backgroundDecoration: BoxDecoration(),
-  AnimationProperty.shadows: [],
+  AnimationProperty.foregroundDecoration: BoxDecoration(),
+  AnimationProperty.shadows: <ShapeShadow>[],
+  AnimationProperty.insetShadows: <ShapeShadow>[],
   AnimationProperty.shapeBorder: MorphableShapeBorder(shape: RectangleShape()),
   AnimationProperty.transform: Matrix4.identity(),
   AnimationProperty.transformAlignment: Alignment.center,
@@ -267,9 +273,11 @@ class MultiAnimationSequence {
           return MapEntry(
               key, AnimationSequence<DynamicEdgeInsets>.fromJson(value));
         case AnimationProperty.backgroundDecoration:
+        case AnimationProperty.foregroundDecoration:
           return MapEntry(
               key, AnimationSequence<BoxDecoration>.fromJson(value));
         case AnimationProperty.shadows:
+        case AnimationProperty.insetShadows:
           return MapEntry(
               key, AnimationSequence<List<DynamicShadow>>.fromJson(value));
         case AnimationProperty.shapeBorder:
@@ -329,10 +337,12 @@ class MultiAnimationSequence {
                 AnimationSequence<DynamicEdgeInsets>(animationData: []);
             break;
           case AnimationProperty.backgroundDecoration:
+          case AnimationProperty.foregroundDecoration:
             sequences[key] =
                 AnimationSequence<BoxDecoration>(animationData: []);
             break;
           case AnimationProperty.shadows:
+          case AnimationProperty.insetShadows:
             sequences[key] =
                 AnimationSequence<List<DynamicShapeShadow>>(animationData: []);
             break;
@@ -400,11 +410,13 @@ class MultiAnimationSequence {
             tween = EdgeInsetsTween(begin: begin, end: end);
             break;
           case AnimationProperty.backgroundDecoration:
+          case AnimationProperty.foregroundDecoration:
             end = animations[index].value;
             delayTween = DecorationTween(begin: begin, end: begin);
             tween = DecorationTween(begin: begin, end: end);
             break;
           case AnimationProperty.shadows:
+          case AnimationProperty.insetShadows:
             end = (animations[index].value as List<DynamicShapeShadow>)
                 .map((e) => e.toShapeShadow(
                     constraintSize: constraintSize, screenSize: screenSize))

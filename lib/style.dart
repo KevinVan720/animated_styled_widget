@@ -24,8 +24,11 @@ class Style {
   DynamicEdgeInsets? margin;
   DynamicEdgeInsets? padding;
 
+  BoxDecoration? foregroundDecoration;
   BoxDecoration? backgroundDecoration;
   List<DynamicShapeShadow>? shadows;
+  List<DynamicShapeShadow>? insetShadows;
+
   MorphableShapeBorder? shapeBorder;
 
   SmoothMatrix4? transform;
@@ -57,8 +60,10 @@ class Style {
     this.margin,
     this.padding,
     this.opacity,
+    this.foregroundDecoration,
     this.backgroundDecoration,
     this.shadows,
+    this.insetShadows,
     this.shapeBorder,
     this.transform,
     this.transformAlignment,
@@ -84,10 +89,15 @@ class Style {
     visible = map["visible"];
     opacity = map["opacity"];
     backgroundDecoration = parseBoxDecoration(map["backgroundDecoration"]);
+    foregroundDecoration = parseBoxDecoration(map["foregroundDecoration"]);
 
     shadows = (map["shadows"] as List?)
         ?.map((e) => parseDynamicShapeShadow(e)!)
         .toList();
+    insetShadows = (map["insetShadows"] as List?)
+        ?.map((e) => parseDynamicShapeShadow(e)!)
+        .toList();
+
     shapeBorder = parseMorphableShapeBorder(map["shapeBorder"]);
 
     transform = parseSmoothMatrix4(map["transform"]);
@@ -119,8 +129,11 @@ class Style {
     rst.updateNotNull("visible", visible);
     rst.updateNotNull("opacity", opacity);
     rst.updateNotNull("backgroundDecoration", backgroundDecoration?.toJson());
+    rst.updateNotNull("foregroundDecoration", foregroundDecoration?.toJson());
     rst.updateNotNull("shapeBorder", shapeBorder?.toJson());
     rst.updateNotNull("shadows", shadows?.map((e) => e.toJson()).toList());
+    rst.updateNotNull(
+        "insetShadows", insetShadows?.map((e) => e.toJson()).toList());
 
     rst.updateNotNull("transform", transform?.toJson());
     rst.updateNotNull("transformAlignment", transformAlignment?.toJson());
@@ -146,7 +159,9 @@ class Style {
     bool? visible,
     double? opacity,
     BoxDecoration? backgroundDecoration,
+    BoxDecoration? foregroundDecoration,
     List<DynamicShapeShadow>? shadows,
+    List<DynamicShapeShadow>? insetShadows,
     MorphableShapeBorder? shapeBorder,
     SmoothMatrix4? transform,
     Alignment? transformAlignment,
@@ -168,7 +183,9 @@ class Style {
       visible: visible ?? this.visible,
       opacity: opacity ?? this.opacity,
       backgroundDecoration: backgroundDecoration ?? this.backgroundDecoration,
+      foregroundDecoration: foregroundDecoration ?? this.foregroundDecoration,
       shadows: shadows ?? this.shadows,
+      insetShadows: insetShadows ?? this.insetShadows,
       shapeBorder: shapeBorder ?? this.shapeBorder,
       transform: transform ?? this.transform,
       transformAlignment: transformAlignment ?? this.transformAlignment,
@@ -195,8 +212,10 @@ class Style {
         padding: style.padding,
         visible: style.visible,
         opacity: style.opacity,
+        foregroundDecoration: style.foregroundDecoration,
         backgroundDecoration: style.backgroundDecoration,
         shadows: style.shadows,
+        insetShadows: style.insetShadows,
         shapeBorder: style.shapeBorder,
         transform: style.transform,
         transformAlignment: style.transformAlignment,

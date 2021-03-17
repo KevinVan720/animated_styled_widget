@@ -5,7 +5,8 @@ Lets you use a serializable style/style map to make responsive and animatable wi
 ## Getting Started
 
 This package is responsive as you can define a styled container that adapts to different screen sizes.
-First, we define the screen size you want to cover:
+
+First, we define the screen scope you want to cover:
 ```dart
 var screen1=ScreenScope(minWidth: 100, maxWidth: 500, minHeight:0);
 ```
@@ -41,6 +42,7 @@ DynamicEdgeInsets padding
 ```dart
 BoxDecorartion backgroundDecoration
 List<ShapeShadow> shadows
+List<ShapeShadow> insetShadows
 MorphableShapeBorder shapeBorder
 ```
 3. Visibility
@@ -63,7 +65,11 @@ TextAlign textAlign
 SystemMouseCursor mouseCursor
 ```
 
-All of the properties that are of type Dimension or type called DynamicXXX are fully responsive in the sense that the actual dimensions are calculated based on the size of the widget or the size of the screen, just like CSS.
+All of the properties that are of type Dimension or named DynamicXXX are fully responsive in the sense that the actual dimensions are calculated based on the size of the widget's parent constraint or the size of the screen, just like CSS.
+
+![Layout model](https://i.imgur.com/0hE1Zpd.png)
+
+![Paint order](https://i.imgur.com/m36xBfM.png)
 
 An example of a responsive style:
 ```dart
@@ -97,7 +103,7 @@ Style style=Style(
       );
 ```
 
-After you have defined a style, use
+After you have defined a style, use the StyledContainer widget:
 ```
 var widget=StyledContainer(
             style: style,
@@ -107,26 +113,35 @@ var widget=StyledContainer(
 which will render something like this:
 ![style_demo1](https://i.imgur.com/IVOilbI.png)
 
-You can also pass in the style map:
+You can also pass in a style map:
 ```
 var widget=StyledContainer(
             style: styles,
             child: ...
             );
 ```
-and the StyledContainer will determine the actual style to use automatically. If some ScreenScope overlaps, the resolution is similar to CSS as well: the last valid style in the map is used.
+and the StyledContainer will determine the actual style to use automatically. If some ScreenScope overlaps, the resolution is similar to CSS: a valid style that comes later in the style map will override the properties of the previous valid style. So you can define a base style that adapts to all screen sizes and provide special styling to certain screen sizes without writing duplicate code.
 
-## Animation
-Almost every property in the Style class can be animated implicitly. See the
+## Implicit Animation
+Almost every property in the Style class can be animated. See the
 following GIF for a demonstration:
 
-Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the
-animation can not only be triggered by providing a new style/style map, but also by window resize/screen rotation as long as you provide different styles for the before/after screen size.
-![style_demo2](https://i.imgur.com/x1pYq0J.gif)
+![style_demo2](https://i.imgur.com/sAIc6Bs.gif)
 
-![style_demo3](https://i.imgur.com/W2LAgEe.gif)
+![style_demo3](https://i.imgur.com/WoNtrMm.gif)
 
-![style_demo4](https://i.imgur.com/quJBVvl.gif)
+![style_demo4](https://i.imgur.com/2HvZG4m.gif)
+
+![style_demo5](https://i.imgur.com/BAmzURR.gif)
+
+![style_demo6](https://i.imgur.com/JJDEdfV.gif)
+
+![style_demo7](https://i.imgur.com/JYk0DUw.gif)
+
+Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the animation can not only be triggered by providing a new style/style map, but also by window resizing/screen rotation as long as you provide the appropriate styles.
+
+## Explicit Animation
+
 
 ## Serialization
 The style class can be easily serialized/deserialized:
@@ -146,7 +161,3 @@ dynamic? parsePossibleStyleMap(Map<String, dynamic>? style)
 and use the result directly in the StyledContainer class.
 
 All the features mentioned above can be explored in the example app.
-
-## Explicit Animation
-
-Documentation coming up...

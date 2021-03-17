@@ -1,12 +1,15 @@
 import 'package:example/button_transform_1.dart';
 import 'package:example/button_transform_2.dart';
 import 'package:example/neon_button.dart';
+import 'package:example/neumorphism_button.dart';
+import 'package:example/neumorphsim_button_explicit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'button_transform_3.dart';
 import 'long_animated_button.dart';
 import 'neon_button_explicit.dart';
+import 'neumorphism_two_button.dart';
 import 'scroll_animation.dart';
 import 'staggerd_animations.dart';
 import 'two_animation_combine.dart';
@@ -66,6 +69,22 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
+                                builder: (context) => NeumorphismPage()));
+                      },
+                      child: Text("Neumorphism Button")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NeumorphismTwoPage()));
+                      },
+                      child: Text("Neumorphism Two Button")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
                                 builder: (context) => ButtonTransform1Page()));
                       },
                       child: Text("Button Transform 1")),
@@ -115,6 +134,19 @@ class _HomePageState extends State<HomePage> {
                       child: Center(
                           child: Text(
                         "Explicitly Animated Neon Button",
+                        textAlign: TextAlign.center,
+                      ))),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    NeumorphismButtonExplicitPage()));
+                      },
+                      child: Center(
+                          child: Text(
+                        "Explicitly Animated Neumorphsim Button",
                         textAlign: TextAlign.center,
                       ))),
                   ElevatedButton(

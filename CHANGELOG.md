@@ -53,3 +53,7 @@ Fix double to int problem
 ## [0.1.4] - 03/11/2021
 
 Merge explicit animated styled container code
+
+## [0.1.5] - 03/16/2021
+
+Merge explicit animated styled container code

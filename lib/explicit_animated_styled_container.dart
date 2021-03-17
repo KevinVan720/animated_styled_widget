@@ -367,6 +367,7 @@ class _ExplicitAnimatedStyledContainerState
           AnimationProperty.padding: padding,
           AnimationProperty.backgroundDecoration: backgroundDecoration,
           AnimationProperty.shadows: shadows,
+          AnimationProperty.insetShadows: insetShadows,
           AnimationProperty.shapeBorder: shapeBorder,
           AnimationProperty.transform: transform,
           AnimationProperty.transformAlignment: transformAlignment,
@@ -521,6 +522,8 @@ class _ExplicitAnimatedStyledContainerState
     backgroundDecoration = values.getOrElse(
         AnimationProperty.backgroundDecoration, backgroundDecoration);
     shadows = values.getOrElse(AnimationProperty.shadows, shadows);
+    insetShadows =
+        values.getOrElse(AnimationProperty.insetShadows, insetShadows);
     shapeBorder = values.getOrElse(AnimationProperty.shapeBorder, shapeBorder);
 
     transform = values.getOrElse(AnimationProperty.transform, transform);
