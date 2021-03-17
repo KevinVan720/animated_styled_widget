@@ -221,9 +221,9 @@ Now let's talk about other animation triggers. The AnimationTrigger.tap is easy 
 
 The animation progress by default is calculated as shown in the figure above (if scrolled horizontally). But you can also make the animation start/end earlier or later using two percentage offsets.
 
-![style_demo9](https://i.imgur.com/ct1ott8.gif)
+![style_demo9](https://i.imgur.com/12TmQ55.gif)
 
-![style_demo10](https://i.imgur.com/pvu399i.gif)
+![style_demo10](https://i.imgur.com/JA0MvRD.gif)
 
 
 ## Serialization
