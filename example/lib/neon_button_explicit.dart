@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       curve: Curves.easeIn,
                       value: 440.toPXLength),
                 AnimationProperty.backgroundDecoration:
-                    AnimationSequence<BoxDecoration>(animationData: [])
+                    AnimationSequence<BoxDecoration>()
                       ..add(
                         duration: Duration(milliseconds: 150),
                         value: BoxDecoration(
@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ])),
                       ),
                 AnimationProperty.shapeBorder:
-                    AnimationSequence<MorphableShapeBorder>(animationData: [])
+                    AnimationSequence<MorphableShapeBorder>()
                       ..add(
                           duration: Duration(milliseconds: 200),
                           value: MorphableShapeBorder(
@@ -136,44 +136,39 @@ class _MyHomePageState extends State<MyHomePage> {
                       duration: Duration(milliseconds: 1500),
                       curve: Curves.elasticIn,
                       value: Dimension.min(80.toVWLength, 400.toPXLength)),
-                AnimationProperty.backgroundDecoration:
-                    AnimationSequence<BoxDecoration>(animationData: [])
-                      ..add(
-                        duration: Duration(milliseconds: 1500),
-                        value: BoxDecoration(
-                            gradient: LinearGradient(colors: [
-                          Colors.cyanAccent,
-                          Colors.purpleAccent
-                        ])),
-                      ),
-                AnimationProperty.shapeBorder:
-                    AnimationSequence<MorphableShapeBorder>(animationData: [])
-                      ..add(
-                          duration: Duration(milliseconds: 1550),
-                          value: MorphableShapeBorder(
-                            shape: RoundedRectangleShape(
-                                borderRadius: DynamicBorderRadius.all(
-                                    DynamicRadius.circular(15.toPXLength)),
-                                borders: RectangleBorders.only(
-                                    top: DynamicBorderSide(
-                                        gradient: LinearGradient(colors: [
-                                          Colors.cyanAccent.shade100,
-                                          Colors.purpleAccent.shade100
-                                        ]),
-                                        width: 12),
-                                    bottom: DynamicBorderSide(
-                                        gradient: LinearGradient(colors: [
-                                          Colors.cyan,
-                                          Colors.purple
-                                        ]),
-                                        width: 28),
-                                    left: DynamicBorderSide(
-                                        color: Colors.cyanAccent.shade200,
-                                        width: 12),
-                                    right: DynamicBorderSide(
-                                        color: Colors.purpleAccent,
-                                        width: 28))),
-                          )),
+                AnimationProperty
+                    .backgroundDecoration: AnimationSequence<BoxDecoration>()
+                  ..add(
+                    duration: Duration(milliseconds: 1500),
+                    value: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [Colors.cyanAccent, Colors.purpleAccent])),
+                  ),
+                AnimationProperty
+                    .shapeBorder: AnimationSequence<MorphableShapeBorder>()
+                  ..add(
+                      duration: Duration(milliseconds: 1550),
+                      value: MorphableShapeBorder(
+                        shape: RoundedRectangleShape(
+                            borderRadius: DynamicBorderRadius.all(
+                                DynamicRadius.circular(15.toPXLength)),
+                            borders: RectangleBorders.only(
+                                top: DynamicBorderSide(
+                                    gradient: LinearGradient(colors: [
+                                      Colors.cyanAccent.shade100,
+                                      Colors.purpleAccent.shade100
+                                    ]),
+                                    width: 12),
+                                bottom: DynamicBorderSide(
+                                    gradient: LinearGradient(
+                                        colors: [Colors.cyan, Colors.purple]),
+                                    width: 28),
+                                left: DynamicBorderSide(
+                                    color: Colors.cyanAccent.shade200,
+                                    width: 12),
+                                right: DynamicBorderSide(
+                                    color: Colors.purpleAccent, width: 28))),
+                      )),
               }),
             },
             child: Text("HELLO"),

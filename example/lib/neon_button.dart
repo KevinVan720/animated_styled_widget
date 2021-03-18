@@ -125,8 +125,6 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
                 offset: DynamicOffset(0.toPXLength, 0.toPXLength))
           ],
         ));
-
-    //printWrapped(json.encode(beginStyle.toJson()));
   }
 
   @override

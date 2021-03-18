@@ -158,8 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           endShift: 0.0,
                           sequences: {
                             AnimationProperty.transform:
-                                AnimationSequence<SmoothMatrix4>(
-                                    animationData: [])
+                                AnimationSequence<SmoothMatrix4>()
                                   ..add(
                                     duration: Duration(milliseconds: 100),
                                     value: SmoothMatrix4()..rotateZ(pi),

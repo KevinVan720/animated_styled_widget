@@ -37,8 +37,7 @@ class SlideOutAnimation extends PresetAnimation {
         break;
     }
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty
-          .transform: AnimationSequence<SmoothMatrix4>(animationData: [])
+      AnimationProperty.transform: AnimationSequence<SmoothMatrix4>()
         ..add(value: transform, duration: duration, delay: delay, curve: curve),
     });
   }
@@ -54,7 +53,7 @@ class FadeOutAnimation extends PresetAnimation {
 
   MultiAnimationSequence getAnimationSequence() {
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty.opacity: AnimationSequence<double>(animationData: [])
+      AnimationProperty.opacity: AnimationSequence<double>()
         ..add(value: 1, duration: Duration.zero, delay: Duration.zero)
         ..add(value: 0, duration: duration, delay: delay, curve: curve),
     });
@@ -64,7 +63,7 @@ class FadeOutAnimation extends PresetAnimation {
 class ZoomOutAnimation extends PresetAnimation {
   final double scale;
   const ZoomOutAnimation(
-      {this.scale = 0.01,
+      {this.scale = 0.001,
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
@@ -76,8 +75,7 @@ class ZoomOutAnimation extends PresetAnimation {
     transform.scale(scale);
 
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty
-          .transform: AnimationSequence<SmoothMatrix4>(animationData: [])
+      AnimationProperty.transform: AnimationSequence<SmoothMatrix4>()
         ..add(value: transform, duration: duration, delay: delay, curve: curve),
     });
   }

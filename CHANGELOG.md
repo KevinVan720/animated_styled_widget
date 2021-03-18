@@ -57,3 +57,7 @@ Merge explicit animated styled container code
 ## [0.1.5] - 03/17/2021
 
 Update README
+
+## [0.1.6] - 03/18/2021
+
+Explicit animation parsing

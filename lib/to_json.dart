@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_class_parser/flutter_class_parser.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -33,7 +35,7 @@ extension SmoothMatrix4OperationTypesToJson on SmoothMatrix4OperationType {
 extension StyleMapToJson on Map<ScreenScope, Style> {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> rst =
-        this.map((key, value) => MapEntry(key.toJson(), value));
+        this.map((key, value) => MapEntry(json.encode(key.toJson()), value));
     return rst;
   }
 }

@@ -12,6 +12,7 @@ import 'screen_scope.dart';
 import 'style.dart';
 
 export 'animated_styled_container.dart';
+export 'animated_styled_container.dart';
 export 'custom_visibility_detector/visibility_detector.dart';
 export 'custom_visibility_detector/visibility_detector_controller.dart';
 export 'dynamic_ui_classes/dynamic_shadow.dart';

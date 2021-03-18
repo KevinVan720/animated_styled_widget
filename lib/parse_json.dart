@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/parse_json.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 import 'dynamic_ui_classes/dynamic_shadow.dart';
 import 'dynamic_ui_classes/dynamic_text_style.dart';
@@ -139,4 +140,12 @@ AnimationProperty parseAnimationProperty(String str) {
     if (element.toJson() == str) property = element;
   });
   return property;
+}
+
+CustomAnimationControl? parseCustomAnimationControl(String str) {
+  CustomAnimationControl? control;
+  CustomAnimationControl.values.forEach((element) {
+    if (element.toJson() == str) control = element;
+  });
+  return control;
 }

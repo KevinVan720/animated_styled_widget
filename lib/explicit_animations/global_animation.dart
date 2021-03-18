@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_styled_widget/styled_widget.dart';
 import 'package:simple_animations/simple_animations.dart';
 
+import '../parse_json.dart';
 import 'animation_sequence.dart';
 
 class GlobalAnimation {
@@ -20,6 +21,10 @@ class GlobalAnimation {
       this.control = CustomAnimationControl.PLAY});
 
   GlobalAnimation.fromJson(Map map) {
+    control = parseCustomAnimationControl(map["control"]) ??
+        CustomAnimationControl.PLAY;
+    beginShift = map['beginShift'];
+    endShift = map['endShift'];
     sequences = (map["sequences"] as Map).map((key, value) {
       return MapEntry(key, MultiAnimationSequence.fromJson(value));
     });
@@ -27,6 +32,9 @@ class GlobalAnimation {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> rst = {};
+    rst['beginShift'] = beginShift;
+    rst['endShift'] = endShift;
+    rst["control"] = control.toJson();
     rst["sequences"] =
         sequences.map((key, value) => MapEntry(key, value.toJson()));
     return rst;

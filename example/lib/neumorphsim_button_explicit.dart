@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                   AnimationProperty.shapeBorder:
-                      AnimationSequence<MorphableShapeBorder>(animationData: [])
+                      AnimationSequence<MorphableShapeBorder>()
                         ..add(
                             duration: Duration(milliseconds: 200),
                             value: MorphableShapeBorder(
@@ -149,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   AnimationProperty.shapeBorder:
-                      AnimationSequence<MorphableShapeBorder>(animationData: [])
+                      AnimationSequence<MorphableShapeBorder>()
                         ..add(
                             duration: Duration(milliseconds: 500),
                             value: MorphableShapeBorder(

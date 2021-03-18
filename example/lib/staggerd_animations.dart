@@ -17,30 +17,28 @@ class StaggeredAnimationsPage extends StatelessWidget {
               distance: 200.toPXLength)
           .getAnimationSequence()
             ..merge(MultiAnimationSequence(sequences: {
-              AnimationProperty.shapeBorder:
-                  AnimationSequence(animationData: [])
-                    ..add(
-                        curve: Curves.bounceIn,
-                        duration: Duration(seconds: 2),
-                        value: MorphableShapeBorder(shape: CircleShape())),
-              AnimationProperty.backgroundDecoration:
-                  AnimationSequence(animationData: [])
-                    ..add(
-                        curve: Curves.bounceIn,
-                        duration: Duration(seconds: 2),
-                        value: BoxDecoration(
-                            gradient: RadialGradient(stops: [
-                          0.3,
-                          0.6,
-                          0.9
-                        ], colors: [
-                          Colors.white,
-                          Colors.redAccent.shade100,
-                          Colors.red,
-                        ])))
+              AnimationProperty.shapeBorder: AnimationSequence()
+                ..add(
+                    curve: Curves.bounceIn,
+                    duration: Duration(seconds: 2),
+                    value: MorphableShapeBorder(shape: CircleShape())),
+              AnimationProperty.backgroundDecoration: AnimationSequence()
+                ..add(
+                    curve: Curves.bounceIn,
+                    duration: Duration(seconds: 2),
+                    value: BoxDecoration(
+                        gradient: RadialGradient(stops: [
+                      0.3,
+                      0.6,
+                      0.9
+                    ], colors: [
+                      Colors.white,
+                      Colors.redAccent.shade100,
+                      Colors.red,
+                    ])))
             })),
       "Container2": MultiAnimationSequence(sequences: {
-        AnimationProperty.transform: AnimationSequence(animationData: [])
+        AnimationProperty.transform: AnimationSequence()
           ..add(
               curve: Curves.bounceIn,
               delay: Duration(seconds: 1),
@@ -48,7 +46,7 @@ class StaggeredAnimationsPage extends StatelessWidget {
               value: SmoothMatrix4()
                 ..translate(0.toPXLength, -200.toPXLength)
                 ..rotateZ(3.1415)),
-        AnimationProperty.shapeBorder: AnimationSequence(animationData: [])
+        AnimationProperty.shapeBorder: AnimationSequence()
           ..add(
               curve: Curves.bounceIn,
               delay: Duration(seconds: 1),

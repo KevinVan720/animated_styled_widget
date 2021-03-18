@@ -37,8 +37,7 @@ class SlideInAnimation extends PresetAnimation {
         break;
     }
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty
-          .transform: AnimationSequence<SmoothMatrix4>(animationData: [])
+      AnimationProperty.transform: AnimationSequence<SmoothMatrix4>()
         ..add(value: transform, duration: Duration.zero, delay: Duration.zero)
         ..add(
             value: SmoothMatrix4(),
@@ -59,7 +58,7 @@ class FadeInAnimation extends PresetAnimation {
 
   MultiAnimationSequence getAnimationSequence() {
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty.opacity: AnimationSequence<double>(animationData: [])
+      AnimationProperty.opacity: AnimationSequence<double>()
         ..add(value: 0, duration: Duration.zero, delay: Duration.zero)
         ..add(value: 1, duration: duration, delay: delay, curve: curve),
     });
@@ -81,8 +80,7 @@ class ZoomInAnimation extends PresetAnimation {
     transform.scale(scale);
 
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty
-          .transform: AnimationSequence<SmoothMatrix4>(animationData: [])
+      AnimationProperty.transform: AnimationSequence<SmoothMatrix4>()
         ..add(value: transform, duration: Duration.zero, delay: Duration.zero)
         ..add(
             value: SmoothMatrix4(),

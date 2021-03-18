@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 const double screenMaxDimension = 100000;
 
@@ -50,14 +48,14 @@ class ScreenScope {
   }
   */
 
-  String toJson() {
-    var rst = {};
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> rst = {};
     rst["minWidth"] = minWidth;
     rst["maxWidth"] = maxWidth;
     rst["minHeight"] = minHeight;
     rst["maxHeight"] = maxHeight;
 
-    return json.encode(rst);
+    return rst;
   }
 
   bool isOfScreenScope(MediaQueryData data) {

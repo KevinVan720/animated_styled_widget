@@ -34,8 +34,7 @@ class FlipAnimation extends PresetAnimation {
     }
 
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty
-          .transform: AnimationSequence<SmoothMatrix4>(animationData: [])
+      AnimationProperty.transform: AnimationSequence<SmoothMatrix4>()
         ..add(value: transform, duration: duration, delay: delay, curve: curve),
     });
   }
@@ -53,7 +52,7 @@ class FlashAnimation extends PresetAnimation {
   MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
-    var sequence = AnimationSequence<double>(animationData: []);
+    var sequence = AnimationSequence<double>();
 
     for (int i = 0; i < repeats; i++) {
       if (i == 0) {
@@ -89,14 +88,13 @@ class PulseAnimation extends PresetAnimation {
         Duration(milliseconds: (duration.inMilliseconds / 2).round());
 
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty.transform:
-          AnimationSequence<SmoothMatrix4>(animationData: [])
-            ..add(
-                value: transform,
-                duration: halfDuration,
-                delay: delay,
-                curve: curve)
-            ..add(value: SmoothMatrix4(), duration: halfDuration, curve: curve),
+      AnimationProperty.transform: AnimationSequence<SmoothMatrix4>()
+        ..add(
+            value: transform,
+            duration: halfDuration,
+            delay: delay,
+            curve: curve)
+        ..add(value: SmoothMatrix4(), duration: halfDuration, curve: curve),
     });
   }
 }
@@ -118,7 +116,7 @@ class SwingAnimation extends PresetAnimation {
   MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
-    var sequence = AnimationSequence<SmoothMatrix4>(animationData: []);
+    var sequence = AnimationSequence<SmoothMatrix4>();
 
     for (int i = 0; i < repeats; i++) {
       if (i == 0) {
@@ -144,9 +142,8 @@ class SwingAnimation extends PresetAnimation {
         curve: curve);
 
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty.transformAlignment:
-          AnimationSequence<Alignment>(animationData: [])
-            ..add(value: alignment, duration: Duration.zero),
+      AnimationProperty.transformAlignment: AnimationSequence<Alignment>()
+        ..add(value: alignment, duration: Duration.zero),
       AnimationProperty.transform: sequence,
     });
   }
@@ -171,7 +168,7 @@ class WobbleAnimation extends PresetAnimation {
   MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
-    var sequence = AnimationSequence<SmoothMatrix4>(animationData: []);
+    var sequence = AnimationSequence<SmoothMatrix4>();
 
     for (int i = 0; i < repeats; i++) {
       if (i == 0) {
@@ -202,9 +199,8 @@ class WobbleAnimation extends PresetAnimation {
         value: SmoothMatrix4(), duration: singleDuration, curve: curve);
 
     return MultiAnimationSequence(control: control, sequences: {
-      AnimationProperty.transformAlignment:
-          AnimationSequence<Alignment>(animationData: [])
-            ..add(value: alignment, duration: Duration.zero),
+      AnimationProperty.transformAlignment: AnimationSequence<Alignment>()
+        ..add(value: alignment, duration: Duration.zero),
       AnimationProperty.transform: sequence,
     });
   }
@@ -221,7 +217,7 @@ class RainbowAnimation extends PresetAnimation {
   MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / 7).round());
-    var sequence = AnimationSequence<BoxDecoration>(animationData: []);
+    var sequence = AnimationSequence<BoxDecoration>();
 
     sequence.add(
         value: BoxDecoration(color: Colors.red),
@@ -269,7 +265,7 @@ class RainbowLinearGradientAnimation extends PresetAnimation {
   MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / 7).round());
-    var sequence = AnimationSequence<BoxDecoration>(animationData: []);
+    var sequence = AnimationSequence<BoxDecoration>();
 
     sequence.add(
         value: BoxDecoration(
@@ -326,7 +322,7 @@ class ElevateAnimation extends PresetAnimation {
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
-    var sequence = AnimationSequence<List<DynamicShadow>>(animationData: []);
+    var sequence = AnimationSequence<List<DynamicShadow>>();
 
     sequence.add(
         value: preDefinedDynamicShapeShadow[beginElevation] ?? [],
