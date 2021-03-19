@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -39,6 +41,11 @@ class Style {
   DynamicTextStyle? textStyle;
   TextAlign? textAlign;
 
+  Gradient? shaderGradient;
+
+  ImageFilter? imageFilter;
+  ImageFilter? backdropFilter;
+
   SystemMouseCursor? mouseCursor;
 
   ///possible children properties in layoutWidgets like flex, grid, stack
@@ -70,6 +77,9 @@ class Style {
     this.childAlignment,
     this.textStyle,
     this.textAlign,
+    this.shaderGradient,
+    this.imageFilter,
+    this.backdropFilter,
     this.mouseCursor,
   });
 
@@ -108,6 +118,10 @@ class Style {
     textAlign = parseTextAlign(map["textAlign"]);
     textStyle = parseDynamicTextStyle(map["textStyle"]);
 
+    shaderGradient = parseGradient(map["shaderGradient"]);
+    imageFilter = parseImageFilter(map['imageFilter']);
+    backdropFilter = parseImageFilter(map['backdropFilter']);
+
     mouseCursor = parseSystemMouseCursor(map["mouseCursor"]);
   }
 
@@ -142,6 +156,10 @@ class Style {
     rst.updateNotNull("textAlign", textAlign?.toJson());
     rst.updateNotNull("textStyle", textStyle?.toJson());
 
+    rst.updateNotNull('shaderGradient', shaderGradient?.toJson());
+    rst.updateNotNull('imageFilter', imageFilter?.toJson());
+    rst.updateNotNull('backdropFilter', backdropFilter?.toJson());
+
     rst.updateNotNull("mouseCursor", mouseCursor?.toJson());
     return rst;
   }
@@ -168,6 +186,9 @@ class Style {
     Alignment? childAlignment,
     DynamicTextStyle? textStyle,
     TextAlign? textAlign,
+    Gradient? shaderGradient,
+    ImageFilter? imageFilter,
+    ImageFilter? backdropFilter,
     SystemMouseCursor? mouseCursor,
   }) {
     return Style(
@@ -192,6 +213,9 @@ class Style {
       childAlignment: childAlignment ?? this.childAlignment,
       textStyle: textStyle ?? this.textStyle,
       textAlign: textAlign ?? this.textAlign,
+      shaderGradient: shaderGradient ?? this.shaderGradient,
+      imageFilter: imageFilter ?? this.imageFilter,
+      backdropFilter: backdropFilter ?? this.backdropFilter,
       mouseCursor: mouseCursor ?? this.mouseCursor,
     );
   }
@@ -222,6 +246,9 @@ class Style {
         childAlignment: style.childAlignment,
         textStyle: style.textStyle,
         textAlign: style.textAlign,
+        shaderGradient: style.shaderGradient,
+        imageFilter: style.imageFilter,
+        backdropFilter: style.backdropFilter,
         mouseCursor: style.mouseCursor,
       );
     }

@@ -87,14 +87,16 @@ DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
   Color? decorationColor = parseColor(map["decorationColor"]);
   TextDecorationStyle? decorationStyle =
       parseTextDecorationStyle(map['decorationStyle']);
-  double? decorationThickness = map['decorationThickness'].toDouble();
+  double? decorationThickness = map['decorationThickness']?.toDouble();
 
-  double? height = map['height'].toDouble();
+  double? height = map['height']?.toDouble();
   Dimension? letterSpacing = parseDimension(map['letterSpacing']);
   Dimension? wordSpacing = parseDimension(map['wordSpacing']);
 
-  List<DynamicShadow>? shadows =
-      map["shadows"]?.map((e) => parseDynamicShadow(e)!).toList();
+  List<DynamicShadow>? shadows = map["shadows"]
+      ?.map((e) => parseDynamicShadow(e)!)
+      .toList()
+      .cast<DynamicShadow>();
 
   return DynamicTextStyle(
       color: color,

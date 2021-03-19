@@ -131,6 +131,11 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
             offset: DynamicOffset(30.toPXLength, 30.toPXLength)),
       ],
     );
+
+    /*printWrapped(
+        parsePossibleStyleMap(json.decode(json.encode(beginStyle.toJson())))
+            .toJson()
+            .toString());*/
   }
 
   @override

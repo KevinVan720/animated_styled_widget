@@ -61,3 +61,7 @@ Update README
 ## [0.1.6] - 03/18/2021
 
 Explicit animation parsing
+
+## [0.1.7] - 03/19/2021
+
+ImageFiltered and BackdropFilter support in Style

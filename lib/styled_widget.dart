@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 
+import 'animated_shader_mask.dart';
 import 'screen_scope.dart';
 import 'style.dart';
 
@@ -73,6 +74,11 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   late TextStyle textStyle;
   TextAlign textAlign = TextAlign.start;
 
+  Gradient? shaderGradient;
+
+  ImageFilter? imageFilter;
+  ImageFilter? backdropFilter;
+
   MouseCursor mouseCursor = SystemMouseCursors.basic;
 
   void prepareStyle() {
@@ -130,6 +136,10 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
         DefaultTextStyle.of(context).style;
     textAlign = style.textAlign ?? TextAlign.start;
 
+    shaderGradient = style.shaderGradient;
+    imageFilter = style.imageFilter;
+    backdropFilter = style.backdropFilter;
+
     mouseCursor = style.mouseCursor ?? SystemMouseCursors.basic;
   }
 
@@ -150,6 +160,47 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
         curve: curve,
         duration: duration,
         child: child);
+  }
+
+  Widget buildImageFiltered({required Widget child}) {
+    return imageFilter != null
+        ? ImageFiltered(
+            imageFilter: imageFilter!,
+            child: child,
+          )
+        : child;
+  }
+
+  Widget buildBackdropFilter({required Widget child}) {
+    return backdropFilter != null
+        ? BackdropFilter(
+            filter: backdropFilter!,
+            child: child,
+          )
+        : child;
+  }
+
+  Widget buildShaderMask({required Widget child}) {
+    return shaderGradient != null
+        ? ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return shaderGradient!.createShader(bounds);
+            },
+            child: child,
+          )
+        : child;
+  }
+
+  Widget buildAnimatedShaderMask(
+      {required Widget child,
+      required Duration duration,
+      required Curve curve}) {
+    return AnimatedShaderMask(
+      duration: duration,
+      curve: curve,
+      shaderGradient: shaderGradient,
+      child: child,
+    );
   }
 
   Widget buildDecoratedShadowedShape({required Widget child}) {
@@ -180,32 +231,35 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
       {required Widget child,
       PointerEnterEventListener? onMouseEnter,
       PointerExitEventListener? onMouseExit}) {
-    Widget innerContainer = MouseRegion(
-        onEnter: onMouseEnter,
-        onExit: onMouseExit,
-        cursor: mouseCursor,
-        child: Container(
-            width: width,
-            height: height,
-            padding: padding.add(shapeBorder.shape.dimensions),
-            alignment: childAlignment,
-            foregroundDecoration: foregroundDecoration,
-            child: updateDefaultTextStyle(child: child)));
+    Widget innerContainer = buildBackdropFilter(
+        child: MouseRegion(
+            onEnter: onMouseEnter,
+            onExit: onMouseExit,
+            cursor: mouseCursor,
+            child: Container(
+                width: width,
+                height: height,
+                padding: padding.add(shapeBorder.shape.dimensions),
+                alignment: childAlignment,
+                foregroundDecoration: foregroundDecoration,
+                child: buildShaderMask(
+                    child: updateDefaultTextStyle(child: child)))));
 
-    Widget materialContainer =
-        buildDecoratedShadowedShape(child: innerContainer);
+    Widget materialContainer = buildImageFiltered(
+        child: buildDecoratedShadowedShape(child: innerContainer));
 
     return Visibility(
-        visible: visible,
-        child: Container(
-            alignment: alignment,
-            margin: margin,
-            transform: transform,
-            transformAlignment: transformAlignment,
-            child: Opacity(
-              opacity: opacity,
-              child: materialContainer,
-            )));
+      visible: visible,
+      child: Container(
+          alignment: alignment,
+          margin: margin,
+          transform: transform,
+          transformAlignment: transformAlignment,
+          child: Opacity(
+            opacity: opacity,
+            child: materialContainer,
+          )),
+    );
   }
 
   Widget buildAnimatedStyledContainer(
@@ -215,38 +269,44 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
       PointerEnterEventListener? onMouseEnter,
       PointerExitEventListener? onMouseExit}) {
     curve = curve ?? Curves.linear;
-    Widget innerContainer = MouseRegion(
-        onEnter: onMouseEnter,
-        onExit: onMouseExit,
-        cursor: mouseCursor,
-        child: AnimatedContainer(
-            duration: duration,
-            curve: curve,
-            width: width,
-            height: height,
-            padding: padding.add(shapeBorder.shape.dimensions),
-            alignment: childAlignment,
-            foregroundDecoration: foregroundDecoration,
-            child: updateAnimatedDefaultTextStyle(
-                child: child, curve: curve, duration: duration)));
+    Widget innerContainer = buildBackdropFilter(
+        child: MouseRegion(
+            onEnter: onMouseEnter,
+            onExit: onMouseExit,
+            cursor: mouseCursor,
+            child: AnimatedContainer(
+                duration: duration,
+                curve: curve,
+                width: width,
+                height: height,
+                padding: padding.add(shapeBorder.shape.dimensions),
+                alignment: childAlignment,
+                foregroundDecoration: foregroundDecoration,
+                child: buildAnimatedShaderMask(
+                    child: updateAnimatedDefaultTextStyle(
+                        child: child, curve: curve, duration: duration),
+                    duration: duration,
+                    curve: curve))));
 
-    Widget materialContainer = buildAnimatedDecoratedShadowedShape(
-        child: innerContainer, curve: curve, duration: duration);
+    Widget materialContainer = buildImageFiltered(
+        child: buildAnimatedDecoratedShadowedShape(
+            child: innerContainer, curve: curve, duration: duration));
 
     return Visibility(
-        visible: visible,
-        child: AnimatedContainer(
+      visible: visible,
+      child: AnimatedContainer(
+          duration: duration,
+          curve: curve,
+          alignment: alignment,
+          margin: margin,
+          transform: transform,
+          transformAlignment: transformAlignment,
+          child: AnimatedOpacity(
             duration: duration,
             curve: curve,
-            alignment: alignment,
-            margin: margin,
-            transform: transform,
-            transformAlignment: transformAlignment,
-            child: AnimatedOpacity(
-              duration: duration,
-              curve: curve,
-              opacity: opacity,
-              child: materialContainer,
-            )));
+            opacity: opacity,
+            child: materialContainer,
+          )),
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -76,55 +78,68 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
           ],
         ),
         textAlign: TextAlign.center,
+        shaderGradient:
+            LinearGradient(colors: [Colors.purpleAccent, Colors.cyanAccent]),
+        imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         mouseCursor: SystemMouseCursors.click);
 
     endStyle = beginStyle.copyWith(
-        shapeBorder: MorphableShapeBorder(
-            shape: (beginStyle.shapeBorder?.shape as RoundedRectangleShape)
-                .copyWith(
-                    borders: RectangleBorders.only(
-                        top: DynamicBorderSide(
-                            gradient: LinearGradient(colors: [
-                              Colors.cyanAccent.shade100,
-                              Colors.purpleAccent.shade100
-                            ]),
-                            width: 20),
-                        bottom: DynamicBorderSide(
-                            gradient: LinearGradient(
-                                colors: [Colors.cyan, Colors.purple]),
-                            width: 20),
-                        left: DynamicBorderSide(
-                            color: Colors.cyanAccent.shade200, width: 20),
-                        right: DynamicBorderSide(
-                            color: Colors.purpleAccent, width: 20)))),
-        shadows: [
-          DynamicShapeShadow(
-              blurRadius: 40.toPXLength,
-              gradient: LinearGradient(
-                  colors: [Colors.cyanAccent, Colors.purpleAccent]),
+      shapeBorder: MorphableShapeBorder(
+          shape: (beginStyle.shapeBorder?.shape as RoundedRectangleShape)
+              .copyWith(
+                  borders: RectangleBorders.only(
+                      top: DynamicBorderSide(
+                          gradient: LinearGradient(colors: [
+                            Colors.cyanAccent.shade100,
+                            Colors.purpleAccent.shade100
+                          ]),
+                          width: 20),
+                      bottom: DynamicBorderSide(
+                          gradient: LinearGradient(
+                              colors: [Colors.cyan, Colors.purple]),
+                          width: 20),
+                      left: DynamicBorderSide(
+                          color: Colors.cyanAccent.shade200, width: 20),
+                      right: DynamicBorderSide(
+                          color: Colors.purpleAccent, width: 20)))),
+      shadows: [
+        DynamicShapeShadow(
+            blurRadius: 40.toPXLength,
+            gradient: LinearGradient(
+                colors: [Colors.cyanAccent, Colors.purpleAccent]),
+            offset: DynamicOffset(0.toPXLength, 0.toPXLength)),
+      ],
+      textAlign: TextAlign.center,
+      textStyle: DynamicTextStyle(
+        letterSpacing: 1.0.toVWLength,
+        fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
+        fontWeight: FontWeight.w900,
+        color: Colors.white,
+        /*shadows: [
+          DynamicShadow(
+              blurRadius: 10.toPXLength,
+              color: Colors.white,
               offset: DynamicOffset(0.toPXLength, 0.toPXLength)),
-        ],
-        textAlign: TextAlign.center,
-        textStyle: DynamicTextStyle(
-          letterSpacing: 1.0.toVWLength,
-          fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
-          fontWeight: FontWeight.w900,
-          color: Colors.white,
-          shadows: [
-            DynamicShadow(
-                blurRadius: 10.toPXLength,
-                color: Colors.white,
-                offset: DynamicOffset(0.toPXLength, 0.toPXLength)),
-            DynamicShadow(
-                blurRadius: 25.toPXLength,
-                color: Colors.white,
-                offset: DynamicOffset(0.toPXLength, 0.toPXLength)),
-            DynamicShadow(
-                blurRadius: 2.toPXLength,
-                color: Colors.white70,
-                offset: DynamicOffset(0.toPXLength, 0.toPXLength))
-          ],
-        ));
+          DynamicShadow(
+              blurRadius: 25.toPXLength,
+              color: Colors.white,
+              offset: DynamicOffset(0.toPXLength, 0.toPXLength)),
+          DynamicShadow(
+              blurRadius: 2.toPXLength,
+              color: Colors.white70,
+              offset: DynamicOffset(0.toPXLength, 0.toPXLength))
+        ],*/
+      ),
+      shaderGradient: LinearGradient(colors: [
+        Colors.cyanAccent,
+        Colors.purpleAccent,
+      ]),
+    );
+
+    /*printWrapped(
+        parsePossibleStyleMap(json.decode(json.encode(beginStyle.toJson())))
+            .toJson()
+            .toString());*/
   }
 
   @override

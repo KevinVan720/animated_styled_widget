@@ -133,6 +133,8 @@ class StaggeredAnimationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /*printWrapped(animationPool["animation"]?.toJson()?.toString() ?? "");*/
+
     VisibilityDetectorController.instance.updateInterval =
         Duration(milliseconds: 1);
     return OrientationBuilder(
