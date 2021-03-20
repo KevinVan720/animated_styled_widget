@@ -65,6 +65,13 @@ TextAlign textAlign
 SystemMouseCursor mouseCursor
 ```
 
+7. Shader and ImageFilter
+```dart
+Gradient shaderGradient
+ImageFilter imageFilter
+ImageFilter backdropFilter
+```
+
 All of the properties that are of type Dimension or named DynamicXXX are fully responsive in the sense that the actual dimensions are calculated based on the size of the widget's parent constraint or the size of the screen, just like CSS.
 
 ![Layout model](https://i.imgur.com/HGyFFbc.png)
@@ -138,6 +145,8 @@ following GIF for a demonstration:
 
 ![style_demo7](https://i.imgur.com/97iuDpS.gif)
 
+![style_demo8](https://i.imgur.com/k7BEHOL.gif)
+
 Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the animation can not only be triggered by providing a new style/style map, but also by window resizing/screen rotation as long as you provide the appropriate styles.
 
 ## Explicit Animation
@@ -198,7 +207,7 @@ AnimationProperty.width: AnimationSequence()
 
 will delay 1 second, then animate the width from its current value to 100 px in 200ms, then to 200 px in 200ms. You can animate other properties using the same syntax.
 
-![style_demo8](https://i.imgur.com/Gcii4AZ.gif)
+![style_demo9](https://i.imgur.com/Gcii4AZ.gif)
 
 The above mouse hover effect is achieved by writing:
 
@@ -221,11 +230,11 @@ Now let's talk about other animation triggers. The AnimationTrigger.tap is easy 
 
 The animation progress by default is calculated as shown in the figure above (if scrolled horizontally). But you can also make the animation start/end earlier or later using two percentage offsets.
 
-![style_demo9](https://i.imgur.com/12TmQ55.gif)
+![style_demo10](https://i.imgur.com/12TmQ55.gif)
 
-![style_demo10](https://i.imgur.com/JA0MvRD.gif)
+![style_demo11](https://i.imgur.com/JA0MvRD.gif)
 
-![style_demo11](https://i.imgur.com/NcIPyrf.gif)
+![style_demo12](https://i.imgur.com/NcIPyrf.gif)
 
 ### Preset Animation
 
@@ -292,7 +301,7 @@ SlideInAnimation().getAnimationSequences())
 
 Then the widget will both fade and slide in. If you use extend, the animation will play one after another. Preset animations make animations much easier to use while still offer you great flexibility.
 
-![style_demo12](https://i.imgur.com/1GXSxxq.gif)
+![style_demo13](https://i.imgur.com/1GXSxxq.gif)
 
 ### Global Explicit Animations
 
@@ -323,7 +332,7 @@ Widget widget = ExplicitAnimatedStyledContainer(
 
 The id does not need to be unique. You can have multiple widgets with the same id so they will all animate under the same global animation. Notice if a widget does not use global animations at all, there is no need for an id.
 
-![style_demo13](https://i.imgur.com/YzSsevQ.gif)
+![style_demo14](https://i.imgur.com/YzSsevQ.gif)
 
 ### Other things to notice
 
@@ -369,5 +378,5 @@ dynamic? parsePossibleStyleMap(Map<String, dynamic>? style)
 ```
 and use the result directly in the StyledContainer class.
 
-AnimationSequence and GlobalAnimation class will support serialization shortly.
+Classes involved in explicit animations also support serialization. You can basically create and store complex animated components in plain text and load them everywhere.
 

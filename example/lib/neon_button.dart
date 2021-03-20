@@ -62,7 +62,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
           fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
           fontWeight: FontWeight.w900,
           color: Colors.white,
-          shadows: [
+          /*shadows: [
             DynamicShadow(
                 blurRadius: 5.toPXLength,
                 color: Colors.white,
@@ -75,12 +75,12 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
                 blurRadius: 1.toPXLength,
                 color: Colors.white70,
                 offset: DynamicOffset(0.toPXLength, 0.toPXLength))
-          ],
+          ],*/
         ),
         textAlign: TextAlign.center,
         shaderGradient:
             LinearGradient(colors: [Colors.purpleAccent, Colors.cyanAccent]),
-        imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        //imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         mouseCursor: SystemMouseCursors.click);
 
     endStyle = beginStyle.copyWith(

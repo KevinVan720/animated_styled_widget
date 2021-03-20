@@ -21,7 +21,10 @@ class StaggeredAnimationsPage extends StatelessWidget {
                 ..add(
                     curve: Curves.bounceIn,
                     duration: Duration(seconds: 2),
-                    value: MorphableShapeBorder(shape: CircleShape())),
+                    value: MorphableShapeBorder(
+                        shape: RectangleShape(
+                            borderRadius: DynamicBorderRadius.all(
+                                DynamicRadius.circular(50.toPercentLength))))),
               AnimationProperty.backgroundDecoration: AnimationSequence()
                 ..add(
                     curve: Curves.bounceIn,

@@ -125,7 +125,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ..add(
                       duration: Duration(seconds: 10), value: 70.toVMINLength),
                 AnimationProperty.shapeBorder: AnimationSequence()
-                  ..add(value: MorphableShapeBorder(shape: CircleShape()))
+                  ..add(
+                      value: MorphableShapeBorder(
+                          shape: RectangleShape(
+                              borderRadius: DynamicBorderRadius.all(
+                                  DynamicRadius.circular(50.toPercentLength)))))
                   ..add(
                       duration: Duration(seconds: 5),
                       value: MorphableShapeBorder(
@@ -372,14 +376,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ..add(
                       duration: Duration(seconds: 4),
                       value: MorphableShapeBorder(
-                          shape: CircleShape(
-                              border: DynamicBorderSide(
-                                  width: 50,
-                                  gradient: LinearGradient(colors: [
-                                    Colors.black87,
-                                    Colors.indigo,
-                                    Colors.blueGrey
-                                  ])))))
+                          shape: RectangleShape(
+                              borderRadius: DynamicBorderRadius.all(
+                                  DynamicRadius.circular(50.toPercentLength)))))
               }))
       },
       child: Text("Tap"),

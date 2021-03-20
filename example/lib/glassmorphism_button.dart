@@ -34,7 +34,7 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
         shapeBorder: MorphableShapeBorder(
             shape: RectangleShape(
                 border: DynamicBorderSide(
-                    width: 3,
+                    width: 2,
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -59,7 +59,17 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
         mouseCursor: SystemMouseCursors.click);
 
     endStyle = beginStyle.copyWith(
-      backdropFilter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+      shapeBorder: MorphableShapeBorder(
+          shape: RectangleShape(
+              border: DynamicBorderSide(
+                  width: 5,
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0, 0.3],
+                      colors: [Colors.white, Colors.white.withOpacity(0.05)])),
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(20.toPXLength)))),
     );
 
     /*printWrapped(
@@ -107,8 +117,8 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
               toggleStyle = true;
             });
           },
-          child: StyledContainer(
-              //duration: Duration(milliseconds: 100),
+          child: AnimatedStyledContainer(
+              duration: Duration(milliseconds: 500),
               style: toggleStyle ? beginStyle : endStyle,
               child: Text("TAP ME")),
         ),
