@@ -104,7 +104,7 @@ class DynamicTextStyle {
 
   TextStyle toTextStyle(
       {required Size screenSize,
-        required Size constraintSize,
+      required Size constraintSize,
       required double parentFontSize,
       double constraintWidth = 100}) {
     double fontSize = this
@@ -122,6 +122,7 @@ class DynamicTextStyle {
         ?.map((e) =>
             e.toShadow(constraintSize: constraintSize, screenSize: screenSize))
         .toList();
+
     return TextStyle(
       color: color,
       backgroundColor: backgroundColor,

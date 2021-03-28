@@ -31,14 +31,14 @@ class _StyledContainerState extends StyledWidgetState<StyledContainer> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      prepareStyle();
+      resolveStyle();
       parentMaxWidth = constraints.maxWidth == double.infinity
           ? screenSize.width
           : constraints.maxWidth;
       parentMaxHeight = constraints.maxHeight == double.infinity
           ? screenSize.height
           : constraints.maxHeight;
-      prepareProperties();
+      resolveProperties();
 
       return buildStyledContainer(
           child: widget.child,

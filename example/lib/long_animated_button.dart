@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
           alignment: Alignment.center,
           width: 100.toPXLength,
           height: 100.toPXLength,
+          childAlignment: Alignment.center,
           backgroundDecoration: BoxDecoration(
             color: Colors.amber,
           ),

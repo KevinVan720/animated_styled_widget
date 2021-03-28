@@ -17,7 +17,7 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
   bool toggleStyle = true;
 
   late Style beginStyle;
-  late Map<ScreenScope, Style> endStyle;
+  late Style endStyle;
 
   @override
   void initState() {
@@ -25,10 +25,9 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
 
     beginStyle = Style(
       alignment: Alignment.center,
+      childAlignment: Alignment.center,
       width: Dimension.min(50.toVWLength, 400.toPXLength),
       height: 120.toPXLength,
-      padding: DynamicEdgeInsets.all(1.toPercentLength),
-      margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
       backgroundDecoration: BoxDecoration(
           gradient:
               LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
@@ -60,40 +59,37 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
       transform: SmoothMatrix4()..scale(1.2),
     );
 
-    endStyle = {
-      ScreenScope(): Style(
-        alignment: Alignment.center,
-        width: 200.toPXLength,
-        height: 140.toPXLength,
-        margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
-        backgroundDecoration: BoxDecoration(
+    endStyle = Style(
+      width: 200.toPXLength,
+      height: 140.toPXLength,
+      alignment: Alignment.center,
+      childAlignment: Alignment.center,
+      backgroundDecoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+        Color.fromARGB(255, 210, 243, 224),
+        Colors.tealAccent,
+      ])),
+      shapeBorder: MorphableShapeBorder(
+          shape: RectangleShape(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(50.toPXLength)),
+              border: DynamicBorderSide(
+                  width: 10,
+                  gradient: LinearGradient(colors: [
+                    Color.fromARGB(255, 246, 167, 186),
+                    Colors.pinkAccent.shade200
+                  ])))),
+      transform: SmoothMatrix4()..translate(-5.toPercentLength),
+      shadows: [
+        DynamicShapeShadow(
+            offset: DynamicOffset(10.toPXLength, 10.toPXLength),
             gradient: LinearGradient(colors: [
-          Color.fromARGB(255, 210, 243, 224),
-          Colors.tealAccent,
-        ])),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(50.toPXLength)),
-                border: DynamicBorderSide(
-                    width: 10,
-                    gradient: LinearGradient(colors: [
-                      Color.fromARGB(255, 246, 167, 186),
-                      Colors.pinkAccent.shade200
-                    ])))),
-        childAlignment: Alignment.center,
-        transform: SmoothMatrix4()..translate(-5.toPercentLength),
-        shadows: [
-          DynamicShapeShadow(
-              offset: DynamicOffset(10.toPXLength, 10.toPXLength),
-              gradient: LinearGradient(colors: [
-                Color.fromARGB(255, 246, 167, 186),
-                Colors.pinkAccent.shade200
-              ]),
-              blurRadius: 20.toPXLength)
-        ],
-      ),
-    };
+              Color.fromARGB(255, 246, 167, 186),
+              Colors.pinkAccent.shade200
+            ]),
+            blurRadius: 20.toPXLength)
+      ],
+    );
   }
 
   @override

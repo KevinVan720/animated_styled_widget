@@ -22,6 +22,7 @@ class Style {
 
   Dimension? width;
   Dimension? height;
+  double? aspectRatio;
 
   DynamicEdgeInsets? margin;
   DynamicEdgeInsets? padding;
@@ -56,14 +57,11 @@ class Style {
   DynamicEdgeInsets? stackPosition;
 
   Style({
-    this.flex,
-    this.gridRowCount,
-    this.gridColumnCount,
-    this.stackPosition,
     this.visible,
     this.alignment,
     this.width,
     this.height,
+    this.aspectRatio,
     this.margin,
     this.padding,
     this.opacity,
@@ -81,6 +79,10 @@ class Style {
     this.imageFilter,
     this.backdropFilter,
     this.mouseCursor,
+    this.flex,
+    this.gridRowCount,
+    this.gridColumnCount,
+    this.stackPosition,
   });
 
   Style.fromJson(Map<String, dynamic> map) {
@@ -91,6 +93,7 @@ class Style {
 
     width = parseDimension(map["width"]);
     height = parseDimension(map["height"]);
+    aspectRatio = map["aspectRatio"];
     alignment = parseAlignment(map["alignment"]);
 
     margin = parseDynamicEdgeInsets(map["margin"]);
@@ -136,6 +139,7 @@ class Style {
     rst.updateNotNull("alignment", alignment?.toJson());
     rst.updateNotNull("width", width?.toJson());
     rst.updateNotNull("height", height?.toJson());
+    rst.updateNotNull("aspectRatio", aspectRatio);
 
     rst.updateNotNull("margin", margin?.toJson());
     rst.updateNotNull("padding", padding?.toJson());
@@ -172,6 +176,7 @@ class Style {
     Alignment? alignment,
     Dimension? width,
     Dimension? height,
+    double? aspectRatio,
     DynamicEdgeInsets? margin,
     DynamicEdgeInsets? padding,
     bool? visible,
@@ -199,6 +204,7 @@ class Style {
       alignment: alignment ?? this.alignment,
       width: width ?? this.width,
       height: height ?? this.height,
+      aspectRatio: aspectRatio ?? this.aspectRatio,
       margin: margin ?? this.margin,
       padding: padding ?? this.padding,
       visible: visible ?? this.visible,
@@ -232,6 +238,7 @@ class Style {
         alignment: style.alignment,
         width: style.width,
         height: style.height,
+        aspectRatio: style.aspectRatio,
         margin: style.margin,
         padding: style.padding,
         visible: style.visible,
@@ -252,6 +259,63 @@ class Style {
         mouseCursor: style.mouseCursor,
       );
     }
+  }
+
+  @override
+  int get hashCode => hashList([
+        visible,
+        alignment,
+        width,
+        height,
+        margin,
+        aspectRatio,
+        padding,
+        opacity,
+        foregroundDecoration,
+        backgroundDecoration,
+        shadows,
+        insetShadows,
+        shapeBorder,
+        transform,
+        transformAlignment,
+        childAlignment,
+        textStyle,
+        textAlign,
+        shaderGradient,
+        imageFilter,
+        backdropFilter,
+        mouseCursor,
+        flex,
+        gridRowCount,
+        gridColumnCount,
+        stackPosition
+      ]);
+
+  @override
+  bool operator ==(dynamic other) {
+    return other is Style &&
+        other.visible == visible &&
+        other.alignment == alignment &&
+        other.width == width &&
+        other.height == height &&
+        other.aspectRatio == aspectRatio &&
+        other.margin == margin &&
+        other.padding == padding &&
+        other.opacity == opacity &&
+        other.foregroundDecoration == foregroundDecoration &&
+        other.backgroundDecoration == backgroundDecoration &&
+        other.shadows == shadows &&
+        other.insetShadows == insetShadows &&
+        other.shapeBorder == shapeBorder &&
+        other.transform == transform &&
+        other.transformAlignment == transformAlignment &&
+        other.childAlignment == childAlignment &&
+        other.textStyle == textStyle &&
+        other.textAlign == textAlign &&
+        other.shaderGradient == shaderGradient &&
+        other.imageFilter == imageFilter &&
+        other.backdropFilter == backdropFilter &&
+        other.mouseCursor == mouseCursor;
   }
 }
 

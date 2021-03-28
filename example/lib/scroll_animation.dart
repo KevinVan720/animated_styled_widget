@@ -90,6 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ExplicitAnimatedStyledContainer(
         style: Style(
             height: dimension.toPXLength,
+            childAlignment: Alignment.center,
             backgroundDecoration: BoxDecoration(
                 gradient: LinearGradient(
                     colors: [Colors.deepPurple, Colors.lightBlueAccent]))),
@@ -123,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ExplicitAnimatedStyledContainer(
                     style: Style(
                         width: dimension.toPXLength,
+                        childAlignment: Alignment.center,
                         backgroundDecoration:
                             BoxDecoration(color: Colors.deepOrangeAccent)),
                     localAnimations: {
@@ -143,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: Style(
                         alignment: Alignment.center,
                         width: dimension.toPXLength,
+                        childAlignment: Alignment.center,
                         height: (dimension / 2).toPXLength,
                         padding: DynamicEdgeInsets.all(1.toPercentLength),
                         margin: DynamicEdgeInsets.symmetric(
@@ -176,7 +179,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.red,
                   ),
                   ExplicitAnimatedStyledContainer(
-                    style: Style(width: dimension.toPXLength),
+                    style: Style(
+                      width: dimension.toPXLength,
+                      childAlignment: Alignment.center,
+                    ),
                     localAnimations: {
                       AnimationTrigger.scroll:
                           RainbowAnimation().getAnimationSequence()
@@ -208,6 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ExplicitAnimatedStyledContainer(
                     style: Style(
                         width: dimension.toPXLength,
+                        childAlignment: Alignment.center,
                         backgroundDecoration:
                             BoxDecoration(color: Colors.deepPurpleAccent)),
                     localAnimations: {

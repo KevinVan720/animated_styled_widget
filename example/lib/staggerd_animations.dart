@@ -80,56 +80,21 @@ class StaggeredAnimationsPage extends StatelessWidget {
       "Container4": MultiAnimationSequence(sequences: {
         AnimationProperty.transform: AnimationSequence()
           ..add(
-              curve: Curves.bounceIn,
               delay: Duration(seconds: 3),
               duration: Duration(seconds: 2),
-              value: SmoothMatrix4()
-                ..translate(0.toPXLength, -200.toPXLength)
-                ..scale(0.1)),
-        AnimationProperty.opacity: AnimationSequence()
-          ..add(
-              curve: Curves.bounceIn,
-              delay: Duration(seconds: 3),
-              duration: Duration(seconds: 2),
-              value: 0.5),
+              value: SmoothMatrix4()..scale(1.2)),
         AnimationProperty.shapeBorder: AnimationSequence()
           ..add(
-              curve: Curves.bounceIn,
               delay: Duration(seconds: 3),
               duration: Duration(seconds: 2),
               value: MorphableShapeBorder(
-                  shape: parseShape({
-                        "type": "RoundedRectangleShape",
-                        "borderRadius": {
-                          "topLeft": {"x": "50%", "y": "50%"},
-                          "topRight": {"x": "50%", "y": "50%"},
-                          "bottomLeft": {"x": "50%", "y": "50%"},
-                          "bottomRight": {"x": "0px", "y": "0px"}
-                        },
-                        "borders": {
-                          "top": {
-                            "color": "ff000000",
-                            "width": 0,
-                            "style": "none"
-                          },
-                          "bottom": {
-                            "color": "ff000000",
-                            "width": 0,
-                            "style": "none"
-                          },
-                          "left": {
-                            "color": "ff000000",
-                            "width": 0,
-                            "style": "none"
-                          },
-                          "right": {
-                            "color": "ff000000",
-                            "width": 0,
-                            "style": "none"
-                          }
-                        }
-                      }) ??
-                      RectangleShape()))
+                  shape: CircleShape(
+                      border: DynamicBorderSide(
+                          width: 10,
+                          color: Colors.red,
+                          begin: 0.toPercentLength,
+                          end: 0.toPercentLength,
+                          shift: 100.toPercentLength))))
       })
     })
   };
@@ -224,11 +189,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ExplicitAnimatedStyledContainer(
                 id: "Container4",
                 style: Style(
-                  width: containerSize,
-                  height: containerSize,
-                  backgroundDecoration:
-                      BoxDecoration(color: Colors.greenAccent),
-                ),
+                    width: containerSize,
+                    height: containerSize,
+                    backgroundDecoration:
+                        BoxDecoration(color: Colors.greenAccent),
+                    shapeBorder: MorphableShapeBorder(
+                        shape: CircleShape(
+                            border: DynamicBorderSide(
+                      width: 10,
+                      color: Colors.blue,
+                      begin: 0.toPercentLength,
+                      end: 100.toPercentLength,
+                    )))),
                 child: Container(),
               )
             ],

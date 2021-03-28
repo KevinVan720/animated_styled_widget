@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ExplicitAnimatedStyledContainer(
             style: Style(
                 alignment: Alignment.center,
+                childAlignment: Alignment.center,
                 width: Dimension.min(80.toVWLength, 400.toPXLength),
                 height: 120.toPXLength,
                 padding: DynamicEdgeInsets.all(1.toPercentLength),

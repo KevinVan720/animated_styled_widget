@@ -30,6 +30,7 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
         width: 440.toPXLength,
         height: 440.toPXLength,
         padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+        childAlignment: Alignment.center,
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),

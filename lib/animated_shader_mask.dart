@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 
-class GradientTween extends Tween<Gradient?> {
-  /// Provide a begin and end Gradient. To fade between.
-  GradientTween({
-    Gradient? begin,
-    Gradient? end,
-  }) : super(begin: begin, end: end);
-
-  @override
-  Gradient? lerp(double t) => Gradient.lerp(begin, end, t);
-}
+import 'custom_tweens.dart';
 
 class AnimatedShaderMask extends ImplicitlyAnimatedWidget {
   /// Creates a widget that insets its child by a value that animates

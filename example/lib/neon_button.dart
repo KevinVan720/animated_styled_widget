@@ -26,8 +26,10 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
     super.initState();
 
     beginStyle = Style(
-        width: Dimension.min(80.toVWLength, 400.toPXLength),
-        padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+        //width: Dimension.min(80.toVWLength, 400.toPXLength),
+        padding: DynamicEdgeInsets.symmetric(
+            horizontal: 20.toPXLength, vertical: 20.toPXLength),
+        margin: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Colors.cyanAccent, Colors.purpleAccent])),
@@ -62,7 +64,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
           fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
           fontWeight: FontWeight.w900,
           color: Colors.white,
-          /*shadows: [
+          shadows: [
             DynamicShadow(
                 blurRadius: 5.toPXLength,
                 color: Colors.white,
@@ -75,12 +77,9 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
                 blurRadius: 1.toPXLength,
                 color: Colors.white70,
                 offset: DynamicOffset(0.toPXLength, 0.toPXLength))
-          ],*/
+          ],
         ),
         textAlign: TextAlign.center,
-        shaderGradient:
-            LinearGradient(colors: [Colors.purpleAccent, Colors.cyanAccent]),
-        //imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         mouseCursor: SystemMouseCursors.click);
 
     endStyle = beginStyle.copyWith(
@@ -115,7 +114,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
         fontWeight: FontWeight.w900,
         color: Colors.white,
-        /*shadows: [
+        shadows: [
           DynamicShadow(
               blurRadius: 10.toPXLength,
               color: Colors.white,
@@ -128,12 +127,8 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
               blurRadius: 2.toPXLength,
               color: Colors.white70,
               offset: DynamicOffset(0.toPXLength, 0.toPXLength))
-        ],*/
+        ],
       ),
-      shaderGradient: LinearGradient(colors: [
-        Colors.cyanAccent,
-        Colors.purpleAccent,
-      ]),
     );
 
     /*printWrapped(
@@ -169,8 +164,8 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
                 toggleStyle = true;
               });
             },
-            child: AnimatedStyledContainer(
-                duration: Duration(milliseconds: 100),
+            child: StyledContainer(
+                //duration: Duration(milliseconds: 100),
                 style: toggleStyle ? beginStyle : endStyle,
                 child: Text("TAP ME")),
           )

@@ -69,6 +69,8 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
   Widget buildChild(MultiAnimationSequence sequence) {
     return ExplicitAnimatedStyledContainer(
       style: Style(
+          alignment: Alignment.center,
+          childAlignment: Alignment.center,
           backgroundDecoration: BoxDecoration(color: Colors.redAccent),
           width: 50.toPercentLength,
           height: 50.toPercentLength,

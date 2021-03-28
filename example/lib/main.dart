@@ -4,6 +4,11 @@ import 'package:example/glassmorphism_button.dart';
 import 'package:example/neon_button.dart';
 import 'package:example/neumorphism_button.dart';
 import 'package:example/neumorphsim_button_explicit.dart';
+import 'package:example/progress_indicator_explicit.dart';
+import 'package:example/styled_buttons.dart';
+import 'package:example/styled_checkbox.dart';
+import 'package:example/styled_slider.dart';
+import 'package:example/styled_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +18,8 @@ import 'neon_button_explicit.dart';
 import 'neumorphism_two_button.dart';
 import 'scroll_animation.dart';
 import 'staggerd_animations.dart';
+import 'styled_radios.dart';
+import 'styled_toggle_buttons.dart';
 import 'two_animation_combine.dart';
 
 void main() => runApp(MyApp());
@@ -95,6 +102,55 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
+                                builder: (context) => StyledButtonsPage()));
+                      },
+                      child: Text("Physical Styled Buttons")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    StyledToggleButtonsPage()));
+                      },
+                      child: Text("Styled Toggle Buttons")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StyledRadiosPage()));
+                      },
+                      child: Text("Styled Radios")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StyledCheckboxesPage()));
+                      },
+                      child: Text("Styled Checkboxes")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StyledSwitchPage()));
+                      },
+                      child: Text("Styled Switches")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StyledSliderPage()));
+                      },
+                      child: Text("Styled Slider")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
                                 builder: (context) => ButtonTransform1Page()));
                       },
                       child: Text("Button Transform 1")),
@@ -124,6 +180,15 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProgressIndicatorExplicitPage()));
+                      },
+                      child: Text("Progress Container")),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.push(

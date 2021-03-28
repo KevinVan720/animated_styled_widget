@@ -39,7 +39,6 @@ class ExplicitAnimatedStyledContainer extends StyledWidget {
   final VisibilityChangedCallback? onVisible;
   final PointerEnterEventListener? onMouseEnter;
   final PointerExitEventListener? onMouseExit;
-  final String? id;
   final Map<AnimationTrigger, MultiAnimationSequence> localAnimations;
   final Map<AnimationTrigger, String> globalAnimationIds;
 
@@ -47,7 +46,7 @@ class ExplicitAnimatedStyledContainer extends StyledWidget {
     Key? key,
     dynamic style,
     required this.child,
-    this.id,
+    String? id,
     this.onMouseEnter,
     this.onMouseExit,
     this.onTap,
@@ -56,6 +55,7 @@ class ExplicitAnimatedStyledContainer extends StyledWidget {
     this.globalAnimationIds = const {},
   }) : super(
           key: key,
+          id: id,
           style: style,
         );
 
@@ -85,14 +85,14 @@ class _ExplicitAnimatedStyledContainerState
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      prepareStyle();
+      resolveStyle();
       parentMaxWidth = constraints.maxWidth == double.infinity
           ? screenSize.width
           : constraints.maxWidth;
       parentMaxHeight = constraints.maxHeight == double.infinity
           ? screenSize.height
           : constraints.maxHeight;
-      prepareProperties();
+      resolveProperties();
 
       return ChangeNotifierProvider<LocalAnimationNotifier>(
         create: (_) => LocalAnimationNotifier(),

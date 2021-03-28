@@ -6,7 +6,7 @@ import 'styled_widget.dart';
 class AnimatedStyledContainer extends StyledWidget {
   final Widget child;
   final Duration duration;
-  final Curve? curve;
+  final Curve curve;
   final PointerEnterEventListener? onMouseEnter;
   final PointerExitEventListener? onMouseExit;
 
@@ -14,7 +14,7 @@ class AnimatedStyledContainer extends StyledWidget {
     Key? key,
     dynamic style,
     required this.duration,
-    this.curve,
+    this.curve = Curves.linear,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
@@ -35,14 +35,14 @@ class _AnimatedStyledContainerState
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      prepareStyle();
+      resolveStyle();
       parentMaxWidth = constraints.maxWidth == double.infinity
           ? screenSize.width
           : constraints.maxWidth;
       parentMaxHeight = constraints.maxHeight == double.infinity
           ? screenSize.height
           : constraints.maxHeight;
-      prepareProperties();
+      resolveProperties();
 
       return buildAnimatedStyledContainer(
           child: widget.child,

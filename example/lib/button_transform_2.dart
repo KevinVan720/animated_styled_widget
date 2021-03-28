@@ -26,6 +26,7 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
 
     beginStyle = Style(
       alignment: Alignment.center,
+      transformAlignment: Alignment.center,
       width: 50.toVWLength,
       height: 120.toPXLength,
       margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
@@ -59,6 +60,7 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
           width: 200.toPXLength,
           height: 120.toPXLength,
           margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+          transformAlignment: Alignment.center,
           shadows: [
             DynamicShapeShadow(
                 blurRadius: 2.toPXLength,

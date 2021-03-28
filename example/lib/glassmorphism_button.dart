@@ -28,13 +28,14 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
     super.initState();
 
     beginStyle = Style(
-        width: Dimension.min(80.toVWLength, 400.toPXLength),
+        width: 400.toPXLength,
         height: 400.toPXLength,
         padding: DynamicEdgeInsets.symmetric(vertical: 30.toPXLength),
+        childAlignment: Alignment.center,
         shapeBorder: MorphableShapeBorder(
             shape: RectangleShape(
                 border: DynamicBorderSide(
-                    width: 2,
+                    width: 3,
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -43,7 +44,7 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
                           0.2
                         ],
                         colors: [
-                          Colors.white54,
+                          Colors.white70,
                           Colors.white.withOpacity(0.05)
                         ])),
                 borderRadius: DynamicBorderRadius.all(
@@ -59,15 +60,18 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
         mouseCursor: SystemMouseCursors.click);
 
     endStyle = beginStyle.copyWith(
+      width: 396.toPXLength,
+      height: 396.toPXLength,
       shapeBorder: MorphableShapeBorder(
           shape: RectangleShape(
               border: DynamicBorderSide(
-                  width: 5,
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: [0, 0.3],
-                      colors: [Colors.white, Colors.white.withOpacity(0.05)])),
+                  width: 1,
+                  begin: 50.toPercentLength,
+                  end: 60.toPercentLength,
+                  gradient: LinearGradient(colors: [
+                    Colors.white.withOpacity(0.01),
+                    Colors.white.withOpacity(0.01)
+                  ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength)))),
     );
@@ -90,39 +94,40 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
           },
         ),
       ),
-      body: Center(
-          child: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    "https://images.unsplash.com/photo-1604776159603-cacfe8f4b46f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1334&q=80")),
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.red,
-                  Colors.amber,
-                  Colors.deepOrange,
-                  Colors.green
-                ])),
-        child: GestureDetector(
-          onTapDown: (TapDownDetails details) {
-            setState(() {
-              toggleStyle = false;
-            });
-          },
-          onTapUp: (TapUpDetails details) {
-            setState(() {
-              toggleStyle = true;
-            });
-          },
-          child: AnimatedStyledContainer(
-              duration: Duration(milliseconds: 500),
-              style: toggleStyle ? beginStyle : endStyle,
-              child: Text("TAP ME")),
-        ),
-      )),
+      body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                      "https://images.unsplash.com/photo-1604776159603-cacfe8f4b46f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1334&q=80")),
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.red,
+                    Colors.amber,
+                    Colors.deepOrange,
+                    Colors.green
+                  ])),
+          child: Center(
+            child: GestureDetector(
+              onTapDown: (TapDownDetails details) {
+                setState(() {
+                  toggleStyle = false;
+                });
+              },
+              onTapUp: (TapUpDetails details) {
+                setState(() {
+                  toggleStyle = true;
+                });
+              },
+              child: AnimatedStyledContainer(
+                duration: Duration(milliseconds: 200),
+                style: toggleStyle ? beginStyle : endStyle,
+                child: Text("TAP ME"),
+              ),
+            ),
+          )),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

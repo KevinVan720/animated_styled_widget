@@ -38,136 +38,144 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey.shade100,
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text("Hover mouse over the button"),
-          ),
-          Expanded(
-            child: ExplicitAnimatedStyledContainer(
-              style: Style(
-                  width: 400.toPXLength,
-                  height: 400.toPXLength,
-                  padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
-                  backgroundDecoration:
-                      BoxDecoration(color: Colors.grey.shade100),
-                  shapeBorder: MorphableShapeBorder(
-                      shape: RectangleShape(
-                    borderRadius: DynamicBorderRadius.all(
-                        DynamicRadius.circular(150.toPXLength)),
-                  )),
-                  shadows: [
-                    DynamicShapeShadow(
-                        blurRadius: 20.toPXLength,
-                        spreadRadius: -5.toPXLength,
-                        color: Colors.grey.shade400,
-                        offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
-                    DynamicShapeShadow(
-                        blurRadius: 20.toPXLength,
-                        spreadRadius: -5.toPXLength,
-                        color: Color(0xFFFEFEFE),
-                        offset: DynamicOffset(-20.toPXLength, -20.toPXLength)),
-                  ],
-                  textStyle: DynamicTextStyle(
-                    letterSpacing: 0.8.toVWLength,
-                    fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
-                    fontWeight: FontWeight.w900,
-                    color: Colors.grey,
-                  ),
-                  textAlign: TextAlign.center,
-                  childAlignment: Alignment(-0.01, -0.01),
-                  mouseCursor: SystemMouseCursors.click),
-              localAnimations: {
-                AnimationTrigger.mouseEnter: MultiAnimationSequence(sequences: {
-                  AnimationProperty.shadows:
-                      AnimationSequence<List<DynamicShapeShadow>>()
-                        ..add(
-                          duration: Duration(milliseconds: 150),
-                          value: [],
-                        ),
-                  AnimationProperty.insetShadows:
-                      AnimationSequence<List<DynamicShapeShadow>>()
-                        ..add(
-                          duration: Duration(milliseconds: 150),
-                          value: [
-                            DynamicShapeShadow(
-                                blurRadius: 20.toPXLength,
-                                spreadRadius: -5.toPXLength,
-                                color: Colors.grey.shade400,
-                                offset: DynamicOffset(
-                                    20.toPXLength, 20.toPXLength)),
-                            DynamicShapeShadow(
-                                blurRadius: 20.toPXLength,
-                                spreadRadius: -5.toPXLength,
-                                color: Color(0xFFFEFEFE),
-                                offset: DynamicOffset(
-                                    -20.toPXLength, -20.toPXLength)),
-                          ],
-                        ),
-                  AnimationProperty.shapeBorder:
-                      AnimationSequence<MorphableShapeBorder>()
-                        ..add(
-                            duration: Duration(milliseconds: 200),
-                            value: MorphableShapeBorder(
-                              shape: RoundedRectangleShape(
-                                borderRadius: DynamicBorderRadius.all(
-                                    DynamicRadius.circular(50.toPercentLength)),
-                              ),
-                            )),
-                  AnimationProperty.childAlignment: AnimationSequence()
-                    ..add(
-                        duration: Duration(milliseconds: 200),
-                        value: Alignment(0.01, 0.01))
-                }),
-                AnimationTrigger.mouseExit: MultiAnimationSequence(sequences: {
-                  AnimationProperty.insetShadows:
-                      AnimationSequence<List<DynamicShapeShadow>>()
-                        ..add(
-                          duration: Duration(milliseconds: 500),
-                          value: [],
-                        ),
-                  AnimationProperty
-                      .shadows: AnimationSequence<List<DynamicShapeShadow>>()
-                    ..add(
-                      duration: Duration(milliseconds: 500),
-                      value: [
-                        DynamicShapeShadow(
-                            blurRadius: 20.toPXLength,
-                            spreadRadius: -5.toPXLength,
-                            color: Colors.grey.shade400,
-                            offset:
-                                DynamicOffset(20.toPXLength, 20.toPXLength)),
-                        DynamicShapeShadow(
-                            blurRadius: 20.toPXLength,
-                            spreadRadius: -5.toPXLength,
-                            color: Color(0xFFFEFEFE),
-                            offset:
-                                DynamicOffset(-20.toPXLength, -20.toPXLength)),
-                      ],
-                    ),
-                  AnimationProperty.shapeBorder:
-                      AnimationSequence<MorphableShapeBorder>()
-                        ..add(
-                            duration: Duration(milliseconds: 500),
-                            value: MorphableShapeBorder(
-                              shape: RoundedRectangleShape(
-                                borderRadius: DynamicBorderRadius.all(
-                                    DynamicRadius.circular(150.toPXLength)),
-                              ),
-                            )),
-                  AnimationProperty.childAlignment: AnimationSequence()
-                    ..add(
-                        duration: Duration(milliseconds: 500),
-                        value: Alignment(-0.01, -0.01))
-                }),
-              },
-              child: Text("HELLO"),
+    return Center(
+      child: Container(
+        color: Colors.grey.shade100,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Text("Hover mouse over the button"),
             ),
-          ),
-        ],
+            Expanded(
+              child: ExplicitAnimatedStyledContainer(
+                style: Style(
+                    alignment: Alignment.center,
+                    width: 400.toPXLength,
+                    height: 400.toPXLength,
+                    padding:
+                        DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+                    backgroundDecoration:
+                        BoxDecoration(color: Colors.grey.shade100),
+                    shapeBorder: MorphableShapeBorder(
+                        shape: RectangleShape(
+                      borderRadius: DynamicBorderRadius.all(
+                          DynamicRadius.circular(150.toPXLength)),
+                    )),
+                    shadows: [
+                      DynamicShapeShadow(
+                          blurRadius: 20.toPXLength,
+                          spreadRadius: -5.toPXLength,
+                          color: Colors.grey.shade400,
+                          offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+                      DynamicShapeShadow(
+                          blurRadius: 20.toPXLength,
+                          spreadRadius: -5.toPXLength,
+                          color: Color(0xFFFEFEFE),
+                          offset:
+                              DynamicOffset(-20.toPXLength, -20.toPXLength)),
+                    ],
+                    textStyle: DynamicTextStyle(
+                      letterSpacing: 0.8.toVWLength,
+                      fontSize:
+                          Dimension.min(300.toPercentLength, 28.toPXLength),
+                      fontWeight: FontWeight.w900,
+                      color: Colors.grey,
+                    ),
+                    textAlign: TextAlign.center,
+                    childAlignment: Alignment(-0.01, -0.01),
+                    mouseCursor: SystemMouseCursors.click),
+                localAnimations: {
+                  AnimationTrigger.mouseEnter:
+                      MultiAnimationSequence(sequences: {
+                    AnimationProperty.shadows:
+                        AnimationSequence<List<DynamicShapeShadow>>()
+                          ..add(
+                            duration: Duration(milliseconds: 150),
+                            value: [],
+                          ),
+                    AnimationProperty.insetShadows:
+                        AnimationSequence<List<DynamicShapeShadow>>()
+                          ..add(
+                            duration: Duration(milliseconds: 150),
+                            value: [
+                              DynamicShapeShadow(
+                                  blurRadius: 20.toPXLength,
+                                  spreadRadius: -5.toPXLength,
+                                  color: Colors.grey.shade400,
+                                  offset: DynamicOffset(
+                                      20.toPXLength, 20.toPXLength)),
+                              DynamicShapeShadow(
+                                  blurRadius: 20.toPXLength,
+                                  spreadRadius: -5.toPXLength,
+                                  color: Color(0xFFFEFEFE),
+                                  offset: DynamicOffset(
+                                      -20.toPXLength, -20.toPXLength)),
+                            ],
+                          ),
+                    AnimationProperty
+                        .shapeBorder: AnimationSequence<MorphableShapeBorder>()
+                      ..add(
+                          duration: Duration(milliseconds: 200),
+                          value: MorphableShapeBorder(
+                            shape: RoundedRectangleShape(
+                              borderRadius: DynamicBorderRadius.all(
+                                  DynamicRadius.circular(50.toPercentLength)),
+                            ),
+                          )),
+                    AnimationProperty.childAlignment: AnimationSequence()
+                      ..add(
+                          duration: Duration(milliseconds: 200),
+                          value: Alignment(0.01, 0.01))
+                  }),
+                  AnimationTrigger.mouseExit:
+                      MultiAnimationSequence(sequences: {
+                    AnimationProperty.insetShadows:
+                        AnimationSequence<List<DynamicShapeShadow>>()
+                          ..add(
+                            duration: Duration(milliseconds: 500),
+                            value: [],
+                          ),
+                    AnimationProperty
+                        .shadows: AnimationSequence<List<DynamicShapeShadow>>()
+                      ..add(
+                        duration: Duration(milliseconds: 500),
+                        value: [
+                          DynamicShapeShadow(
+                              blurRadius: 20.toPXLength,
+                              spreadRadius: -5.toPXLength,
+                              color: Colors.grey.shade400,
+                              offset:
+                                  DynamicOffset(20.toPXLength, 20.toPXLength)),
+                          DynamicShapeShadow(
+                              blurRadius: 20.toPXLength,
+                              spreadRadius: -5.toPXLength,
+                              color: Color(0xFFFEFEFE),
+                              offset: DynamicOffset(
+                                  -20.toPXLength, -20.toPXLength)),
+                        ],
+                      ),
+                    AnimationProperty.shapeBorder:
+                        AnimationSequence<MorphableShapeBorder>()
+                          ..add(
+                              duration: Duration(milliseconds: 500),
+                              value: MorphableShapeBorder(
+                                shape: RoundedRectangleShape(
+                                  borderRadius: DynamicBorderRadius.all(
+                                      DynamicRadius.circular(150.toPXLength)),
+                                ),
+                              )),
+                    AnimationProperty.childAlignment: AnimationSequence()
+                      ..add(
+                          duration: Duration(milliseconds: 500),
+                          value: Alignment(-0.01, -0.01))
+                  }),
+                },
+                child: Text("HELLO"),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
