@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../explicit_animations/animation_provider.dart';
-import '../explicit_animations/animation_sequence.dart';
+import '../explicit_animation/animation_provider.dart';
+import '../explicit_animation/animation_sequence.dart';
 import 'attention_seeker.dart';
 import 'entrance.dart';
 import 'exit.dart';

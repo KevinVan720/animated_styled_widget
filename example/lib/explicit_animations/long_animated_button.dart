@@ -70,34 +70,34 @@ class _MyHomePageState extends State<MyHomePage> {
               ..merge(MultiAnimationSequence(sequences: {
                 AnimationProperty.shadows: AnimationSequence()
                   ..add(duration: Duration(seconds: 6), value: [
-                    DynamicShapeShadow(
+                    ShapeShadow(
                         gradient: LinearGradient(
                             colors: [Colors.redAccent, Colors.blueAccent]),
-                        offset: DynamicOffset(20.toPXLength, 20.toPXLength),
-                        blurRadius: 50.toPXLength)
+                        offset: Offset(20, 20),
+                        blurRadius: 50)
                   ])
                   ..add(duration: Duration(seconds: 6), value: [
-                    DynamicShapeShadow(
+                    ShapeShadow(
                         gradient: LinearGradient(
                             colors: [Colors.greenAccent, Colors.blueAccent]),
-                        offset: DynamicOffset(-20.toPXLength, -20.toPXLength),
-                        blurRadius: 1.toPXLength)
+                        offset: Offset(-20, -20),
+                        blurRadius: 1)
                   ])
                   ..add(duration: Duration(seconds: 8), value: [
-                    DynamicShapeShadow(
+                    ShapeShadow(
                         gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [Colors.redAccent, Colors.blueAccent]),
-                        offset: DynamicOffset(20.toPXLength, 20.toPXLength),
-                        spreadRadius: 30.toPXLength,
-                        blurRadius: 60.toPXLength),
-                    DynamicShapeShadow(
+                        offset: Offset(20, 20),
+                        spreadRadius: 30,
+                        blurRadius: 60),
+                    ShapeShadow(
                         gradient: LinearGradient(
                             colors: [Colors.greenAccent, Colors.amberAccent]),
-                        offset: DynamicOffset(-10.toPXLength, -10.toPXLength),
-                        spreadRadius: 10.toPXLength,
-                        blurRadius: 20.toPXLength)
+                        offset: Offset(-10, -10),
+                        spreadRadius: 10,
+                        blurRadius: 20)
                   ]),
                 AnimationProperty.textStyle: AnimationSequence()
                   ..add(

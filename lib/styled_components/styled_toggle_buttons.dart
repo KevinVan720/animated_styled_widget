@@ -49,10 +49,10 @@ class StyledToggleButtons extends StatelessWidget {
 
   final Axis direction;
 
-  final dynamic style;
-  final dynamic? hoveredStyle;
-  final dynamic? selectedStyle;
-  final dynamic? disabledStyle;
+  final Style style;
+  final Style? hoveredStyle;
+  final Style? selectedStyle;
+  final Style? disabledStyle;
 
   final Curve curve;
   final Duration duration;
@@ -61,7 +61,7 @@ class StyledToggleButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> buttons =
         List<Widget>.generate(isSelected.length, (int index) {
-      return StyledSelectableButton(
+      return StyledToggleable(
         child: children?[index],
         builder: builder != null
             ? (BuildContext context, StyledComponentState state) {
@@ -83,10 +83,12 @@ class StyledToggleButtons extends StatelessWidget {
       );
     });
     return direction == Axis.horizontal
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: buttons,
+        ? IntrinsicHeight(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: buttons,
+            ),
           )
         : Column(
             mainAxisSize: MainAxisSize.min,

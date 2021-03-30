@@ -18,7 +18,7 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
   bool toggleStyle = true;
 
   late Style beginStyle;
-  late Map<ScreenScope, Style> endStyle;
+  late ScopedStyles endStyle;
 
   @override
   void initState() {
@@ -29,7 +29,7 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
       transformAlignment: Alignment.center,
       width: 50.toVWLength,
       height: 120.toPXLength,
-      margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+      margin: EdgeInsets.symmetric(vertical: 10),
       backgroundDecoration: BoxDecoration(
           gradient:
               LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
@@ -54,17 +54,17 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
                       color: Colors.purpleAccent, width: 28)))),
     );
 
-    endStyle = {
+    endStyle = ScopedStyles(styles: {
       ScreenScope(): Style(
           alignment: Alignment.center,
           width: 200.toPXLength,
           height: 120.toPXLength,
-          margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+          margin: EdgeInsets.symmetric(vertical: 10),
           transformAlignment: Alignment.center,
           shadows: [
-            DynamicShapeShadow(
-                blurRadius: 2.toPXLength,
-                spreadRadius: -0.toPXLength,
+            ShapeShadow(
+                blurRadius: 2,
+                spreadRadius: -0.0,
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -76,12 +76,12 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
                       Colors.lightGreen.shade300,
                       Colors.lightGreen.shade700
                     ]),
-                offset: DynamicOffset((0).toPXLength, (0).toPXLength)),
-            DynamicShapeShadow(
-                blurRadius: 8.toPXLength,
-                spreadRadius: -6.toPXLength,
+                offset: Offset(0, 0)),
+            ShapeShadow(
+                blurRadius: 8,
+                spreadRadius: -6,
                 color: Color.fromARGB(255, 240, 255, 240),
-                offset: DynamicOffset((-4).toPXLength, (-3).toPXLength))
+                offset: Offset((-4), (-3)))
           ],
           shapeBorder: MorphableShapeBorder(
               shape: RectangleShape(
@@ -91,7 +91,7 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
                       width: 3, color: Colors.lightGreen.shade700))),
           childAlignment: Alignment.center,
           transform: SmoothMatrix4()..rotateZ(3.1416)),
-    };
+    });
   }
 
   @override

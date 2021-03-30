@@ -51,8 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 childAlignment: Alignment.center,
                 width: Dimension.min(80.toVWLength, 400.toPXLength),
                 height: 120.toPXLength,
-                padding: DynamicEdgeInsets.all(1.toPercentLength),
-                margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+                margin: EdgeInsets.symmetric(vertical: 10),
                 backgroundDecoration: BoxDecoration(
                     gradient: LinearGradient(
                         colors: [Colors.cyanAccent, Colors.purpleAccent])),

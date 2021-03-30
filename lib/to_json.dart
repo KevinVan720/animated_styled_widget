@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import 'explicit_animations/animation_sequence.dart';
+import 'explicit_animation/animation_sequence.dart';
 import 'screen_scope.dart';
 import 'style.dart';
 import 'styled_widget.dart';

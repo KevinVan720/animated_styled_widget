@@ -7,7 +7,7 @@ import 'package:responsive_styled_widget/styled_widget.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import '../dynamic_ui_classes/smooth_matrix4.dart';
-import '../explicit_animations/animation_sequence.dart';
+import '../explicit_animation/animation_sequence.dart';
 import 'base.dart';
 
 class FlipAnimation extends PresetAnimation {
@@ -322,15 +322,14 @@ class ElevateAnimation extends PresetAnimation {
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
-    var sequence = AnimationSequence<List<DynamicShadow>>();
+    var sequence = AnimationSequence<List<Shadow>>();
 
     sequence.add(
-        value: preDefinedDynamicShapeShadow[beginElevation] ?? [],
+        value: preDefinedShapeShadow[beginElevation] ?? [],
         delay: delay,
         duration: Duration.zero);
     sequence.add(
-        value: preDefinedDynamicShapeShadow[endElevation] ?? [],
-        duration: duration);
+        value: preDefinedShapeShadow[endElevation] ?? [], duration: duration);
 
     return MultiAnimationSequence(
         control: control, sequences: {AnimationProperty.shadows: sequence});

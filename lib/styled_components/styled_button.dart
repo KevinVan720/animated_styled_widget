@@ -23,10 +23,10 @@ typedef Widget? StyledComponentStateIndexedChildBuilder(
     BuildContext context, StyledComponentState state, int index);
 
 class StyledButton extends StatefulWidget {
-  final dynamic style;
-  final dynamic? hoveredStyle;
-  final dynamic? pressedStyle;
-  final dynamic? disabledStyle;
+  final Style style;
+  final Style? hoveredStyle;
+  final Style? pressedStyle;
+  final Style? disabledStyle;
   final VoidCallback? onPressed;
   final Curve curve;
   final Duration duration;
@@ -62,10 +62,10 @@ class _StyledButtonState extends State<StyledButton> {
     value ? _states.add(state) : _states.remove(state);
   }
 
-  late dynamic style;
-  late dynamic hoveredStyle;
-  late dynamic pressedStyle;
-  late dynamic disabledStyle;
+  late Style style;
+  late Style hoveredStyle;
+  late Style pressedStyle;
+  late Style disabledStyle;
 
   bool hasFinishedAnimationDown = false;
   bool hasTapUp = false;
@@ -100,12 +100,14 @@ class _StyledButtonState extends State<StyledButton> {
 
     return GestureDetector(
       onTapDown: (TapDownDetails details) {
+        print("TAP DOWN");
         hasTapUp = false;
         if (widget.enabled) {
           _handleTapDown();
         }
       },
       onTapUp: (TapUpDetails details) {
+        print("TAP UP");
         if (widget.enabled) {
           widget.onPressed!();
         }
@@ -164,7 +166,7 @@ class _StyledButtonState extends State<StyledButton> {
   }
 
   void updateStyle() {
-    style = widget.style ?? Style();
+    style = widget.style;
     hoveredStyle = widget.hoveredStyle ?? style;
     pressedStyle = widget.pressedStyle ?? style;
     disabledStyle = widget.disabledStyle ?? style;
@@ -194,11 +196,11 @@ class _StyledButtonState extends State<StyledButton> {
   }
 }
 
-class StyledSelectableButton extends StatefulWidget {
-  final dynamic style;
-  final dynamic? hoveredStyle;
-  final dynamic? selectedStyle;
-  final dynamic? disabledStyle;
+class StyledToggleable extends StatefulWidget {
+  final Style style;
+  final Style? hoveredStyle;
+  final Style? selectedStyle;
+  final Style? disabledStyle;
   final VoidCallback? onChanged;
   final bool? selected;
   final Curve curve;
@@ -206,7 +208,7 @@ class StyledSelectableButton extends StatefulWidget {
   final Widget? child;
   final StyledComponentStateChildBuilder? builder;
 
-  StyledSelectableButton(
+  StyledToggleable(
       {Key? key,
       this.onChanged,
       this.selected,
@@ -223,10 +225,10 @@ class StyledSelectableButton extends StatefulWidget {
   bool get enabled => onChanged != null;
 
   @override
-  _StyledSelectableButtonState createState() => _StyledSelectableButtonState();
+  _StyledToggleableState createState() => _StyledToggleableState();
 }
 
-class _StyledSelectableButtonState extends State<StyledSelectableButton> {
+class _StyledToggleableState extends State<StyledToggleable> {
   final Set<StyledComponentState> _states = <StyledComponentState>{};
 
   bool get _hovered => _states.contains(StyledComponentState.hovered);
@@ -237,10 +239,10 @@ class _StyledSelectableButtonState extends State<StyledSelectableButton> {
     value ? _states.add(state) : _states.remove(state);
   }
 
-  late dynamic style;
-  late dynamic hoveredStyle;
-  late dynamic selectedStyle;
-  late dynamic disabledStyle;
+  late Style style;
+  late Style hoveredStyle;
+  late Style selectedStyle;
+  late Style disabledStyle;
 
   bool hasFinishedAnimationDown = false;
   bool hasTapUp = false;
@@ -254,7 +256,7 @@ class _StyledSelectableButtonState extends State<StyledSelectableButton> {
   }
 
   @override
-  void didUpdateWidget(StyledSelectableButton oldWidget) {
+  void didUpdateWidget(StyledToggleable oldWidget) {
     super.didUpdateWidget(oldWidget);
     _updateState(StyledComponentState.disabled, !widget.enabled);
     if (widget.selected != null)
@@ -334,7 +336,7 @@ class _StyledSelectableButtonState extends State<StyledSelectableButton> {
   }
 
   void updateStyle() {
-    style = widget.style ?? Style();
+    style = widget.style;
     hoveredStyle = widget.hoveredStyle ?? style;
     selectedStyle = widget.selectedStyle ?? style;
     disabledStyle = widget.disabledStyle ?? style;

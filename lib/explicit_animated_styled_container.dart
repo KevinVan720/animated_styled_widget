@@ -8,9 +8,9 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:tuple/tuple.dart';
 
 import 'custom_visibility_detector/visibility_detector.dart';
-import 'explicit_animations/animation_provider.dart';
-import 'explicit_animations/animation_sequence.dart';
-import 'explicit_animations/global_animation.dart';
+import 'explicit_animation/animation_provider.dart';
+import 'explicit_animation/animation_sequence.dart';
+import 'explicit_animation/global_animation.dart';
 
 class ParentScroll extends InheritedWidget {
   static of(BuildContext context) =>
@@ -44,7 +44,7 @@ class ExplicitAnimatedStyledContainer extends StyledWidget {
 
   ExplicitAnimatedStyledContainer({
     Key? key,
-    dynamic style,
+    required StyleBase style,
     required this.child,
     String? id,
     this.onMouseEnter,
@@ -83,47 +83,38 @@ class _ExplicitAnimatedStyledContainerState
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      resolveStyle();
-      parentMaxWidth = constraints.maxWidth == double.infinity
-          ? screenSize.width
-          : constraints.maxWidth;
-      parentMaxHeight = constraints.maxHeight == double.infinity
-          ? screenSize.height
-          : constraints.maxHeight;
-      resolveProperties();
+    resolveStyle();
+    resolveProperties();
 
-      return ChangeNotifierProvider<LocalAnimationNotifier>(
-        create: (_) => LocalAnimationNotifier(),
-        builder: (BuildContext context, Widget? child) {
-          return VisibilityDetector(
-              key: UniqueKey(),
-              onVisibilityChanged: (VisibilityInfo visibilityInfo) {
-                triggerScrollAnimation(context, visibilityInfo);
-                triggerVisibilityChangeAnimation(context, visibilityInfo);
-                if (widget.onVisible != null) {
-                  widget.onVisible!(visibilityInfo);
+    return ChangeNotifierProvider<LocalAnimationNotifier>(
+      create: (_) => LocalAnimationNotifier(),
+      builder: (BuildContext context, Widget? child) {
+        return VisibilityDetector(
+            key: UniqueKey(),
+            onVisibilityChanged: (VisibilityInfo visibilityInfo) {
+              triggerScrollAnimation(context, visibilityInfo);
+              triggerVisibilityChangeAnimation(context, visibilityInfo);
+              if (widget.onVisible != null) {
+                widget.onVisible!(visibilityInfo);
+              }
+            },
+            child: GestureDetector(
+              onTap: () {
+                triggerTapAnimation(context);
+                if (widget.onTap != null) {
+                  widget.onTap!();
                 }
               },
-              child: GestureDetector(
-                onTap: () {
-                  triggerTapAnimation(context);
-                  if (widget.onTap != null) {
-                    widget.onTap!();
-                  }
-                },
-                child: buildGlobalContinuousAnimationWidget(
-                    child: buildLocalContinuousAnimationWidget(
-                        child: buildGlobalAnimationWidget(
-                            child: buildLocalAnimationWidget(
-                                child: buildStyledContainerWithMouseEvent(
-                                    context))))),
-              ));
-        },
-        child: widget.child,
-      );
-    });
+              child: buildGlobalContinuousAnimationWidget(
+                  child: buildLocalContinuousAnimationWidget(
+                      child: buildGlobalAnimationWidget(
+                          child: buildLocalAnimationWidget(
+                              child: buildStyledContainerWithMouseEvent(
+                                  context))))),
+            ));
+      },
+      child: widget.child,
+    );
   }
 
   Widget buildStyledContainerWithMouseEvent(BuildContext context) {
@@ -374,7 +365,6 @@ class _ExplicitAnimatedStyledContainerState
           AnimationProperty.childAlignment: childAlignment,
           AnimationProperty.textStyle: textStyle,
         },
-        constraintSize: Size(parentMaxWidth, parentMaxHeight),
         screenSize: MediaQuery.of(context).size,
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
   }

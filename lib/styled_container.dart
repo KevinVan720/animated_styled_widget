@@ -11,7 +11,7 @@ class StyledContainer extends StyledWidget {
 
   StyledContainer({
     Key? key,
-    dynamic style,
+    required StyleBase style,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
@@ -29,21 +29,12 @@ class StyledContainer extends StyledWidget {
 class _StyledContainerState extends StyledWidgetState<StyledContainer> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      resolveStyle();
-      parentMaxWidth = constraints.maxWidth == double.infinity
-          ? screenSize.width
-          : constraints.maxWidth;
-      parentMaxHeight = constraints.maxHeight == double.infinity
-          ? screenSize.height
-          : constraints.maxHeight;
-      resolveProperties();
+    resolveStyle();
+    resolveProperties();
 
-      return buildStyledContainer(
-          child: widget.child,
-          onMouseEnter: widget.onMouseEnter,
-          onMouseExit: widget.onMouseExit);
-    });
+    return buildStyledContainer(
+        child: widget.child,
+        onMouseEnter: widget.onMouseEnter,
+        onMouseExit: widget.onMouseExit);
   }
 }

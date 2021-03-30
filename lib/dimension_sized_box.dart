@@ -117,13 +117,13 @@ class RenderDimensionSizedOverflowBox extends RenderAligningShiftedBox {
 
   @override
   double computeMinIntrinsicWidth(double height) {
+    if (_height != null) {
+      return _height!.toPX(constraint: height, screenSize: _screenSize);
+    }
     final double result;
     if (child == null) {
       result = super.computeMinIntrinsicWidth(height);
     } else {
-      if (_height != null) {
-        height = _height!.toPX(constraint: height, screenSize: _screenSize);
-      }
       result = child!.getMinIntrinsicWidth(height);
     }
     assert(result.isFinite);
@@ -133,12 +133,12 @@ class RenderDimensionSizedOverflowBox extends RenderAligningShiftedBox {
   @override
   double computeMaxIntrinsicWidth(double height) {
     final double result;
+    if (_height != null) {
+      return _height!.toPX(constraint: height, screenSize: _screenSize);
+    }
     if (child == null) {
       result = super.computeMaxIntrinsicWidth(height);
     } else {
-      if (_height != null) {
-        height = _height!.toPX(constraint: height, screenSize: _screenSize);
-      }
       result = child!.getMaxIntrinsicWidth(height);
     }
     assert(result.isFinite);
@@ -148,12 +148,12 @@ class RenderDimensionSizedOverflowBox extends RenderAligningShiftedBox {
   @override
   double computeMinIntrinsicHeight(double width) {
     final double result;
+    if (_width != null) {
+      return _width!.toPX(constraint: width, screenSize: _screenSize);
+    }
     if (child == null) {
       result = super.computeMinIntrinsicHeight(width);
     } else {
-      if (_width != null) {
-        width = _width!.toPX(constraint: width, screenSize: _screenSize);
-      }
       result = child!.getMinIntrinsicHeight(width);
     }
     assert(result.isFinite);
@@ -163,12 +163,12 @@ class RenderDimensionSizedOverflowBox extends RenderAligningShiftedBox {
   @override
   double computeMaxIntrinsicHeight(double width) {
     final double result;
+    if (_width != null) {
+      return _width!.toPX(constraint: width, screenSize: _screenSize);
+    }
     if (child == null) {
       result = super.computeMaxIntrinsicHeight(width);
     } else {
-      if (_width != null) {
-        width = _width!.toPX(constraint: width, screenSize: _screenSize);
-      }
       result = child!.getMaxIntrinsicHeight(width);
     }
     assert(result.isFinite);

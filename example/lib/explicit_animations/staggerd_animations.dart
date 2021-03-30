@@ -228,14 +228,13 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Style(
                   width: 60.toPXLength,
                   height: 60.toPXLength,
-                  margin: DynamicEdgeInsets.only(
-                      right: 20.toPXLength, bottom: 20.toPXLength),
+                  margin: EdgeInsets.only(right: 20, bottom: 20),
                   backgroundDecoration: BoxDecoration(color: Colors.amber),
                   shapeBorder: MorphableShapeBorder(
                       shape: RoundedRectangleShape(
                           borderRadius: DynamicBorderRadius.all(
                               DynamicRadius.circular(49.9.toPercentLength)))),
-                  shadows: preDefinedDynamicShapeShadow[6]),
+                  shadows: preDefinedShapeShadow[6]),
               globalAnimationIds: {AnimationTrigger.tap: "animation"},
               child: !isRunning ? Icon(Icons.play_arrow) : Icon(Icons.pause),
             ))

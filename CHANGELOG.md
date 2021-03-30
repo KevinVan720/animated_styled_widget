@@ -69,3 +69,7 @@ ImageFiltered and BackdropFilter support in Style
 ## [0.1.8] - 03/19/2021
 
 Update README
+
+## [0.1.9] - 03/30/2021
+
+Styled Components!

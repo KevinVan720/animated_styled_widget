@@ -5,7 +5,7 @@ import 'package:responsive_styled_widget/styled_widget.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import '../dynamic_ui_classes/smooth_matrix4.dart';
-import '../explicit_animations/animation_sequence.dart';
+import '../explicit_animation/animation_sequence.dart';
 import 'base.dart';
 
 class SlideInAnimation extends PresetAnimation {

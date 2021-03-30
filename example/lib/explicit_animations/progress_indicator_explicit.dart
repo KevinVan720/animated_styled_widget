@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     DynamicBorderSide startBorder = DynamicBorderSide(
-        width: 10,
+        width: 15,
         begin: 0.toPercentLength,
         end: 0.toPercentLength,
         gradient: SweepGradient(startAngle: pi, colors: [
@@ -50,9 +50,11 @@ class _MyHomePageState extends State<MyHomePage> {
           Colors.redAccent,
           Colors.redAccent,
           Colors.amberAccent,
-        ]));
+        ]),
+        strokeCap: StrokeCap.round,
+        strokeJoin: StrokeJoin.round);
     DynamicBorderSide middleBorder = DynamicBorderSide(
-        width: 10,
+        width: 15,
         begin: 0.toPercentLength,
         end: 50.toPercentLength,
         shift: 50.toPercentLength,
@@ -61,9 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
           Colors.redAccent,
           Colors.redAccent,
           Colors.amberAccent,
-        ]));
+        ]),
+        strokeCap: StrokeCap.round,
+        strokeJoin: StrokeJoin.round);
     DynamicBorderSide endBorder = DynamicBorderSide(
-        width: 10,
+        width: 15,
         begin: 100.toPercentLength,
         end: 100.toPercentLength,
         shift: 100.toPercentLength,
@@ -72,7 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Colors.redAccent,
           Colors.redAccent,
           Colors.amberAccent,
-        ]));
+        ]),
+        strokeCap: StrokeCap.round,
+        strokeJoin: StrokeJoin.round);
 
     return Container(
       color: Colors.grey.shade100,
@@ -86,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 childAlignment: Alignment.center,
                 width: 150.toPXLength,
                 height: 150.toPXLength,
-                padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+                padding: EdgeInsets.symmetric(vertical: 20),
                 backgroundDecoration: BoxDecoration(color: Colors.white),
                 shapeBorder: MorphableShapeBorder(
                     shape: CircleShape(border: startBorder)),
@@ -98,18 +104,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()
                             ..add(
-                                duration: Duration(milliseconds: 1000),
+                                duration: Duration(milliseconds: 2000),
                                 value: MorphableShapeBorder(
                                   shape: CircleShape(border: middleBorder),
                                 ))
                             ..add(
-                                duration: Duration(milliseconds: 1000),
+                                duration: Duration(milliseconds: 2000),
                                 value: MorphableShapeBorder(
                                   shape: CircleShape(border: endBorder),
                                 )),
                     }),
               },
-              child: Text("LOADING"),
+              child: Text("ROUND CAP"),
             ),
             ExplicitAnimatedStyledContainer(
               style: Style(
@@ -117,10 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 150.toPXLength,
                 alignment: Alignment.center,
                 childAlignment: Alignment.center,
-                padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+                padding: EdgeInsets.symmetric(vertical: 20),
                 backgroundDecoration: BoxDecoration(color: Colors.white),
                 shapeBorder: MorphableShapeBorder(
-                    shape: RectangleShape(border: startBorder)),
+                    shape: RectangleShape(
+                        border:
+                            startBorder.copyWith(strokeCap: StrokeCap.square))),
               ),
               localAnimations: {
                 AnimationTrigger.visible: MultiAnimationSequence(
@@ -129,18 +137,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()
                             ..add(
-                                duration: Duration(milliseconds: 1000),
+                                duration: Duration(milliseconds: 2000),
                                 value: MorphableShapeBorder(
-                                  shape: RectangleShape(border: middleBorder),
+                                  shape: RectangleShape(
+                                      border: middleBorder.copyWith(
+                                          strokeCap: StrokeCap.square)),
                                 ))
                             ..add(
-                                duration: Duration(milliseconds: 1000),
+                                duration: Duration(milliseconds: 2000),
                                 value: MorphableShapeBorder(
-                                  shape: RectangleShape(border: endBorder),
+                                  shape: RectangleShape(
+                                      border: endBorder.copyWith(
+                                          strokeCap: StrokeCap.square)),
                                 )),
                     }),
               },
-              child: Text("LOADING"),
+              child: Text("SQUARE CAP"),
             ),
             ExplicitAnimatedStyledContainer(
               style: Style(
@@ -148,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 150.toPXLength,
                 alignment: Alignment.center,
                 childAlignment: Alignment.center,
-                padding: DynamicEdgeInsets.symmetric(vertical: 30.toPXLength),
+                padding: EdgeInsets.symmetric(vertical: 20),
                 backgroundDecoration: BoxDecoration(color: Colors.white),
                 shapeBorder: MorphableShapeBorder(
                     shape: PolygonShape(
@@ -163,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()
                             ..add(
-                                duration: Duration(milliseconds: 1000),
+                                duration: Duration(milliseconds: 2000),
                                 value: MorphableShapeBorder(
                                   shape: PolygonShape(
                                       sides: 6,
@@ -171,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       border: middleBorder),
                                 ))
                             ..add(
-                                duration: Duration(milliseconds: 1000),
+                                duration: Duration(milliseconds: 2000),
                                 value: MorphableShapeBorder(
                                   shape: PolygonShape(
                                       sides: 6,
@@ -188,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 100.toPXLength,
                 alignment: Alignment.center,
                 childAlignment: Alignment.center,
-                padding: DynamicEdgeInsets.symmetric(vertical: 30.toPXLength),
+                padding: EdgeInsets.symmetric(vertical: 20),
                 backgroundDecoration: BoxDecoration(color: Colors.white),
                 shapeBorder: MorphableShapeBorder(
                     shape: RectangleShape(
@@ -203,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       AnimationProperty.shapeBorder: AnimationSequence<
                           MorphableShapeBorder>()
                         ..add(
-                            duration: Duration(milliseconds: 1000),
+                            duration: Duration(milliseconds: 2000),
                             value: MorphableShapeBorder(
                               shape: RectangleShape(
                                   borderRadius: DynamicBorderRadius.all(
@@ -211,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   border: middleBorder),
                             ))
                         ..add(
-                            duration: Duration(milliseconds: 1000),
+                            duration: Duration(milliseconds: 2000),
                             value: MorphableShapeBorder(
                               shape: RectangleShape(
                                   borderRadius: DynamicBorderRadius.all(
@@ -228,7 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 150.toPXLength,
                 alignment: Alignment.center,
                 childAlignment: Alignment.center,
-                padding: DynamicEdgeInsets.symmetric(vertical: 30.toPXLength),
+                padding: EdgeInsets.symmetric(vertical: 20),
                 backgroundDecoration: BoxDecoration(color: Colors.white),
                 shapeBorder: MorphableShapeBorder(
                     shape: RectangleShape(
@@ -243,7 +255,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()
                             ..add(
-                                duration: Duration(milliseconds: 1000),
+                                duration: Duration(milliseconds: 2000),
                                 value: MorphableShapeBorder(
                                   shape: RectangleShape(
                                       borderRadius: DynamicBorderRadius.all(
@@ -252,7 +264,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       border: middleBorder),
                                 ))
                             ..add(
-                                duration: Duration(milliseconds: 1000),
+                                duration: Duration(milliseconds: 2000),
                                 value: MorphableShapeBorder(
                                   shape: RectangleShape(
                                       borderRadius: DynamicBorderRadius.all(
@@ -270,7 +282,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 150.toPXLength,
                 alignment: Alignment.center,
                 childAlignment: Alignment.center,
-                padding: DynamicEdgeInsets.symmetric(vertical: 30.toPXLength),
+                padding: EdgeInsets.symmetric(vertical: 30),
                 backgroundDecoration: BoxDecoration(color: Colors.white),
                 shapeBorder: MorphableShapeBorder(
                     shape: RectangleShape(
@@ -287,7 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       AnimationProperty.shapeBorder: AnimationSequence<
                           MorphableShapeBorder>()
                         ..add(
-                            duration: Duration(milliseconds: 1000),
+                            duration: Duration(milliseconds: 2000),
                             value: MorphableShapeBorder(
                               shape: RectangleShape(
                                   cornerStyles: RectangleCornerStyles.all(
@@ -297,7 +309,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   border: middleBorder),
                             ))
                         ..add(
-                            duration: Duration(milliseconds: 1000),
+                            duration: Duration(milliseconds: 2000),
                             value: MorphableShapeBorder(
                               shape: RectangleShape(
                                   cornerStyles: RectangleCornerStyles.all(

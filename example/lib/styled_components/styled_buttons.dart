@@ -5,34 +5,27 @@ import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 import 'package:responsive_styled_widget/styled_widget.dart';
 
-class StyledCheckboxesPage extends StatefulWidget {
-  StyledCheckboxesPage({this.title = "Styled Buttons"});
+class StyledButtonsPage extends StatefulWidget {
+  StyledButtonsPage({this.title = "Styled Buttons"});
 
   final String title;
 
   @override
-  _StyledCheckboxesPageState createState() => _StyledCheckboxesPageState();
+  _StyledButtonsPageState createState() => _StyledButtonsPageState();
 }
 
-class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
-  late Style neumorphicStyle;
-  late Style neonStyle;
-  late Style comicStyle;
-  late Style skeumorphismStyle;
-  late Style keyboardStyle;
-  late Style macKeyboardStyle;
-
-  bool _selected = true;
-
+class _StyledButtonsPageState extends State<StyledButtonsPage> {
   @override
   void initState() {
     super.initState();
+  }
 
-    neumorphicStyle = Style(
+  @override
+  Widget build(BuildContext context) {
+    Style neumorphicStyle = Style(
         width: 200.toPXLength,
         alignment: Alignment.center,
-        padding: DynamicEdgeInsets.symmetric(
-            vertical: 20.toPXLength, horizontal: 10.toPXLength),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
@@ -42,16 +35,16 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
         )),
         shadows: [
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: -5.toPXLength,
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
               color: Colors.grey.shade400,
-              offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: -5.toPXLength,
+              offset: Offset(20, 20)),
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
               color: Color(0xFFFEFEFE),
-              offset: DynamicOffset(-20.toPXLength, -20.toPXLength)),
+              offset: Offset(-20, -20)),
         ],
         textStyle: DynamicTextStyle(
           letterSpacing: 0.2.toVWLength,
@@ -61,11 +54,9 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         ),
         textAlign: TextAlign.center,
         mouseCursor: SystemMouseCursors.click);
-
-    neonStyle = Style(
-        width: 360.toPXLength,
+    Style neonStyle = Style(
         alignment: Alignment.center,
-        padding: DynamicEdgeInsets.all(20.toPXLength),
+        padding: EdgeInsets.all(20),
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Colors.cyanAccent, Colors.purpleAccent])),
@@ -89,11 +80,11 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
                     right: DynamicBorderSide(
                         color: Colors.purpleAccent, width: 29)))),
         shadows: [
-          DynamicShapeShadow(
-              blurRadius: 25.toPXLength,
+          ShapeShadow(
+              blurRadius: 25,
               gradient: LinearGradient(
                   colors: [Colors.cyanAccent, Colors.purpleAccent]),
-              offset: DynamicOffset(0.toPXLength, 0.toPXLength)),
+              offset: Offset(0, 0)),
         ],
         textStyle: DynamicTextStyle(
           letterSpacing: 0.8.toVWLength,
@@ -105,17 +96,13 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         shaderGradient:
             LinearGradient(colors: [Colors.purpleAccent, Colors.cyanAccent]),
         mouseCursor: SystemMouseCursors.click);
-
-    comicStyle = Style(
-        width: 280.toPXLength,
+    Style comicStyle = Style(
         alignment: Alignment.center,
-        padding: DynamicEdgeInsets.all(20.toPXLength),
+        padding: EdgeInsets.all(20),
         backgroundDecoration: BoxDecoration(color: Colors.amberAccent),
         shadows: [
-          DynamicShapeShadow(
-              blurRadius: 0.toPXLength,
-              color: Colors.black87,
-              offset: DynamicOffset(10.toPXLength, 10.toPXLength)),
+          ShapeShadow(
+              blurRadius: 0, color: Colors.black87, offset: Offset(10, 10)),
         ],
         textStyle: DynamicTextStyle(
           letterSpacing: 0.8.toVWLength,
@@ -127,13 +114,9 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         textAlign: TextAlign.center,
         transform: SmoothMatrix4()..translate(-10.toPXLength, -10.toPXLength),
         mouseCursor: SystemMouseCursors.click);
-
-    skeumorphismStyle = Style(
-        width: 200.toPXLength,
-        height: 80.toPXLength,
+    Style skeumorphismStyle = Style(
         alignment: Alignment.center,
-        padding: DynamicEdgeInsets.symmetric(
-            vertical: 20.toPXLength, horizontal: 40.toPXLength),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
@@ -158,32 +141,32 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
                   //begin: (50*pi).toPXLength
                 ))),
         shadows: [
-          DynamicShapeShadow(
-            offset: DynamicOffset(0.toPXLength, -6.toPXLength),
-            blurRadius: 4.toPXLength,
+          ShapeShadow(
+            offset: Offset(0, -6),
+            blurRadius: 4,
             color: Color(0xFFFEFEFE),
           ),
-          DynamicShapeShadow(
-            offset: DynamicOffset(0.toPXLength, -4.toPXLength),
-            blurRadius: 4.toPXLength,
+          ShapeShadow(
+            offset: Offset(0, -4),
+            blurRadius: 4,
             color: Color(0xFFCECFD1),
           ),
-          DynamicShapeShadow(
-            offset: DynamicOffset(0.toPXLength, 6.toPXLength),
-            blurRadius: 8.toPXLength,
+          ShapeShadow(
+            offset: Offset(0, 6),
+            blurRadius: 8,
             color: Color(0xFFd6d7d9),
           ),
-          DynamicShapeShadow(
-            offset: DynamicOffset(0.toPXLength, 4.toPXLength),
-            blurRadius: 3.toPXLength,
-            spreadRadius: 1.toPXLength,
+          ShapeShadow(
+            offset: Offset(0, 4),
+            blurRadius: 3,
+            spreadRadius: 1,
             color: Color(0xFFFCFCFC),
           ),
         ],
         insetShadows: [
-          DynamicShapeShadow(
-            offset: DynamicOffset(0.toPXLength, 0.toPXLength),
-            blurRadius: 3.toPXLength,
+          ShapeShadow(
+            offset: Offset(0, 0),
+            blurRadius: 3,
             color: Color(0xFFCECFD1),
           )
         ],
@@ -195,12 +178,9 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         ),
         textAlign: TextAlign.center,
         mouseCursor: SystemMouseCursors.click);
-
-    keyboardStyle = Style(
-        width: 300.toPXLength,
+    Style keyboardStyle = Style(
         alignment: Alignment.center,
-        padding: DynamicEdgeInsets.symmetric(
-            vertical: 20.toPXLength, horizontal: 30.toPXLength),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
         backgroundDecoration: BoxDecoration(color: Colors.tealAccent.shade100),
         shapeBorder: MorphableShapeBorder(
             shape: RectangleShape(
@@ -208,20 +188,17 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
                     DynamicRadius.circular(20.toPXLength)),
                 border: DynamicBorderSide(width: 1, color: Colors.teal))),
         shadows: [
-          DynamicShapeShadow(
-              blurRadius: 10.toPXLength,
-              spreadRadius: 1.toPXLength,
+          ShapeShadow(
+              blurRadius: 10,
+              spreadRadius: 1,
               color: Colors.grey.shade700,
-              offset: DynamicOffset(0.toPXLength, 14.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 0.toPXLength,
-              color: Colors.teal,
-              offset: DynamicOffset(0.toPXLength, 15.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 0.toPXLength,
-              spreadRadius: -1.toPXLength,
+              offset: Offset(0, 14)),
+          ShapeShadow(blurRadius: 0, color: Colors.teal, offset: Offset(0, 15)),
+          ShapeShadow(
+              blurRadius: 0,
+              spreadRadius: -1,
               color: Colors.tealAccent.shade400,
-              offset: DynamicOffset(0.toPXLength, 14.toPXLength)),
+              offset: Offset(0, 14)),
         ],
         transform: SmoothMatrix4()..translate(0.toPXLength, -15.toPXLength),
         textStyle: DynamicTextStyle(
@@ -231,12 +208,11 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
             fontWeight: FontWeight.w900),
         textAlign: TextAlign.center,
         mouseCursor: SystemMouseCursors.click);
-
-    macKeyboardStyle = Style(
-        width: 200.toPXLength,
-        height: 200.toPXLength,
+    Style macKeyboardStyle = Style(
+        width: 180.toPXLength,
+        height: 180.toPXLength,
         alignment: Alignment.center,
-        padding: DynamicEdgeInsets.all(10.toPXLength),
+        padding: EdgeInsets.all(10),
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFF4F5F6),
         ),
@@ -246,39 +222,39 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
               DynamicBorderRadius.all(DynamicRadius.circular(35.toPXLength)),
         )),
         shadows: [
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
+          ShapeShadow(
+              blurRadius: 20,
               color: Colors.grey.shade500,
-              offset: DynamicOffset(10.toPXLength, 10.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
+              offset: Offset(10, 10)),
+          ShapeShadow(
+              blurRadius: 20,
               color: Color(0xFFFEFEFE),
-              offset: DynamicOffset(-10.toPXLength, 15.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 0.toPXLength,
-              spreadRadius: 0.toPXLength,
+              offset: Offset(-10, 15)),
+          ShapeShadow(
+              blurRadius: 0,
+              spreadRadius: 0,
               color: Color(0xFF444444),
-              offset: DynamicOffset(-4.toPXLength, 14.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 0.toPXLength,
-              spreadRadius: 0.toPXLength,
+              offset: Offset(-4, 14)),
+          ShapeShadow(
+              blurRadius: 0,
+              spreadRadius: 0,
               color: Color(0xFF444444),
-              offset: DynamicOffset(4.toPXLength, 14.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 0.toPXLength,
-              spreadRadius: 0.toPXLength,
+              offset: Offset(4, 14)),
+          ShapeShadow(
+              blurRadius: 0,
+              spreadRadius: 0,
               color: Color(0xFF444444),
-              offset: DynamicOffset(-4.toPXLength, 6.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 0.toPXLength,
-              spreadRadius: 0.toPXLength,
+              offset: Offset(-4, 6)),
+          ShapeShadow(
+              blurRadius: 0,
+              spreadRadius: 0,
               color: Color(0xFF444444),
-              offset: DynamicOffset(4.toPXLength, 6.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 0.toPXLength,
-              spreadRadius: 0.toPXLength,
+              offset: Offset(4, 6)),
+          ShapeShadow(
+              blurRadius: 0,
+              spreadRadius: 0,
               color: Color(0xFFDDDDDD),
-              offset: DynamicOffset(0.toPXLength, 10.toPXLength)),
+              offset: Offset(0, 10)),
         ],
         transform: SmoothMatrix4()..translate(0.toPXLength, -10.toPXLength),
         textStyle: DynamicTextStyle(
@@ -289,44 +265,6 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         childAlignment: Alignment(0, 0.8),
         textAlign: TextAlign.center,
         mouseCursor: SystemMouseCursors.click);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var childBuilder = (context, state) {
-      Widget child;
-      switch (state) {
-        case StyledComponentState.selected:
-          child = Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.check),
-              Text(
-                "CHECKED",
-                key: UniqueKey(),
-              ),
-            ],
-          );
-          break;
-        case StyledComponentState.hovered:
-          child = Text(
-            "HOVERED",
-            key: UniqueKey(),
-          );
-          break;
-        default:
-          child = Text(
-            "CHECK ME",
-            key: UniqueKey(),
-          );
-          break;
-      }
-      return AnimatedSwitcher(
-        duration: Duration(milliseconds: 200),
-        child: child,
-      );
-    };
 
     return Scaffold(
       appBar: AppBar(
@@ -345,61 +283,77 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
-              value: _selected,
-              onChanged: (bool value) {
-                setState(() {
-                  _selected = value;
-                });
-              },
+            StyledButton(
               duration: Duration(milliseconds: 200),
-              builder: childBuilder,
               style: neumorphicStyle,
-              selectedStyle: neumorphicStyle.copyWith(
+              pressedStyle: neumorphicStyle.copyWith(
                 shadows: [],
                 insetShadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 10.toPXLength,
-                      spreadRadius: 1.toPXLength,
+                  ShapeShadow(
+                      blurRadius: 10,
+                      spreadRadius: 1,
                       color: Color(0xFFFFFFFF),
-                      offset: DynamicOffset(-10.toPXLength, -10.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 10.toPXLength,
-                      spreadRadius: 1.toPXLength,
+                      offset: Offset(-10, -10)),
+                  ShapeShadow(
+                      blurRadius: 10,
+                      spreadRadius: 1,
                       color: Color(0xFFBEBEBE),
-                      offset: DynamicOffset(10.toPXLength, 10.toPXLength)),
+                      offset: Offset(10, 10)),
                 ],
               ),
               hoveredStyle: neumorphicStyle.copyWith(
                 shadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 20.toPXLength,
-                      spreadRadius: -2.toPXLength,
+                  ShapeShadow(
+                      blurRadius: 20,
+                      spreadRadius: -2,
                       color: Colors.grey.shade400,
-                      offset: DynamicOffset(10.toPXLength, 10.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 20.toPXLength,
-                      spreadRadius: -2.toPXLength,
+                      offset: Offset(10, 10)),
+                  ShapeShadow(
+                      blurRadius: 20,
+                      spreadRadius: -2,
                       color: Color(0xFFFEFEFE),
-                      offset: DynamicOffset(-10.toPXLength, -10.toPXLength)),
+                      offset: Offset(-10, -10)),
                 ],
               ),
+              onPressed: () {
+                print("Tapped!");
+              },
+              builder: (context, state) {
+                Widget child;
+                switch (state) {
+                  case StyledComponentState.pressed:
+                    child = Text(
+                      "TAPPED",
+                      key: UniqueKey(),
+                    );
+                    break;
+                  case StyledComponentState.hovered:
+                    child = Text(
+                      "HOVERED",
+                      key: UniqueKey(),
+                    );
+                    break;
+                  default:
+                    child = Text(
+                      "TAP ME",
+                      key: UniqueKey(),
+                    );
+                    break;
+                }
+                return AnimatedSwitcher(
+                  duration: Duration(milliseconds: 200),
+                  child: child,
+                );
+              },
             ),
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
-              value: _selected,
-              onChanged: (bool value) {
-                setState(() {
-                  _selected = value;
-                });
-              },
-              duration: Duration(milliseconds: 200),
-              builder: childBuilder,
+            StyledButton(
+              child: Text("TAP ME"),
               style: neonStyle,
-              selectedStyle: neonStyle.copyWith(
-                  padding: DynamicEdgeInsets.all(23.toPXLength),
+              pressedStyle: neonStyle.copyWith(
+                  padding: EdgeInsets.all(23),
                   shapeBorder: MorphableShapeBorder(
                       shape: RoundedRectangleShape(
                           borderRadius: DynamicBorderRadius.all(
@@ -439,55 +393,48 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
                                   color: Colors.cyanAccent.shade200, width: 13),
                               right:
                                   DynamicBorderSide(color: Colors.purpleAccent, width: 27))))),
+              onPressed: () {
+                print("Tapped!");
+              },
             ),
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
-              value: _selected,
-              onChanged: (bool value) {
-                setState(() {
-                  _selected = value;
-                });
-              },
-              duration: Duration(milliseconds: 200),
-              builder: childBuilder,
+            StyledButton(
+              child: Text("TAP ME"),
               style: comicStyle,
-              selectedStyle: comicStyle.copyWith(
+              pressedStyle: comicStyle.copyWith(
                 shadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
+                  ShapeShadow(
+                      blurRadius: 0,
                       color: Colors.black87,
-                      offset: DynamicOffset(0.toPXLength, 0.toPXLength)),
+                      offset: Offset(0, 0)),
                 ],
                 transform: SmoothMatrix4()
                   ..translate(0.toPXLength, 0.toPXLength),
               ),
               hoveredStyle: comicStyle.copyWith(
                 shadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
+                  ShapeShadow(
+                      blurRadius: 0,
                       color: Colors.black87,
-                      offset: DynamicOffset(5.toPXLength, 5.toPXLength)),
+                      offset: Offset(5, 5)),
                 ],
                 transform: SmoothMatrix4()
                   ..translate(-5.toPXLength, -5.toPXLength),
               ),
+              duration: Duration(milliseconds: 50),
+              onPressed: () {
+                print("Tapped!");
+              },
             ),
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
-              value: _selected,
-              onChanged: (bool value) {
-                setState(() {
-                  _selected = value;
-                });
-              },
-              duration: Duration(milliseconds: 200),
-              builder: childBuilder,
+            StyledButton(
+              child: Text("TAP ME"),
               style: skeumorphismStyle,
-              selectedStyle: skeumorphismStyle.copyWith(
+              pressedStyle: skeumorphismStyle.copyWith(
                 backgroundDecoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.bottomCenter,
@@ -503,133 +450,127 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
                       1
                     ])),
                 insetShadows: [
-                  DynamicShapeShadow(
-                    offset: DynamicOffset(0.toPXLength, 0.toPXLength),
-                    blurRadius: 10.toPXLength,
-                    spreadRadius: 3.toPXLength,
+                  ShapeShadow(
+                    offset: Offset(0, 0),
+                    blurRadius: 10,
+                    spreadRadius: 3,
                     color: Color(0xFFCECFD1),
                   ),
-                  DynamicShapeShadow(
-                    offset: DynamicOffset(0.toPXLength, 0.toPXLength),
-                    blurRadius: 3.toPXLength,
-                    spreadRadius: 1.toPXLength,
+                  ShapeShadow(
+                    offset: Offset(0, 0),
+                    blurRadius: 3,
+                    spreadRadius: 1,
                     color: Color(0xFF888888),
                   )
                 ],
               ),
               hoveredStyle: skeumorphismStyle.copyWith(
                 insetShadows: [
-                  DynamicShapeShadow(
-                    offset: DynamicOffset(0.toPXLength, 0.toPXLength),
-                    blurRadius: 3.toPXLength,
-                    spreadRadius: 3.toPXLength,
+                  ShapeShadow(
+                    offset: Offset(0, 0),
+                    blurRadius: 3,
+                    spreadRadius: 3,
                     color: Color(0xFFCECFD1),
                   )
                 ],
               ),
+              onPressed: () {
+                print("Tapped!");
+              },
             ),
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
-              value: _selected,
-              onChanged: (bool value) {
-                setState(() {
-                  _selected = value;
-                });
-              },
-              duration: Duration(milliseconds: 200),
-              builder: childBuilder,
+            StyledButton(
+              child: Text("TAP ME"),
               style: keyboardStyle,
-              selectedStyle: keyboardStyle.copyWith(
+              pressedStyle: keyboardStyle.copyWith(
                 shadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 3.toPXLength,
-                      spreadRadius: 1.toPXLength,
+                  ShapeShadow(
+                      blurRadius: 3,
+                      spreadRadius: 1,
                       color: Colors.grey.shade700,
-                      offset: DynamicOffset(0.toPXLength, 3.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
-                      color: Colors.teal,
-                      offset: DynamicOffset(0.toPXLength, 2.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
-                      spreadRadius: -1.toPXLength,
+                      offset: Offset(0, 3)),
+                  ShapeShadow(
+                      blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
+                  ShapeShadow(
+                      blurRadius: 0,
+                      spreadRadius: -1,
                       color: Colors.tealAccent.shade400,
-                      offset: DynamicOffset(0.toPXLength, 1.toPXLength)),
+                      offset: Offset(0, 1)),
                 ],
                 transform: SmoothMatrix4()
                   ..translate(0.toPXLength, -2.toPXLength),
               ),
               hoveredStyle: keyboardStyle.copyWith(
                 shadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 10.toPXLength,
-                      spreadRadius: 1.toPXLength,
+                  ShapeShadow(
+                      blurRadius: 10,
+                      spreadRadius: 1,
                       color: Colors.grey.shade700,
-                      offset: DynamicOffset(0.toPXLength, 10.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
-                      color: Colors.teal,
-                      offset: DynamicOffset(0.toPXLength, 11.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
-                      spreadRadius: -1.toPXLength,
+                      offset: Offset(0, 10)),
+                  ShapeShadow(
+                      blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+                  ShapeShadow(
+                      blurRadius: 0,
+                      spreadRadius: -1,
                       color: Colors.tealAccent.shade400,
-                      offset: DynamicOffset(0.toPXLength, 10.toPXLength)),
+                      offset: Offset(0, 10)),
                 ],
                 transform: SmoothMatrix4()
                   ..translate(0.toPXLength, -11.toPXLength),
               ),
+              curve: Curves.elasticOut,
+              duration: Duration(milliseconds: 300),
+              onPressed: () {
+                print("Tapped!");
+              },
             ),
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
-              value: _selected,
-              onChanged: (bool value) {
-                setState(() {
-                  _selected = value;
-                });
-              },
-              duration: Duration(milliseconds: 200),
-              builder: childBuilder,
+            StyledButton(
+              child: Text("command"),
               style: macKeyboardStyle,
-              selectedStyle: macKeyboardStyle.copyWith(
+              pressedStyle: macKeyboardStyle.copyWith(
                 shadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 5.toPXLength,
+                  ShapeShadow(
+                      blurRadius: 5,
                       color: Colors.grey.shade500,
-                      offset: DynamicOffset(2.toPXLength, 2.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 5.toPXLength,
+                      offset: Offset(2, 2)),
+                  ShapeShadow(
+                      blurRadius: 5,
                       color: Color(0xFFFEFEFE),
-                      offset: DynamicOffset(-2.toPXLength, 2.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
-                      spreadRadius: 0.toPXLength,
+                      offset: Offset(-2, 2)),
+                  ShapeShadow(
+                      blurRadius: 0,
+                      spreadRadius: 0,
                       color: Color(0xFF444444),
-                      offset: DynamicOffset(-4.toPXLength, 4.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
-                      spreadRadius: 0.toPXLength,
+                      offset: Offset(-4, 4)),
+                  ShapeShadow(
+                      blurRadius: 0,
+                      spreadRadius: 0,
                       color: Color(0xFF444444),
-                      offset: DynamicOffset(4.toPXLength, 4.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
-                      spreadRadius: 0.toPXLength,
+                      offset: Offset(4, 4)),
+                  ShapeShadow(
+                      blurRadius: 0,
+                      spreadRadius: 0,
                       color: Color(0xFF444444),
-                      offset: DynamicOffset(-4.toPXLength, -4.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 0.toPXLength,
-                      spreadRadius: 0.toPXLength,
+                      offset: Offset(-4, -4)),
+                  ShapeShadow(
+                      blurRadius: 0,
+                      spreadRadius: 0,
                       color: Color(0xFF444444),
-                      offset: DynamicOffset(4.toPXLength, -4.toPXLength))
+                      offset: Offset(4, -4))
                 ],
                 transform: SmoothMatrix4(),
               ),
               hoveredStyle: macKeyboardStyle,
               curve: Curves.easeInOut,
+              duration: Duration(milliseconds: 200),
+              onPressed: () {
+                print("Tapped!");
+              },
             ),
             SizedBox(
               height: 50,

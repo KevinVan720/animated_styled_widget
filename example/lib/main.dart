@@ -1,26 +1,26 @@
-import 'package:example/button_transform_1.dart';
-import 'package:example/button_transform_2.dart';
-import 'package:example/glassmorphism_button.dart';
-import 'package:example/neon_button.dart';
-import 'package:example/neumorphism_button.dart';
-import 'package:example/neumorphsim_button_explicit.dart';
-import 'package:example/progress_indicator_explicit.dart';
-import 'package:example/styled_buttons.dart';
-import 'package:example/styled_checkbox.dart';
-import 'package:example/styled_slider.dart';
-import 'package:example/styled_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'button_transform_3.dart';
-import 'long_animated_button.dart';
-import 'neon_button_explicit.dart';
-import 'neumorphism_two_button.dart';
-import 'scroll_animation.dart';
-import 'staggerd_animations.dart';
-import 'styled_radios.dart';
-import 'styled_toggle_buttons.dart';
-import 'two_animation_combine.dart';
+import 'explicit_animations/long_animated_button.dart';
+import 'explicit_animations/neon_button_explicit.dart';
+import 'explicit_animations/neumorphsim_button_explicit.dart';
+import 'explicit_animations/progress_indicator_explicit.dart';
+import 'explicit_animations/scroll_animation.dart';
+import 'explicit_animations/staggerd_animations.dart';
+import 'explicit_animations/two_animation_combine.dart';
+import 'implicit_animations/button_transform_1.dart';
+import 'implicit_animations/button_transform_2.dart';
+import 'implicit_animations/button_transform_3.dart';
+import 'implicit_animations/glassmorphism_button.dart';
+import 'implicit_animations/neon_button.dart';
+import 'implicit_animations/neumorphism_button.dart';
+import 'implicit_animations/neumorphism_two_button.dart';
+import 'styled_components/styled_buttons.dart';
+import 'styled_components/styled_checkboxes.dart';
+import 'styled_components/styled_radios.dart';
+import 'styled_components/styled_slider.dart';
+import 'styled_components/styled_switches.dart';
+import 'styled_components/styled_toggle_buttons.dart';
 
 void main() => runApp(MyApp());
 
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
           child: Container(
-              width: 240,
+              width: 300,
               child: ListView(
                 children: [
                   Center(
@@ -102,9 +102,43 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
+                                builder: (context) => ButtonTransform1Page()));
+                      },
+                      child: Text("Button Transform 1")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ButtonTransform2Page()));
+                      },
+                      child: Text("Button Transform 2")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ButtonTransform3Page()));
+                      },
+                      child: Text("Button Transform 3")),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Styled Components",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
                                 builder: (context) => StyledButtonsPage()));
                       },
-                      child: Text("Physical Styled Buttons")),
+                      child: Text("Styled Buttons")),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -145,31 +179,7 @@ class _HomePageState extends State<HomePage> {
                             MaterialPageRoute(
                                 builder: (context) => StyledSliderPage()));
                       },
-                      child: Text("Styled Slider")),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ButtonTransform1Page()));
-                      },
-                      child: Text("Button Transform 1")),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ButtonTransform2Page()));
-                      },
-                      child: Text("Button Transform 2")),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ButtonTransform3Page()));
-                      },
-                      child: Text("Button Transform 3")),
+                      child: Text("Styled Sliders")),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

@@ -11,7 +11,7 @@ class StyledPlainContainer extends StyledWidget {
 
   StyledPlainContainer({
     Key? key,
-    dynamic style,
+    required StyleBase style,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
@@ -29,22 +29,13 @@ class StyledPlainContainer extends StyledWidget {
 class _StyledContainerState extends StyledWidgetState<StyledPlainContainer> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      resolveStyle();
-      parentMaxWidth = constraints.maxWidth == double.infinity
-          ? screenSize.width
-          : constraints.maxWidth;
-      parentMaxHeight = constraints.maxHeight == double.infinity
-          ? screenSize.height
-          : constraints.maxHeight;
-      resolveProperties();
+    resolveStyle();
+    resolveProperties();
 
-      return buildPlainContainer(
-          child: widget.child,
-          onMouseEnter: widget.onMouseEnter,
-          onMouseExit: widget.onMouseExit);
-    });
+    return buildPlainContainer(
+        child: widget.child,
+        onMouseEnter: widget.onMouseEnter,
+        onMouseExit: widget.onMouseExit);
   }
 }
 
@@ -57,7 +48,7 @@ class AnimatedStyledPlainContainer extends StyledWidget {
 
   AnimatedStyledPlainContainer({
     Key? key,
-    dynamic style,
+    required StyleBase style,
     required this.duration,
     this.curve = Curves.linear,
     required this.child,
@@ -78,23 +69,14 @@ class _AnimatedStyledContainerState
     extends StyledWidgetState<AnimatedStyledPlainContainer> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      resolveStyle();
-      parentMaxWidth = constraints.maxWidth == double.infinity
-          ? screenSize.width
-          : constraints.maxWidth;
-      parentMaxHeight = constraints.maxHeight == double.infinity
-          ? screenSize.height
-          : constraints.maxHeight;
-      resolveProperties();
+    resolveStyle();
+    resolveProperties();
 
-      return buildAnimatedPlainContainer(
-          duration: widget.duration,
-          curve: widget.curve,
-          child: widget.child,
-          onMouseEnter: widget.onMouseEnter,
-          onMouseExit: widget.onMouseExit);
-    });
+    return buildAnimatedPlainContainer(
+        duration: widget.duration,
+        curve: widget.curve,
+        child: widget.child,
+        onMouseEnter: widget.onMouseEnter,
+        onMouseExit: widget.onMouseExit);
   }
 }

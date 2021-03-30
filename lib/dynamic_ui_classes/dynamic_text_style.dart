@@ -2,8 +2,6 @@ import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/to_json.dart';
 
-import 'dynamic_shadow.dart';
-
 class DynamicTextStyle {
   const DynamicTextStyle({
     this.color,
@@ -39,7 +37,7 @@ class DynamicTextStyle {
   final TextDecorationStyle? decorationStyle;
   final double? decorationThickness;
 
-  final List<DynamicShadow>? shadows;
+  final List<Shadow>? shadows;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> rst = {};
@@ -78,7 +76,7 @@ class DynamicTextStyle {
     double? height,
     Paint? foreground,
     Paint? background,
-    List<DynamicShadow>? shadows,
+    List<Shadow>? shadows,
     TextDecoration? decoration,
     Color? decorationColor,
     TextDecorationStyle? decorationStyle,
@@ -104,7 +102,7 @@ class DynamicTextStyle {
 
   TextStyle toTextStyle(
       {required Size screenSize,
-      required Size constraintSize,
+      //required Size constraintSize,
       required double parentFontSize,
       double constraintWidth = 100}) {
     double fontSize = this
@@ -117,11 +115,6 @@ class DynamicTextStyle {
     double? wordSpacing = this
         .wordSpacing
         ?.toPX(constraint: parentFontSize, screenSize: screenSize);
-    List<Shadow>? shadows = this
-        .shadows
-        ?.map((e) =>
-            e.toShadow(constraintSize: constraintSize, screenSize: screenSize))
-        .toList();
 
     return TextStyle(
       color: color,

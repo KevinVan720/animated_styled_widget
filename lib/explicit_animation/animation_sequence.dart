@@ -51,8 +51,8 @@ const Map<AnimationProperty, Type> animationPropertyTypeMap = {
   AnimationProperty.alignment: Alignment,
   AnimationProperty.width: Dimension,
   AnimationProperty.height: Dimension,
-  AnimationProperty.margin: DynamicEdgeInsets,
-  AnimationProperty.padding: DynamicEdgeInsets,
+  AnimationProperty.margin: EdgeInsets,
+  AnimationProperty.padding: EdgeInsets,
   AnimationProperty.backgroundDecoration: BoxDecoration,
   AnimationProperty.foregroundDecoration: BoxDecoration,
   AnimationProperty.shadows: List,
@@ -126,8 +126,8 @@ class AnimationData<T> {
     if (T == BoxDecoration) {
       return (value as BoxDecoration).toJson();
     }
-    if (T == DynamicEdgeInsets) {
-      return (value as DynamicEdgeInsets).toJson();
+    if (T == EdgeInsets) {
+      return (value as EdgeInsets).toJson();
     }
     if (T == Alignment) {
       return (value as Alignment).toJson();
@@ -142,10 +142,8 @@ class AnimationData<T> {
       return (value as DynamicTextStyle).toJson();
     }
     if (T == List) {
-      if ((T as List).genericType == DynamicShapeShadow) {
-        return (value as List<DynamicShapeShadow>)
-            .map((e) => e.toJson())
-            .toList();
+      if ((T as List).genericType == ShapeShadow) {
+        return (value as List<ShapeShadow>).map((e) => e.toJson()).toList();
       }
     }
   }
@@ -166,8 +164,8 @@ class AnimationData<T> {
     if (T == Alignment) {
       return parseAlignment(value);
     }
-    if (T == DynamicEdgeInsets) {
-      return parseDynamicEdgeInsets(value);
+    if (T == EdgeInsets) {
+      return parseEdgeInsets(value);
     }
     if (T == BoxDecoration) {
       return parseBoxDecoration(value);
@@ -183,8 +181,8 @@ class AnimationData<T> {
       return parseDynamicTextStyle(value);
     }
     if (T == List) {
-      if ((T as List).genericType == DynamicShapeShadow) {
-        return (value as List).map((e) => parseDynamicShapeShadow(e)).toList();
+      if ((T as List).genericType == ShapeShadow) {
+        return (value as List).map((e) => parseShapeShadow(e)).toList();
       }
     }
   }
@@ -297,15 +295,15 @@ class MultiAnimationSequence {
         case AnimationProperty.margin:
         case AnimationProperty.padding:
           return MapEntry(
-              property, AnimationSequence<DynamicEdgeInsets>.fromJson(value));
+              property, AnimationSequence<EdgeInsets>.fromJson(value));
         case AnimationProperty.backgroundDecoration:
         case AnimationProperty.foregroundDecoration:
           return MapEntry(
               property, AnimationSequence<BoxDecoration>.fromJson(value));
         case AnimationProperty.shadows:
         case AnimationProperty.insetShadows:
-          return MapEntry(property,
-              AnimationSequence<List<DynamicShapeShadow>>.fromJson(value));
+          return MapEntry(
+              property, AnimationSequence<List<ShapeShadow>>.fromJson(value));
         case AnimationProperty.shapeBorder:
           return MapEntry(property,
               AnimationSequence<MorphableShapeBorder>.fromJson(value));
@@ -360,7 +358,7 @@ class MultiAnimationSequence {
             break;
           case AnimationProperty.margin:
           case AnimationProperty.padding:
-            sequences[key] = AnimationSequence<DynamicEdgeInsets>();
+            sequences[key] = AnimationSequence<EdgeInsets>();
             break;
           case AnimationProperty.backgroundDecoration:
           case AnimationProperty.foregroundDecoration:
@@ -368,7 +366,7 @@ class MultiAnimationSequence {
             break;
           case AnimationProperty.shadows:
           case AnimationProperty.insetShadows:
-            sequences[key] = AnimationSequence<List<DynamicShapeShadow>>();
+            sequences[key] = AnimationSequence<List<ShapeShadow>>();
             break;
           case AnimationProperty.shapeBorder:
             sequences[key] = AnimationSequence<MorphableShapeBorder>();
@@ -392,7 +390,6 @@ class MultiAnimationSequence {
   MultiTween<AnimationProperty> getAnimationTween(
       {required Map<AnimationProperty, dynamic> initialValues,
       required double parentFontSize,
-      required Size constraintSize,
       required Size screenSize}) {
     MultiTween<AnimationProperty> multiTween = MultiTween<AnimationProperty>();
     sequences.forEach((property, animationSequence) {
@@ -418,15 +415,13 @@ class MultiAnimationSequence {
             break;
           case AnimationProperty.width:
           case AnimationProperty.height:
-            end = (animations[index].value as Dimension).toPX(
-                constraint: constraintSize.height, screenSize: screenSize);
-            delayTween = Tween(begin: begin, end: begin);
-            tween = Tween(begin: begin, end: end);
+            end = (animations[index].value as Dimension);
+            delayTween = DimensionTween(begin: begin, end: begin);
+            tween = DimensionTween(begin: begin, end: end);
             break;
           case AnimationProperty.margin:
           case AnimationProperty.padding:
-            end = (animations[index].value as DynamicEdgeInsets).toEdgeInsets(
-                constraintSize: constraintSize, screenSize: screenSize);
+            end = (animations[index].value as EdgeInsets);
             delayTween = EdgeInsetsTween(begin: begin, end: begin);
             tween = EdgeInsetsTween(begin: begin, end: end);
             break;
@@ -438,10 +433,7 @@ class MultiAnimationSequence {
             break;
           case AnimationProperty.shadows:
           case AnimationProperty.insetShadows:
-            end = (animations[index].value as List<DynamicShapeShadow>)
-                .map((e) => e.toShapeShadow(
-                    constraintSize: constraintSize, screenSize: screenSize))
-                .toList();
+            end = (animations[index].value as List).cast<ShapeShadow>();
             delayTween = ListShapeShadowTween(begin: begin, end: begin);
             tween = ListShapeShadowTween(begin: begin, end: end);
             break;
@@ -451,16 +443,13 @@ class MultiAnimationSequence {
             tween = MorphableShapeBorderTween(begin: begin, end: end);
             break;
           case AnimationProperty.transform:
-            end = animations[index].value.toMatrix4(
-                screenSize: screenSize, constraintSize: constraintSize);
+            end = animations[index].value.toMatrix4(screenSize: screenSize);
             delayTween = Matrix4Tween(begin: begin, end: begin);
             tween = Matrix4Tween(begin: begin, end: end);
             break;
           case AnimationProperty.textStyle:
             end = (animations[index].value as DynamicTextStyle).toTextStyle(
-                parentFontSize: parentFontSize,
-                screenSize: screenSize,
-                constraintSize: constraintSize);
+                parentFontSize: parentFontSize, screenSize: screenSize);
             delayTween = TextStyleTween(begin: begin, end: begin);
             tween = TextStyleTween(begin: begin, end: end);
             break;

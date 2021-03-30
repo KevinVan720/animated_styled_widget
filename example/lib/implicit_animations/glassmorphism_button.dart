@@ -30,7 +30,7 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
     beginStyle = Style(
         width: 400.toPXLength,
         height: 400.toPXLength,
-        padding: DynamicEdgeInsets.symmetric(vertical: 30.toPXLength),
+        padding: EdgeInsets.symmetric(vertical: 30),
         childAlignment: Alignment.center,
         shapeBorder: MorphableShapeBorder(
             shape: RectangleShape(

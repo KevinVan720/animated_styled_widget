@@ -9,15 +9,17 @@ class AnimatedStyledContainer extends StyledWidget {
   final Curve curve;
   final PointerEnterEventListener? onMouseEnter;
   final PointerExitEventListener? onMouseExit;
+  final VoidCallback? onEnd;
 
   AnimatedStyledContainer({
     Key? key,
-    dynamic style,
+    required StyleBase style,
     required this.duration,
     this.curve = Curves.linear,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
+    this.onEnd,
   }) : super(
           key: key,
           style: style,
@@ -33,23 +35,15 @@ class _AnimatedStyledContainerState
     extends StyledWidgetState<AnimatedStyledContainer> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      resolveStyle();
-      parentMaxWidth = constraints.maxWidth == double.infinity
-          ? screenSize.width
-          : constraints.maxWidth;
-      parentMaxHeight = constraints.maxHeight == double.infinity
-          ? screenSize.height
-          : constraints.maxHeight;
-      resolveProperties();
+    resolveStyle();
+    resolveProperties();
 
-      return buildAnimatedStyledContainer(
-          child: widget.child,
-          duration: widget.duration,
-          curve: widget.curve,
-          onMouseEnter: widget.onMouseEnter,
-          onMouseExit: widget.onMouseExit);
-    });
+    return buildAnimatedStyledContainer(
+        child: widget.child,
+        duration: widget.duration,
+        curve: widget.curve,
+        onMouseEnter: widget.onMouseEnter,
+        onMouseExit: widget.onMouseExit,
+        onEnd: widget.onEnd);
   }
 }

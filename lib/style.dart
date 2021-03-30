@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:dimension/dimension.dart';
@@ -7,14 +8,95 @@ import 'package:flutter_class_parser/parse_json.dart';
 import 'package:flutter_class_parser/to_json.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 
-import 'dynamic_ui_classes/dynamic_shadow.dart';
 import 'dynamic_ui_classes/dynamic_text_style.dart';
 import 'dynamic_ui_classes/smooth_matrix4.dart';
 import 'parse_json.dart';
 import 'screen_scope.dart';
 import 'styled_widget.dart';
 
-class Style {
+class ResponsiveProperty<T> {
+  Map<ScreenScope, T> values;
+
+  ResponsiveProperty({required this.values});
+
+  T? resolveProperty(MediaQueryData data) {
+    T? rst;
+    values.forEach((key, value) {
+      if (key.isOfScreenScope(data)) {
+        rst = value;
+      }
+    });
+
+    return rst;
+  }
+}
+
+abstract class StyleBase {
+  StyleBase();
+
+  StyleBase.fromJson(Map<String, dynamic> map);
+
+  Map<String, dynamic> toJson();
+
+  StyleBase copyWith({
+    Alignment? alignment,
+    Dimension? width,
+    Dimension? height,
+    double? aspectRatio,
+    EdgeInsets? margin,
+    EdgeInsets? padding,
+    bool? visible,
+    double? opacity,
+    BoxDecoration? backgroundDecoration,
+    BoxDecoration? foregroundDecoration,
+    List<ShapeShadow>? shadows,
+    List<ShapeShadow>? insetShadows,
+    MorphableShapeBorder? shapeBorder,
+    SmoothMatrix4? transform,
+    Alignment? transformAlignment,
+    Alignment? childAlignment,
+    DynamicTextStyle? textStyle,
+    TextAlign? textAlign,
+    Gradient? shaderGradient,
+    ImageFilter? imageFilter,
+    ImageFilter? backdropFilter,
+    SystemMouseCursor? mouseCursor,
+    int? flex,
+    int? gridColumnCount,
+    int? gridRowCount,
+    DynamicEdgeInsets? stackPosition,
+  });
+
+  Style resolveStyle(MediaQueryData data);
+
+  static StyleBase setWidth(StyleBase style, Dimension? width) {
+    StyleBase rst = style.copyWith();
+    if (style is Style) {
+      (rst as Style).width = width;
+    }
+    if (style is ScopedStyles) {
+      (rst as ScopedStyles).styles.forEach((key, value) {
+        value.width = width;
+      });
+    }
+    return rst;
+  }
+
+  static StyleBase setHeight(StyleBase style, Dimension? height) {
+    StyleBase rst = style.copyWith();
+    if (style is Style) {
+      (rst as Style).height = height;
+    }
+    if (style is ScopedStyles) {
+      (rst as ScopedStyles).styles.forEach((key, value) {
+        value.height = height;
+      });
+    }
+    return rst;
+  }
+}
+
+class Style extends StyleBase {
   bool? visible;
   double? opacity;
 
@@ -24,20 +106,20 @@ class Style {
   Dimension? height;
   double? aspectRatio;
 
-  DynamicEdgeInsets? margin;
-  DynamicEdgeInsets? padding;
+  EdgeInsets? margin;
+  EdgeInsets? padding;
 
   BoxDecoration? foregroundDecoration;
   BoxDecoration? backgroundDecoration;
-  List<DynamicShapeShadow>? shadows;
-  List<DynamicShapeShadow>? insetShadows;
+  List<ShapeShadow>? shadows;
+  List<ShapeShadow>? insetShadows;
 
   MorphableShapeBorder? shapeBorder;
 
   SmoothMatrix4? transform;
   Alignment? transformAlignment;
 
-  //text related (works only for text and icon widgets)
+  ///text related
   Alignment? childAlignment;
   DynamicTextStyle? textStyle;
   TextAlign? textAlign;
@@ -96,19 +178,18 @@ class Style {
     aspectRatio = map["aspectRatio"];
     alignment = parseAlignment(map["alignment"]);
 
-    margin = parseDynamicEdgeInsets(map["margin"]);
-    padding = parseDynamicEdgeInsets(map["padding"]);
+    margin = parseEdgeInsets(map["margin"]);
+    padding = parseEdgeInsets(map["padding"]);
 
     visible = map["visible"];
     opacity = map["opacity"];
     backgroundDecoration = parseBoxDecoration(map["backgroundDecoration"]);
     foregroundDecoration = parseBoxDecoration(map["foregroundDecoration"]);
 
-    shadows = (map["shadows"] as List?)
-        ?.map((e) => parseDynamicShapeShadow(e)!)
-        .toList();
+    shadows =
+        (map["shadows"] as List?)?.map((e) => parseShapeShadow(e)!).toList();
     insetShadows = (map["insetShadows"] as List?)
-        ?.map((e) => parseDynamicShapeShadow(e)!)
+        ?.map((e) => parseShapeShadow(e)!)
         .toList();
 
     shapeBorder = parseMorphableShapeBorder(map["shapeBorder"]);
@@ -169,22 +250,18 @@ class Style {
   }
 
   Style copyWith({
-    int? flex,
-    int? gridColumnCount,
-    int? gridRowCount,
-    DynamicEdgeInsets? stackPosition,
     Alignment? alignment,
     Dimension? width,
     Dimension? height,
     double? aspectRatio,
-    DynamicEdgeInsets? margin,
-    DynamicEdgeInsets? padding,
+    EdgeInsets? margin,
+    EdgeInsets? padding,
     bool? visible,
     double? opacity,
     BoxDecoration? backgroundDecoration,
     BoxDecoration? foregroundDecoration,
-    List<DynamicShapeShadow>? shadows,
-    List<DynamicShapeShadow>? insetShadows,
+    List<ShapeShadow>? shadows,
+    List<ShapeShadow>? insetShadows,
     MorphableShapeBorder? shapeBorder,
     SmoothMatrix4? transform,
     Alignment? transformAlignment,
@@ -195,6 +272,10 @@ class Style {
     ImageFilter? imageFilter,
     ImageFilter? backdropFilter,
     SystemMouseCursor? mouseCursor,
+    int? flex,
+    int? gridColumnCount,
+    int? gridRowCount,
+    DynamicEdgeInsets? stackPosition,
   }) {
     return Style(
       flex: flex ?? this.flex,
@@ -317,11 +398,100 @@ class Style {
         other.backdropFilter == backdropFilter &&
         other.mouseCursor == mouseCursor;
   }
+
+  Style resolveStyle(MediaQueryData data) {
+    return this;
+  }
+}
+
+class ScopedStyles extends StyleBase {
+  Map<ScreenScope, Style> styles;
+
+  ScopedStyles({required this.styles});
+
+  ScopedStyles.fromJson(Map<String, dynamic> stylesMap)
+      : styles = stylesMap.map((key, value) => MapEntry(
+            parseScreenScope(json.decode(key)), Style.fromJson(value)));
+
+  Map<String, dynamic> toJson() {
+    return styles.map(
+        (key, value) => MapEntry(json.encode(key.toJson()), value.toJson()));
+  }
+
+  ScopedStyles copyWith({
+    Alignment? alignment,
+    Dimension? width,
+    Dimension? height,
+    double? aspectRatio,
+    EdgeInsets? margin,
+    EdgeInsets? padding,
+    bool? visible,
+    double? opacity,
+    BoxDecoration? backgroundDecoration,
+    BoxDecoration? foregroundDecoration,
+    List<ShapeShadow>? shadows,
+    List<ShapeShadow>? insetShadows,
+    MorphableShapeBorder? shapeBorder,
+    SmoothMatrix4? transform,
+    Alignment? transformAlignment,
+    Alignment? childAlignment,
+    DynamicTextStyle? textStyle,
+    TextAlign? textAlign,
+    Gradient? shaderGradient,
+    ImageFilter? imageFilter,
+    ImageFilter? backdropFilter,
+    SystemMouseCursor? mouseCursor,
+    int? flex,
+    int? gridColumnCount,
+    int? gridRowCount,
+    DynamicEdgeInsets? stackPosition,
+  }) {
+    return ScopedStyles(
+        styles: styles.map((key, value) => MapEntry(
+            key,
+            value.copyWith(
+              flex: flex,
+              gridColumnCount: gridColumnCount,
+              gridRowCount: gridRowCount,
+              stackPosition: stackPosition,
+              alignment: alignment,
+              width: width,
+              height: height,
+              aspectRatio: aspectRatio,
+              margin: margin,
+              padding: padding,
+              visible: visible,
+              opacity: opacity,
+              backgroundDecoration: backgroundDecoration,
+              foregroundDecoration: foregroundDecoration,
+              shadows: shadows,
+              insetShadows: insetShadows,
+              shapeBorder: shapeBorder,
+              transform: transform,
+              transformAlignment: transformAlignment,
+              childAlignment: childAlignment,
+              textStyle: textStyle,
+              textAlign: textAlign,
+              shaderGradient: shaderGradient,
+              imageFilter: imageFilter,
+              backdropFilter: backdropFilter,
+              mouseCursor: mouseCursor,
+            ))));
+  }
+
+  Style resolveStyle(MediaQueryData data) {
+    Style rst = Style();
+    styles.forEach((key, value) {
+      if (key.isOfScreenScope(data)) {
+        rst = rst.merge(value);
+      }
+    });
+    return rst;
+  }
 }
 
 dynamic chooseFrom(dynamic input, MediaQueryData data) {
   dynamic rst;
-
   if (input is Map<ScreenScope, dynamic>) {
     input.forEach((key, value) {
       if (key.isOfScreenScope(data)) {

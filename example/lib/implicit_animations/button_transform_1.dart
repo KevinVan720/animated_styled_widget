@@ -51,11 +51,7 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
                 right:
                     DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
       ),
-      shadows: [
-        DynamicShapeShadow(
-            offset: DynamicOffset(0.toPXLength, 0.toPXLength),
-            blurRadius: 0.toPXLength)
-      ],
+      shadows: [ShapeShadow(offset: Offset(0, 0), blurRadius: 0)],
       transform: SmoothMatrix4()..scale(1.2),
     );
 
@@ -79,15 +75,15 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
                     Color.fromARGB(255, 246, 167, 186),
                     Colors.pinkAccent.shade200
                   ])))),
-      transform: SmoothMatrix4()..translate(-5.toPercentLength),
+      transform: SmoothMatrix4()..translate(-50.toPXLength),
       shadows: [
-        DynamicShapeShadow(
-            offset: DynamicOffset(10.toPXLength, 10.toPXLength),
+        ShapeShadow(
+            offset: Offset(10, 10),
             gradient: LinearGradient(colors: [
               Color.fromARGB(255, 246, 167, 186),
               Colors.pinkAccent.shade200
             ]),
-            blurRadius: 20.toPXLength)
+            blurRadius: 20)
       ],
     );
   }

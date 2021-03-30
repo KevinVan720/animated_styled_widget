@@ -29,7 +29,7 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
     outBeginStyle = Style(
         width: 440.toPXLength,
         height: 440.toPXLength,
-        padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+        padding: EdgeInsets.symmetric(vertical: 20),
         childAlignment: Alignment.center,
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
@@ -40,50 +40,51 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
               DynamicBorderRadius.all(DynamicRadius.circular(64.toPXLength)),
         )),
         shadows: [
-          DynamicShapeShadow(
-              blurRadius: 30.toPXLength,
-              spreadRadius: 1.toPXLength,
+          ShapeShadow(
+              blurRadius: 30,
+              spreadRadius: 1,
               color: Color(0xFFFDFDFD),
-              offset: DynamicOffset(-15.toPXLength, -15.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: 1.toPXLength,
+              offset: Offset(-15, -15)),
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: 1,
               color: Colors.grey.shade500,
-              offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+              offset: Offset(20, 20)),
         ],
         insetShadows: [
-          DynamicShapeShadow(
-              blurRadius: 30.toPXLength,
-              spreadRadius: 1.toPXLength,
+          ShapeShadow(
+              blurRadius: 30,
+              spreadRadius: 1,
               color: Colors.grey.shade500,
-              offset: DynamicOffset(-20.toPXLength, -20.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 30.toPXLength,
-              spreadRadius: 1.toPXLength,
+              offset: Offset(-20, -20)),
+          ShapeShadow(
+              blurRadius: 30,
+              spreadRadius: 1,
               color: Colors.grey.shade50,
-              offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+              offset: Offset(20, 20)),
         ],
         mouseCursor: SystemMouseCursors.click);
 
     outEndStyle = outBeginStyle.copyWith(
       insetShadows: [
-        DynamicShapeShadow(
-            blurRadius: 30.toPXLength,
-            spreadRadius: 1.toPXLength,
+        ShapeShadow(
+            blurRadius: 30,
+            spreadRadius: 1,
             color: Colors.grey.shade200,
-            offset: DynamicOffset(-20.toPXLength, -20.toPXLength)),
-        DynamicShapeShadow(
-            blurRadius: 30.toPXLength,
-            spreadRadius: 1.toPXLength,
+            offset: Offset(-20, -20)),
+        ShapeShadow(
+            blurRadius: 30,
+            spreadRadius: 1,
             color: Colors.grey.shade50,
-            offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+            offset: Offset(20, 20)),
       ],
     );
 
     beginStyle = Style(
-        width: Dimension.min(80.toVWLength, 400.toPXLength),
+        width: 400.toPXLength,
         height: 400.toPXLength,
-        padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(vertical: 20),
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -95,16 +96,16 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
         )),
         insetShadows: [
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: -5.toPXLength,
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
               color: Colors.grey.shade400,
-              offset: DynamicOffset(-20.toPXLength, -20.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: -5.toPXLength,
+              offset: Offset(-20, -20)),
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
               color: Color(0xFFFEFEFE),
-              offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+              offset: Offset(20, 20)),
         ],
         textStyle: DynamicTextStyle(
           letterSpacing: 0.8.toVWLength,
@@ -120,16 +121,16 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
         color: Color(0xFFE0E0E0),
       ),
       insetShadows: [
-        DynamicShapeShadow(
-            blurRadius: 30.toPXLength,
-            spreadRadius: 1.toPXLength,
+        ShapeShadow(
+            blurRadius: 30,
+            spreadRadius: 1,
             color: Color(0xFFFFFFFF),
-            offset: DynamicOffset(-30.toPXLength, -30.toPXLength)),
-        DynamicShapeShadow(
-            blurRadius: 30.toPXLength,
-            spreadRadius: 1.toPXLength,
+            offset: Offset(-30, -30)),
+        ShapeShadow(
+            blurRadius: 30,
+            spreadRadius: 1,
             color: Color(0xFFBEBEBE),
-            offset: DynamicOffset(30.toPXLength, 30.toPXLength)),
+            offset: Offset(30, 30)),
       ],
     );
 

@@ -53,8 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     alignment: Alignment.center,
                     width: 400.toPXLength,
                     height: 400.toPXLength,
-                    padding:
-                        DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+                    padding: EdgeInsets.symmetric(vertical: 20),
                     backgroundDecoration:
                         BoxDecoration(color: Colors.grey.shade100),
                     shapeBorder: MorphableShapeBorder(
@@ -63,17 +62,16 @@ class _MyHomePageState extends State<MyHomePage> {
                           DynamicRadius.circular(150.toPXLength)),
                     )),
                     shadows: [
-                      DynamicShapeShadow(
-                          blurRadius: 20.toPXLength,
-                          spreadRadius: -5.toPXLength,
+                      ShapeShadow(
+                          blurRadius: 20,
+                          spreadRadius: -5,
                           color: Colors.grey.shade400,
-                          offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
-                      DynamicShapeShadow(
-                          blurRadius: 20.toPXLength,
-                          spreadRadius: -5.toPXLength,
+                          offset: Offset(20, 20)),
+                      ShapeShadow(
+                          blurRadius: 20,
+                          spreadRadius: -5,
                           color: Color(0xFFFEFEFE),
-                          offset:
-                              DynamicOffset(-20.toPXLength, -20.toPXLength)),
+                          offset: Offset(-20, -20)),
                     ],
                     textStyle: DynamicTextStyle(
                       letterSpacing: 0.8.toVWLength,
@@ -89,28 +87,26 @@ class _MyHomePageState extends State<MyHomePage> {
                   AnimationTrigger.mouseEnter:
                       MultiAnimationSequence(sequences: {
                     AnimationProperty.shadows:
-                        AnimationSequence<List<DynamicShapeShadow>>()
+                        AnimationSequence<List<ShapeShadow>>()
                           ..add(
                             duration: Duration(milliseconds: 150),
                             value: [],
                           ),
                     AnimationProperty.insetShadows:
-                        AnimationSequence<List<DynamicShapeShadow>>()
+                        AnimationSequence<List<ShapeShadow>>()
                           ..add(
                             duration: Duration(milliseconds: 150),
                             value: [
-                              DynamicShapeShadow(
-                                  blurRadius: 20.toPXLength,
-                                  spreadRadius: -5.toPXLength,
+                              ShapeShadow(
+                                  blurRadius: 20,
+                                  spreadRadius: -5,
                                   color: Colors.grey.shade400,
-                                  offset: DynamicOffset(
-                                      20.toPXLength, 20.toPXLength)),
-                              DynamicShapeShadow(
-                                  blurRadius: 20.toPXLength,
-                                  spreadRadius: -5.toPXLength,
+                                  offset: Offset(20, 20)),
+                              ShapeShadow(
+                                  blurRadius: 20,
+                                  spreadRadius: -5,
                                   color: Color(0xFFFEFEFE),
-                                  offset: DynamicOffset(
-                                      -20.toPXLength, -20.toPXLength)),
+                                  offset: Offset(-20, -20)),
                             ],
                           ),
                     AnimationProperty
@@ -130,29 +126,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   }),
                   AnimationTrigger.mouseExit:
                       MultiAnimationSequence(sequences: {
-                    AnimationProperty.insetShadows:
-                        AnimationSequence<List<DynamicShapeShadow>>()
-                          ..add(
-                            duration: Duration(milliseconds: 500),
-                            value: [],
-                          ),
-                    AnimationProperty
-                        .shadows: AnimationSequence<List<DynamicShapeShadow>>()
+                    AnimationProperty.insetShadows: AnimationSequence()
+                      ..add(
+                        duration: Duration(milliseconds: 500),
+                        value: [],
+                      ),
+                    AnimationProperty.shadows: AnimationSequence()
                       ..add(
                         duration: Duration(milliseconds: 500),
                         value: [
-                          DynamicShapeShadow(
-                              blurRadius: 20.toPXLength,
-                              spreadRadius: -5.toPXLength,
+                          ShapeShadow(
+                              blurRadius: 20,
+                              spreadRadius: -5,
                               color: Colors.grey.shade400,
-                              offset:
-                                  DynamicOffset(20.toPXLength, 20.toPXLength)),
-                          DynamicShapeShadow(
-                              blurRadius: 20.toPXLength,
-                              spreadRadius: -5.toPXLength,
+                              offset: Offset(20, 20)),
+                          ShapeShadow(
+                              blurRadius: 20,
+                              spreadRadius: -5,
                               color: Color(0xFFFEFEFE),
-                              offset: DynamicOffset(
-                                  -20.toPXLength, -20.toPXLength)),
+                              offset: Offset(-20, -20)),
                         ],
                       ),
                     AnimationProperty.shapeBorder:

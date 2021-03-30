@@ -11,7 +11,8 @@ class SmoothOperation {
   double? rotationX;
   double? rotationY;
   double? rotationZ;
-  double? scale;
+  double? scaleX;
+  double? scaleY;
   Dimension? translateX;
   Dimension? translateY;
 
@@ -20,10 +21,12 @@ class SmoothOperation {
     this.rotationX,
     this.rotationY,
     this.rotationZ,
-    this.scale,
+    this.scaleX,
+    this.scaleY,
     this.translateX,
     this.translateY,
-  });
+  })  : assert(translateX == null || translateX.isAbsolute),
+        assert(translateY == null || translateY.isAbsolute);
 
   factory SmoothOperation.fromJson(Map<String, dynamic> map) {
     return SmoothOperation(
@@ -31,7 +34,8 @@ class SmoothOperation {
         rotationX: map["rotationX"],
         rotationY: map["rotationY"],
         rotationZ: map["rotationZ"],
-        scale: map["scale"],
+        scaleX: map["scaleX"],
+        scaleY: map["scaleY"],
         translateX: parseLength(map["translateX"]),
         translateY: parseLength(map["translateY"]));
   }
@@ -42,7 +46,8 @@ class SmoothOperation {
     rst.updateNotNull("rotationX", rotationX);
     rst.updateNotNull("rotationY", rotationY);
     rst.updateNotNull("rotationZ", rotationZ);
-    rst.updateNotNull("scale", scale);
+    rst.updateNotNull("scaleX", scaleX);
+    rst.updateNotNull("scaleY", scaleY);
     rst.updateNotNull("translateX", translateX);
     rst.updateNotNull("translateY", translateY);
     return rst;
@@ -66,7 +71,7 @@ class SmoothMatrix4 {
     return operations.map((e) => e.toJson()).toList();
   }
 
-  Matrix4 toMatrix4({required Size screenSize, required Size constraintSize}) {
+  Matrix4 toMatrix4({required Size screenSize}) {
     Matrix4 _matrix4 = Matrix4.identity();
     operations.forEach((element) {
       if (element.operation == SmoothMatrix4OperationType.rotate) {
@@ -78,15 +83,11 @@ class SmoothMatrix4 {
           _matrix4.rotateZ(element.rotationZ!);
         }
       } else if (element.operation == SmoothMatrix4OperationType.scale) {
-        _matrix4.scale(element.scale);
+        _matrix4.scale(element.scaleX, element.scaleY);
       } else if (element.operation == SmoothMatrix4OperationType.translate) {
         _matrix4.translate(
-          element.translateX?.toPX(
-                  constraint: constraintSize.width, screenSize: screenSize) ??
-              0.0,
-          element.translateY?.toPX(
-                  constraint: constraintSize.height, screenSize: screenSize) ??
-              0.0,
+          element.translateX?.toPX(screenSize: screenSize) ?? 0.0,
+          element.translateY?.toPX(screenSize: screenSize) ?? 0.0,
         );
       }
     });
@@ -114,9 +115,10 @@ class SmoothMatrix4 {
     );
   }
 
-  void scale(double x) {
+  void scale(double x, [double? y]) {
     operations.add(
-      SmoothOperation(operation: SmoothMatrix4OperationType.scale, scale: x),
+      SmoothOperation(
+          operation: SmoothMatrix4OperationType.scale, scaleX: x, scaleY: y),
     );
   }
 

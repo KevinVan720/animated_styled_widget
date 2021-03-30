@@ -36,22 +36,22 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
     super.initState();
 
     var downInsetShadows = [
-      DynamicShapeShadow(
-          blurRadius: 10.toPXLength,
-          spreadRadius: 1.toPXLength,
+      ShapeShadow(
+          blurRadius: 10,
+          spreadRadius: 1,
           color: Color(0xFFFFFFFF),
-          offset: DynamicOffset(-10.toPXLength, -10.toPXLength)),
-      DynamicShapeShadow(
-          blurRadius: 20.toPXLength,
-          spreadRadius: 1.toPXLength,
+          offset: Offset(-10, -10)),
+      ShapeShadow(
+          blurRadius: 20,
+          spreadRadius: 1,
           color: Color(0xFFBEBEBE),
-          offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+          offset: Offset(20, 20)),
     ];
 
     bigStyle = Style(
         width: Dimension.min(80.toVWLength, 400.toPXLength),
         height: 400.toPXLength,
-        padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+        padding: EdgeInsets.symmetric(vertical: 20),
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
@@ -136,16 +136,16 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
 
     bigStyle10 = bigStyle.copyWith(
       shadows: [
-        DynamicShapeShadow(
-            blurRadius: 10.toPXLength,
-            spreadRadius: 1.toPXLength,
+        ShapeShadow(
+            blurRadius: 10,
+            spreadRadius: 1,
             color: Color(0xFFFFFFFF),
-            offset: DynamicOffset(-10.toPXLength, -10.toPXLength)),
-        DynamicShapeShadow(
-            blurRadius: 20.toPXLength,
-            spreadRadius: 1.toPXLength,
+            offset: Offset(-10, -10)),
+        ShapeShadow(
+            blurRadius: 20,
+            spreadRadius: 1,
             color: Color(0xFFBEBEBE),
-            offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+            offset: Offset(20, 20)),
       ],
     );
 
@@ -154,7 +154,7 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
     littleStyle = Style(
         width: 200.toPXLength,
         height: 200.toPXLength,
-        padding: DynamicEdgeInsets.symmetric(vertical: 20.toPXLength),
+        padding: EdgeInsets.symmetric(vertical: 20),
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
@@ -172,26 +172,26 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
 
     littleStyle01 = littleStyle.copyWith(
       shadows: [
-        DynamicShapeShadow(
-            blurRadius: 10.toPXLength,
-            spreadRadius: 1.toPXLength,
+        ShapeShadow(
+            blurRadius: 10,
+            spreadRadius: 1,
             color: Color(0xFFFFFFFF),
-            offset: DynamicOffset(-5.toPXLength, -5.toPXLength)),
-        DynamicShapeShadow(
-            blurRadius: 20.toPXLength,
-            spreadRadius: 1.toPXLength,
+            offset: Offset(-5, -5)),
+        ShapeShadow(
+            blurRadius: 20,
+            spreadRadius: 1,
             color: Color(0xFFBEBEBE),
-            offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+            offset: Offset(20, 20)),
       ],
     );
     littleStyle10 = littleStyle00;
     littleStyle11 = littleStyle.copyWith(
       shadows: [
-        DynamicShapeShadow(
-            blurRadius: 20.toPXLength,
-            spreadRadius: 1.toPXLength,
+        ShapeShadow(
+            blurRadius: 20,
+            spreadRadius: 1,
             color: Color(0xFFBEBEBE),
-            offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
+            offset: Offset(20, 20)),
       ],
     );
   }

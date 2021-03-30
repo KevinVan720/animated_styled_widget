@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/parse_json.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import 'dynamic_ui_classes/dynamic_shadow.dart';
 import 'dynamic_ui_classes/dynamic_text_style.dart';
 import 'dynamic_ui_classes/smooth_matrix4.dart';
-import 'explicit_animations/animation_sequence.dart';
+import 'explicit_animation/animation_sequence.dart';
 import 'screen_scope.dart';
 import 'style.dart';
 import 'styled_widget.dart';
@@ -40,6 +39,7 @@ dynamic? parsePossibleStyleMap(Map<String, dynamic>? style) {
   return Style.fromJson(style);
 }
 
+/*
 DynamicShadow? parseDynamicShadow(Map<String, dynamic>? map) {
   if (map == null) return null;
   Color color = parseColor(map['color']) ?? Colors.black;
@@ -70,6 +70,8 @@ DynamicShapeShadow? parseDynamicShapeShadow(Map<String, dynamic>? map) {
   );
 }
 
+
+ */
 DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
   if (map == null) return null;
 
@@ -93,10 +95,8 @@ DynamicTextStyle? parseDynamicTextStyle(Map<String, dynamic>? map) {
   Dimension? letterSpacing = parseDimension(map['letterSpacing']);
   Dimension? wordSpacing = parseDimension(map['wordSpacing']);
 
-  List<DynamicShadow>? shadows = map["shadows"]
-      ?.map((e) => parseDynamicShadow(e)!)
-      .toList()
-      .cast<DynamicShadow>();
+  List<Shadow>? shadows =
+      map["shadows"]?.map((e) => parseShadow(e)!).toList().cast<Shadow>();
 
   return DynamicTextStyle(
       color: color,

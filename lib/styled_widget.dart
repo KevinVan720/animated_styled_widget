@@ -1,31 +1,29 @@
 library responsive_styled_widget;
 
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
+import 'package:responsive_styled_widget/animated_dimension_sized_box.dart';
 import 'package:responsive_styled_widget/dimension_sized_box.dart';
 import 'package:responsive_styled_widget/named_style_provider.dart';
 
 import 'animated_shader_mask.dart';
-import 'screen_scope.dart';
 import 'style.dart';
 
 export 'animated_styled_container.dart';
 export 'animated_styled_container.dart';
 export 'custom_visibility_detector/visibility_detector.dart';
 export 'custom_visibility_detector/visibility_detector_controller.dart';
-export 'dynamic_ui_classes/dynamic_shadow.dart';
 export 'dynamic_ui_classes/dynamic_text_style.dart';
 export 'dynamic_ui_classes/predefined_elevation_shadow.dart';
 export 'dynamic_ui_classes/smooth_matrix4.dart';
 export 'explicit_animated_styled_container.dart';
-export 'explicit_animations/animation_provider.dart';
-export 'explicit_animations/animation_sequence.dart';
-export 'explicit_animations/global_animation.dart';
+export 'explicit_animation/animation_provider.dart';
+export 'explicit_animation/animation_sequence.dart';
+export 'explicit_animation/global_animation.dart';
 export 'parse_json.dart';
 export 'screen_scope.dart';
 export 'style.dart';
@@ -40,27 +38,21 @@ export 'to_json.dart';
 
 abstract class StyledWidget extends StatefulWidget {
   final String? id;
-  final dynamic style;
+  final StyleBase style;
   StyledWidget({
     Key? key,
     this.id,
     required this.style,
-  })   : assert(style is Style || style is Map<ScreenScope, Style>),
-        super(key: key);
+  }) : super(key: key);
 }
 
 abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
-  ///constraint from parent
-  double parentMaxWidth = double.infinity;
-  double parentMaxHeight = double.infinity;
-
   late Style style;
   late Size screenSize;
 
   Alignment? alignment;
-  double? width;
-  double? height;
-  double? aspectRatio;
+  Dimension? width;
+  Dimension? height;
 
   EdgeInsets margin = EdgeInsets.all(0);
   EdgeInsets padding = EdgeInsets.all(0);
@@ -73,8 +65,8 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   MorphableShapeBorder shapeBorder =
       MorphableShapeBorder(shape: RectangleShape());
 
-  List<ShapeShadow> shadows = <ShapeShadow>[];
-  List<ShapeShadow> insetShadows = <ShapeShadow>[];
+  List<ShapeShadow>? shadows = <ShapeShadow>[];
+  List<ShapeShadow>? insetShadows = <ShapeShadow>[];
 
   Alignment? childAlignment;
 
@@ -93,69 +85,44 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
 
   void resolveStyle() {
     screenSize = MediaQuery.of(context).size;
-    dynamic? inherited;
+    StyleBase? inherited;
     Style? inheritedStyle;
     if (widget.id != null)
       inherited = NamedStyleMap.of(context)?.styles[widget.id];
     if (inherited != null)
-      inheritedStyle = cascadeStyle(inherited, MediaQuery.of(context));
+      inheritedStyle = inherited.resolveStyle(MediaQuery.of(context));
 
-    style = cascadeStyle(widget.style, MediaQuery.of(context))
+    style = widget.style.resolveStyle(MediaQuery.of(context))
       ..merge(inheritedStyle);
   }
 
   void resolveProperties() {
-    Size constraintSize = Size(parentMaxWidth, parentMaxHeight);
-
     alignment = style.alignment;
 
-    padding = style.padding?.toEdgeInsets(
-            constraintSize: constraintSize, screenSize: screenSize) ??
-        EdgeInsets.all(0.0);
+    padding = style.padding ?? EdgeInsets.all(0);
 
-    margin = style.margin?.toEdgeInsets(
-            constraintSize: constraintSize, screenSize: screenSize) ??
-        EdgeInsets.all(0.0);
+    margin = style.margin ?? EdgeInsets.all(0);
 
-    width = style.width
-        ?.toPX(constraint: parentMaxWidth, screenSize: screenSize)
-        .clamp(0.0, max(0.0, parentMaxWidth - margin.left - margin.right));
-    aspectRatio = style.aspectRatio;
-    if (aspectRatio != null && width != null) {
-      height = width! * aspectRatio!;
-    } else {
-      height = style.height
-          ?.toPX(constraint: parentMaxHeight, screenSize: screenSize)
-          .clamp(0.0, max(0.0, parentMaxHeight - margin.top - margin.right));
-    }
+    width = style.width;
+    height = style.height;
 
     visible = style.visible ?? true;
     opacity = style.opacity ?? 1;
     backgroundDecoration = style.backgroundDecoration ?? BoxDecoration();
     foregroundDecoration = style.foregroundDecoration ?? BoxDecoration();
 
-    shadows = style.shadows
-            ?.map((e) => e.toShapeShadow(
-                constraintSize: constraintSize, screenSize: screenSize))
-            .toList() ??
-        [];
-    insetShadows = style.insetShadows
-            ?.map((e) => e.toShapeShadow(
-                constraintSize: constraintSize, screenSize: screenSize))
-            .toList() ??
-        [];
+    shadows = style.shadows;
+    insetShadows = style.insetShadows;
     shapeBorder =
         style.shapeBorder ?? MorphableShapeBorder(shape: RectangleShape());
 
-    transform = style.transform?.toMatrix4(
-            screenSize: screenSize, constraintSize: constraintSize) ??
+    transform = style.transform?.toMatrix4(screenSize: screenSize) ??
         Matrix4.identity();
     transformAlignment = style.transformAlignment ?? Alignment.center;
 
     childAlignment = style.childAlignment;
     textStyle = style.textStyle?.toTextStyle(
             parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0,
-            constraintSize: constraintSize,
             screenSize: screenSize) ??
         DefaultTextStyle.of(context).style;
     textAlign = style.textAlign ?? TextAlign.start;
@@ -255,16 +222,11 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
       {required Widget child,
       PointerEnterEventListener? onMouseEnter,
       PointerExitEventListener? onMouseExit}) {
-    Widget innerContainer = Container(
-        width: width,
-        height: height,
-        //padding: padding.add(shapeBorder.shape.dimensions),
-        alignment: childAlignment,
-        child: child);
+    Widget innerContainer =
+        DimensionSizedBox(width: width, height: height, child: child);
 
     return Container(
       alignment: alignment,
-      //margin: margin,
       transform: transform,
       transformAlignment: transformAlignment,
       child: innerContainer,
@@ -283,7 +245,6 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
             child: DimensionSizedBox(
               width: style.width,
               height: style.height,
-              alignment: alignment ?? Alignment.center,
               child: Container(
                   padding: padding.add(shapeBorder.shape.dimensions),
                   alignment: childAlignment,
@@ -298,6 +259,7 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
     return Visibility(
       visible: visible,
       child: Container(
+          alignment: alignment,
           margin: margin,
           transform: transform,
           transformAlignment: transformAlignment,
@@ -314,13 +276,11 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
       Curve curve = Curves.linear,
       PointerEnterEventListener? onMouseEnter,
       PointerExitEventListener? onMouseExit}) {
-    Widget innerContainer = AnimatedContainer(
+    Widget innerContainer = AnimatedDimensionSizedBox(
         duration: duration,
         curve: curve,
         width: width,
         height: height,
-        //padding: padding.add(shapeBorder.shape.dimensions),
-        alignment: childAlignment,
         child: child);
 
     return AnimatedContainer(
@@ -338,25 +298,31 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
       required Duration duration,
       Curve curve = Curves.linear,
       PointerEnterEventListener? onMouseEnter,
-      PointerExitEventListener? onMouseExit}) {
+      PointerExitEventListener? onMouseExit,
+      Function()? onEnd}) {
     Widget innerContainer = buildBackdropFilter(
         child: MouseRegion(
             onEnter: onMouseEnter,
             onExit: onMouseExit,
             cursor: mouseCursor,
-            child: AnimatedContainer(
-                duration: duration,
-                curve: curve,
-                width: width,
-                height: height,
-                padding: padding.add(shapeBorder.shape.dimensions),
-                alignment: childAlignment,
-                foregroundDecoration: foregroundDecoration,
-                child: buildAnimatedShaderMask(
-                    child: updateAnimatedDefaultTextStyle(
-                        child: child, curve: curve, duration: duration),
-                    duration: duration,
-                    curve: curve))));
+            child: AnimatedDimensionSizedBox(
+              duration: duration,
+              curve: curve,
+              width: width,
+              height: height,
+              onEnd: onEnd,
+              child: AnimatedContainer(
+                  duration: duration,
+                  curve: curve,
+                  padding: padding.add(shapeBorder.shape.dimensions),
+                  alignment: childAlignment,
+                  foregroundDecoration: foregroundDecoration,
+                  child: buildAnimatedShaderMask(
+                      child: updateAnimatedDefaultTextStyle(
+                          child: child, curve: curve, duration: duration),
+                      duration: duration,
+                      curve: curve)),
+            )));
 
     Widget materialContainer = buildImageFiltered(
         child: buildAnimatedDecoratedShadowedShape(
@@ -367,8 +333,8 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
       child: AnimatedContainer(
           duration: duration,
           curve: curve,
-          alignment: alignment,
           margin: margin,
+          alignment: alignment,
           transform: transform,
           transformAlignment: transformAlignment,
           child: AnimatedOpacity(

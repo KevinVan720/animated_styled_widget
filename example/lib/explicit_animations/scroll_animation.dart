@@ -147,9 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: dimension.toPXLength,
                         childAlignment: Alignment.center,
                         height: (dimension / 2).toPXLength,
-                        padding: DynamicEdgeInsets.all(1.toPercentLength),
-                        margin: DynamicEdgeInsets.symmetric(
-                            vertical: 10.toPXLength),
+                        margin: EdgeInsets.symmetric(vertical: 10),
                         backgroundDecoration: BoxDecoration(
                             gradient: LinearGradient(colors: [
                           Colors.cyanAccent,

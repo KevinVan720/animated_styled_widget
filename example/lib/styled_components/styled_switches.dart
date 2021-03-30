@@ -22,8 +22,11 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
   late Style iosThumbStyle;
   late Style iosTrackStyle;
 
-  late Style rotateThumbStyle;
-  late Style rotateTrackStyle;
+  late Style morphThumbStyle;
+  late Style morphTrackStyle;
+
+  late Style morphVerticalThumbStyle;
+  late Style morphVerticalTrackStyle;
 
   bool _selected = true;
 
@@ -34,10 +37,8 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
     neumorphicThumbStyle = Style(
         width: 100.toPXLength,
         height: 100.toPXLength,
-        //alignment: Alignment.center,
-        childAlignment: Alignment.center,
-        margin: DynamicEdgeInsets.symmetric(
-            vertical: 10.toPXLength, horizontal: 10.toPXLength),
+        alignment: Alignment.center,
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
@@ -47,32 +48,26 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
         )),
         shadows: [
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: -5.toPXLength,
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
               color: Colors.grey.shade400,
-              offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: -5.toPXLength,
+              offset: Offset(20, 20)),
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
               color: Color(0xFFFEFEFE),
-              offset: DynamicOffset(-20.toPXLength, -20.toPXLength)),
+              offset: Offset(-20, -20)),
         ],
-        textStyle: DynamicTextStyle(
-          letterSpacing: 0.2.toVWLength,
-          fontSize: Dimension.min(300.toPercentLength, 26.toPXLength),
-          fontWeight: FontWeight.w700,
-          color: Colors.grey,
-        ),
-        textAlign: TextAlign.center,
-        transform: SmoothMatrix4()..scale(1.5),
         mouseCursor: SystemMouseCursors.click);
 
     neumorphicTrackStyle = Style(
-        width: 220.toPXLength,
-        alignment: Alignment.center,
+        width: 240.toPXLength,
+        height: 120.toPXLength,
+        //alignment: Alignment.centerLeft,
+        //margin: EdgeInsets.symmetric(horizontal: 10),
         backgroundDecoration: BoxDecoration(
-          color: Color(0xFFE0E0E0),
+          color: Color(0xFFDEDEDE),
         ),
         shapeBorder: MorphableShapeBorder(
             shape: RectangleShape(
@@ -80,24 +75,17 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
               DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
         )),
         shadows: [
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: -5.toPXLength,
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
               color: Colors.grey.shade400,
-              offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
-          DynamicShapeShadow(
-              blurRadius: 20.toPXLength,
-              spreadRadius: -5.toPXLength,
+              offset: Offset(20, 20)),
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
               color: Color(0xFFFEFEFE),
-              offset: DynamicOffset(-20.toPXLength, -20.toPXLength)),
+              offset: Offset(-20, -20)),
         ],
-        textStyle: DynamicTextStyle(
-          letterSpacing: 0.2.toVWLength,
-          fontSize: Dimension.min(300.toPercentLength, 26.toPXLength),
-          fontWeight: FontWeight.w700,
-          color: Colors.grey,
-        ),
-        textAlign: TextAlign.center,
         mouseCursor: SystemMouseCursors.click);
 
     iosThumbStyle = Style(
@@ -105,13 +93,18 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         height: 100.toPXLength,
         //alignment: Alignment.center,
         childAlignment: Alignment.center,
-        margin: DynamicEdgeInsets.symmetric(
-            vertical: 10.toPXLength, horizontal: 10.toPXLength),
+        //margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         backgroundDecoration: BoxDecoration(
           color: Colors.white,
         ),
         shapeBorder: MorphableShapeBorder(
             shape: RectangleShape(
+          border: DynamicBorderSide(
+              width: 10,
+              color: Colors.amber,
+              begin: 0.toPercentLength,
+              end: 0.toPercentLength,
+              strokeCap: StrokeCap.butt),
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
         )),
@@ -120,7 +113,8 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
 
     iosTrackStyle = Style(
         width: 240.toPXLength,
-        alignment: Alignment.center,
+        height: 100.toPXLength,
+        //alignment: Alignment.center,
         backgroundDecoration: BoxDecoration(
           color: Colors.redAccent,
         ),
@@ -133,28 +127,61 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         ),
         mouseCursor: SystemMouseCursors.click);
 
-    rotateThumbStyle = Style(
-        width: 100.toPXLength,
-        height: 100.toPXLength,
+    morphThumbStyle = Style(
+        width: 150.toPXLength,
+        height: 150.toPXLength,
         //alignment: Alignment.center,
         childAlignment: Alignment.center,
-        margin: DynamicEdgeInsets.symmetric(
-            vertical: 10.toPXLength, horizontal: 10.toPXLength),
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         backgroundDecoration: BoxDecoration(
           color: Colors.white,
         ),
         shapeBorder: MorphableShapeBorder(
             shape: RectangleShape(
           borderRadius:
-              DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
+              DynamicBorderRadius.all(DynamicRadius.circular(75.toPXLength)),
         )),
         mouseCursor: SystemMouseCursors.click);
 
-    rotateTrackStyle = Style(
+    morphTrackStyle = Style(
         width: 250.toPXLength,
-        height: 100.toPXLength,
-        padding: DynamicEdgeInsets.all(20.toPXLength),
-        margin: DynamicEdgeInsets.all(20.toPXLength),
+        height: 80.toPXLength,
+        padding: EdgeInsets.all(20),
+        margin: EdgeInsets.all(20),
+        //alignment: Alignment.center,
+        backgroundDecoration: BoxDecoration(
+          color: Colors.redAccent,
+        ),
+        shapeBorder: MorphableShapeBorder(
+          shape: RectangleShape(
+            //border: DynamicBorderSide(width: 6, color: Colors.grey.shade200),
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
+          ),
+        ),
+        mouseCursor: SystemMouseCursors.click);
+
+    morphVerticalThumbStyle = Style(
+        width: 150.toPXLength,
+        height: 150.toPXLength,
+        //alignment: Alignment.center,
+        childAlignment: Alignment.center,
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        backgroundDecoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        shapeBorder: MorphableShapeBorder(
+            shape: RectangleShape(
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(75.toPXLength)),
+        )),
+        mouseCursor: SystemMouseCursors.click);
+
+    morphVerticalTrackStyle = Style(
+        width: 80.toPXLength,
+        height: 250.toPXLength,
+        padding: EdgeInsets.all(20),
+        margin: EdgeInsets.all(20),
         alignment: Alignment.center,
         backgroundDecoration: BoxDecoration(
           color: Colors.redAccent,
@@ -221,26 +248,32 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
               builder: childBuilder,
               thumbStyle: neumorphicThumbStyle,
               thumbSelectedStyle: neumorphicThumbStyle.copyWith(
-                shadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 20.toPXLength,
-                      spreadRadius: -5.toPXLength,
-                      color: Colors.grey.shade400,
-                      offset: DynamicOffset(20.toPXLength, 20.toPXLength)),
-                ],
-              ),
+                  backgroundDecoration: BoxDecoration(color: Colors.black38),
+                  shadows: [],
+                  insetShadows: [
+                    ShapeShadow(
+                        blurRadius: 6,
+                        spreadRadius: 0,
+                        color: Colors.black54,
+                        offset: Offset(3, 3)),
+                    ShapeShadow(
+                        blurRadius: 6,
+                        spreadRadius: 0,
+                        color: Colors.grey.shade300,
+                        offset: Offset(-3, -3)),
+                  ]),
               thumbHoveredStyle: neumorphicThumbStyle.copyWith(
                 shadows: [
-                  DynamicShapeShadow(
-                      blurRadius: 20.toPXLength,
-                      spreadRadius: -2.toPXLength,
+                  ShapeShadow(
+                      blurRadius: 20,
+                      spreadRadius: -2,
                       color: Colors.grey.shade400,
-                      offset: DynamicOffset(10.toPXLength, 10.toPXLength)),
-                  DynamicShapeShadow(
-                      blurRadius: 20.toPXLength,
-                      spreadRadius: -2.toPXLength,
+                      offset: Offset(10, 10)),
+                  ShapeShadow(
+                      blurRadius: 20,
+                      spreadRadius: -2,
                       color: Color(0xFFFEFEFE),
-                      offset: DynamicOffset(-10.toPXLength, -10.toPXLength)),
+                      offset: Offset(-10, -10)),
                 ],
               ),
               trackStyle: neumorphicTrackStyle,
@@ -260,11 +293,21 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
                   _selected = value;
                 });
               },
-              duration: Duration(milliseconds: 200),
+              duration: Duration(milliseconds: 1000),
               builder: childBuilder,
               thumbStyle: iosThumbStyle,
               thumbSelectedStyle: iosThumbStyle.copyWith(
                 transform: SmoothMatrix4(),
+                shapeBorder: MorphableShapeBorder(
+                    shape: RectangleShape(
+                  border: DynamicBorderSide(
+                      width: 10,
+                      color: Colors.amber,
+                      begin: 0.toPercentLength,
+                      end: 100.toPercentLength),
+                  borderRadius: DynamicBorderRadius.all(
+                      DynamicRadius.circular(50.toPXLength)),
+                )),
               ),
               trackStyle: iosTrackStyle,
               trackSelectedStyle: iosTrackStyle.copyWith(
@@ -283,14 +326,48 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
                   _selected = value;
                 });
               },
-              duration: Duration(milliseconds: 1000),
+              //duration: Duration(milliseconds: 1000),
               builder: childBuilder,
-              thumbStyle: rotateThumbStyle,
-              thumbSelectedStyle:
-                  rotateThumbStyle.copyWith(transform: SmoothMatrix4()),
-              trackStyle: rotateTrackStyle,
-              trackSelectedStyle: rotateTrackStyle.copyWith(
-                width: 400.toPXLength,
+              thumbStyle: morphThumbStyle,
+              thumbSelectedStyle: morphThumbStyle.copyWith(
+                transform: SmoothMatrix4(),
+                shapeBorder: MorphableShapeBorder(
+                    shape: RectangleShape(
+                  borderRadius: DynamicBorderRadius.all(
+                      DynamicRadius.circular(25.toPXLength)),
+                )),
+              ),
+              trackStyle: morphTrackStyle,
+              trackSelectedStyle: morphTrackStyle.copyWith(
+                backgroundDecoration: BoxDecoration(
+                  color: Colors.greenAccent,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            StyledSwitch(
+              value: _selected,
+              onChanged: (bool value) {
+                setState(() {
+                  _selected = value;
+                });
+              },
+              //duration: Duration(milliseconds: 1000),
+              builder: childBuilder,
+              direction: Axis.vertical,
+              thumbStyle: morphVerticalThumbStyle,
+              thumbSelectedStyle: morphVerticalThumbStyle.copyWith(
+                transform: SmoothMatrix4(),
+                shapeBorder: MorphableShapeBorder(
+                    shape: RectangleShape(
+                  borderRadius: DynamicBorderRadius.all(
+                      DynamicRadius.circular(25.toPXLength)),
+                )),
+              ),
+              trackStyle: morphVerticalTrackStyle,
+              trackSelectedStyle: morphVerticalTrackStyle.copyWith(
                 backgroundDecoration: BoxDecoration(
                   color: Colors.greenAccent,
                 ),

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../styled_widget.dart';
 
 class StyledCheckbox extends StatelessWidget {
-  final dynamic style;
-  final dynamic? hoveredStyle;
-  final dynamic? selectedStyle;
-  final dynamic? disabledStyle;
+  final Style style;
+  final Style? hoveredStyle;
+  final Style? selectedStyle;
+  final Style? disabledStyle;
 
   final Curve curve;
   final Duration duration;
@@ -32,7 +32,7 @@ class StyledCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StyledSelectableButton(
+    return StyledToggleable(
       child: child,
       builder: builder,
       selected: value,
