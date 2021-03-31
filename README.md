@@ -1,33 +1,14 @@
 # responsive_styled_widget
 
-Lets you use a serializable style/style map to make responsive and animatable widgets.
+Current features of this package:
 
-## Getting Started
-
-This package is responsive as you can define a styled container that adapts to different screen sizes.
-
-First, we define the screen scope you want to cover:
-```dart
-var screen1=ScreenScope(minWidth: 100, maxWidth: 500, minHeight:0);
-```
-or use the predefined screenScopes:
-```dart
-var mobileScreen=typicalMobileScreenScope;
-var tabletScreen=typicalTabletScreenScope;
-var desktopScreen=typicalDesktopScreenScope;
-```
-
-Then you can define a style map like this:
-```dart
-Map<ScreenScope, Style> styles={
-mobileScreen: mobileStyle,
-tabletScreen: tabletStyle,
-desktopScreen: desktopStyle,
-};
-```
+1. Let you use a serializable style/style map to design highly customizable StyledContainer widget.
+2. Implicit animation with the AnimatedStyledContainer widget.
+3. Explicit animation (local/global, timed/scroll based) with the ExplicitAnimatedStyledContainer widget.  
+4. Styled Components: StyledButton, StyledToggleButtons, StyledSwitch, StyledRadio, StyledCheckbox, StyledSlider. Your app don't need to look like Material anymore.
 
 ## What is the Style class?
-The style class is a collection of responsive UI data classes.  
+The style class is a collection of UI data classes.  
 It currently supports the following properties:
 1. Sizing and Aligning
 ```dart
@@ -35,8 +16,8 @@ Dimension width
 Dimension height
 Alignment alignment
 Alignment childAlignment
-DynamicEdgeInsets margin
-DynamicEdgeInsets padding
+EdgeInsets margin
+EdgeInsets padding
 ```
 2. Shape and Decoration
 ```dart
@@ -72,11 +53,13 @@ ImageFilter imageFilter
 ImageFilter backdropFilter
 ```
 
-All of the properties that are of type Dimension or named DynamicXXX are fully responsive in the sense that the actual dimensions are calculated based on the size of the widget's parent constraint or the size of the screen, just like CSS.
+The Dimension type is from the [dimension](https://pub.dev/packages/dimension) package. It supports both absolute and relative units. You can also combine/nest min/max/clamp functions on Dimension. You can think of this as a super charged combination of SizedBox and FractionallySizedBox. 
 
-![Layout model](https://i.imgur.com/HGyFFbc.png)
+ShapeShadow and MorphableShapeBorder is from the [morphable_shape](https://pub.dev/packages/morphable_shape) package. ShapeShadow supports inset shadows and gradient filling, addtional to what BoxShadow supports. MorpableShapeBorder supports many commonly used shapes, shape morphing and many more. Check out [fluttershape.com](https://fluttershape.com/) for a interactive demo. 
 
-![Paint order](https://i.imgur.com/bDCjlpr.png)
+DynamicTextStyle lets you define font size, letter spacing etc using absolute/relative values. 
+
+SmoothMatrix4 is similar to Matrix4 but ensures that all the transformations is animatable. It also allows you to use Dimension as translation distances. 
 
 An example of a responsive style:
 ```dart
@@ -84,7 +67,7 @@ Style style=Style(
       alignment: Alignment.center,
       width: 50.toVWLength,
       height: 50.toPercentLength,
-      margin: DynamicEdgeInsets.symmetric(vertical: 10.toPXLength),
+      margin: EdgeInsets.symmetric(vertical: 10),
       backgroundDecoration: BoxDecoration(
           gradient:
               LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
@@ -116,18 +99,24 @@ var widget=StyledContainer(
             style: style,
             child: ...
             );
-```dart
+```
+
 which will render something like this:
 ![style_demo1](https://i.imgur.com/ytv4ToG.png)
 
-You can also pass in a style map:
+You can also pass in a ScopedStyles instance:
+
 ```dart
 var widget=StyledContainer(
-            style: styles,
+            style: ScopedStyles(styles: {
+                  mobileScreen: mobileStyle,
+                  tabletScreen: tabletStyle,
+                  desktopScreen: desktopStyle,
+                  }),
             child: ...
             );
 ```
-and the StyledContainer will determine the actual style to use automatically. If some ScreenScope overlaps, the resolution is similar to CSS: a valid style that comes later in the style map will override the properties of the previous valid style. So you can define a base style that adapts to all screen sizes and provide special styling to certain screen sizes without writing duplicate code.
+and the StyledContainer will determine the actual style to use automatically base on the size of the screen. Those screens are defined using the ScreenScope class which is very similar to BoxContraint in that it defines the min/max width and height of a screen. If some ScreenScope overlaps, the resolution is similar to CSS: a valid style that comes later in the style map will override the properties of the previous valid style. So you can define a base style that adapts to all screen sizes and provide special styling to certain screen sizes without writing duplicate code.
 
 ## Implicit Animation
 Almost every property in the Style class can be animated. See the
@@ -148,6 +137,10 @@ following GIF for a demonstration:
 ![style_demo8](https://i.imgur.com/k7BEHOL.gif)
 
 Just replace the StyledContainer with AnimatedStyledContainer and provide a duration and a curve. Notice the animation can not only be triggered by providing a new style/style map, but also by window resizing/screen rotation as long as you provide the appropriate styles.
+
+## Styled Components
+
+Styled Components is a selection of UI components with simple logic like button, radio button, toggle button, switch, etc.
 
 ## Explicit Animation
 
