@@ -42,7 +42,6 @@ abstract class StyleBase {
     Alignment? alignment,
     Dimension? width,
     Dimension? height,
-    double? aspectRatio,
     EdgeInsets? margin,
     EdgeInsets? padding,
     bool? visible,
@@ -104,7 +103,6 @@ class Style extends StyleBase {
 
   Dimension? width;
   Dimension? height;
-  double? aspectRatio;
 
   EdgeInsets? margin;
   EdgeInsets? padding;
@@ -143,7 +141,6 @@ class Style extends StyleBase {
     this.alignment,
     this.width,
     this.height,
-    this.aspectRatio,
     this.margin,
     this.padding,
     this.opacity,
@@ -175,7 +172,6 @@ class Style extends StyleBase {
 
     width = parseDimension(map["width"]);
     height = parseDimension(map["height"]);
-    aspectRatio = map["aspectRatio"];
     alignment = parseAlignment(map["alignment"]);
 
     margin = parseEdgeInsets(map["margin"]);
@@ -220,7 +216,6 @@ class Style extends StyleBase {
     rst.updateNotNull("alignment", alignment?.toJson());
     rst.updateNotNull("width", width?.toJson());
     rst.updateNotNull("height", height?.toJson());
-    rst.updateNotNull("aspectRatio", aspectRatio);
 
     rst.updateNotNull("margin", margin?.toJson());
     rst.updateNotNull("padding", padding?.toJson());
@@ -253,7 +248,6 @@ class Style extends StyleBase {
     Alignment? alignment,
     Dimension? width,
     Dimension? height,
-    double? aspectRatio,
     EdgeInsets? margin,
     EdgeInsets? padding,
     bool? visible,
@@ -285,7 +279,6 @@ class Style extends StyleBase {
       alignment: alignment ?? this.alignment,
       width: width ?? this.width,
       height: height ?? this.height,
-      aspectRatio: aspectRatio ?? this.aspectRatio,
       margin: margin ?? this.margin,
       padding: padding ?? this.padding,
       visible: visible ?? this.visible,
@@ -319,7 +312,6 @@ class Style extends StyleBase {
         alignment: style.alignment,
         width: style.width,
         height: style.height,
-        aspectRatio: style.aspectRatio,
         margin: style.margin,
         padding: style.padding,
         visible: style.visible,
@@ -349,7 +341,6 @@ class Style extends StyleBase {
         width,
         height,
         margin,
-        aspectRatio,
         padding,
         opacity,
         foregroundDecoration,
@@ -379,7 +370,6 @@ class Style extends StyleBase {
         other.alignment == alignment &&
         other.width == width &&
         other.height == height &&
-        other.aspectRatio == aspectRatio &&
         other.margin == margin &&
         other.padding == padding &&
         other.opacity == opacity &&
@@ -422,7 +412,6 @@ class ScopedStyles extends StyleBase {
     Alignment? alignment,
     Dimension? width,
     Dimension? height,
-    double? aspectRatio,
     EdgeInsets? margin,
     EdgeInsets? padding,
     bool? visible,
@@ -457,7 +446,6 @@ class ScopedStyles extends StyleBase {
               alignment: alignment,
               width: width,
               height: height,
-              aspectRatio: aspectRatio,
               margin: margin,
               padding: padding,
               visible: visible,

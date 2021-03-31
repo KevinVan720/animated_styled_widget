@@ -68,7 +68,7 @@ packages:
       name: flutter_class_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.6"
+    version: "0.1.8"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -136,7 +136,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.8"
+    version: "0.1.9"
   simple_animations:
     dependency: transitive
     description:

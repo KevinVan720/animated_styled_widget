@@ -13,7 +13,7 @@ dependencies:
 
   dimension: ^0.0.8
 
-  flutter_class_parser: ^0.1.6
+  flutter_class_parser: ^0.1.8
 
   morphable_shape: ^1.4.2
 
