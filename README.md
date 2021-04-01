@@ -172,12 +172,33 @@ builder: (context, state) {
 }
 ```
 
-![style_button](https://i.imgur.com/iJF3Rtr.gif)
+![style_button](https://i.imgur.com/tOZG9eR.gif)
 
-Above is six different styled buttons that works great with/without a cursor. 
+Above are six different styled buttons that works great with/without a cursor. 
 
+StyledCheckbox is very similar to StyledButton except for that the pressStyle parameter is replaced by selectedStyle, as checkbox (and other toggleable components) cares about whether itself is selected (not pressed). 
 
+![style_checkbox](https://i.imgur.com/WaIrGH3.gif)
 
+And then there the StyledRadio:
+
+![style_radio](https://i.imgur.com/widITKe.gif)
+
+And StyledToggleButtons:
+
+![style_toggle_buttons](https://i.imgur.com/HxNYklh.gif)
+
+Notice all those components follow exact parameter naming schemes as the built-in ones except for the styling part. 
+
+The StyledSwitch and StyledSlider is a little tricker, as now the styling involves two components. For StyledSwitch, you need to provide styling for both the track and the thumb. And the thumb will be aligned to either the left ot right side of the track (if the switch is horizontal). 
+
+![style_switch](https://i.imgur.com/8CANMuZ.gif)
+
+The StyledSlider need styling for the track and thumb as well, but you can also provide styling for the active track and tooltip.
+
+![style_slider](https://i.imgur.com/TsaQqck.gif)
+
+The interface for the slider is not final, I may add more styling paramters in the future. 
 
 ## Explicit Animation
 
@@ -259,6 +280,8 @@ Now let's talk about other animation triggers. The AnimationTrigger.tap is easy 
 ![scroll_progress](https://i.imgur.com/ycwqF0r.png)
 
 The animation progress by default is calculated as shown in the figure above (if scrolled horizontally). But you can also make the animation start/end earlier or later using two percentage offsets.
+
+![style_demo10](https://i.imgur.com/D0qM8tH.gif)
 
 ![style_demo10](https://i.imgur.com/12TmQ55.gif)
 
