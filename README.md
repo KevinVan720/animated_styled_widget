@@ -27,6 +27,7 @@ EdgeInsets padding
 2. Shape and Decoration
 ```dart
 BoxDecorartion backgroundDecoration
+BoxDecorartion foregroundDecoration
 List<ShapeShadow> shadows
 List<ShapeShadow> insetShadows
 MorphableShapeBorder shapeBorder
@@ -58,13 +59,13 @@ ImageFilter imageFilter
 ImageFilter backdropFilter
 ```
 
-The Dimension type is from the [dimension](https://pub.dev/packages/dimension) package. It supports both absolute and relative units. You can also combine/nest min/max/clamp functions on Dimension. You can think of this as a super charged combination of SizedBox and FractionallySizedBox. 
+The Dimension type is from the [dimension](https://pub.dev/packages/dimension) package. It supports both absolute and relative units. You can also combine/nest min/max/clamp functions on Dimension. You can think of this as a supercharged combination of SizedBox and FractionallySizedBox. 
 
-ShapeShadow and MorphableShapeBorder is from the [morphable_shape](https://pub.dev/packages/morphable_shape) package. ShapeShadow supports inset shadows and gradient filling, addtional to what BoxShadow supports. MorpableShapeBorder supports many commonly used shapes, shape morphing and many more. Check out [fluttershape.com](https://fluttershape.com/) for a interactive demo. 
+ShapeShadow and MorphableShapeBorder are from the [morphable_shape](https://pub.dev/packages/morphable_shape) package. ShapeShadow supports inset shadows and gradient filling, in addition to what BoxShadow supports. MorpableShapeBorder supports many commonly used shapes, shape morphing, and many more. Check out [fluttershape.com](https://fluttershape.com/) for an interactive demo. 
 
 DynamicTextStyle lets you define font size, letter spacing etc using absolute/relative values. 300% font size means 3 times the default font size. 
 
-SmoothMatrix4 is similar to Matrix4 but ensures that all the transformations is smoothly animatable. It also allows you to use Dimension as translation distances to adapt to different screen sizes. 
+SmoothMatrix4 is similar to Matrix4 but ensures that all the transformations can be smoothly animated. It also allows you to use Dimension as translation distances to adapt to different screen sizes. 
 
 The layout model and paint order is shown below:
 
@@ -152,7 +153,7 @@ The Material components animates according to its internal MaterialState like ho
       this.builder});
 ```
 
-A button can be in one of the four states: idle, hovered, pressed, disabled. You need to provide the four corresponding styles. Notice only the idle(default) style is required, and the other three will be set to this style if not provided. You can also specify the duration and animation curve for transitioning between different states. The child paramter is the child Widget of this button. But you can also provide a builder which can access to the state of the button:
+A button can be in one of the four states: idle, hovered, pressed, disabled. You need to provide the four corresponding styles. Notice only the idle(default) style is required, and the other three will be set to this style if not provided. You can also specify the duration and animation curve for transitioning between different states. The child parameter is the child widget of this button. But you can also provide a builder which can access the state of the button:
 ```dart
 builder: (context, state) {
       Widget child;
