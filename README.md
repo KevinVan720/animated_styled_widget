@@ -9,6 +9,8 @@ Current features of this package:
 3. Explicit animations (local/global, timed/scroll based) with the ExplicitAnimatedStyledContainer widget.  
 4. Styled Components: StyledButton, StyledToggleButtons, StyledSwitch, StyledRadio, StyledCheckbox, StyledSlider. Your app don't need to look like Material.
 
+Many features of this package is inspired by CSS or follows CSS specifications. If you are familiar with CSS, this package should be even easier to use. 
+
 ## What is the Style class?
 The style class is a collection of UI data classes.  
 It currently supports the following properties:
@@ -62,7 +64,7 @@ ShapeShadow and MorphableShapeBorder is from the [morphable_shape](https://pub.d
 
 DynamicTextStyle lets you define font size, letter spacing etc using absolute/relative values. 300% font size means 3 times the default font size. 
 
-SmoothMatrix4 is similar to Matrix4 but ensures that all the transformations is animatable. It also allows you to use Dimension as translation distances to adapt to different screen sizes. 
+SmoothMatrix4 is similar to Matrix4 but ensures that all the transformations is smoothly animatable. It also allows you to use Dimension as translation distances to adapt to different screen sizes. 
 
 The layout model and paint order is shown below:
 
@@ -108,7 +110,7 @@ var widget=StyledContainer(
             child: ...
             );
 ```
-and the StyledContainer will determine the actual style to use automatically base on the size of the screen. Those screens are defined using the ScreenScope class which is very similar to BoxConstraint in the sense that it defines the min/max width and height of a screen. If some ScreenScope overlaps, the resolution is similar to CSS: a valid style that comes later in the style map will override the properties of the previous valid style. So you can define a base style that adapts to all screen sizes and provide special styling to certain screen sizes without writing duplicate code.
+and the StyledContainer will determine the actual style to use automatically based on the size of the screen. Those screens are defined using the ScreenScope class which is very similar to BoxConstraint in the sense that it defines the min/max width and height of a screen. If some ScreenScope overlaps, the resolution is similar to CSS: a valid style that comes later in the style map will override the properties of the previous valid style. So you can define a base style that adapts to all screen sizes and provide special styling to certain screen sizes without writing duplicate code.
 
 ## Implicit Animation
 Almost every property in the Style class can be animated. See the
@@ -132,7 +134,50 @@ Just replace the StyledContainer with AnimatedStyledContainer and provide a dura
 
 ## Styled Components
 
-Styled Components is a selection of UI components with simple logic like button, radio button, toggle button, switch, etc.
+Styled components is a selection of UI components with simple logic like button, radio button, toggle button, switch, etc. The Material implementation of those components is great, but the customization ability is quited limited. There are many other packages out there for even more customization, but the customizability is typically limited to color, border radius, sizing, etc. This package gives you much more. 
+
+The Material components animates according to its internal MaterialState like hovered, pressed, selected, etc. So does the styled components. Lets look at the StyleButton's constructor as an example:
+
+```dart
+  StyledButton(
+      {Key? key,
+      this.onPressed,
+      required this.style,
+      this.hoveredStyle,
+      this.pressedStyle,
+      this.disabledStyle,
+      this.curve = Curves.linear,
+      this.duration = const Duration(milliseconds: 100),
+      this.child,
+      this.builder});
+```
+
+A button can be in four states: idle, hovered, pressed, disabled. So you provide the four corresponding styles. Notice only the idle(default) style is required, and the other three will be set to this style if not preovided. You can also specify the duration and animation curve for this button to transition between different states. The child paramter is the child Widget to this button. But you can also provide a builder which have access to the state of the button:
+```dart
+builder: (context, state) {
+      Widget child;
+      switch (state) {
+         case StyledState.pressed:
+            child = Text("TAPPED", key: UniqueKey());
+            break;
+                
+         default:
+            child = Text("TAP ME", key: UniqueKey());
+            break;
+       }
+       return AnimatedSwitcher(
+         duration: Duration(milliseconds: 200),
+         child: child,
+       );
+}
+```
+
+![style_button](https://i.imgur.com/iJF3Rtr.gif)
+
+Above is six different styled buttons that works great with/without a cursor. 
+
+
+
 
 ## Explicit Animation
 
