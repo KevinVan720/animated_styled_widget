@@ -1,15 +1,18 @@
 # responsive_styled_widget
 
+Powerful styling, serialization, animation, and custom components all in one place. 
+
 Current features of this package:
 
 1. Let you use a serializable style/style map to design highly customizable StyledContainer widget.
-2. Implicit animation with the AnimatedStyledContainer widget.
-3. Explicit animation (local/global, timed/scroll based) with the ExplicitAnimatedStyledContainer widget.  
-4. Styled Components: StyledButton, StyledToggleButtons, StyledSwitch, StyledRadio, StyledCheckbox, StyledSlider. Your app don't need to look like Material anymore.
+2. Implicit animations with the AnimatedStyledContainer widget.
+3. Explicit animations (local/global, timed/scroll based) with the ExplicitAnimatedStyledContainer widget.  
+4. Styled Components: StyledButton, StyledToggleButtons, StyledSwitch, StyledRadio, StyledCheckbox, StyledSlider. Your app don't need to look like Material.
 
 ## What is the Style class?
 The style class is a collection of UI data classes.  
 It currently supports the following properties:
+
 1. Sizing and Aligning
 ```dart
 Dimension width
@@ -41,7 +44,7 @@ Alignment transformAlignment
 DynamicTextStyle textStyle
 TextAlign textAlign
 ```
-6. Mouse style
+6. Mouse cursor style
 ```dart
 SystemMouseCursor mouseCursor
 ```
@@ -57,9 +60,15 @@ The Dimension type is from the [dimension](https://pub.dev/packages/dimension) p
 
 ShapeShadow and MorphableShapeBorder is from the [morphable_shape](https://pub.dev/packages/morphable_shape) package. ShapeShadow supports inset shadows and gradient filling, addtional to what BoxShadow supports. MorpableShapeBorder supports many commonly used shapes, shape morphing and many more. Check out [fluttershape.com](https://fluttershape.com/) for a interactive demo. 
 
-DynamicTextStyle lets you define font size, letter spacing etc using absolute/relative values. 
+DynamicTextStyle lets you define font size, letter spacing etc using absolute/relative values. 300% font size means 3 times the default font size. 
 
-SmoothMatrix4 is similar to Matrix4 but ensures that all the transformations is animatable. It also allows you to use Dimension as translation distances. 
+SmoothMatrix4 is similar to Matrix4 but ensures that all the transformations is animatable. It also allows you to use Dimension as translation distances to adapt to different screen sizes. 
+
+The layout model and paint order is shown below:
+
+![Layout model](https://i.imgur.com/HGyFFbc.png)
+
+![Paint order](https://i.imgur.com/TVD00hr.png)
 
 An example of a responsive style:
 ```dart
@@ -75,20 +84,6 @@ Style style=Style(
           shape:RoundedRectangleShape(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
-          borders: RectangleBorders.only(
-              top: DynamicBorderSide(
-                  gradient: LinearGradient(colors: [
-                    Colors.cyanAccent.shade100,
-                    Colors.purpleAccent.shade100
-                  ]),
-                  width: 12),
-              bottom: DynamicBorderSide(
-                  gradient:
-                      LinearGradient(colors: [Colors.cyan, Colors.purple]),
-                  width: 28),
-              left: DynamicBorderSide(
-                  color: Colors.cyanAccent.shade200, width: 12),
-              right: DynamicBorderSide(color: Colors.purpleAccent, width: 28)))
           )
       );
 ```
@@ -100,9 +95,6 @@ var widget=StyledContainer(
             child: ...
             );
 ```
-
-which will render something like this:
-![style_demo1](https://i.imgur.com/ytv4ToG.png)
 
 You can also pass in a ScopedStyles instance:
 
@@ -116,7 +108,7 @@ var widget=StyledContainer(
             child: ...
             );
 ```
-and the StyledContainer will determine the actual style to use automatically base on the size of the screen. Those screens are defined using the ScreenScope class which is very similar to BoxContraint in that it defines the min/max width and height of a screen. If some ScreenScope overlaps, the resolution is similar to CSS: a valid style that comes later in the style map will override the properties of the previous valid style. So you can define a base style that adapts to all screen sizes and provide special styling to certain screen sizes without writing duplicate code.
+and the StyledContainer will determine the actual style to use automatically base on the size of the screen. Those screens are defined using the ScreenScope class which is very similar to BoxConstraint in the sense that it defines the min/max width and height of a screen. If some ScreenScope overlaps, the resolution is similar to CSS: a valid style that comes later in the style map will override the properties of the previous valid style. So you can define a base style that adapts to all screen sizes and provide special styling to certain screen sizes without writing duplicate code.
 
 ## Implicit Animation
 Almost every property in the Style class can be animated. See the
