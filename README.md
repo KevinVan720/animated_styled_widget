@@ -152,7 +152,7 @@ The Material components animates according to its internal MaterialState like ho
       this.builder});
 ```
 
-A button can be in four states: idle, hovered, pressed, disabled. So you provide the four corresponding styles. Notice only the idle(default) style is required, and the other three will be set to this style if not preovided. You can also specify the duration and animation curve for this button to transition between different states. The child paramter is the child Widget to this button. But you can also provide a builder which have access to the state of the button:
+A button can be in one of the four states: idle, hovered, pressed, disabled. You need to provide the four corresponding styles. Notice only the idle(default) style is required, and the other three will be set to this style if not provided. You can also specify the duration and animation curve for transitioning between different states. The child paramter is the child Widget of this button. But you can also provide a builder which can access to the state of the button:
 ```dart
 builder: (context, state) {
       Widget child;
@@ -176,11 +176,11 @@ builder: (context, state) {
 
 Above are six different styled buttons that works great with/without a cursor. 
 
-StyledCheckbox is very similar to StyledButton except for that the pressStyle parameter is replaced by selectedStyle, as checkbox (and other toggleable components) cares about whether itself is selected (not pressed). 
+StyledCheckbox is very similar to StyledButton except for that the pressedStyle parameter is replaced by selectedStyle, as checkbox (and other toggleable components) cares about whether itself is selected (not pressed). 
 
 ![style_checkbox](https://i.imgur.com/WaIrGH3.gif)
 
-And then there the StyledRadio:
+And then there's the StyledRadio:
 
 ![style_radio](https://i.imgur.com/widITKe.gif)
 
@@ -188,9 +188,9 @@ And StyledToggleButtons:
 
 ![style_toggle_buttons](https://i.imgur.com/HxNYklh.gif)
 
-Notice all those components follow exact parameter naming schemes as the built-in ones except for the styling part. 
+Notice all those components follow the exact parameter naming schemes as the built-in ones except for the styling part. 
 
-The StyledSwitch and StyledSlider is a little tricker, as now the styling involves two components. For StyledSwitch, you need to provide styling for both the track and the thumb. And the thumb will be aligned to either the left ot right side of the track (if the switch is horizontal). 
+The StyledSwitch and StyledSlider are a little tricker, as now the styling involves two components. For StyledSwitch, you need to provide styling for both the track and the thumb. And the thumb will be aligned to either the left ot right side of the track (if the switch is horizontal). 
 
 ![style_switch](https://i.imgur.com/8CANMuZ.gif)
 
@@ -221,7 +221,7 @@ You still provide an initial style to the widget, but then you use local/global 
 Map<AnimationTrigger, MultiAnimationSequence> localAnimations
 ```
 
-It is a map between AnimationTrigger and MultiAnimationSequence. Currently supported AnimationTrigger are the following:
+It is a map between AnimationTrigger and MultiAnimationSequence. Currently supported AnimationTriggers are the following:
 
 ```dart
 enum AnimationTrigger {
@@ -239,7 +239,7 @@ When a trigger event happens(e.g. you tapped this widget), the corresponding Mul
 Map<AnimationProperty, AnimationSequence> sequences
 ```
 
-where AnimationProperty is an enum class corresponding to every property the Style class has, and AnimationSequence is a list of generic values, durations, delays, and curves that tells us how a certain animation property is evolved. For example:
+where AnimationProperty is an enum class corresponding to every animatable property the Style class supports, and AnimationSequence is a list of generic values, durations, delays, and curves that tells us how a certain animation property is evolved. For example:
 
 ```dart
 MultiAnimationSequence(sequences: {
@@ -252,11 +252,11 @@ AnimationProperty.width: AnimationSequence()
  ..add(
       duration: Duration(milliseconds: 200),
       curve: Curves.easeIn,
-      value: 200.toPXLength)
+      value: 50.toVWLength)
 });
 ```
 
-will delay 1 second, then animate the width from its current value to 100 px in 200ms, then to 200 px in 200ms. You can animate other properties using the same syntax.
+will delay 1 second, then animate the width from its current value to 100 px in 200ms, then to 50% screen width in 200ms. You can animate other properties using the same syntax.
 
 ![style_demo9](https://i.imgur.com/Gcii4AZ.gif)
 
@@ -334,7 +334,7 @@ Widget widget = ExplicitAnimatedStyledContainer(
   style: style,
   child: child,
   localAnimations: {
-  AnimationTrigger.visible:                                                       FadeInAnimation().getAnimationSequences()
+  AnimationTrigger.visible: FadeInAnimation().getAnimationSequences()
   }
 );
 ```
@@ -352,7 +352,7 @@ SlideInAnimation().getAnimationSequences())
 );
 ```
 
-Then the widget will both fade and slide in. If you use extend, the animation will play one after another. Preset animations make animations much easier to use while still offer you great flexibility.
+Then the widget will both fade and slide in once it shows up in the viewport. If you use extend, the animation will play one after another. Preset animations make animations much easier to use while still offer you great flexibility.
 
 ![style_demo13](https://i.imgur.com/1GXSxxq.gif)
 
@@ -399,7 +399,7 @@ Provider.of<LocalAnimationNotifier>(context, listen: false)
 Provider.of<GlobalAnimationNotifier>(context, listen: false)
  .updateAnimationStatus(animationId, status);
 ```
-which will update the animation status (like PLAY, STOP, LOOP, etc).
+which will update the animation and its status (like PLAY, STOP, LOOP, etc).
 
 You can also provide callbacks to the AnimationTrigger events along with animations:
 
@@ -420,16 +420,6 @@ The style class can be easily serialized/deserialized:
 String styleJson=json.encode(style.toJson());
 Style newStyle=Style.fromJson(json.decode(styleJson));
 ```
-
-A style map, as a matter of fact, can also do:
-```
-String styleJson=json.encode(styles.toJson());
-```
-and you can call this function to parse a style or a style map:
-```
-dynamic? parsePossibleStyleMap(Map<String, dynamic>? style)
-```
-and use the result directly in the StyledContainer class.
 
 Classes involved in explicit animations also support serialization. You can basically create and store complex animated components in plain text and load them everywhere.
 
