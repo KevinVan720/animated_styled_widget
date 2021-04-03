@@ -62,8 +62,7 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
   BoxDecoration backgroundDecoration = BoxDecoration();
   BoxDecoration foregroundDecoration = BoxDecoration();
 
-  MorphableShapeBorder shapeBorder =
-      MorphableShapeBorder(shape: RectangleShape());
+  MorphableShapeBorder shapeBorder = RectangleShapeBorder();
 
   List<ShapeShadow>? shadows = <ShapeShadow>[];
   List<ShapeShadow>? insetShadows = <ShapeShadow>[];
@@ -113,8 +112,7 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
 
     shadows = style.shadows;
     insetShadows = style.insetShadows;
-    shapeBorder =
-        style.shapeBorder ?? MorphableShapeBorder(shape: RectangleShape());
+    shapeBorder = style.shapeBorder ?? RectangleShapeBorder();
 
     transform = style.transform?.toMatrix4(screenSize: screenSize) ??
         Matrix4.identity();
@@ -246,7 +244,7 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
               width: style.width,
               height: style.height,
               child: Container(
-                  padding: padding.add(shapeBorder.shape.dimensions),
+                  padding: padding.add(shapeBorder.dimensions),
                   alignment: childAlignment,
                   foregroundDecoration: foregroundDecoration,
                   child: buildShaderMask(
@@ -314,7 +312,7 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
               child: AnimatedContainer(
                   duration: duration,
                   curve: curve,
-                  padding: padding.add(shapeBorder.shape.dimensions),
+                  padding: padding.add(shapeBorder.dimensions),
                   alignment: childAlignment,
                   foregroundDecoration: foregroundDecoration,
                   child: buildAnimatedShaderMask(

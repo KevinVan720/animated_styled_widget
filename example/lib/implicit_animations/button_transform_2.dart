@@ -33,25 +33,23 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
       backgroundDecoration: BoxDecoration(
           gradient:
               LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
-      shapeBorder: MorphableShapeBorder(
-          shape: RoundedRectangleShape(
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(15.toPXLength)),
-              borders: RectangleBorders.only(
-                  top: DynamicBorderSide(
-                      gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
-                      ]),
-                      width: 12),
-                  bottom: DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
-                      width: 28),
-                  left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 12),
-                  right: DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 28)))),
+      shapeBorder: RoundedRectangleShapeBorder(
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+          borders: RectangleBorders.only(
+              top: DynamicBorderSide(
+                  gradient: LinearGradient(colors: [
+                    Colors.cyanAccent.shade100,
+                    Colors.purpleAccent.shade100
+                  ]),
+                  width: 12),
+              bottom: DynamicBorderSide(
+                  gradient:
+                      LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  width: 28),
+              left: DynamicBorderSide(
+                  color: Colors.cyanAccent.shade200, width: 12),
+              right: DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
     );
 
     endStyle = ScopedStyles(styles: {
@@ -83,12 +81,11 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
                 color: Color.fromARGB(255, 240, 255, 240),
                 offset: Offset((-4), (-3)))
           ],
-          shapeBorder: MorphableShapeBorder(
-              shape: RectangleShape(
-                  borderRadius: DynamicBorderRadius.all(
-                      DynamicRadius.circular(20.toPXLength)),
-                  border: DynamicBorderSide(
-                      width: 3, color: Colors.lightGreen.shade700))),
+          shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(20.toPXLength)),
+              border: DynamicBorderSide(
+                  width: 3, color: Colors.lightGreen.shade700)),
           childAlignment: Alignment.center,
           transform: SmoothMatrix4()..rotateZ(3.1416)),
     });

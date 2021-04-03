@@ -30,19 +30,17 @@ class _ButtonTransform3PageState extends State<ButtonTransform3Page> {
       backgroundDecoration: BoxDecoration(
           gradient:
               LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
-      shapeBorder: MorphableShapeBorder(
-          shape: RectangleShape(
-              cornerStyles: RectangleCornerStyles.all(CornerStyle.cutout),
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(100.toPercentLength)))),
+      shapeBorder: RectangleShapeBorder(
+          cornerStyles: RectangleCornerStyles.all(CornerStyle.cutout),
+          borderRadius: DynamicBorderRadius.all(
+              DynamicRadius.circular(100.toPercentLength))),
     );
 
     endStyle = beginStyle.copyWith(
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
-                border: DynamicBorderSide(width: 12, color: Colors.teal),
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(0.toPXLength)))),
+        shapeBorder: RectangleShapeBorder(
+            border: DynamicBorderSide(width: 12, color: Colors.teal),
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength))),
         shadows: preDefinedShapeShadow[12]);
   }
 

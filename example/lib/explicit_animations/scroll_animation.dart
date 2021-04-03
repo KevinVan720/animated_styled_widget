@@ -220,11 +220,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           MultiAnimationSequence(sequences: {
                         AnimationProperty.shapeBorder: AnimationSequence()
                           ..add(
-                              value: MorphableShapeBorder(
-                                  shape: RectangleShape(
-                                      borderRadius: DynamicBorderRadius.all(
-                                          DynamicRadius.circular(
-                                              50.toPercentLength)))))
+                              value: RectangleShapeBorder(
+                                  borderRadius: DynamicBorderRadius.all(
+                                      DynamicRadius.circular(
+                                          50.toPercentLength))))
                       })
                     },
                     child: Text("Shape morph"),

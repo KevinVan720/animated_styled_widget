@@ -32,23 +32,16 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
         height: 400.toPXLength,
         padding: EdgeInsets.symmetric(vertical: 30),
         childAlignment: Alignment.center,
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
-                border: DynamicBorderSide(
-                    width: 3,
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: [
-                          0,
-                          0.2
-                        ],
-                        colors: [
-                          Colors.white70,
-                          Colors.white.withOpacity(0.05)
-                        ])),
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(20.toPXLength)))),
+        shapeBorder: RectangleShapeBorder(
+            border: DynamicBorderSide(
+                width: 3,
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0, 0.2],
+                    colors: [Colors.white70, Colors.white.withOpacity(0.05)])),
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
         backgroundDecoration: BoxDecoration(color: Colors.white38),
         backdropFilter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
         textStyle: DynamicTextStyle(
@@ -62,18 +55,17 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
     endStyle = beginStyle.copyWith(
       width: 396.toPXLength,
       height: 396.toPXLength,
-      shapeBorder: MorphableShapeBorder(
-          shape: RectangleShape(
-              border: DynamicBorderSide(
-                  width: 1,
-                  begin: 50.toPercentLength,
-                  end: 60.toPercentLength,
-                  gradient: LinearGradient(colors: [
-                    Colors.white.withOpacity(0.01),
-                    Colors.white.withOpacity(0.01)
-                  ])),
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(20.toPXLength)))),
+      shapeBorder: RectangleShapeBorder(
+          border: DynamicBorderSide(
+              width: 1,
+              begin: 50.toPercentLength,
+              end: 60.toPercentLength,
+              gradient: LinearGradient(colors: [
+                Colors.white.withOpacity(0.01),
+                Colors.white.withOpacity(0.01)
+              ])),
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
     );
 
     /*printWrapped(

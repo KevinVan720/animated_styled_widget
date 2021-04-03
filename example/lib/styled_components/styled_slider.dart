@@ -49,11 +49,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.amberAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     simpleTrackStyle = Style(
@@ -62,11 +61,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.black87,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(2.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     simple2ThumbStyle = Style(
@@ -75,11 +73,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.amberAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius: DynamicBorderRadius.all(
               DynamicRadius.circular(100.toPercentLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     simple2TrackStyle = Style(
@@ -90,8 +87,7 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [Colors.deepPurple, Colors.black87])),
-        shapeBorder: MorphableShapeBorder(
-            shape: StarShape(corners: 4, insetRadius: 10.toPXLength)),
+        shapeBorder: StarShapeBorder(corners: 4, insetRadius: 10.toPXLength),
         mouseCursor: SystemMouseCursors.click);
 
     simple2ActiveTrackStyle = Style(
@@ -100,11 +96,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.white,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(2.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     thumbStyle = Style(
@@ -114,8 +109,8 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.amberAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: StarShape(corners: 5, cornerRadius: 10.toPercentLength)),
+        shapeBorder:
+            StarShapeBorder(corners: 5, cornerRadius: 10.toPercentLength),
         shadows: [
           ShapeShadow(blurRadius: 6, color: Colors.grey, offset: Offset(2, 2)),
         ],
@@ -131,7 +126,7 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.blueAccent,
         ),
-        shapeBorder: MorphableShapeBorder(shape: BubbleShape()),
+        shapeBorder: BubbleShapeBorder(),
         shadows: [],
         textStyle: DynamicTextStyle(
           fontSize: (16.toPXLength),
@@ -149,11 +144,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.grey,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     activeTrackStyle = Style(
@@ -162,11 +156,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.blueAccent.shade400,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     thumbVerticalStyle = Style(
@@ -176,11 +169,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.blueAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         shadows: [
           ShapeShadow(
               blurRadius: 10,
@@ -198,11 +190,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.grey,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         textStyle: DynamicTextStyle(
           letterSpacing: 0.2.toVWLength,
           fontSize: Dimension.min(300.toPercentLength, 26.toPXLength),
@@ -221,10 +212,8 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.blueAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: BubbleShape(
-                corner: ShapeCorner.leftTop,
-                arrowHeadPosition: 25.toPercentLength)),
+        shapeBorder: BubbleShapeBorder(
+            corner: ShapeCorner.leftTop, arrowHeadPosition: 25.toPercentLength),
         shadows: [],
         textStyle: DynamicTextStyle(
           fontSize: (16.toPXLength),
@@ -251,11 +240,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.black54,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(25.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
     iosActiveTrackVerticalStyle = Style(
         width: 100.toPXLength,
@@ -264,11 +252,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.blue,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(25.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
   }
 

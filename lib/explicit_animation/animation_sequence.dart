@@ -75,7 +75,7 @@ Map<AnimationProperty, dynamic> animationPropertyDefaultInitMap = {
   AnimationProperty.foregroundDecoration: BoxDecoration(),
   AnimationProperty.shadows: <ShapeShadow>[],
   AnimationProperty.insetShadows: <ShapeShadow>[],
-  AnimationProperty.shapeBorder: MorphableShapeBorder(shape: RectangleShape()),
+  AnimationProperty.shapeBorder: RectangleShapeBorder(),
   AnimationProperty.transform: Matrix4.identity(),
   AnimationProperty.transformAlignment: Alignment.center,
   AnimationProperty.childAlignment: Alignment.center,

@@ -21,10 +21,9 @@ class StaggeredAnimationsPage extends StatelessWidget {
                 ..add(
                     curve: Curves.bounceIn,
                     duration: Duration(seconds: 2),
-                    value: MorphableShapeBorder(
-                        shape: RectangleShape(
-                            borderRadius: DynamicBorderRadius.all(
-                                DynamicRadius.circular(50.toPercentLength))))),
+                    value: RectangleShapeBorder(
+                        borderRadius: DynamicBorderRadius.all(
+                            DynamicRadius.circular(50.toPercentLength)))),
               AnimationProperty.backgroundDecoration: AnimationSequence()
                 ..add(
                     curve: Curves.bounceIn,
@@ -54,7 +53,7 @@ class StaggeredAnimationsPage extends StatelessWidget {
               curve: Curves.bounceIn,
               delay: Duration(seconds: 1),
               duration: Duration(seconds: 2),
-              value: MorphableShapeBorder(shape: PolygonShape(sides: 8)))
+              value: PolygonShapeBorder(sides: 8))
       }),
       "Container3": SlideOutAnimation(
               curve: Curves.bounceIn,
@@ -75,7 +74,7 @@ class StaggeredAnimationsPage extends StatelessWidget {
                     curve: Curves.bounceIn,
                     delay: Duration(seconds: 2),
                     duration: Duration(seconds: 2),
-                    value: MorphableShapeBorder(shape: StarShape(corners: 8))),
+                    value: StarShapeBorder(corners: 8)),
             })),
       "Container4": MultiAnimationSequence(sequences: {
         AnimationProperty.transform: AnimationSequence()
@@ -87,14 +86,13 @@ class StaggeredAnimationsPage extends StatelessWidget {
           ..add(
               delay: Duration(seconds: 3),
               duration: Duration(seconds: 2),
-              value: MorphableShapeBorder(
-                  shape: CircleShape(
-                      border: DynamicBorderSide(
-                          width: 10,
-                          color: Colors.red,
-                          begin: 0.toPercentLength,
-                          end: 0.toPercentLength,
-                          shift: 100.toPercentLength))))
+              value: CircleShapeBorder(
+                  border: DynamicBorderSide(
+                      width: 10,
+                      color: Colors.red,
+                      begin: 0.toPercentLength,
+                      end: 0.toPercentLength,
+                      shift: 100.toPercentLength)))
       })
     })
   };
@@ -193,14 +191,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: containerSize,
                     backgroundDecoration:
                         BoxDecoration(color: Colors.greenAccent),
-                    shapeBorder: MorphableShapeBorder(
-                        shape: CircleShape(
-                            border: DynamicBorderSide(
+                    shapeBorder: CircleShapeBorder(
+                        border: DynamicBorderSide(
                       width: 10,
                       color: Colors.blue,
                       begin: 0.toPercentLength,
                       end: 100.toPercentLength,
-                    )))),
+                    ))),
                 child: Container(),
               )
             ],
@@ -230,10 +227,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 60.toPXLength,
                   margin: EdgeInsets.only(right: 20, bottom: 20),
                   backgroundDecoration: BoxDecoration(color: Colors.amber),
-                  shapeBorder: MorphableShapeBorder(
-                      shape: RoundedRectangleShape(
-                          borderRadius: DynamicBorderRadius.all(
-                              DynamicRadius.circular(49.9.toPercentLength)))),
+                  shapeBorder: RoundedRectangleShapeBorder(
+                      borderRadius: DynamicBorderRadius.all(
+                          DynamicRadius.circular(49.9.toPercentLength))),
                   shadows: preDefinedShapeShadow[6]),
               globalAnimationIds: {AnimationTrigger.tap: "animation"},
               child: !isRunning ? Icon(Icons.play_arrow) : Icon(Icons.pause),

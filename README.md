@@ -83,11 +83,9 @@ Style style=Style(
       backgroundDecoration: BoxDecoration(
           gradient:
               LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
-      shapeBorder: MorphableShapeBorder(
-          shape:RoundedRectangleShape(
+      shapeBorder: RoundedRectangleShapeBorder(
           borderRadius:
-              DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
-          )
+              DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength))
       );
 ```
 

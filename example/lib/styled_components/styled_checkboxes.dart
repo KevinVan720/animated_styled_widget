@@ -35,11 +35,10 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         shadows: [
           ShapeShadow(
               blurRadius: 20,
@@ -68,25 +67,24 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Colors.cyanAccent, Colors.purpleAccent])),
-        shapeBorder: MorphableShapeBorder(
-            shape: RoundedRectangleShape(
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(15.toPXLength)),
-                borders: RectangleBorders.only(
-                    top: DynamicBorderSide(
-                        gradient: LinearGradient(colors: [
-                          Colors.cyanAccent.shade100,
-                          Colors.purpleAccent.shade100
-                        ]),
-                        width: 11),
-                    bottom: DynamicBorderSide(
-                        gradient: LinearGradient(
-                            colors: [Colors.cyan, Colors.purple]),
-                        width: 29),
-                    left: DynamicBorderSide(
-                        color: Colors.cyanAccent.shade200, width: 11),
-                    right: DynamicBorderSide(
-                        color: Colors.purpleAccent, width: 29)))),
+        shapeBorder: RoundedRectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+            borders: RectangleBorders.only(
+                top: DynamicBorderSide(
+                    gradient: LinearGradient(colors: [
+                      Colors.cyanAccent.shade100,
+                      Colors.purpleAccent.shade100
+                    ]),
+                    width: 11),
+                bottom: DynamicBorderSide(
+                    gradient:
+                        LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                    width: 29),
+                left: DynamicBorderSide(
+                    color: Colors.cyanAccent.shade200, width: 11),
+                right:
+                    DynamicBorderSide(color: Colors.purpleAccent, width: 29))),
         shadows: [
           ShapeShadow(
               blurRadius: 25,
@@ -144,15 +142,14 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
               0.8,
               1
             ])),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(50.toPXLength)),
-                border: DynamicBorderSide(
-                  color: Color(0xFF8F9092),
-                  width: 1,
-                  //begin: (50*pi).toPXLength
-                ))),
+        shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
+            border: DynamicBorderSide(
+              color: Color(0xFF8F9092),
+              width: 1,
+              //begin: (50*pi).toPXLength
+            )),
         shadows: [
           ShapeShadow(
             offset: Offset(0, -6),
@@ -197,11 +194,10 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
         backgroundDecoration: BoxDecoration(color: Colors.tealAccent.shade100),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(20.toPXLength)),
-                border: DynamicBorderSide(width: 1, color: Colors.teal))),
+        shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),
+            border: DynamicBorderSide(width: 1, color: Colors.teal)),
         shadows: [
           ShapeShadow(
               blurRadius: 10,
@@ -232,11 +228,10 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFF4F5F6),
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(35.toPXLength)),
-        )),
+        ),
         shadows: [
           ShapeShadow(
               blurRadius: 20,
@@ -392,45 +387,43 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
               style: neonStyle,
               selectedStyle: neonStyle.copyWith(
                   padding: EdgeInsets.all(23),
-                  shapeBorder: MorphableShapeBorder(
-                      shape: RoundedRectangleShape(
-                          borderRadius: DynamicBorderRadius.all(
-                              DynamicRadius.circular(15.toPXLength)),
-                          borders: RectangleBorders.only(
-                              top: DynamicBorderSide(
-                                  gradient: LinearGradient(colors: [
-                                    Colors.cyanAccent.shade100,
-                                    Colors.purpleAccent.shade100
-                                  ]),
-                                  width: 14),
-                              bottom: DynamicBorderSide(
-                                  gradient: LinearGradient(
-                                      colors: [Colors.cyan, Colors.purple]),
-                                  width: 20),
-                              left: DynamicBorderSide(
-                                  color: Colors.cyanAccent.shade200, width: 14),
-                              right:
-                                  DynamicBorderSide(color: Colors.purpleAccent, width: 20))))),
+                  shapeBorder: RoundedRectangleShapeBorder(
+                      borderRadius: DynamicBorderRadius.all(
+                          DynamicRadius.circular(15.toPXLength)),
+                      borders: RectangleBorders.only(
+                          top: DynamicBorderSide(
+                              gradient: LinearGradient(colors: [
+                                Colors.cyanAccent.shade100,
+                                Colors.purpleAccent.shade100
+                              ]),
+                              width: 14),
+                          bottom: DynamicBorderSide(
+                              gradient: LinearGradient(
+                                  colors: [Colors.cyan, Colors.purple]),
+                              width: 20),
+                          left: DynamicBorderSide(
+                              color: Colors.cyanAccent.shade200, width: 14),
+                          right: DynamicBorderSide(
+                              color: Colors.purpleAccent, width: 20)))),
               hoveredStyle: neonStyle.copyWith(
-                  shapeBorder: MorphableShapeBorder(
-                      shape: RoundedRectangleShape(
-                          borderRadius: DynamicBorderRadius.all(
-                              DynamicRadius.circular(15.toPXLength)),
-                          borders: RectangleBorders.only(
-                              top: DynamicBorderSide(
-                                  gradient: LinearGradient(colors: [
-                                    Colors.cyanAccent.shade100,
-                                    Colors.purpleAccent.shade100
-                                  ]),
-                                  width: 13),
-                              bottom: DynamicBorderSide(
-                                  gradient: LinearGradient(
-                                      colors: [Colors.cyan, Colors.purple]),
-                                  width: 27),
-                              left: DynamicBorderSide(
-                                  color: Colors.cyanAccent.shade200, width: 13),
-                              right:
-                                  DynamicBorderSide(color: Colors.purpleAccent, width: 27))))),
+                  shapeBorder: RoundedRectangleShapeBorder(
+                      borderRadius: DynamicBorderRadius.all(
+                          DynamicRadius.circular(15.toPXLength)),
+                      borders: RectangleBorders.only(
+                          top: DynamicBorderSide(
+                              gradient: LinearGradient(colors: [
+                                Colors.cyanAccent.shade100,
+                                Colors.purpleAccent.shade100
+                              ]),
+                              width: 13),
+                          bottom: DynamicBorderSide(
+                              gradient: LinearGradient(
+                                  colors: [Colors.cyan, Colors.purple]),
+                              width: 27),
+                          left: DynamicBorderSide(
+                              color: Colors.cyanAccent.shade200, width: 13),
+                          right: DynamicBorderSide(
+                              color: Colors.purpleAccent, width: 27)))),
             ),
             SizedBox(
               height: 50,

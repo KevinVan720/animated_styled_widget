@@ -34,11 +34,10 @@ class _StyledRadiosPageState extends State<StyledRadiosPage> {
       backgroundDecoration: BoxDecoration(
         color: Color(0xFFE0E0E0),
       ),
-      shapeBorder: MorphableShapeBorder(
-          shape: RectangleShape(
+      shapeBorder: RectangleShapeBorder(
         borderRadius:
             DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-      )),
+      ),
       shadows: [],
       insetShadows: [
         ShapeShadow(
@@ -63,11 +62,10 @@ class _StyledRadiosPageState extends State<StyledRadiosPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.blueAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         insetShadows: [
           ShapeShadow(
               blurRadius: 3,
@@ -85,11 +83,10 @@ class _StyledRadiosPageState extends State<StyledRadiosPage> {
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
         backgroundDecoration: BoxDecoration(color: Colors.tealAccent.shade100),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(20.toPXLength)),
-                border: DynamicBorderSide(width: 1, color: Colors.teal))),
+        shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),
+            border: DynamicBorderSide(width: 1, color: Colors.teal)),
         shadows: [
           ShapeShadow(
               blurRadius: 10,

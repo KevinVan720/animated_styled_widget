@@ -31,26 +31,23 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
       backgroundDecoration: BoxDecoration(
           gradient:
               LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
-      shapeBorder: MorphableShapeBorder(
-        shape: RoundedRectangleShape(
-            borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
-            borders: RectangleBorders.only(
-                top: DynamicBorderSide(
-                    gradient: LinearGradient(colors: [
-                      Colors.cyanAccent.shade100,
-                      Colors.purpleAccent.shade100
-                    ]),
-                    width: 12),
-                bottom: DynamicBorderSide(
-                    gradient:
-                        LinearGradient(colors: [Colors.cyan, Colors.purple]),
-                    width: 28),
-                left: DynamicBorderSide(
-                    color: Colors.cyanAccent.shade200, width: 12),
-                right:
-                    DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
-      ),
+      shapeBorder: RoundedRectangleShapeBorder(
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+          borders: RectangleBorders.only(
+              top: DynamicBorderSide(
+                  gradient: LinearGradient(colors: [
+                    Colors.cyanAccent.shade100,
+                    Colors.purpleAccent.shade100
+                  ]),
+                  width: 12),
+              bottom: DynamicBorderSide(
+                  gradient:
+                      LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  width: 28),
+              left: DynamicBorderSide(
+                  color: Colors.cyanAccent.shade200, width: 12),
+              right: DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
       shadows: [ShapeShadow(offset: Offset(0, 0), blurRadius: 0)],
       transform: SmoothMatrix4()..scale(1.2),
     );
@@ -65,16 +62,15 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
         Color.fromARGB(255, 210, 243, 224),
         Colors.tealAccent,
       ])),
-      shapeBorder: MorphableShapeBorder(
-          shape: RectangleShape(
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(50.toPXLength)),
-              border: DynamicBorderSide(
-                  width: 10,
-                  gradient: LinearGradient(colors: [
-                    Color.fromARGB(255, 246, 167, 186),
-                    Colors.pinkAccent.shade200
-                  ])))),
+      shapeBorder: RectangleShapeBorder(
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
+          border: DynamicBorderSide(
+              width: 10,
+              gradient: LinearGradient(colors: [
+                Color.fromARGB(255, 246, 167, 186),
+                Colors.pinkAccent.shade200
+              ]))),
       transform: SmoothMatrix4()..translate(-50.toPXLength),
       shadows: [
         ShapeShadow(

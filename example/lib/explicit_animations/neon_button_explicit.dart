@@ -55,31 +55,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundDecoration: BoxDecoration(
                     gradient: LinearGradient(
                         colors: [Colors.cyanAccent, Colors.purpleAccent])),
-                shapeBorder: MorphableShapeBorder(
-                  shape: RoundedRectangleShape(
-                      borderRadius: DynamicBorderRadius.all(
-                          DynamicRadius.circular(15.toPXLength)),
-                      borders: RectangleBorders.only(
-                          top: DynamicBorderSide(
-                              gradient: LinearGradient(colors: [
-                                Colors.cyanAccent.shade100,
-                                Colors.purpleAccent.shade100
-                              ]),
-                              width: 12),
-                          bottom: DynamicBorderSide(
-                              gradient: LinearGradient(
-                                  colors: [Colors.cyan, Colors.purple]),
-                              width: 28),
-                          left: DynamicBorderSide(
-                              color: Colors.cyanAccent.shade200, width: 12),
-                          right: DynamicBorderSide(
-                              color: Colors.purpleAccent, width: 28))),
-                ),
-                textStyle: DynamicTextStyle(
-                    letterSpacing: 10.toPXLength,
-                    fontSize: 300.toPercentLength,
-                    color: Colors.black45,
-                    fontWeight: FontWeight.bold),
+                shapeBorder: RoundedRectangleShapeBorder(
+                    borderRadius: DynamicBorderRadius.all(
+                        DynamicRadius.circular(15.toPXLength)),
+                    borders: RectangleBorders.only(
+                        top: DynamicBorderSide(
+                            gradient: LinearGradient(colors: [
+                              Colors.cyanAccent.shade100,
+                              Colors.purpleAccent.shade100
+                            ]),
+                            width: 12),
+                        bottom: DynamicBorderSide(
+                            gradient: LinearGradient(
+                                colors: [Colors.cyan, Colors.purple]),
+                            width: 28),
+                        left:
+                            DynamicBorderSide(color: Colors.cyanAccent.shade200, width: 12),
+                        right: DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
+                textStyle: DynamicTextStyle(letterSpacing: 10.toPXLength, fontSize: 300.toPercentLength, color: Colors.black45, fontWeight: FontWeight.bold),
                 mouseCursor: SystemMouseCursors.click),
             localAnimations: {
               AnimationTrigger.mouseEnter: MultiAnimationSequence(sequences: {
@@ -102,33 +95,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 AnimationProperty.shapeBorder:
                     AnimationSequence<MorphableShapeBorder>()
                       ..add(
-                          duration: Duration(milliseconds: 200),
-                          value: MorphableShapeBorder(
-                            shape: RoundedRectangleShape(
-                                borderRadius: DynamicBorderRadius.all(
-                                    DynamicRadius.circular(15.toPXLength)),
-                                borders: RectangleBorders.only(
-                                    top: DynamicBorderSide(
-                                        gradient: LinearGradient(colors: [
-                                          Colors.cyanAccent.shade100,
-                                          Colors.amberAccent.shade100,
-                                          Colors.purpleAccent.shade100
-                                        ]),
-                                        width: 20),
-                                    bottom: DynamicBorderSide(
-                                        gradient: LinearGradient(colors: [
-                                          Colors.cyan,
-                                          Colors.amber,
-                                          Colors.purple
-                                        ]),
-                                        width: 20),
-                                    left: DynamicBorderSide(
-                                        color: Colors.cyanAccent.shade200,
-                                        width: 20),
-                                    right: DynamicBorderSide(
-                                        color: Colors.purpleAccent,
-                                        width: 20))),
-                          )),
+                        duration: Duration(milliseconds: 200),
+                        value: RoundedRectangleShapeBorder(
+                            borderRadius: DynamicBorderRadius.all(
+                                DynamicRadius.circular(15.toPXLength)),
+                            borders: RectangleBorders.only(
+                                top: DynamicBorderSide(
+                                    gradient: LinearGradient(colors: [
+                                      Colors.cyanAccent.shade100,
+                                      Colors.amberAccent.shade100,
+                                      Colors.purpleAccent.shade100
+                                    ]),
+                                    width: 20),
+                                bottom: DynamicBorderSide(
+                                    gradient: LinearGradient(colors: [
+                                      Colors.cyan,
+                                      Colors.amber,
+                                      Colors.purple
+                                    ]),
+                                    width: 20),
+                                left: DynamicBorderSide(
+                                    color: Colors.cyanAccent.shade200,
+                                    width: 20),
+                                right: DynamicBorderSide(
+                                    color: Colors.purpleAccent, width: 20))),
+                      ),
               }),
               AnimationTrigger.mouseExit: MultiAnimationSequence(sequences: {
                 AnimationProperty.width: AnimationSequence()
@@ -144,12 +135,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         gradient: LinearGradient(
                             colors: [Colors.cyanAccent, Colors.purpleAccent])),
                   ),
-                AnimationProperty
-                    .shapeBorder: AnimationSequence<MorphableShapeBorder>()
-                  ..add(
-                      duration: Duration(milliseconds: 1550),
-                      value: MorphableShapeBorder(
-                        shape: RoundedRectangleShape(
+                AnimationProperty.shapeBorder:
+                    AnimationSequence<MorphableShapeBorder>()
+                      ..add(
+                        duration: Duration(milliseconds: 1550),
+                        value: RoundedRectangleShapeBorder(
                             borderRadius: DynamicBorderRadius.all(
                                 DynamicRadius.circular(15.toPXLength)),
                             borders: RectangleBorders.only(
@@ -168,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     width: 12),
                                 right: DynamicBorderSide(
                                     color: Colors.purpleAccent, width: 28))),
-                      )),
+                      ),
               }),
             },
             child: Text("HELLO"),

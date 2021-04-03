@@ -56,11 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: EdgeInsets.symmetric(vertical: 20),
                     backgroundDecoration:
                         BoxDecoration(color: Colors.grey.shade100),
-                    shapeBorder: MorphableShapeBorder(
-                        shape: RectangleShape(
+                    shapeBorder: RectangleShapeBorder(
                       borderRadius: DynamicBorderRadius.all(
                           DynamicRadius.circular(150.toPXLength)),
-                    )),
+                    ),
                     shadows: [
                       ShapeShadow(
                           blurRadius: 20,
@@ -109,16 +108,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                   offset: Offset(-20, -20)),
                             ],
                           ),
-                    AnimationProperty
-                        .shapeBorder: AnimationSequence<MorphableShapeBorder>()
-                      ..add(
-                          duration: Duration(milliseconds: 200),
-                          value: MorphableShapeBorder(
-                            shape: RoundedRectangleShape(
+                    AnimationProperty.shapeBorder:
+                        AnimationSequence<MorphableShapeBorder>()
+                          ..add(
+                            duration: Duration(milliseconds: 200),
+                            value: RoundedRectangleShapeBorder(
                               borderRadius: DynamicBorderRadius.all(
                                   DynamicRadius.circular(50.toPercentLength)),
                             ),
-                          )),
+                          ),
                     AnimationProperty.childAlignment: AnimationSequence()
                       ..add(
                           duration: Duration(milliseconds: 200),
@@ -150,13 +148,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     AnimationProperty.shapeBorder:
                         AnimationSequence<MorphableShapeBorder>()
                           ..add(
-                              duration: Duration(milliseconds: 500),
-                              value: MorphableShapeBorder(
-                                shape: RoundedRectangleShape(
-                                  borderRadius: DynamicBorderRadius.all(
-                                      DynamicRadius.circular(150.toPXLength)),
-                                ),
-                              )),
+                            duration: Duration(milliseconds: 500),
+                            value: RoundedRectangleShapeBorder(
+                              borderRadius: DynamicBorderRadius.all(
+                                  DynamicRadius.circular(150.toPXLength)),
+                            ),
+                          ),
                     AnimationProperty.childAlignment: AnimationSequence()
                       ..add(
                           duration: Duration(milliseconds: 500),

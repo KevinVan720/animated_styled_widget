@@ -33,25 +33,24 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         backgroundDecoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Colors.cyanAccent, Colors.purpleAccent])),
-        shapeBorder: MorphableShapeBorder(
-            shape: RoundedRectangleShape(
-                borderRadius: DynamicBorderRadius.all(
-                    DynamicRadius.circular(15.toPXLength)),
-                borders: RectangleBorders.only(
-                    top: DynamicBorderSide(
-                        gradient: LinearGradient(colors: [
-                          Colors.cyanAccent.shade100,
-                          Colors.purpleAccent.shade100
-                        ]),
-                        width: 12),
-                    bottom: DynamicBorderSide(
-                        gradient: LinearGradient(
-                            colors: [Colors.cyan, Colors.purple]),
-                        width: 28),
-                    left: DynamicBorderSide(
-                        color: Colors.cyanAccent.shade200, width: 12),
-                    right: DynamicBorderSide(
-                        color: Colors.purpleAccent, width: 28)))),
+        shapeBorder: RoundedRectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+            borders: RectangleBorders.only(
+                top: DynamicBorderSide(
+                    gradient: LinearGradient(colors: [
+                      Colors.cyanAccent.shade100,
+                      Colors.purpleAccent.shade100
+                    ]),
+                    width: 12),
+                bottom: DynamicBorderSide(
+                    gradient:
+                        LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                    width: 28),
+                left: DynamicBorderSide(
+                    color: Colors.cyanAccent.shade200, width: 12),
+                right:
+                    DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
         shadows: [
           ShapeShadow(
               blurRadius: 25,
@@ -74,24 +73,25 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         mouseCursor: SystemMouseCursors.click);
 
     endStyle = beginStyle.copyWith(
-      shapeBorder: MorphableShapeBorder(
-          shape: (beginStyle.shapeBorder?.shape as RoundedRectangleShape)
+      shapeBorder:
+          (beginStyle.shapeBorder as RoundedRectangleShapeBorder)
               .copyWith(
-                  borders: RectangleBorders.only(
-                      top: DynamicBorderSide(
-                          gradient: LinearGradient(colors: [
-                            Colors.cyanAccent.shade100,
-                            Colors.purpleAccent.shade100
-                          ]),
-                          width: 20),
-                      bottom: DynamicBorderSide(
-                          gradient: LinearGradient(
-                              colors: [Colors.cyan, Colors.purple]),
-                          width: 20),
-                      left: DynamicBorderSide(
-                          color: Colors.cyanAccent.shade200, width: 20),
-                      right: DynamicBorderSide(
-                          color: Colors.purpleAccent, width: 20)))),
+                  borders:
+                      RectangleBorders.only(
+                          top: DynamicBorderSide(
+                              gradient: LinearGradient(colors: [
+                                Colors.cyanAccent.shade100,
+                                Colors.purpleAccent.shade100
+                              ]),
+                              width: 20),
+                          bottom: DynamicBorderSide(
+                              gradient: LinearGradient(
+                                  colors: [Colors.cyan, Colors.purple]),
+                              width: 20),
+                          left: DynamicBorderSide(
+                              color: Colors.cyanAccent.shade200, width: 20),
+                          right: DynamicBorderSide(
+                              color: Colors.purpleAccent, width: 20))),
       shadows: [
         ShapeShadow(
             blurRadius: 40,

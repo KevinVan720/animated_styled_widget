@@ -55,77 +55,76 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: parseShape({
-                  "type": "PathShape",
-                  "border": {"color": "ff000000", "width": 0, "style": "none"},
-                  "path": {
-                    "size": {"width": 400, "height": 400},
-                    "nodes": [
-                      {
-                        "pos": {"dx": 40, "dy": 0},
-                        "prev": {"dx": 20, "dy": 0},
-                        "next": {"dx": 60, "dy": 0}
-                      },
-                      {
-                        "pos": {"dx": 360, "dy": 0},
-                        "prev": {"dx": 340, "dy": 0},
-                        "next": {"dx": 380, "dy": 0}
-                      },
-                      {
-                        "pos": {"dx": 400, "dy": 40},
-                        "prev": {"dx": 400, "dy": 20},
-                        "next": {"dx": 400, "dy": 60}
-                      },
-                      {
-                        "pos": {"dx": 400, "dy": 140},
-                        "prev": {"dx": 400, "dy": 120},
-                        "next": {"dx": 400, "dy": 160}
-                      },
-                      {
-                        "pos": {"dx": 360, "dy": 180},
-                        "prev": {"dx": 380, "dy": 180},
-                        "next": {"dx": 340, "dy": 180}
-                      },
-                      {
-                        "pos": {"dx": 240, "dy": 180},
-                        "prev": {"dx": 270, "dy": 180},
-                        "next": {"dx": 210, "dy": 180}
-                      },
-                      {
-                        "pos": {"dx": 180, "dy": 240},
-                        "prev": {"dx": 180, "dy": 210},
-                        "next": {"dx": 180, "dy": 270}
-                      },
-                      {
-                        "pos": {"dx": 180, "dy": 360},
-                        "prev": {"dx": 180, "dy": 340},
-                        "next": {"dx": 180, "dy": 380}
-                      },
-                      {
-                        "pos": {"dx": 140, "dy": 400},
-                        "prev": {"dx": 160, "dy": 400},
-                        "next": {"dx": 120, "dy": 400}
-                      },
-                      {
-                        "pos": {"dx": 40, "dy": 400},
-                        "prev": {"dx": 60, "dy": 400},
-                        "next": {"dx": 20, "dy": 400}
-                      },
-                      {
-                        "pos": {"dx": 0, "dy": 360},
-                        "prev": {"dx": 0, "dy": 380},
-                        "next": {"dx": 0, "dy": 340}
-                      },
-                      {
-                        "pos": {"dx": 0, "dy": 40},
-                        "prev": {"dx": 0, "dy": 60},
-                        "next": {"dx": 0, "dy": 20}
-                      }
-                    ]
+        shapeBorder: parseMorphableShapeBorder({
+              "type": "PathShape",
+              "border": {"color": "ff000000", "width": 0, "style": "none"},
+              "path": {
+                "size": {"width": 400, "height": 400},
+                "nodes": [
+                  {
+                    "pos": {"dx": 40, "dy": 0},
+                    "prev": {"dx": 20, "dy": 0},
+                    "next": {"dx": 60, "dy": 0}
+                  },
+                  {
+                    "pos": {"dx": 360, "dy": 0},
+                    "prev": {"dx": 340, "dy": 0},
+                    "next": {"dx": 380, "dy": 0}
+                  },
+                  {
+                    "pos": {"dx": 400, "dy": 40},
+                    "prev": {"dx": 400, "dy": 20},
+                    "next": {"dx": 400, "dy": 60}
+                  },
+                  {
+                    "pos": {"dx": 400, "dy": 140},
+                    "prev": {"dx": 400, "dy": 120},
+                    "next": {"dx": 400, "dy": 160}
+                  },
+                  {
+                    "pos": {"dx": 360, "dy": 180},
+                    "prev": {"dx": 380, "dy": 180},
+                    "next": {"dx": 340, "dy": 180}
+                  },
+                  {
+                    "pos": {"dx": 240, "dy": 180},
+                    "prev": {"dx": 270, "dy": 180},
+                    "next": {"dx": 210, "dy": 180}
+                  },
+                  {
+                    "pos": {"dx": 180, "dy": 240},
+                    "prev": {"dx": 180, "dy": 210},
+                    "next": {"dx": 180, "dy": 270}
+                  },
+                  {
+                    "pos": {"dx": 180, "dy": 360},
+                    "prev": {"dx": 180, "dy": 340},
+                    "next": {"dx": 180, "dy": 380}
+                  },
+                  {
+                    "pos": {"dx": 140, "dy": 400},
+                    "prev": {"dx": 160, "dy": 400},
+                    "next": {"dx": 120, "dy": 400}
+                  },
+                  {
+                    "pos": {"dx": 40, "dy": 400},
+                    "prev": {"dx": 60, "dy": 400},
+                    "next": {"dx": 20, "dy": 400}
+                  },
+                  {
+                    "pos": {"dx": 0, "dy": 360},
+                    "prev": {"dx": 0, "dy": 380},
+                    "next": {"dx": 0, "dy": 340}
+                  },
+                  {
+                    "pos": {"dx": 0, "dy": 40},
+                    "prev": {"dx": 0, "dy": 60},
+                    "next": {"dx": 0, "dy": 20}
                   }
-                }) ??
-                RectangleShape()),
+                ]
+              }
+            }) ??
+            RectangleShapeBorder(),
         mouseCursor: SystemMouseCursors.click);
 
     bigStyle00 = bigStyle.copyWith(
@@ -158,12 +157,11 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           //cornerStyles: RectangleCornerStyles.all(CornerStyle.cutout),
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     littleStyle00 = littleStyle.copyWith(

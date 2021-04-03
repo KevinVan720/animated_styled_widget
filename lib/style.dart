@@ -60,10 +60,6 @@ abstract class StyleBase {
     ImageFilter? imageFilter,
     ImageFilter? backdropFilter,
     SystemMouseCursor? mouseCursor,
-    int? flex,
-    int? gridColumnCount,
-    int? gridRowCount,
-    DynamicEdgeInsets? stackPosition,
   });
 
   Style resolveStyle(MediaQueryData data);
@@ -129,13 +125,6 @@ class Style extends StyleBase {
 
   SystemMouseCursor? mouseCursor;
 
-  ///possible children properties in layoutWidgets like flex, grid, stack
-  ///not used for now
-  int? flex;
-  int? gridColumnCount;
-  int? gridRowCount;
-  DynamicEdgeInsets? stackPosition;
-
   Style({
     this.visible,
     this.alignment,
@@ -158,18 +147,9 @@ class Style extends StyleBase {
     this.imageFilter,
     this.backdropFilter,
     this.mouseCursor,
-    this.flex,
-    this.gridRowCount,
-    this.gridColumnCount,
-    this.stackPosition,
   });
 
   Style.fromJson(Map<String, dynamic> map) {
-    flex = map["flex"];
-    gridRowCount = map["gridRowCount"];
-    gridColumnCount = map["gridColumnCount"];
-    stackPosition = parseDynamicEdgeInsets(map["stackPosition"]);
-
     width = parseDimension(map["width"]);
     height = parseDimension(map["height"]);
     alignment = parseAlignment(map["alignment"]);
@@ -207,11 +187,6 @@ class Style extends StyleBase {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> rst = {};
-
-    rst.updateNotNull("flex", flex);
-    rst.updateNotNull("gridColumnCount", gridColumnCount);
-    rst.updateNotNull("gridRowCount", gridRowCount);
-    rst.updateNotNull("stackPosition", stackPosition?.toJson());
 
     rst.updateNotNull("alignment", alignment?.toJson());
     rst.updateNotNull("width", width?.toJson());
@@ -266,16 +241,8 @@ class Style extends StyleBase {
     ImageFilter? imageFilter,
     ImageFilter? backdropFilter,
     SystemMouseCursor? mouseCursor,
-    int? flex,
-    int? gridColumnCount,
-    int? gridRowCount,
-    DynamicEdgeInsets? stackPosition,
   }) {
     return Style(
-      flex: flex ?? this.flex,
-      gridColumnCount: gridColumnCount ?? this.gridColumnCount,
-      gridRowCount: gridRowCount ?? this.gridRowCount,
-      stackPosition: stackPosition ?? this.stackPosition,
       alignment: alignment ?? this.alignment,
       width: width ?? this.width,
       height: height ?? this.height,
@@ -305,10 +272,6 @@ class Style extends StyleBase {
       return this;
     } else {
       return copyWith(
-        flex: style.flex,
-        gridRowCount: style.gridRowCount,
-        gridColumnCount: style.gridColumnCount,
-        stackPosition: style.stackPosition,
         alignment: style.alignment,
         width: style.width,
         height: style.height,
@@ -357,10 +320,6 @@ class Style extends StyleBase {
         imageFilter,
         backdropFilter,
         mouseCursor,
-        flex,
-        gridRowCount,
-        gridColumnCount,
-        stackPosition
       ]);
 
   @override
@@ -430,19 +389,11 @@ class ScopedStyles extends StyleBase {
     ImageFilter? imageFilter,
     ImageFilter? backdropFilter,
     SystemMouseCursor? mouseCursor,
-    int? flex,
-    int? gridColumnCount,
-    int? gridRowCount,
-    DynamicEdgeInsets? stackPosition,
   }) {
     return ScopedStyles(
         styles: styles.map((key, value) => MapEntry(
             key,
             value.copyWith(
-              flex: flex,
-              gridColumnCount: gridColumnCount,
-              gridRowCount: gridRowCount,
-              stackPosition: stackPosition,
               alignment: alignment,
               width: width,
               height: height,

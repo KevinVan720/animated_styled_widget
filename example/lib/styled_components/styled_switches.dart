@@ -42,11 +42,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         shadows: [
           ShapeShadow(
               blurRadius: 20,
@@ -69,11 +68,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFDEDEDE),
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
-        )),
+        ),
         shadows: [
           ShapeShadow(
               blurRadius: 20,
@@ -97,8 +95,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.white,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           border: DynamicBorderSide(
               width: 10,
               color: Colors.amber,
@@ -107,7 +104,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
               strokeCap: StrokeCap.butt),
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         transform: SmoothMatrix4()..rotateZ(3.1415),
         mouseCursor: SystemMouseCursors.click);
 
@@ -118,12 +115,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.redAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-          shape: RectangleShape(
-            //border: DynamicBorderSide(width: 6, color: Colors.grey.shade200),
-            borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
-          ),
+        shapeBorder: RectangleShapeBorder(
+          //border: DynamicBorderSide(width: 6, color: Colors.grey.shade200),
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
         ),
         mouseCursor: SystemMouseCursors.click);
 
@@ -136,11 +131,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.white,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(75.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     morphTrackStyle = Style(
@@ -152,12 +146,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.redAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-          shape: RectangleShape(
-            //border: DynamicBorderSide(width: 6, color: Colors.grey.shade200),
-            borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
-          ),
+        shapeBorder: RectangleShapeBorder(
+          //border: DynamicBorderSide(width: 6, color: Colors.grey.shade200),
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
         ),
         mouseCursor: SystemMouseCursors.click);
 
@@ -170,11 +162,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.white,
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(75.toPXLength)),
-        )),
+        ),
         mouseCursor: SystemMouseCursors.click);
 
     morphVerticalTrackStyle = Style(
@@ -186,12 +177,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         backgroundDecoration: BoxDecoration(
           color: Colors.redAccent,
         ),
-        shapeBorder: MorphableShapeBorder(
-          shape: RectangleShape(
-            //border: DynamicBorderSide(width: 6, color: Colors.grey.shade200),
-            borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
-          ),
+        shapeBorder: RectangleShapeBorder(
+          //border: DynamicBorderSide(width: 6, color: Colors.grey.shade200),
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(60.toPXLength)),
         ),
         mouseCursor: SystemMouseCursors.click);
   }
@@ -298,8 +287,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
               thumbStyle: iosThumbStyle,
               thumbSelectedStyle: iosThumbStyle.copyWith(
                 transform: SmoothMatrix4(),
-                shapeBorder: MorphableShapeBorder(
-                    shape: RectangleShape(
+                shapeBorder: RectangleShapeBorder(
                   border: DynamicBorderSide(
                       width: 10,
                       color: Colors.amber,
@@ -307,7 +295,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
                       end: 100.toPercentLength),
                   borderRadius: DynamicBorderRadius.all(
                       DynamicRadius.circular(50.toPXLength)),
-                )),
+                ),
               ),
               trackStyle: iosTrackStyle,
               trackSelectedStyle: iosTrackStyle.copyWith(
@@ -331,11 +319,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
               thumbStyle: morphThumbStyle,
               thumbSelectedStyle: morphThumbStyle.copyWith(
                 transform: SmoothMatrix4(),
-                shapeBorder: MorphableShapeBorder(
-                    shape: RectangleShape(
+                shapeBorder: RectangleShapeBorder(
                   borderRadius: DynamicBorderRadius.all(
                       DynamicRadius.circular(25.toPXLength)),
-                )),
+                ),
               ),
               trackStyle: morphTrackStyle,
               trackSelectedStyle: morphTrackStyle.copyWith(
@@ -360,11 +347,10 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
               thumbStyle: morphVerticalThumbStyle,
               thumbSelectedStyle: morphVerticalThumbStyle.copyWith(
                 transform: SmoothMatrix4(),
-                shapeBorder: MorphableShapeBorder(
-                    shape: RectangleShape(
+                shapeBorder: RectangleShapeBorder(
                   borderRadius: DynamicBorderRadius.all(
                       DynamicRadius.circular(25.toPXLength)),
-                )),
+                ),
               ),
               trackStyle: morphVerticalTrackStyle,
               trackSelectedStyle: morphVerticalTrackStyle.copyWith(

@@ -34,11 +34,10 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(64.toPXLength)),
-        )),
+        ),
         shadows: [
           ShapeShadow(
               blurRadius: 30,
@@ -90,11 +89,10 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [Colors.grey.shade50, Colors.grey.shade200])),
-        shapeBorder: MorphableShapeBorder(
-            shape: RectangleShape(
+        shapeBorder: RectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-        )),
+        ),
         insetShadows: [
           ShapeShadow(
               blurRadius: 20,
