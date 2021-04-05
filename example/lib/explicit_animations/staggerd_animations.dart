@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 import 'package:provider/provider.dart';
-import 'package:responsive_styled_widget/styled_widget.dart';
+import 'package:responsive_styled_widget/responsive_styled_widget.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class StaggeredAnimationsPage extends StatelessWidget {

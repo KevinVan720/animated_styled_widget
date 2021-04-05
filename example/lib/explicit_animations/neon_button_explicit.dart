@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
-import 'package:responsive_styled_widget/styled_widget.dart';
+import 'package:responsive_styled_widget/responsive_styled_widget.dart';
 
 class NeonButtonExplicitPage extends StatelessWidget {
   @override

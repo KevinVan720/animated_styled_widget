@@ -1,6 +1,6 @@
 name: responsive_styled_widget
-description: Lets you use a serializable style/style map to make responsive and animated widgets.
-version: 0.2.0
+description: Lets you use a serializable style/style map to make responsive and animated src.widgets.
+version: 0.2.1
 homepage: https://github.com/KevinVan720/styled_widget
 
 environment:
@@ -11,11 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dimension: ^0.1.1
+  dimension: ^0.1.2
 
-  flutter_class_parser: ^0.1.9
+  flutter_class_parser: ^0.2.2
 
-  morphable_shape: ^1.4.5
+  morphable_shape: ^1.4.6
 
   tuple: ^2.0.0
 

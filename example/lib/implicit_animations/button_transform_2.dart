@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
-import 'package:responsive_styled_widget/styled_widget.dart';
+import 'package:responsive_styled_widget/responsive_styled_widget.dart';
 
 class ButtonTransform2Page extends StatefulWidget {
   ButtonTransform2Page({this.title = "Button Transform 2"});
@@ -18,7 +18,7 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
   bool toggleStyle = true;
 
   late Style beginStyle;
-  late ScopedStyles endStyle;
+  late Style endStyle;
 
   @override
   void initState() {
@@ -52,43 +52,41 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
               right: DynamicBorderSide(color: Colors.purpleAccent, width: 28))),
     );
 
-    endStyle = ScopedStyles(styles: {
-      ScreenScope(): Style(
-          alignment: Alignment.center,
-          width: 200.toPXLength,
-          height: 120.toPXLength,
-          margin: EdgeInsets.symmetric(vertical: 10),
-          transformAlignment: Alignment.center,
-          shadows: [
-            ShapeShadow(
-                blurRadius: 2,
-                spreadRadius: -0.0,
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [
-                      0,
-                      0.5
-                    ],
-                    colors: [
-                      Colors.lightGreen.shade300,
-                      Colors.lightGreen.shade700
-                    ]),
-                offset: Offset(0, 0)),
-            ShapeShadow(
-                blurRadius: 8,
-                spreadRadius: -6,
-                color: Color.fromARGB(255, 240, 255, 240),
-                offset: Offset((-4), (-3)))
-          ],
-          shapeBorder: RectangleShapeBorder(
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(20.toPXLength)),
-              border: DynamicBorderSide(
-                  width: 3, color: Colors.lightGreen.shade700)),
-          childAlignment: Alignment.center,
-          transform: SmoothMatrix4()..rotateZ(3.1416)),
-    });
+    endStyle = Style(
+        alignment: Alignment.center,
+        width: 200.toPXLength,
+        height: 120.toPXLength,
+        margin: EdgeInsets.symmetric(vertical: 10),
+        transformAlignment: Alignment.center,
+        shadows: [
+          ShapeShadow(
+              blurRadius: 2,
+              spreadRadius: -0.0,
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [
+                    0,
+                    0.5
+                  ],
+                  colors: [
+                    Colors.lightGreen.shade300,
+                    Colors.lightGreen.shade700
+                  ]),
+              offset: Offset(0, 0)),
+          ShapeShadow(
+              blurRadius: 8,
+              spreadRadius: -6,
+              color: Color.fromARGB(255, 240, 255, 240),
+              offset: Offset((-4), (-3)))
+        ],
+        shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),
+            border:
+                DynamicBorderSide(width: 3, color: Colors.lightGreen.shade700)),
+        childAlignment: Alignment.center,
+        transform: SmoothMatrix4()..rotateZ(3.1416));
   }
 
   @override
