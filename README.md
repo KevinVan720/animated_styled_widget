@@ -1,10 +1,10 @@
-# responsive_styled_widget
+# animated_styled_widget
 
 Powerful styling, serialization, animation, and custom components all in one place. 
 
 Current features of this package:
 
-1. Let you use a serializable style/style map to design highly customizable StyledContainer widget.
+1. Let you use a serializable style to design highly customizable StyledContainer widget.
 2. Implicit animations with the AnimatedStyledContainer widget.
 3. Explicit animations (local/global, timed/scroll based) with the ExplicitAnimatedStyledContainer widget.  
 4. Styled Components: StyledButton, StyledToggleButtons, StyledSwitch, StyledRadio, StyledCheckbox, StyledSlider. Your app don't need to look like Material.
@@ -96,20 +96,6 @@ var widget=StyledContainer(
             child: ...
             );
 ```
-
-You can also pass in a ScopedStyles instance:
-
-```dart
-var widget=StyledContainer(
-            style: ScopedStyles(styles: {
-                  mobileScreen: mobileStyle,
-                  tabletScreen: tabletStyle,
-                  desktopScreen: desktopStyle,
-                  }),
-            child: ...
-            );
-```
-and the StyledContainer will determine the actual style to use automatically based on the size of the screen. Those screens are defined using the ScreenScope class which is very similar to BoxConstraint in the sense that it defines the min/max width and height of a screen. If some ScreenScope overlaps, the resolution is similar to CSS: a valid style that comes later in the style map will override the properties of the previous valid style. So you can define a base style that adapts to all screen sizes and provide special styling to certain screen sizes without writing duplicate code.
 
 ## Implicit Animation
 Almost every property in the Style class can be animated. See the

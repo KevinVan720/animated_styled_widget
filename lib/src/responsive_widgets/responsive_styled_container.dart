@@ -1,15 +1,15 @@
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
-import 'package:responsive_styled_widget/responsive_styled_widget.dart';
 
 class ResponsiveStyledContainer extends StatefulWidget {
   final String? id;
   final Widget child;
   final PointerEnterEventListener? onMouseEnter;
   final PointerExitEventListener? onMouseExit;
-  final ResponsiveProperty<Style> styles;
+  final Responsive<Style> styles;
 
   ResponsiveStyledContainer({
     Key? key,

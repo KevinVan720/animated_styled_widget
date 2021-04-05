@@ -77,3 +77,7 @@ Styled Components!
 ## [0.2.0] - 04/03/2021
 
 Update morphable shape dependence
+
+## [0.2.1] - 04/03/2021
+
+Rename to animated_styled_container

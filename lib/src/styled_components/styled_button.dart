@@ -1,6 +1,6 @@
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_styled_widget/responsive_styled_widget.dart';
 
 import 'styled_plain_container.dart';
 

@@ -1,10 +1,10 @@
 import 'dart:ui';
 
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
-import 'package:responsive_styled_widget/responsive_styled_widget.dart';
 
 class ResponsivePage extends StatefulWidget {
   ResponsivePage({this.title = "Responsive"});
@@ -89,7 +89,7 @@ class _ResponsivePageState extends State<ResponsivePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(ResponsiveProperty({
+    print(Responsive({
       ScreenScope(minWidth: 0, maxWidth: 500): 3,
       ScreenScope(minWidth: 500, maxWidth: 1000): 4,
       ScreenScope(minWidth: 1000, maxWidth: 2000): 6,
@@ -105,7 +105,7 @@ class _ResponsivePageState extends State<ResponsivePage> {
         ),
       ),
       body: Center(
-          child: ResponsiveProperty({
+          child: Responsive({
                 ScreenScope(minWidth: 0, maxWidth: 700): ListView(
                   children: List.generate(
                       30,

@@ -1,14 +1,14 @@
 import 'dart:convert';
 
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_styled_widget/responsive_styled_widget.dart';
 
 ///A property that adapts to different screen sizes
 ///Get the value for the current screen by calling resolve and provide the build context.
-class ResponsiveProperty<T> {
+class Responsive<T> {
   Map<ScreenScope, T>? values;
 
-  ResponsiveProperty(this.values);
+  Responsive(this.values);
 
   T? resolve(BuildContext context,
       [T? combine(T? previousValue, T? element)?]) {
@@ -25,8 +25,7 @@ class ResponsiveProperty<T> {
     return rst;
   }
 
-  ResponsiveProperty.fromJson(Map<String, dynamic> map,
-      {T decoder(dynamic element)?}) {
+  Responsive.fromJson(Map<String, dynamic> map, {T decoder(dynamic element)?}) {
     if (decoder == null) {
       values = map.map((key, value) {
         assert(value is T);

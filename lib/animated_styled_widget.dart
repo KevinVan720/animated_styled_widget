@@ -1,4 +1,4 @@
-library responsive_styled_widget;
+library animated_styled_widget;
 
 export 'src/custom_tweens.dart';
 export 'src/custom_visibility_detector/visibility_detector.dart';

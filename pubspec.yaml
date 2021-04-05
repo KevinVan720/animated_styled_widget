@@ -1,7 +1,7 @@
-name: responsive_styled_widget
-description: Lets you use a serializable style/style map to make responsive and animated src.widgets.
+name: animated_styled_widget
+description: Lets you use a serializable style to make responsive and animated widgets.
 version: 0.2.1
-homepage: https://github.com/KevinVan720/styled_widget
+homepage: https://github.com/KevinVan720/animated_styled_widget
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
