@@ -129,7 +129,14 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
+  responsive_property:
+    dependency: "direct main"
+    description:
+      name: responsive_property
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   simple_animations:
     dependency: "direct main"
     description:

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
+import 'package:responsive_property/responsive_property.dart';
 
 import 'explicit_animations/long_animated_button.dart';
 import 'explicit_animations/neon_button_explicit.dart';
@@ -50,6 +51,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size);
     ResponsiveStyledContainer container = ResponsiveStyledContainer(
         styles: Responsive({
           ScreenScope(): Style(

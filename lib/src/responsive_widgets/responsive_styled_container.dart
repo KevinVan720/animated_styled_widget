@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
+import 'package:responsive_property/responsive_property.dart';
 
 class ResponsiveStyledContainer extends StatefulWidget {
   final String? id;

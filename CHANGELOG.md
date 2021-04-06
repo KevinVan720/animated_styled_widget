@@ -78,6 +78,10 @@ Styled Components!
 
 Update morphable shape dependence
 
-## [0.2.1] - 04/03/2021
+## [0.2.1] - 04/05/2021
 
 Rename to animated_styled_container
+
+## [0.2.2] - 04/06/2021
+
+Remove responsive features to a separate package

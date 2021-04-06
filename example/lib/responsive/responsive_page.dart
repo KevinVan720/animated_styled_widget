@@ -5,6 +5,7 @@ import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:morphable_shape/morphable_shape.dart';
+import 'package:responsive_property/responsive_property.dart';
 
 class ResponsivePage extends StatefulWidget {
   ResponsivePage({this.title = "Responsive"});

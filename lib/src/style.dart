@@ -9,7 +9,6 @@ import 'package:morphable_shape/morphable_shape.dart';
 
 import 'dynamic_ui_classes/dynamic_text_style.dart';
 import 'dynamic_ui_classes/smooth_matrix4.dart';
-import 'screen_scope.dart';
 import 'serialization/parse_json.dart';
 
 class Style {
@@ -268,35 +267,4 @@ class Style {
         other.backdropFilter == backdropFilter &&
         other.mouseCursor == mouseCursor;
   }
-}
-
-dynamic chooseFrom(dynamic input, MediaQueryData data) {
-  dynamic rst;
-  if (input is Map<ScreenScope, dynamic>) {
-    input.forEach((key, value) {
-      if (key.isOfScreenScope(data)) {
-        rst = value;
-      }
-    });
-  } else {
-    rst = input;
-  }
-
-  return rst;
-}
-
-Style cascadeStyle(dynamic input, MediaQueryData data) {
-  Style rst = Style();
-  if (input is Map<ScreenScope, Style>) {
-    input.forEach((key, value) {
-      if (key.isOfScreenScope(data)) {
-        rst = rst.merge(value);
-      }
-    });
-  } else {
-    assert(input is Style);
-    rst = input;
-  }
-
-  return rst;
 }
