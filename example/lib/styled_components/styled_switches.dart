@@ -225,7 +225,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
             SizedBox(
               height: 50,
             ),
-            StyledSwitch(
+            StyledSwitch.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -233,7 +233,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
                 });
               },
               duration: Duration(milliseconds: 200),
-              builder: childBuilder,
+              thumbChildBuilder: childBuilder,
               thumbStyle: neumorphicThumbStyle,
               thumbSelectedStyle: neumorphicThumbStyle.copyWith(
                   backgroundDecoration: BoxDecoration(color: Colors.black38),
@@ -274,7 +274,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
             SizedBox(
               height: 50,
             ),
-            StyledSwitch(
+            StyledSwitch.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -282,7 +282,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
                 });
               },
               duration: Duration(milliseconds: 1000),
-              builder: childBuilder,
+              thumbChildBuilder: childBuilder,
               thumbStyle: iosThumbStyle,
               thumbSelectedStyle: iosThumbStyle.copyWith(
                 transform: SmoothMatrix4(),
@@ -306,7 +306,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
             SizedBox(
               height: 50,
             ),
-            StyledSwitch(
+            StyledSwitch.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -314,7 +314,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
                 });
               },
               //duration: Duration(milliseconds: 1000),
-              builder: childBuilder,
+              thumbChildBuilder: childBuilder,
               thumbStyle: morphThumbStyle,
               thumbSelectedStyle: morphThumbStyle.copyWith(
                 transform: SmoothMatrix4(),
@@ -333,7 +333,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
             SizedBox(
               height: 50,
             ),
-            StyledSwitch(
+            StyledSwitch.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -341,7 +341,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
                 });
               },
               //duration: Duration(milliseconds: 1000),
-              builder: childBuilder,
+              thumbChildBuilder: childBuilder,
               direction: Axis.vertical,
               thumbStyle: morphVerticalThumbStyle,
               thumbSelectedStyle: morphVerticalThumbStyle.copyWith(

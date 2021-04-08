@@ -9,8 +9,7 @@ class StyledRadio<T> extends StatelessWidget {
 
   final Curve curve;
   final Duration duration;
-  final Widget? child;
-  final StyledComponentStateChildBuilder? builder;
+  late final StyledComponentStateChildBuilder builder;
 
   final T value;
 
@@ -29,13 +28,28 @@ class StyledRadio<T> extends StatelessWidget {
       this.disabledStyle,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      this.child,
-      this.builder});
+      Widget? child}) {
+    builder = (context, state) {
+      return child;
+    };
+  }
+
+  StyledRadio.builder(
+      {Key? key,
+      required this.value,
+      required this.groupValue,
+      required this.onChanged,
+      required this.style,
+      this.hoveredStyle,
+      this.selectedStyle,
+      this.disabledStyle,
+      this.curve = Curves.linear,
+      this.duration = const Duration(milliseconds: 100),
+      required this.builder});
 
   @override
   Widget build(BuildContext context) {
-    return StyledToggleable(
-      child: child,
+    return StyledToggleable.builder(
       builder: builder,
       selected: groupValue == value,
       onChanged: onChanged != null

@@ -137,7 +137,7 @@ class _StyledRadiosPageState extends State<StyledRadiosPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        StyledRadio(
+                        StyledRadio.builder(
                           value: i,
                           groupValue: _value,
                           onChanged: (int? value) {
@@ -179,7 +179,7 @@ class _StyledRadiosPageState extends State<StyledRadiosPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        StyledRadio(
+                        StyledRadio.builder(
                           value: i,
                           groupValue: _value,
                           onChanged: (int? value) {

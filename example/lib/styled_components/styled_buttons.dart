@@ -278,7 +278,7 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
             SizedBox(
               height: 50,
             ),
-            StyledButton(
+            StyledButton.builder(
               duration: Duration(milliseconds: 200),
               style: neumorphicStyle,
               pressedStyle: neumorphicStyle.copyWith(

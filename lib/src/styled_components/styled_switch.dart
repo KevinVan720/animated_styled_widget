@@ -18,12 +18,33 @@ class StyledSwitch extends StatefulWidget {
   final bool value;
 
   final ValueChanged<bool>? onChanged;
-  final Widget? child;
-  final StyledComponentStateChildBuilder? builder;
+  late final StyledComponentStateChildBuilder thumbChildBuilder;
 
-  Axis direction;
+  final Axis direction;
 
-  StyledSwitch(
+  StyledSwitch({
+    Key? key,
+    required this.value,
+    required this.onChanged,
+    required this.thumbStyle,
+    this.thumbHoveredStyle,
+    this.thumbSelectedStyle,
+    this.thumbDisabledStyle,
+    required this.trackStyle,
+    this.trackSelectedStyle,
+    this.trackHoveredStyle,
+    this.trackDisabledStyle,
+    this.direction = Axis.horizontal,
+    this.curve = Curves.linear,
+    this.duration = const Duration(milliseconds: 100),
+    Widget? thumbChild,
+  }) {
+    thumbChildBuilder = (context, state) {
+      return thumbChild;
+    };
+  }
+
+  StyledSwitch.builder(
       {Key? key,
       required this.value,
       required this.onChanged,
@@ -38,8 +59,7 @@ class StyledSwitch extends StatefulWidget {
       this.direction = Axis.horizontal,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      this.child,
-      this.builder});
+      required this.thumbChildBuilder});
 
   @override
   _StyledSwitchState createState() => _StyledSwitchState();
@@ -103,9 +123,8 @@ class _StyledSwitchState extends State<StyledSwitch> {
             duration: widget.duration,
             curve: widget.curve,
             alignment: _getAlignment(),
-            child: StyledToggleable(
-              builder: widget.builder,
-              child: widget.child,
+            child: StyledToggleable.builder(
+              builder: widget.thumbChildBuilder,
               selected: widget.value,
               onChanged: widget.onChanged != null
                   ? () {

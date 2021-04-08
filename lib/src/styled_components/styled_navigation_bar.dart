@@ -34,26 +34,14 @@ class StyledNavigationBar extends StatelessWidget {
     this.disabledStyle,
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
-  }) : assert(itemBuilder != null);
+  });
 
   final int itemCount;
 
-  late final StyledComponentStateIndexedChildBuilder? itemBuilder;
+  late final StyledComponentStateIndexedChildBuilder itemBuilder;
 
-  /// The corresponding selection state of each toggle button.
-  ///
-  /// Each value in this list represents the selection state of the [children]
-  /// widget at the same index.
-  ///
-  /// The length of [isSelected] has to match the length of [children].
   final int currentIndex;
 
-  /// The callback that is called when a button is tapped.
-  ///
-  /// The index parameter of the callback is the index of the button that is
-  /// tapped or otherwise activated.
-  ///
-  /// When the callback is null, all toggle buttons will be disabled.
   final ValueChanged<int>? onTap;
 
   final Axis direction;
@@ -69,13 +57,11 @@ class StyledNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> buttons = List<Widget>.generate(itemCount, (int index) {
-      return StyledToggleable(
+      return StyledToggleable.builder(
         key: UniqueKey(),
-        builder: itemBuilder != null
-            ? (BuildContext context, StyledComponentState state) {
-                return itemBuilder!(context, state, index);
-              }
-            : null,
+        builder: (BuildContext context, StyledComponentState state) {
+          return itemBuilder!(context, state, index);
+        },
         onChanged: onTap != null
             ? () {
                 onTap!(index);

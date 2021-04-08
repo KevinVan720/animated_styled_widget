@@ -1,6 +1,6 @@
 name: animated_styled_widget
 description: Lets you use a serializable style to make customizable and animated widgets.
-version: 0.2.3
+version: 0.2.4
 homepage: https://github.com/KevinVan720/animated_styled_widget
 
 environment:

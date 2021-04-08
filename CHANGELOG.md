@@ -89,3 +89,7 @@ Remove responsive features to a separate package
 ## [0.2.3] - 04/06/2021
 
 Add StyledNavigationBar
+
+## [0.2.4] - 04/08/2021
+
+Refactor the constructors of styled components

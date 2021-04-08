@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+///A StyledContainer that only cares about its size,
 class StyledPlainContainer extends StyledWidget {
   final Widget child;
   final PointerEnterEventListener? onMouseEnter;

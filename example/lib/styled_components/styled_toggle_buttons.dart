@@ -215,7 +215,7 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
               height: 50,
             ),
             Center(
-              child: StyledToggleButtons(
+              child: StyledToggleButtons.builder(
                 builder: childrenBuilder,
                 onPressed: (int index) {
                   setState(() {
@@ -313,7 +313,7 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
             ),
             Container(
               alignment: Alignment.center,
-              child: StyledToggleButtons(
+              child: StyledToggleButtons.builder(
                 builder: childrenBuilder,
                 onPressed: (int index) {
                   setState(() {

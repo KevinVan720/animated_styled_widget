@@ -9,14 +9,30 @@ class StyledCheckbox extends StatelessWidget {
 
   final Curve curve;
   final Duration duration;
-  final Widget? child;
-  final StyledComponentStateChildBuilder? builder;
+  late final StyledComponentStateChildBuilder builder;
 
   final bool value;
 
   final ValueChanged<bool>? onChanged;
 
-  StyledCheckbox(
+  StyledCheckbox({
+    Key? key,
+    required this.value,
+    required this.onChanged,
+    required this.style,
+    this.hoveredStyle,
+    this.selectedStyle,
+    this.disabledStyle,
+    this.curve = Curves.linear,
+    this.duration = const Duration(milliseconds: 100),
+    Widget? child,
+  }) {
+    builder = (context, state) {
+      return child;
+    };
+  }
+
+  StyledCheckbox.builder(
       {Key? key,
       required this.value,
       required this.onChanged,
@@ -26,13 +42,11 @@ class StyledCheckbox extends StatelessWidget {
       this.disabledStyle,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      this.child,
-      this.builder});
+      required this.builder});
 
   @override
   Widget build(BuildContext context) {
-    return StyledToggleable(
-      child: child,
+    return StyledToggleable.builder(
       builder: builder,
       selected: value,
       onChanged: onChanged != null

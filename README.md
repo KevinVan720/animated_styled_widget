@@ -133,11 +133,21 @@ The Material components animates according to its internal MaterialState like ho
       this.disabledStyle,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      this.child,
-      this.builder});
+      Widget? child});
+
+  StyledButton.builder(
+      {Key? key,
+      this.onPressed,
+      required this.style,
+      this.hoveredStyle,
+      this.pressedStyle,
+      this.disabledStyle,
+      this.curve = Curves.linear,
+      this.duration = const Duration(milliseconds: 100),
+      required this.builder});
 ```
 
-A button can be in one of the four states: idle, hovered, pressed, disabled. You need to provide the four corresponding styles. Notice only the idle(default) style is required, and the other three will be set to this style if not provided. You can also specify the duration and animation curve for transitioning between different states. The child parameter is the child widget of this button. But you can also provide a builder which can access the state of the button:
+A button can be in one of the four states: idle, hovered, pressed, disabled. You need to provide the four corresponding styles. Notice only the idle(default) style is required, and the other three will be set to this style if not provided. You can also specify the duration and animation curve for transitioning between different states. The child parameter is the child widget of this button. But you can also provide a builder which can access the internal state of the button:
 ```dart
 builder: (context, state) {
       Widget child;
@@ -183,7 +193,9 @@ The StyledSlider need styling for the track and thumb as well, but you can also 
 
 ![style_slider](https://i.imgur.com/TsaQqck.gif)
 
-The interface for the slider is not final, I may add more styling paramters in the future. 
+The interface for the slider is not final, I may add more styling paramters in the future.
+
+I have also implemented the StyledNavigationBar. You can find demos of all those components in the example app.
 
 ## Explicit Animation
 

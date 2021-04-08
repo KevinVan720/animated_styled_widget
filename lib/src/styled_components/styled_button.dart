@@ -30,8 +30,7 @@ class StyledButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final Curve curve;
   final Duration duration;
-  final Widget? child;
-  final StyledComponentStateChildBuilder? builder;
+  late final StyledComponentStateChildBuilder builder;
 
   StyledButton(
       {Key? key,
@@ -42,8 +41,22 @@ class StyledButton extends StatefulWidget {
       this.disabledStyle,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      this.child,
-      this.builder});
+      Widget? child}) {
+    builder = (context, state) {
+      return child;
+    };
+  }
+
+  StyledButton.builder(
+      {Key? key,
+      this.onPressed,
+      required this.style,
+      this.hoveredStyle,
+      this.pressedStyle,
+      this.disabledStyle,
+      this.curve = Curves.linear,
+      this.duration = const Duration(milliseconds: 100),
+      required this.builder});
 
   bool get enabled => onPressed != null;
 
@@ -100,14 +113,12 @@ class _StyledButtonState extends State<StyledButton> {
 
     return GestureDetector(
       onTapDown: (TapDownDetails details) {
-        print("TAP DOWN");
         hasTapUp = false;
         if (widget.enabled) {
           _handleTapDown();
         }
       },
       onTapUp: (TapUpDetails details) {
-        print("TAP UP");
         if (widget.enabled) {
           widget.onPressed!();
         }
@@ -132,10 +143,7 @@ class _StyledButtonState extends State<StyledButton> {
           style: resolvedStyle,
           curve: widget.curve,
           duration: widget.duration,
-          child: (widget.builder != null
-                  ? widget.builder!(context, resolveState())
-                  : widget.child) ??
-              Container()),
+          child: widget.builder(context, resolveState()) ?? Container()),
     );
   }
 
@@ -205,10 +213,26 @@ class StyledToggleable extends StatefulWidget {
   final bool? selected;
   final Curve curve;
   final Duration duration;
-  final Widget? child;
-  final StyledComponentStateChildBuilder? builder;
+  late final StyledComponentStateChildBuilder builder;
 
-  StyledToggleable(
+  StyledToggleable({
+    Key? key,
+    this.onChanged,
+    this.selected,
+    required this.style,
+    this.hoveredStyle,
+    this.selectedStyle,
+    this.disabledStyle,
+    this.curve = Curves.linear,
+    this.duration = const Duration(milliseconds: 100),
+    Widget? child,
+  }) : assert(selected != null || onChanged != null) {
+    builder = (context, state) {
+      return child;
+    };
+  }
+
+  StyledToggleable.builder(
       {Key? key,
       this.onChanged,
       this.selected,
@@ -218,8 +242,7 @@ class StyledToggleable extends StatefulWidget {
       this.disabledStyle,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      this.child,
-      this.builder})
+      required this.builder})
       : assert(selected != null || onChanged != null);
 
   bool get enabled => onChanged != null;
@@ -302,10 +325,7 @@ class _StyledToggleableState extends State<StyledToggleable> {
           style: resolvedStyle,
           curve: widget.curve,
           duration: widget.duration,
-          child: (widget.builder != null
-                  ? widget.builder!(context, resolveState())
-                  : widget.child) ??
-              Container()),
+          child: widget.builder(context, resolveState()) ?? Container()),
     );
   }
 
@@ -344,10 +364,10 @@ class _StyledToggleableState extends State<StyledToggleable> {
 }
 
 class StyledSelectablePlainButton extends StatefulWidget {
-  final dynamic style;
-  final dynamic? hoveredStyle;
-  final dynamic? selectedStyle;
-  final dynamic? disabledStyle;
+  final Style style;
+  final Style? hoveredStyle;
+  final Style? selectedStyle;
+  final Style? disabledStyle;
   final VoidCallback? onChanged;
   final bool? selected;
   final Curve curve;

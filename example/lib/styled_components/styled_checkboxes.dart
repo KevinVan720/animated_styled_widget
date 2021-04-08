@@ -327,7 +327,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
+            StyledCheckbox.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -370,7 +370,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
+            StyledCheckbox.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -423,7 +423,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
+            StyledCheckbox.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -457,7 +457,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
+            StyledCheckbox.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -511,7 +511,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
+            StyledCheckbox.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
@@ -561,7 +561,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
             SizedBox(
               height: 50,
             ),
-            StyledCheckbox(
+            StyledCheckbox.builder(
               value: _selected,
               onChanged: (bool value) {
                 setState(() {
