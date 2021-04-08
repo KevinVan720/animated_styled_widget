@@ -1,13 +1,12 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/material.dart';
 
-class StyledToggleButtons extends StatelessWidget {
-  StyledToggleButtons({
+class StyledNavigationBar extends StatelessWidget {
+  StyledNavigationBar({
     Key? key,
-    this.children,
-    this.builder,
-    required this.isSelected,
-    this.onPressed,
+    required List<Widget> children,
+    required this.currentIndex,
+    this.onTap,
     this.direction = Axis.horizontal,
     required this.style,
     this.hoveredStyle,
@@ -15,20 +14,31 @@ class StyledToggleButtons extends StatelessWidget {
     this.disabledStyle,
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
-  }) : assert(children?.length == isSelected.length || builder != null);
+  })  : assert(children.length > currentIndex),
+        itemCount = children.length {
+    itemBuilder = (context, state, int index) {
+      return children[index];
+    };
+  }
 
-  /// The toggle button src.widgets.
-  ///
-  /// These are typically [Icon] or [Text] src.widgets. The boolean selection
-  /// state of each widget is defined by the corresponding [isSelected]
-  /// list item.
-  ///
-  /// The length of children has to match the length of [isSelected]. If
-  /// [focusNodes] is not null, the length of children has to also match
-  /// the length of [focusNodes].
-  final List<Widget>? children;
+  StyledNavigationBar.builder({
+    Key? key,
+    required this.itemCount,
+    required this.itemBuilder,
+    required this.currentIndex,
+    this.onTap,
+    this.direction = Axis.horizontal,
+    required this.style,
+    this.hoveredStyle,
+    this.selectedStyle,
+    this.disabledStyle,
+    this.curve = Curves.linear,
+    this.duration = const Duration(milliseconds: 100),
+  }) : assert(itemBuilder != null);
 
-  final StyledComponentStateIndexedChildBuilder? builder;
+  final int itemCount;
+
+  late final StyledComponentStateIndexedChildBuilder? itemBuilder;
 
   /// The corresponding selection state of each toggle button.
   ///
@@ -36,7 +46,7 @@ class StyledToggleButtons extends StatelessWidget {
   /// widget at the same index.
   ///
   /// The length of [isSelected] has to match the length of [children].
-  final List<bool> isSelected;
+  final int currentIndex;
 
   /// The callback that is called when a button is tapped.
   ///
@@ -44,7 +54,7 @@ class StyledToggleButtons extends StatelessWidget {
   /// tapped or otherwise activated.
   ///
   /// When the callback is null, all toggle buttons will be disabled.
-  final void Function(int index)? onPressed;
+  final ValueChanged<int>? onTap;
 
   final Axis direction;
 
@@ -58,21 +68,20 @@ class StyledToggleButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> buttons =
-        List<Widget>.generate(isSelected.length, (int index) {
+    List<Widget> buttons = List<Widget>.generate(itemCount, (int index) {
       return StyledToggleable(
-        child: children?[index],
-        builder: builder != null
+        key: UniqueKey(),
+        builder: itemBuilder != null
             ? (BuildContext context, StyledComponentState state) {
-                return builder!(context, state, index);
+                return itemBuilder!(context, state, index);
               }
             : null,
-        onChanged: onPressed != null
+        onChanged: onTap != null
             ? () {
-                onPressed!(index);
+                onTap!(index);
               }
             : null,
-        selected: isSelected[index],
+        selected: currentIndex == index,
         style: style,
         selectedStyle: selectedStyle,
         hoveredStyle: hoveredStyle,
@@ -84,16 +93,16 @@ class StyledToggleButtons extends StatelessWidget {
     return direction == Axis.horizontal
         ? IntrinsicHeight(
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              //mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: buttons,
             ),
           )
-        : IntrinsicWidth(
-            child: Column(
-            mainAxisSize: MainAxisSize.min,
+        : Column(
+            //mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: buttons,
-          ));
+          );
   }
 }

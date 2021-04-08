@@ -29,7 +29,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
     super.initState();
 
     neumorphicStyle = Style(
-        width: 200.toPXLength,
+        //width: 200.toPXLength,
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         backgroundDecoration: BoxDecoration(
@@ -61,7 +61,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         mouseCursor: SystemMouseCursors.click);
 
     neonStyle = Style(
-        width: 360.toPXLength,
+        //width: 360.toPXLength,
         alignment: Alignment.center,
         padding: EdgeInsets.all(20),
         backgroundDecoration: BoxDecoration(
@@ -104,7 +104,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         mouseCursor: SystemMouseCursors.click);
 
     comicStyle = Style(
-        width: 280.toPXLength,
+        //width: 280.toPXLength,
         alignment: Alignment.center,
         padding: EdgeInsets.all(20),
         backgroundDecoration: BoxDecoration(color: Colors.amberAccent),
@@ -124,7 +124,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         mouseCursor: SystemMouseCursors.click);
 
     skeumorphismStyle = Style(
-        width: 200.toPXLength,
+        //width: 200.toPXLength,
         height: 80.toPXLength,
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
@@ -190,7 +190,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         mouseCursor: SystemMouseCursors.click);
 
     keyboardStyle = Style(
-        width: 300.toPXLength,
+        //width: 300.toPXLength,
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
         backgroundDecoration: BoxDecoration(color: Colors.tealAccent.shade100),
@@ -281,38 +281,33 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
   @override
   Widget build(BuildContext context) {
     var childBuilder = (context, state) {
-      Widget child;
-      switch (state) {
-        case StyledComponentState.selected:
-          child = Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.check),
-              Text(
-                "CHECKED",
-                key: UniqueKey(),
+      Widget child = FittedBox(
+        fit: BoxFit.fitHeight,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.check),
+            Container(
+              child: AnimatedOpacity(
+                duration: Duration(milliseconds: 500),
+                opacity: state == StyledComponentState.selected ? 1 : 0,
+                child: AnimatedAlign(
+                  duration: Duration(milliseconds: 500),
+                  alignment: Alignment.centerRight,
+                  widthFactor: state == StyledComponentState.selected ? 1 : 0,
+                  child: Text(
+                    "CHECKED",
+                    key: UniqueKey(),
+                  ),
+                ),
               ),
-            ],
-          );
-          break;
-        case StyledComponentState.hovered:
-          child = Text(
-            "HOVERED",
-            key: UniqueKey(),
-          );
-          break;
-        default:
-          child = Text(
-            "CHECK ME",
-            key: UniqueKey(),
-          );
-          break;
-      }
-      return AnimatedSwitcher(
-        duration: Duration(milliseconds: 200),
-        child: child,
+            ),
+          ],
+        ),
       );
+
+      return child;
     };
 
     return Scaffold(

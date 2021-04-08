@@ -85,3 +85,7 @@ Rename to animated_styled_container
 ## [0.2.2] - 04/06/2021
 
 Remove responsive features to a separate package
+
+## [0.2.3] - 04/06/2021
+
+Add StyledNavigationBar
