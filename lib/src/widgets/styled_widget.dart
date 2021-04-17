@@ -183,21 +183,6 @@ abstract class StyledWidgetState<T extends StyledWidget> extends State<T> {
     );
   }
 
-  Widget buildPlainContainer(
-      {required Widget child,
-      PointerEnterEventListener? onMouseEnter,
-      PointerExitEventListener? onMouseExit}) {
-    Widget innerContainer =
-        DimensionSizedBox(width: width, height: height, child: child);
-
-    return Container(
-      alignment: alignment,
-      transform: transform,
-      transformAlignment: transformAlignment,
-      child: innerContainer,
-    );
-  }
-
   Widget buildStyledContainer(
       {required Widget child,
       PointerEnterEventListener? onMouseEnter,

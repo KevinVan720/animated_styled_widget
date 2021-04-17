@@ -75,7 +75,7 @@ class _StyledSwitchState extends State<StyledSwitch> {
       outerTrackStyle.width = null;
     }
 
-    return StyledSelectablePlainButton(
+    return StyledToggleable(
       selected: widget.value,
       onChanged: widget.onChanged != null
           ? () {
@@ -84,21 +84,33 @@ class _StyledSwitchState extends State<StyledSwitch> {
           : null,
       duration: widget.duration,
       curve: widget.curve,
-      style: outerTrackStyle,
+      style: getStyleOuterContainer(outerTrackStyle),
       selectedStyle: widget.trackSelectedStyle != null
           ? widget.direction == Axis.horizontal
-              ? widget.trackSelectedStyle!.copyWith().height = null
-              : widget.trackSelectedStyle!.copyWith().width = null
+              ? getStyleOuterContainer(widget.trackSelectedStyle!)
+                  .copyWith()
+                  .height = null
+              : getStyleOuterContainer(widget.trackSelectedStyle!)
+                  .copyWith()
+                  .width = null
           : null,
       hoveredStyle: widget.trackHoveredStyle != null
           ? widget.direction == Axis.horizontal
-              ? widget.trackHoveredStyle!.copyWith().height = null
-              : widget.trackHoveredStyle!.copyWith().width = null
+              ? getStyleOuterContainer(widget.trackHoveredStyle!)
+                  .copyWith()
+                  .height = null
+              : getStyleOuterContainer(widget.trackHoveredStyle!)
+                  .copyWith()
+                  .width = null
           : null,
       disabledStyle: widget.trackDisabledStyle != null
           ? widget.direction == Axis.horizontal
-              ? widget.trackDisabledStyle!.copyWith().height = null
-              : widget.trackDisabledStyle!.copyWith().width = null
+              ? getStyleOuterContainer(widget.trackDisabledStyle!)
+                  .copyWith()
+                  .height = null
+              : getStyleOuterContainer(widget.trackDisabledStyle!)
+                  .copyWith()
+                  .width = null
           : null,
       child: Stack(
         alignment: Alignment.center,

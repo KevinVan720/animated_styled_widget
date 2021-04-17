@@ -195,7 +195,9 @@ The StyledSlider need styling for the track and thumb as well, but you can also 
 
 The interface for the slider is not final, I may add more styling paramters in the future.
 
-I have also implemented the StyledNavigationBar. You can find demos of all those components in the example app.
+I have also implemented the StyledNavigationBar and StylePopupMenuButton. You can find demos of all those components in the example app.
+
+The next step may be adding themeing capabilities to the styled components so that people.
 
 ## Explicit Animation
 

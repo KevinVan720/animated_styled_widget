@@ -60,7 +60,7 @@ class StyledNavigationBar extends StatelessWidget {
       return StyledToggleable.builder(
         key: UniqueKey(),
         builder: (BuildContext context, StyledComponentState state) {
-          return itemBuilder!(context, state, index);
+          return itemBuilder(context, state, index);
         },
         onChanged: onTap != null
             ? () {

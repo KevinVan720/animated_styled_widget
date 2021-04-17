@@ -4,11 +4,6 @@ import 'package:simple_animations/simple_animations.dart';
 import 'animation_sequence.dart';
 import 'global_animation.dart';
 
-export '../preset_explicit_animations/attention_seeker.dart';
-export '../preset_explicit_animations/base.dart';
-export '../preset_explicit_animations/entrance.dart';
-export '../preset_explicit_animations/exit.dart';
-
 class GlobalAnimationNotifier extends ChangeNotifier {
   Map<String, GlobalAnimation> animationPool = {};
 

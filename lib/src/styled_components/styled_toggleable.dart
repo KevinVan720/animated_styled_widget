@@ -2,54 +2,59 @@ import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-///A button that can be pressed, hovered or disabled while showing the corresponding styling.
-class StyledButton extends StatefulWidget {
+///A button that can be selected, hovered or disabled while showing the corresponding styling.
+class StyledToggleable extends StatefulWidget {
   final Style style;
   final Style? hoveredStyle;
-  final Style? pressedStyle;
+  final Style? selectedStyle;
   final Style? disabledStyle;
-  final VoidCallback? onPressed;
+  final VoidCallback? onChanged;
+  final bool? selected;
   final Curve curve;
   final Duration duration;
   late final StyledComponentStateChildBuilder builder;
 
-  StyledButton(
-      {Key? key,
-      this.onPressed,
-      required this.style,
-      this.hoveredStyle,
-      this.pressedStyle,
-      this.disabledStyle,
-      this.curve = Curves.linear,
-      this.duration = const Duration(milliseconds: 100),
-      Widget? child}) {
+  StyledToggleable({
+    Key? key,
+    this.onChanged,
+    this.selected,
+    required this.style,
+    this.hoveredStyle,
+    this.selectedStyle,
+    this.disabledStyle,
+    this.curve = Curves.linear,
+    this.duration = const Duration(milliseconds: 100),
+    Widget? child,
+  }) : assert(selected != null || onChanged != null) {
     builder = (context, state) {
       return child;
     };
   }
 
-  StyledButton.builder(
+  StyledToggleable.builder(
       {Key? key,
-      this.onPressed,
+      this.onChanged,
+      this.selected,
       required this.style,
       this.hoveredStyle,
-      this.pressedStyle,
+      this.selectedStyle,
       this.disabledStyle,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      required this.builder});
+      required this.builder})
+      : assert(selected != null || onChanged != null);
 
-  bool get enabled => onPressed != null;
+  bool get enabled => onChanged != null;
 
   @override
-  _StyledButtonState createState() => _StyledButtonState();
+  _StyledToggleableState createState() => _StyledToggleableState();
 }
 
-class _StyledButtonState extends State<StyledButton> {
+class _StyledToggleableState extends State<StyledToggleable> {
   final Set<StyledComponentState> _states = <StyledComponentState>{};
 
   bool get _hovered => _states.contains(StyledComponentState.hovered);
-  bool get _pressed => _states.contains(StyledComponentState.pressed);
+  bool get _selected => _states.contains(StyledComponentState.selected);
   bool get _disabled => _states.contains(StyledComponentState.disabled);
 
   void _updateState(StyledComponentState state, bool value) {
@@ -58,7 +63,7 @@ class _StyledButtonState extends State<StyledButton> {
 
   late Style style;
   late Style hoveredStyle;
-  late Style pressedStyle;
+  late Style selectedStyle;
   late Style disabledStyle;
 
   bool hasFinishedAnimationDown = false;
@@ -68,12 +73,16 @@ class _StyledButtonState extends State<StyledButton> {
   void initState() {
     super.initState();
     _updateState(StyledComponentState.disabled, !widget.enabled);
+    if (widget.selected != null)
+      _updateState(StyledComponentState.selected, widget.selected!);
   }
 
   @override
-  void didUpdateWidget(StyledButton oldWidget) {
+  void didUpdateWidget(StyledToggleable oldWidget) {
     super.didUpdateWidget(oldWidget);
     _updateState(StyledComponentState.disabled, !widget.enabled);
+    if (widget.selected != null)
+      _updateState(StyledComponentState.selected, widget.selected!);
     updateStyle();
   }
 
@@ -93,22 +102,13 @@ class _StyledButtonState extends State<StyledButton> {
     dynamic resolvedStyle = resolveStyle();
 
     return GestureDetector(
-      onTapDown: (TapDownDetails details) {
-        hasTapUp = false;
+      onTap: () {
         if (widget.enabled) {
-          _handleTapDown();
+          widget.onChanged!();
+          setState(() {
+            _updateState(StyledComponentState.selected, !_selected);
+          });
         }
-      },
-      onTapUp: (TapUpDetails details) {
-        if (widget.enabled) {
-          widget.onPressed!();
-        }
-        hasTapUp = true;
-        _resetIfTapUp();
-      },
-      onTapCancel: () {
-        hasTapUp = true;
-        _resetIfTapUp();
       },
       child: AnimatedStyledContainer(
           onMouseEnter: (PointerEnterEvent event) {
@@ -132,8 +132,8 @@ class _StyledButtonState extends State<StyledButton> {
     if (_disabled) {
       return disabledStyle;
     }
-    if (_pressed) {
-      return pressedStyle;
+    if (_selected) {
+      return selectedStyle;
     }
     if (_hovered) {
       return hoveredStyle;
@@ -145,8 +145,8 @@ class _StyledButtonState extends State<StyledButton> {
     if (_disabled) {
       return StyledComponentState.disabled;
     }
-    if (_pressed) {
-      return StyledComponentState.pressed;
+    if (_selected) {
+      return StyledComponentState.selected;
     }
     if (_hovered) {
       return StyledComponentState.hovered;
@@ -157,30 +157,7 @@ class _StyledButtonState extends State<StyledButton> {
   void updateStyle() {
     style = widget.style;
     hoveredStyle = widget.hoveredStyle ?? style;
-    pressedStyle = widget.pressedStyle ?? style;
+    selectedStyle = widget.selectedStyle ?? style;
     disabledStyle = widget.disabledStyle ?? style;
-  }
-
-  Future<void> _handleTapDown() async {
-    hasFinishedAnimationDown = false;
-    setState(() {
-      _updateState(StyledComponentState.pressed, true);
-    });
-
-    await Future.delayed(widget.duration); //wait until animation finished
-    hasFinishedAnimationDown = true;
-
-    _resetIfTapUp();
-  }
-
-  //used to stay pressed if no tap up
-  void _resetIfTapUp() {
-    if (hasFinishedAnimationDown == true && hasTapUp == true && mounted) {
-      hasFinishedAnimationDown = false;
-      hasTapUp = false;
-      setState(() {
-        _updateState(StyledComponentState.pressed, false);
-      });
-    }
   }
 }

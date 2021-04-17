@@ -14,7 +14,7 @@ class StyledToggleButtons extends StatelessWidget {
     this.disabledStyle,
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
-  }) : assert(children?.length == isSelected.length) {
+  }) : assert(children.length == isSelected.length) {
     builder = (context, state, index) {
       return children[index];
     };
@@ -56,7 +56,7 @@ class StyledToggleButtons extends StatelessWidget {
         List<Widget>.generate(isSelected.length, (int index) {
       return StyledToggleable.builder(
         builder: (BuildContext context, StyledComponentState state) {
-          return builder!(context, state, index);
+          return builder(context, state, index);
         },
         onChanged: onPressed != null
             ? () {

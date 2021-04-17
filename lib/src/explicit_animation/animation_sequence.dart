@@ -63,8 +63,8 @@ const Map<AnimationProperty, Type> animationPropertyTypeMap = {
 Map<AnimationProperty, dynamic> animationPropertyDefaultInitMap = {
   AnimationProperty.opacity: 1.0,
   AnimationProperty.alignment: Alignment.center,
-  AnimationProperty.width: 100.0,
-  AnimationProperty.height: 100.0,
+  AnimationProperty.width: null,
+  AnimationProperty.height: null,
   AnimationProperty.margin: EdgeInsets.zero,
   AnimationProperty.padding: EdgeInsets.zero,
   AnimationProperty.backgroundDecoration: BoxDecoration(),

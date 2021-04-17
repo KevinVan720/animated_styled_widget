@@ -5,8 +5,6 @@ import 'package:simple_animations/simple_animations.dart';
 import 'animation_sequence.dart';
 
 class GlobalAnimation {
-  static const double progressMaxTime = 10000;
-
   CustomAnimationControl control = CustomAnimationControl.PLAY;
   double beginShift = 0.0;
   double endShift = 1.0;

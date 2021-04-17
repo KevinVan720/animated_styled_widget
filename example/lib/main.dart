@@ -1,4 +1,3 @@
-import 'package:example/styled_components/styled_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -19,6 +18,8 @@ import 'implicit_animations/neumorphism_button.dart';
 import 'implicit_animations/neumorphism_two_button.dart';
 import 'styled_components/styled_buttons.dart';
 import 'styled_components/styled_checkboxes.dart';
+import 'styled_components/styled_navigation_bar.dart';
+import 'styled_components/styled_popup_menu.dart';
 import 'styled_components/styled_radios.dart';
 import 'styled_components/styled_slider.dart';
 import 'styled_components/styled_switches.dart';
@@ -182,6 +183,15 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context) => StyledSliderPage()));
                       },
                       child: Text("Styled Sliders")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    StyledPopupMenuButtonPage()));
+                      },
+                      child: Text("Styled Popup")),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.push(

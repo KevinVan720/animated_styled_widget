@@ -3,8 +3,6 @@ import 'package:dimension/dimension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'styled_plain_container.dart';
-
 class StyledSlider extends StatefulWidget {
   final Style trackStyle;
   final Style thumbStyle;
@@ -140,8 +138,8 @@ class _StyledSliderState extends State<StyledSlider> {
     Style innerTrackStyle = widget.trackStyle.copyWith();
     innerTrackStyle.width = 100.toPercentLength - thumbWidth.toPXLength;
 
-    return StyledPlainContainer(
-        style: outerTrackStyle,
+    return StyledContainer(
+        style: getStyleOuterContainer(outerTrackStyle),
         child: Center(
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -232,8 +230,8 @@ class _StyledSliderState extends State<StyledSlider> {
     Style innerTrackStyle = widget.trackStyle.copyWith();
     innerTrackStyle.height = 100.toPercentLength - thumbHeight.toPXLength;
 
-    return StyledPlainContainer(
-        style: outerTrackStyle,
+    return StyledContainer(
+        style: getStyleOuterContainer(outerTrackStyle),
         child: Center(
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {

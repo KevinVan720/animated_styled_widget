@@ -93,3 +93,7 @@ Add StyledNavigationBar
 ## [0.2.4] - 04/08/2021
 
 Refactor the constructors of styled components
+
+## [0.2.5] - 04/17/2021
+
+Code restructure

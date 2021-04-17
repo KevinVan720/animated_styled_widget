@@ -10,12 +10,14 @@ class StyledContainer extends StyledWidget {
 
   StyledContainer({
     Key? key,
+    String? id,
     required Style style,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
   }) : super(
           key: key,
+          id: id,
           style: style,
         );
 

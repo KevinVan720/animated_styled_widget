@@ -49,7 +49,7 @@ packages:
       name: dimension
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.3"
+    version: "0.1.4"
   fake_async:
     dependency: transitive
     description:
@@ -68,7 +68,7 @@ packages:
       name: flutter_class_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.2"
+    version: "0.2.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -94,7 +94,7 @@ packages:
       name: morphable_shape
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.6"
+    version: "1.4.7"
   nested:
     dependency: transitive
     description:
@@ -130,13 +130,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  responsive_property:
-    dependency: "direct main"
-    description:
-      name: responsive_property
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
   simple_animations:
     dependency: "direct main"
     description:

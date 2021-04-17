@@ -13,6 +13,7 @@ class AnimatedStyledContainer extends StyledWidget {
 
   AnimatedStyledContainer({
     Key? key,
+    String? id,
     required Style style,
     required this.duration,
     this.curve = Curves.linear,
@@ -22,6 +23,7 @@ class AnimatedStyledContainer extends StyledWidget {
     this.onEnd,
   }) : super(
           key: key,
+          id: id,
           style: style,
         );
 
