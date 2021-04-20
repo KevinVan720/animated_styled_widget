@@ -97,3 +97,7 @@ Refactor the constructors of styled components
 ## [0.2.5] - 04/17/2021
 
 Code restructure
+
+## [0.2.6] - 04/19/2021
+
+Use a mixin instead of a single class

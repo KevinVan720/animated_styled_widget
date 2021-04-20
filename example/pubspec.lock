@@ -7,7 +7,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.2.4"
+    version: "0.2.5"
   async:
     dependency: transitive
     description:
@@ -101,7 +101,7 @@ packages:
       name: morphable_shape
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.7"
+    version: "1.4.8"
   nested:
     dependency: transitive
     description:
@@ -137,13 +137,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
-  responsive_property:
-    dependency: "direct main"
-    description:
-      name: responsive_property
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
   simple_animations:
     dependency: transitive
     description:

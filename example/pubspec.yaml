@@ -30,8 +30,6 @@ dependencies:
   animated_styled_widget:
     path: ../
 
-  responsive_property: ^0.0.1
-
 
 dev_dependencies:
   flutter_test:

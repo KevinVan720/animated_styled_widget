@@ -213,7 +213,7 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
           color: Colors.blueAccent,
         ),
         shapeBorder: BubbleShapeBorder(
-            corner: ShapeCorner.leftTop, arrowHeadPosition: 25.toPercentLength),
+            side: ShapeSide.left, arrowHeadPosition: 25.toPercentLength),
         shadows: [],
         textStyle: DynamicTextStyle(
           fontSize: (16.toPXLength),

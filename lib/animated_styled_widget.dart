@@ -33,4 +33,5 @@ export 'src/widgets/animated_styled_container.dart';
 export 'src/widgets/dimension_sized_box.dart';
 export 'src/widgets/explicit_animated_styled_container.dart';
 export 'src/widgets/styled_container.dart';
+export 'src/widgets/styled_state_mixin.dart';
 export 'src/widgets/styled_widget.dart';

@@ -99,7 +99,7 @@ class _ButtonTransform1PageState extends State<ButtonTransform1Page> {
       body: Center(
         child: AnimatedStyledContainer(
           curve: Curves.elasticInOut,
-          duration: Duration(seconds: 1),
+          duration: Duration(seconds: 5),
           style: toggleStyle ? beginStyle : endStyle,
           child: Container(),
         ),
