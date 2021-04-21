@@ -167,6 +167,28 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
     );
   }
 
+  Widget buildPlainContainer(
+      {required Widget child,
+      PointerEnterEventListener? onMouseEnter,
+      PointerExitEventListener? onMouseExit}) {
+    Widget innerContainer = DimensionSizedBox(
+      width: style.width,
+      height: style.height,
+      child: Container(
+          padding: padding.add(shapeBorder.dimensions),
+          alignment: childAlignment,
+          child: child),
+    );
+
+    return Container(
+      alignment: alignment,
+      margin: margin,
+      transform: transform,
+      transformAlignment: transformAlignment,
+      child: innerContainer,
+    );
+  }
+
   Widget buildStyledContainer(
       {required Widget child,
       PointerEnterEventListener? onMouseEnter,
@@ -201,29 +223,6 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
             opacity: opacity,
             child: materialContainer,
           )),
-    );
-  }
-
-  Widget buildAnimatedPlainContainer(
-      {required Widget child,
-      required Duration duration,
-      Curve curve = Curves.linear,
-      PointerEnterEventListener? onMouseEnter,
-      PointerExitEventListener? onMouseExit}) {
-    Widget innerContainer = AnimatedDimensionSizedBox(
-        duration: duration,
-        curve: curve,
-        width: width,
-        height: height,
-        child: child);
-
-    return AnimatedContainer(
-      duration: duration,
-      curve: curve,
-      alignment: alignment,
-      transform: transform,
-      transformAlignment: transformAlignment,
-      child: innerContainer,
     );
   }
 
@@ -278,5 +277,37 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
             child: materialContainer,
           )),
     );
+  }
+
+  Widget buildAnimatedPlainContainer(
+      {required Widget child,
+      required Duration duration,
+      Curve curve = Curves.linear,
+      PointerEnterEventListener? onMouseEnter,
+      PointerExitEventListener? onMouseExit,
+      Function()? onEnd}) {
+    Widget innerContainer = buildBackdropFilter(
+        child: AnimatedDimensionSizedBox(
+      duration: duration,
+      curve: curve,
+      width: width,
+      height: height,
+      onEnd: onEnd,
+      child: AnimatedContainer(
+          duration: duration,
+          curve: curve,
+          padding: padding.add(shapeBorder.dimensions),
+          alignment: childAlignment,
+          child: child),
+    ));
+
+    return AnimatedContainer(
+        duration: duration,
+        curve: curve,
+        margin: margin,
+        alignment: alignment,
+        transform: transform,
+        transformAlignment: transformAlignment,
+        child: innerContainer);
   }
 }

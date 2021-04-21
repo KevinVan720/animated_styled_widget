@@ -37,7 +37,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         width: 100.toPXLength,
         height: 100.toPXLength,
         alignment: Alignment.center,
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
@@ -62,8 +62,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
     neumorphicTrackStyle = Style(
         width: 240.toPXLength,
         height: 120.toPXLength,
-        //alignment: Alignment.centerLeft,
-        //margin: EdgeInsets.symmetric(horizontal: 10),
+        alignment: Alignment.center,
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFDEDEDE),
         ),
@@ -110,7 +109,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
     iosTrackStyle = Style(
         width: 240.toPXLength,
         height: 100.toPXLength,
-        //alignment: Alignment.center,
+        alignment: Alignment.center,
         backgroundDecoration: BoxDecoration(
           color: Colors.redAccent,
         ),
@@ -124,7 +123,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
     morphThumbStyle = Style(
         width: 150.toPXLength,
         height: 150.toPXLength,
-        //alignment: Alignment.center,
+        alignment: Alignment.center,
         childAlignment: Alignment.center,
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         backgroundDecoration: BoxDecoration(
@@ -141,7 +140,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         height: 80.toPXLength,
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.all(20),
-        //alignment: Alignment.center,
+        alignment: Alignment.center,
         backgroundDecoration: BoxDecoration(
           color: Colors.redAccent,
         ),
@@ -225,49 +224,51 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
             SizedBox(
               height: 50,
             ),
-            StyledSwitch.builder(
-              value: _selected,
-              onChanged: (bool value) {
-                setState(() {
-                  _selected = value;
-                });
-              },
-              duration: Duration(milliseconds: 200),
-              thumbChildBuilder: childBuilder,
-              thumbStyle: neumorphicThumbStyle,
-              thumbSelectedStyle: neumorphicThumbStyle.copyWith(
-                  backgroundDecoration: BoxDecoration(color: Colors.black38),
-                  shadows: [],
-                  insetShadows: [
+            Center(
+              child: StyledSwitch.builder(
+                value: _selected,
+                onChanged: (bool value) {
+                  setState(() {
+                    _selected = value;
+                  });
+                },
+                duration: Duration(milliseconds: 200),
+                thumbChildBuilder: childBuilder,
+                thumbStyle: neumorphicThumbStyle,
+                thumbSelectedStyle: neumorphicThumbStyle.copyWith(
+                    backgroundDecoration: BoxDecoration(color: Colors.black38),
+                    shadows: [],
+                    insetShadows: [
+                      ShapeShadow(
+                          blurRadius: 6,
+                          spreadRadius: 0,
+                          color: Colors.black54,
+                          offset: Offset(3, 3)),
+                      ShapeShadow(
+                          blurRadius: 6,
+                          spreadRadius: 0,
+                          color: Colors.grey.shade300,
+                          offset: Offset(-3, -3)),
+                    ]),
+                thumbHoveredStyle: neumorphicThumbStyle.copyWith(
+                  shadows: [
                     ShapeShadow(
-                        blurRadius: 6,
-                        spreadRadius: 0,
-                        color: Colors.black54,
-                        offset: Offset(3, 3)),
+                        blurRadius: 20,
+                        spreadRadius: -2,
+                        color: Colors.grey.shade400,
+                        offset: Offset(10, 10)),
                     ShapeShadow(
-                        blurRadius: 6,
-                        spreadRadius: 0,
-                        color: Colors.grey.shade300,
-                        offset: Offset(-3, -3)),
-                  ]),
-              thumbHoveredStyle: neumorphicThumbStyle.copyWith(
-                shadows: [
-                  ShapeShadow(
-                      blurRadius: 20,
-                      spreadRadius: -2,
-                      color: Colors.grey.shade400,
-                      offset: Offset(10, 10)),
-                  ShapeShadow(
-                      blurRadius: 20,
-                      spreadRadius: -2,
-                      color: Color(0xFFFEFEFE),
-                      offset: Offset(-10, -10)),
-                ],
-              ),
-              trackStyle: neumorphicTrackStyle,
-              trackSelectedStyle: neumorphicTrackStyle.copyWith(
-                backgroundDecoration: BoxDecoration(
-                  color: Colors.grey.shade500,
+                        blurRadius: 20,
+                        spreadRadius: -2,
+                        color: Color(0xFFFEFEFE),
+                        offset: Offset(-10, -10)),
+                  ],
+                ),
+                trackStyle: neumorphicTrackStyle,
+                trackSelectedStyle: neumorphicTrackStyle.copyWith(
+                  backgroundDecoration: BoxDecoration(
+                    color: Colors.grey.shade500,
+                  ),
                 ),
               ),
             ),

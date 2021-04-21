@@ -26,5 +26,6 @@ Style getStyleOuterContainer(Style style) {
       height: style.height,
       alignment: style.alignment,
       transform: style.transform,
+      margin: style.margin,
       transformAlignment: style.transformAlignment);
 }

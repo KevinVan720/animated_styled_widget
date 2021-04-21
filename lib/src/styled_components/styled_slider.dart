@@ -3,6 +3,8 @@ import 'package:dimension/dimension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'styled_plain_container.dart';
+
 class StyledSlider extends StatefulWidget {
   final Style trackStyle;
   final Style thumbStyle;
@@ -75,7 +77,7 @@ class _StyledSliderState extends State<StyledSlider> {
   double _percent = 0.5;
   double _roundedPercent = 0.5;
 
-  bool isOverlayShowed = false;
+  bool isOverlayShown = false;
   final LayerLink layerLink = LayerLink();
   OverlayEntry? overlayEntry;
 
@@ -138,7 +140,7 @@ class _StyledSliderState extends State<StyledSlider> {
     Style innerTrackStyle = widget.trackStyle.copyWith();
     innerTrackStyle.width = 100.toPercentLength - thumbWidth.toPXLength;
 
-    return StyledContainer(
+    return StyledPlainContainer(
         style: getStyleOuterContainer(outerTrackStyle),
         child: Center(
           child: LayoutBuilder(
@@ -230,7 +232,7 @@ class _StyledSliderState extends State<StyledSlider> {
     Style innerTrackStyle = widget.trackStyle.copyWith();
     innerTrackStyle.height = 100.toPercentLength - thumbHeight.toPXLength;
 
-    return StyledContainer(
+    return StyledPlainContainer(
         style: getStyleOuterContainer(outerTrackStyle),
         child: Center(
           child: LayoutBuilder(
@@ -379,8 +381,8 @@ class _StyledSliderState extends State<StyledSlider> {
     }
     setState(() {
       _updateThumbState(StyledComponentState.pressed, true);
-      if (!isOverlayShowed) {
-        isOverlayShowed = true;
+      if (!isOverlayShown) {
+        isOverlayShown = true;
         //showIndicator();
       }
     });
@@ -392,8 +394,8 @@ class _StyledSliderState extends State<StyledSlider> {
     }
     setState(() {
       _updateThumbState(StyledComponentState.pressed, false);
-      if (isOverlayShowed) {
-        isOverlayShowed = false;
+      if (isOverlayShown) {
+        isOverlayShown = false;
         hideIndicator();
       }
     });
@@ -402,8 +404,8 @@ class _StyledSliderState extends State<StyledSlider> {
   void handleTapDown(TapDownDetails details) {
     setState(() {
       _updateThumbState(StyledComponentState.pressed, true);
-      if (!isOverlayShowed) {
-        isOverlayShowed = true;
+      if (!isOverlayShown) {
+        isOverlayShown = true;
       }
     });
   }
@@ -411,8 +413,8 @@ class _StyledSliderState extends State<StyledSlider> {
   void handleTapUp(TapUpDetails details) {
     setState(() {
       _updateThumbState(StyledComponentState.pressed, false);
-      if (isOverlayShowed) {
-        isOverlayShowed = false;
+      if (isOverlayShown) {
+        isOverlayShown = false;
         hideIndicator();
       }
     });
@@ -460,7 +462,7 @@ class _StyledSliderState extends State<StyledSlider> {
           style: resolveThumbStyle()..alignment = null,
           child: widget.thumbChild ?? Container(),
           onEnd: () {
-            if (isOverlayShowed && _thumbSelected) {
+            if (isOverlayShown && _thumbSelected) {
               showIndicator();
             }
             overlayEntry?.markNeedsBuild();

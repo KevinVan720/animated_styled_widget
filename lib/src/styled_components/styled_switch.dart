@@ -68,14 +68,7 @@ class StyledSwitch extends StatefulWidget {
 class _StyledSwitchState extends State<StyledSwitch> {
   @override
   Widget build(BuildContext context) {
-    Style outerTrackStyle = widget.trackStyle.copyWith();
-    if (widget.direction == Axis.horizontal) {
-      outerTrackStyle.height = null;
-    } else {
-      outerTrackStyle.width = null;
-    }
-
-    return StyledToggleable(
+    return PlainToggleable(
       selected: widget.value,
       onChanged: widget.onChanged != null
           ? () {
@@ -84,33 +77,28 @@ class _StyledSwitchState extends State<StyledSwitch> {
           : null,
       duration: widget.duration,
       curve: widget.curve,
-      style: getStyleOuterContainer(outerTrackStyle),
+      style: widget.direction == Axis.horizontal
+          ? (getStyleOuterContainer(widget.trackStyle)..height = null)
+          : (getStyleOuterContainer(widget.trackStyle)..width = null),
       selectedStyle: widget.trackSelectedStyle != null
           ? widget.direction == Axis.horizontal
-              ? getStyleOuterContainer(widget.trackSelectedStyle!)
-                  .copyWith()
-                  .height = null
-              : getStyleOuterContainer(widget.trackSelectedStyle!)
-                  .copyWith()
-                  .width = null
+              ? (getStyleOuterContainer(widget.trackSelectedStyle!)
+                ..height = null)
+              : (getStyleOuterContainer(widget.trackSelectedStyle!).width =
+                  null)
           : null,
       hoveredStyle: widget.trackHoveredStyle != null
           ? widget.direction == Axis.horizontal
-              ? getStyleOuterContainer(widget.trackHoveredStyle!)
-                  .copyWith()
-                  .height = null
-              : getStyleOuterContainer(widget.trackHoveredStyle!)
-                  .copyWith()
-                  .width = null
+              ? (getStyleOuterContainer(widget.trackHoveredStyle!).height =
+                  null)
+              : (getStyleOuterContainer(widget.trackHoveredStyle!).width = null)
           : null,
       disabledStyle: widget.trackDisabledStyle != null
           ? widget.direction == Axis.horizontal
-              ? getStyleOuterContainer(widget.trackDisabledStyle!)
-                  .copyWith()
-                  .height = null
-              : getStyleOuterContainer(widget.trackDisabledStyle!)
-                  .copyWith()
-                  .width = null
+              ? (getStyleOuterContainer(widget.trackDisabledStyle!).height =
+                  null)
+              : (getStyleOuterContainer(widget.trackDisabledStyle!).width =
+                  null)
           : null,
       child: Stack(
         alignment: Alignment.center,

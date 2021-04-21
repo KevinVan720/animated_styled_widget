@@ -278,52 +278,58 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
             SizedBox(
               height: 50,
             ),
-            StyledSlider(
-              value: _value,
-              onChanged: (double value) {
-                setState(() {
-                  _value = value;
-                });
-              },
-              thumbStyle: simpleThumbStyle,
-              trackStyle: simpleTrackStyle,
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            StyledSlider(
-              value: _value,
-              onChanged: (double value) {
-                setState(() {
-                  _value = value;
-                });
-              },
-              thumbStyle: simple2ThumbStyle,
-              trackStyle: simple2TrackStyle,
-              activeTrackStyle: simple2ActiveTrackStyle,
-              thumbChild: Icon(Icons.code),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Container(
-              height: 150,
+            Center(
               child: StyledSlider(
-                //divisions: 25,
-                label: (_value * 100).roundWithPrecision(0).toString() + "%",
                 value: _value,
                 onChanged: (double value) {
                   setState(() {
                     _value = value;
                   });
                 },
-                duration: Duration(milliseconds: 200),
-                thumbStyle: thumbStyle,
-                thumbPressedStyle: thumbStyle.copyWith(
-                    width: 100.toPXLength, height: 100.toPXLength),
-                trackStyle: trackStyle,
-                activeTrackStyle: activeTrackStyle,
-                toolTipStyle: toolTipStyle,
+                thumbStyle: simpleThumbStyle,
+                trackStyle: simpleTrackStyle,
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Center(
+              child: StyledSlider(
+                value: _value,
+                onChanged: (double value) {
+                  setState(() {
+                    _value = value;
+                  });
+                },
+                thumbStyle: simple2ThumbStyle,
+                trackStyle: simple2TrackStyle,
+                activeTrackStyle: simple2ActiveTrackStyle,
+                thumbChild: Icon(Icons.code),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Center(
+              child: Container(
+                height: 150,
+                child: StyledSlider(
+                  //divisions: 25,
+                  label: (_value * 100).roundWithPrecision(0).toString() + "%",
+                  value: _value,
+                  onChanged: (double value) {
+                    setState(() {
+                      _value = value;
+                    });
+                  },
+                  duration: Duration(milliseconds: 200),
+                  thumbStyle: thumbStyle,
+                  thumbPressedStyle: thumbStyle.copyWith(
+                      width: 100.toPXLength, height: 100.toPXLength),
+                  trackStyle: trackStyle,
+                  activeTrackStyle: activeTrackStyle,
+                  toolTipStyle: toolTipStyle,
+                ),
               ),
             ),
             SizedBox(

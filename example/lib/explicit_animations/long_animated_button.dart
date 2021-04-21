@@ -41,8 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return ExplicitAnimatedStyledContainer(
       style: Style(
           alignment: Alignment.center,
-          width: 100.toPXLength,
-          height: 100.toPXLength,
+          width: 300.toPXLength,
+          height: 300.toPXLength,
           childAlignment: Alignment.center,
           backgroundDecoration: BoxDecoration(
             color: Colors.amber,

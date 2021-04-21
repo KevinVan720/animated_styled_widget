@@ -49,14 +49,14 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
     ];
 
     bigStyle = Style(
-        width: Dimension.min(80.toVWLength, 400.toPXLength),
+        width: 400.toPXLength,
         height: 400.toPXLength,
         padding: EdgeInsets.symmetric(vertical: 20),
         backgroundDecoration: BoxDecoration(
           color: Color(0xFFE0E0E0),
         ),
         shapeBorder: parseMorphableShapeBorder({
-              "type": "PathShape",
+              "type": "Path",
               "border": {"color": "ff000000", "width": 0, "style": "none"},
               "path": {
                 "size": {"width": 400, "height": 400},
@@ -124,7 +124,9 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
                 ]
               }
             }) ??
-            RectangleShapeBorder(),
+            RectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(50.toPXLength))),
         mouseCursor: SystemMouseCursors.click);
 
     bigStyle00 = bigStyle.copyWith(
@@ -214,6 +216,7 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
                 width: 400,
                 height: 400,
                 child: Stack(
+                  fit: StackFit.passthrough,
                   children: [
                     GestureDetector(
                       onTapDown: (TapDownDetails details) {
@@ -226,16 +229,18 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
                           toggleBig = true;
                         });
                       },
-                      child: StyledContainer(
-                          //duration: Duration(milliseconds: 100),
-                          style: toggleBig
-                              ? toggleLittle
-                                  ? bigStyle11
-                                  : bigStyle10
-                              : toggleLittle
-                                  ? bigStyle01
-                                  : bigStyle00,
-                          child: Container()),
+                      child: Center(
+                        child: StyledContainer(
+                            //duration: Duration(milliseconds: 100),
+                            style: toggleBig
+                                ? toggleLittle
+                                    ? bigStyle11
+                                    : bigStyle10
+                                : toggleLittle
+                                    ? bigStyle01
+                                    : bigStyle00,
+                            child: Container()),
+                      ),
                     ),
                     Positioned(
                         right: 0,
