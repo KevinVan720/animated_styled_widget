@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 shapeBorder: RoundedRectangleShapeBorder(
                     borderRadius: DynamicBorderRadius.all(
                         DynamicRadius.circular(15.toPXLength)),
-                    borders: RectangleBorders.only(
+                    borderSides: RectangleBorderSides.only(
                         top: DynamicBorderSide(
                             gradient: LinearGradient(colors: [
                               Colors.cyanAccent.shade100,
@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         value: RoundedRectangleShapeBorder(
                             borderRadius: DynamicBorderRadius.all(
                                 DynamicRadius.circular(15.toPXLength)),
-                            borders: RectangleBorders.only(
+                            borderSides: RectangleBorderSides.only(
                                 top: DynamicBorderSide(
                                     gradient: LinearGradient(colors: [
                                       Colors.cyanAccent.shade100,
@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         value: RoundedRectangleShapeBorder(
                             borderRadius: DynamicBorderRadius.all(
                                 DynamicRadius.circular(15.toPXLength)),
-                            borders: RectangleBorders.only(
+                            borderSides: RectangleBorderSides.only(
                                 top: DynamicBorderSide(
                                     gradient: LinearGradient(colors: [
                                       Colors.cyanAccent.shade100,

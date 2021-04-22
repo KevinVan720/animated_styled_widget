@@ -105,3 +105,7 @@ Use a mixin instead of a single class
 ## [0.2.7] - 04/21/2021
 
 Move the DimensionSizedBox to the dimension package
+
+## [0.2.8] - 04/22/2021
+
+Update dependence

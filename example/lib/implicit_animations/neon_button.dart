@@ -36,7 +36,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         shapeBorder: RoundedRectangleShapeBorder(
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
-            borders: RectangleBorders.only(
+            borderSides: RectangleBorderSides.only(
                 top: DynamicBorderSide(
                     gradient: LinearGradient(colors: [
                       Colors.cyanAccent.shade100,
@@ -77,7 +77,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
           (beginStyle.shapeBorder as RoundedRectangleShapeBorder)
               .copyWith(
                   borders:
-                      RectangleBorders.only(
+                      RectangleBorderSides.only(
                           top: DynamicBorderSide(
                               gradient: LinearGradient(colors: [
                                 Colors.cyanAccent.shade100,

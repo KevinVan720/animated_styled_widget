@@ -36,7 +36,7 @@ class _ButtonTransform2PageState extends State<ButtonTransform2Page> {
       shapeBorder: RoundedRectangleShapeBorder(
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
-          borders: RectangleBorders.only(
+          borderSides: RectangleBorderSides.only(
               top: DynamicBorderSide(
                   gradient: LinearGradient(colors: [
                     Colors.cyanAccent.shade100,

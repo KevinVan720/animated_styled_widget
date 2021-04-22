@@ -3,7 +3,6 @@ import 'package:dimension/dimension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class StyledButtonsPage extends StatefulWidget {
   StyledButtonsPage({this.title = "Styled Buttons"});
@@ -62,7 +61,7 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
         shapeBorder: RoundedRectangleShapeBorder(
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
-            borders: RectangleBorders.only(
+            borderSides: RectangleBorderSides.only(
                 top: DynamicBorderSide(
                     gradient: LinearGradient(colors: [
                       Colors.cyanAccent.shade100,
@@ -352,7 +351,7 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
                   shapeBorder: RoundedRectangleShapeBorder(
                       borderRadius: DynamicBorderRadius.all(
                           DynamicRadius.circular(15.toPXLength)),
-                      borders: RectangleBorders.only(
+                      borderSides: RectangleBorderSides.only(
                           top: DynamicBorderSide(
                               gradient: LinearGradient(colors: [
                                 Colors.cyanAccent.shade100,
@@ -371,7 +370,7 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
                   shapeBorder: RoundedRectangleShapeBorder(
                       borderRadius: DynamicBorderRadius.all(
                           DynamicRadius.circular(15.toPXLength)),
-                      borders: RectangleBorders.only(
+                      borderSides: RectangleBorderSides.only(
                           top: DynamicBorderSide(
                               gradient: LinearGradient(colors: [
                                 Colors.cyanAccent.shade100,

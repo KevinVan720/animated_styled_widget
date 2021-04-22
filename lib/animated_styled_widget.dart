@@ -1,5 +1,8 @@
 library animated_styled_widget;
 
+export 'package:dimension/dimension.dart';
+export 'package:morphable_shape/morphable_shape.dart';
+
 export 'src/custom_tweens.dart';
 export 'src/custom_visibility_detector/visibility_detector.dart';
 export 'src/custom_visibility_detector/visibility_detector_controller.dart';
@@ -27,10 +30,8 @@ export 'src/styled_components/styled_slider.dart';
 export 'src/styled_components/styled_switch.dart';
 export 'src/styled_components/styled_toggle_buttons.dart';
 export 'src/styled_components/styled_toggleable.dart';
-//export 'src/widgets/animated_dimension_sized_box.dart';
 export 'src/widgets/animated_shader_mask.dart';
 export 'src/widgets/animated_styled_container.dart';
-//export 'src/widgets/dimension_sized_box.dart';
 export 'src/widgets/explicit_animated_styled_container.dart';
 export 'src/widgets/styled_container.dart';
 export 'src/widgets/styled_state_mixin.dart';

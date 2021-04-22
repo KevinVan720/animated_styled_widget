@@ -70,7 +70,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
         shapeBorder: RoundedRectangleShapeBorder(
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
-            borders: RectangleBorders.only(
+            borderSides: RectangleBorderSides.only(
                 top: DynamicBorderSide(
                     gradient: LinearGradient(colors: [
                       Colors.cyanAccent.shade100,
@@ -385,7 +385,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
                   shapeBorder: RoundedRectangleShapeBorder(
                       borderRadius: DynamicBorderRadius.all(
                           DynamicRadius.circular(15.toPXLength)),
-                      borders: RectangleBorders.only(
+                      borderSides: RectangleBorderSides.only(
                           top: DynamicBorderSide(
                               gradient: LinearGradient(colors: [
                                 Colors.cyanAccent.shade100,
@@ -404,7 +404,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
                   shapeBorder: RoundedRectangleShapeBorder(
                       borderRadius: DynamicBorderRadius.all(
                           DynamicRadius.circular(15.toPXLength)),
-                      borders: RectangleBorders.only(
+                      borderSides: RectangleBorderSides.only(
                           top: DynamicBorderSide(
                               gradient: LinearGradient(colors: [
                                 Colors.cyanAccent.shade100,

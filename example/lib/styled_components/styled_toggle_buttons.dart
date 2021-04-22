@@ -69,7 +69,7 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
         shapeBorder: RoundedRectangleShapeBorder(
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
-            borders: RectangleBorders.only(
+            borderSides: RectangleBorderSides.only(
                 top: DynamicBorderSide(
                     gradient: LinearGradient(colors: [
                       Colors.cyanAccent.shade100,
@@ -272,7 +272,7 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
                     shapeBorder: RoundedRectangleShapeBorder(
                         borderRadius: DynamicBorderRadius.all(
                             DynamicRadius.circular(10.toPXLength)),
-                        borders: RectangleBorders.only(
+                        borderSides: RectangleBorderSides.only(
                             top: DynamicBorderSide(
                                 gradient: LinearGradient(colors: [
                                   Colors.cyanAccent.shade100,
@@ -291,7 +291,7 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
                     shapeBorder: RoundedRectangleShapeBorder(
                         borderRadius: DynamicBorderRadius.all(
                             DynamicRadius.circular(10.toPXLength)),
-                        borders: RectangleBorders.only(
+                        borderSides: RectangleBorderSides.only(
                             top: DynamicBorderSide(
                                 gradient: LinearGradient(colors: [
                                   Colors.cyanAccent.shade100,
