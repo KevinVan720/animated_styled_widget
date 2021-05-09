@@ -109,3 +109,7 @@ Move the DimensionSizedBox to the dimension package
 ## [0.2.8] - 04/22/2021
 
 Update dependence
+
+## [0.2.9] - 05/09/2021
+
+Update license
