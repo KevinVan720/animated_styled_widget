@@ -140,7 +140,7 @@ class _ExplicitAnimatedStyledContainerState
       Provider.of<GlobalAnimationNotifier>(context, listen: false)
           .updateAnimationStatus(
               widget.globalAnimationIds[AnimationTrigger.tap]!,
-              control ?? CustomAnimationControl.PLAY);
+              control ?? CustomAnimationControl.play);
     }
     if (widget.localAnimations.containsKey(AnimationTrigger.tap)) {
       Provider.of<LocalAnimationNotifier>(context, listen: false)
@@ -160,7 +160,7 @@ class _ExplicitAnimatedStyledContainerState
       Provider.of<GlobalAnimationNotifier>(context, listen: false)
           .updateAnimationStatus(
               widget.globalAnimationIds[AnimationTrigger.mouseEnter]!,
-              control ?? CustomAnimationControl.PLAY);
+              control ?? CustomAnimationControl.play);
     }
     if (widget.localAnimations.containsKey(AnimationTrigger.mouseEnter)) {
       Provider.of<LocalAnimationNotifier>(context, listen: false)
@@ -181,7 +181,7 @@ class _ExplicitAnimatedStyledContainerState
       Provider.of<GlobalAnimationNotifier>(context, listen: false)
           .updateAnimationStatus(
               widget.globalAnimationIds[AnimationTrigger.mouseExit]!,
-              control ?? CustomAnimationControl.PLAY);
+              control ?? CustomAnimationControl.play);
     }
     if (widget.localAnimations.containsKey(AnimationTrigger.mouseExit)) {
       Provider.of<LocalAnimationNotifier>(context, listen: false)
@@ -205,7 +205,7 @@ class _ExplicitAnimatedStyledContainerState
         Provider.of<GlobalAnimationNotifier>(context, listen: false)
             .updateAnimationStatus(
                 widget.globalAnimationIds[AnimationTrigger.visible]!,
-                control ?? CustomAnimationControl.PLAY);
+                control ?? CustomAnimationControl.play);
       }
       if (widget.localAnimations.containsKey(AnimationTrigger.visible)) {
         Provider.of<LocalAnimationNotifier>(context, listen: false)

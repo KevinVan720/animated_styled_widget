@@ -259,7 +259,7 @@ class AnimationSequence<T> {
 
 class MultiAnimationSequence {
   late Map<AnimationProperty, AnimationSequence> sequences = {};
-  CustomAnimationControl control = CustomAnimationControl.PLAY;
+  CustomAnimationControl control = CustomAnimationControl.play;
   double beginShift = 0.0;
   double endShift = 0.0;
 
@@ -267,11 +267,11 @@ class MultiAnimationSequence {
       {required this.sequences,
       this.beginShift = 0.0,
       this.endShift = 0.0,
-      this.control = CustomAnimationControl.PLAY});
+      this.control = CustomAnimationControl.play});
 
   MultiAnimationSequence.fromJson(Map map) {
     control = parseCustomAnimationControl(map["control"]) ??
-        CustomAnimationControl.PLAY;
+        CustomAnimationControl.play;
     beginShift = map['beginShift'];
     endShift = map['endShift'];
     sequences = (map["sequences"] as Map).map((key, value) {

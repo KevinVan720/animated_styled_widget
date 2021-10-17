@@ -10,35 +10,35 @@ import 'package:simple_animations/simple_animations.dart';
 class StaggeredAnimationsPage extends StatelessWidget {
   var animationPool = {
     "animation":
-        GlobalAnimation(control: CustomAnimationControl.MIRROR, sequences: {
+        GlobalAnimation(control: CustomAnimationControl.mirror, sequences: {
       "Container1": SlideOutAnimation(
               curve: Curves.bounceIn,
               duration: Duration(seconds: 2),
               distance: 200.toPXLength)
           .getAnimationSequence()
-            ..merge(MultiAnimationSequence(sequences: {
-              AnimationProperty.shapeBorder: AnimationSequence()
-                ..add(
-                    curve: Curves.bounceIn,
-                    duration: Duration(seconds: 2),
-                    value: RectangleShapeBorder(
-                        borderRadius: DynamicBorderRadius.all(
-                            DynamicRadius.circular(50.toPercentLength)))),
-              AnimationProperty.backgroundDecoration: AnimationSequence()
-                ..add(
-                    curve: Curves.bounceIn,
-                    duration: Duration(seconds: 2),
-                    value: BoxDecoration(
-                        gradient: RadialGradient(stops: [
-                      0.3,
-                      0.6,
-                      0.9
-                    ], colors: [
-                      Colors.white,
-                      Colors.redAccent.shade100,
-                      Colors.red,
-                    ])))
-            })),
+        ..merge(MultiAnimationSequence(sequences: {
+          AnimationProperty.shapeBorder: AnimationSequence()
+            ..add(
+                curve: Curves.bounceIn,
+                duration: Duration(seconds: 2),
+                value: RectangleShapeBorder(
+                    borderRadius: DynamicBorderRadius.all(
+                        DynamicRadius.circular(50.toPercentLength)))),
+          AnimationProperty.backgroundDecoration: AnimationSequence()
+            ..add(
+                curve: Curves.bounceIn,
+                duration: Duration(seconds: 2),
+                value: BoxDecoration(
+                    gradient: RadialGradient(stops: [
+                  0.3,
+                  0.6,
+                  0.9
+                ], colors: [
+                  Colors.white,
+                  Colors.redAccent.shade100,
+                  Colors.red,
+                ])))
+        })),
       "Container2": MultiAnimationSequence(sequences: {
         AnimationProperty.transform: AnimationSequence()
           ..add(
@@ -61,21 +61,21 @@ class StaggeredAnimationsPage extends StatelessWidget {
               duration: Duration(seconds: 2),
               distance: 200.toPXLength)
           .getAnimationSequence()
-            ..merge(ElevateAnimation(
-              beginElevation: 0,
-              endElevation: 24,
-              curve: Curves.bounceIn,
-              delay: Duration(seconds: 2),
-              duration: Duration(seconds: 2),
-            ).getAnimationSequence())
-            ..merge(MultiAnimationSequence(sequences: {
-              AnimationProperty.shapeBorder: AnimationSequence()
-                ..add(
-                    curve: Curves.bounceIn,
-                    delay: Duration(seconds: 2),
-                    duration: Duration(seconds: 2),
-                    value: StarShapeBorder(corners: 8)),
-            })),
+        ..merge(ElevateAnimation(
+          beginElevation: 0,
+          endElevation: 24,
+          curve: Curves.bounceIn,
+          delay: Duration(seconds: 2),
+          duration: Duration(seconds: 2),
+        ).getAnimationSequence())
+        ..merge(MultiAnimationSequence(sequences: {
+          AnimationProperty.shapeBorder: AnimationSequence()
+            ..add(
+                curve: Curves.bounceIn,
+                delay: Duration(seconds: 2),
+                duration: Duration(seconds: 2),
+                value: StarShapeBorder(corners: 8)),
+        })),
       "Container4": MultiAnimationSequence(sequences: {
         AnimationProperty.transform: AnimationSequence()
           ..add(
@@ -215,11 +215,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (isRunning) {
                   Provider.of<GlobalAnimationNotifier>(context, listen: false)
                       .updateAnimationStatus(
-                          "animation", CustomAnimationControl.MIRROR);
+                          "animation", CustomAnimationControl.mirror);
                 } else {
                   Provider.of<GlobalAnimationNotifier>(context, listen: false)
                       .updateAnimationStatus(
-                          "animation", CustomAnimationControl.STOP);
+                          "animation", CustomAnimationControl.stop);
                 }
               },
               style: Style(

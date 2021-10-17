@@ -302,7 +302,7 @@ class SlideInAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.PLAY})
+      CustomAnimationControl control = CustomAnimationControl.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
   ...
 }
