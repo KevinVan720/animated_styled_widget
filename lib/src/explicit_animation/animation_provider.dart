@@ -19,7 +19,7 @@ class GlobalAnimationNotifier extends ChangeNotifier {
 
   void updateAnimationStatus(
       String animationId, CustomAnimationControl newStatus) {
-    animationPool[animationId]?.sequences?.forEach((applier, value) {
+    animationPool[animationId]?.sequences.forEach((applier, value) {
       currentAnimations[applier] = value;
       currentAnimationsControl[applier] = newStatus;
     });
@@ -27,7 +27,7 @@ class GlobalAnimationNotifier extends ChangeNotifier {
   }
 
   void updateContinuousAnimationStatus(String animationId, bool running) {
-    animationPool[animationId]?.sequences?.forEach((applier, value) {
+    animationPool[animationId]?.sequences.forEach((applier, value) {
       if (running) {
         currentContinuousAnimationNames[applier] = animationId;
         currentContinuousAnimations[applier] = value;

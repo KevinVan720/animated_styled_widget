@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-dynamic? parseStyleBase(Map<String, dynamic>? map) {
+dynamic parseStyleBase(Map<String, dynamic>? map) {
   if (map == null) return null;
   if (map.keys.any((element) =>
       element.contains("minWidth") && element.contains("maxWidth"))) {
