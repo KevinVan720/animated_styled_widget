@@ -57,24 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void afterFirstLayout(BuildContext context) {
-    /*
-    String pageScrollAnimationName = "animation2";
-    Provider.of<GlobalAnimationNotifier>(context, listen: false)
-            .animationProgressNotifiers[pageScrollAnimationName] =
-        ContinuousAnimationProgressNotifier(0.0);
-    scrollController2.addListener(() {
-      Provider.of<GlobalAnimationNotifier>(context, listen: false)
-              .animationProgressNotifiers[pageScrollAnimationName]
-              .value =
-          scrollController2.offset / scrollController2.position.maxScrollExtent;
-    });
-    Provider.of<GlobalAnimationNotifier>(context, listen: false)
-        .updateContinuousAnimationStatus(pageScrollAnimationName, true);
-     */
-  }
-
-  @override
   Widget build(BuildContext context) {
     double dimension = MediaQuery.of(context).size.longestSide / 3;
     List<Widget> children = [
@@ -98,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
           AnimationTrigger.scroll:
               SlideInAnimation(direction: AxisDirection.right)
                   .getAnimationSequence()
-                    ..beginShift = 1
+                ..beginShift = 1
         },
         child: Text("Fly in from right"),
       ),
@@ -131,9 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       AnimationTrigger.scroll:
                           ZoomInAnimation(curve: Curves.bounceOut)
                               .getAnimationSequence()
-                                ..merge(FadeInAnimation(curve: Curves.bounceOut)
-                                    .getAnimationSequence())
-                                ..endShift = -1.0
+                            ..merge(FadeInAnimation(curve: Curves.bounceOut)
+                                .getAnimationSequence())
+                            ..endShift = -1.0
                     },
                     child: Text("Zoom and fade in"),
                   ),
