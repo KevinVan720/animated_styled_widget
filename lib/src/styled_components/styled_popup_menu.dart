@@ -27,8 +27,7 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
     this.hoveredStyle,
     this.disabledStyle,
     required this.child,
-  })  : assert(enabled != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// The value that will be returned by [showMenu] if this entry is selected.
   final T? value;
@@ -120,10 +119,7 @@ class StyledPopupMenuButton<T> extends StatefulWidget {
     this.disabledStyle,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.linear,
-  })  : assert(itemBuilder != null),
-        assert(offset != null),
-        assert(enabled != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// Called when the button is pressed to create the items to show in the menu.
   final PopupMenuItemBuilder<T> itemBuilder;
@@ -234,8 +230,7 @@ class _MenuItem extends SingleChildRenderObjectWidget {
     Key? key,
     required this.onLayout,
     required Widget? child,
-  })  : assert(onLayout != null),
-        super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   final ValueChanged<Size> onLayout;
 
@@ -252,9 +247,7 @@ class _MenuItem extends SingleChildRenderObjectWidget {
 }
 
 class _RenderMenuItem extends RenderShiftedBox {
-  _RenderMenuItem(this.onLayout, [RenderBox? child])
-      : assert(onLayout != null),
-        super(child);
+  _RenderMenuItem(this.onLayout, [RenderBox? child]) : super(child);
 
   ValueChanged<Size> onLayout;
 
@@ -442,7 +435,6 @@ class _PopupMenuRouteLayout extends SingleChildLayoutDelegate {
       x = position.left;
     } else {
       // Menu button is equidistant from both edges, so grow in reading direction.
-      assert(textDirection != null);
       switch (textDirection) {
         case TextDirection.rtl:
           x = size.width - position.right - childSize.width;
@@ -579,10 +571,7 @@ Future<T?> showMenu<T>({
   required Duration duration,
   required Curve curve,
 }) {
-  assert(context != null);
-  assert(position != null);
-  assert(useRootNavigator != null);
-  assert(items != null && items.isNotEmpty);
+  assert(items.isNotEmpty);
   assert(debugCheckHasMaterialLocalizations(context));
 
   switch (Theme.of(context).platform) {
