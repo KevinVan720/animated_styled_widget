@@ -8,7 +8,6 @@ const double _kMenuCloseIntervalEnd = 2.0 / 3.0;
 const double _kMenuDividerHeight = 16.0;
 const double _kMenuMaxWidth = 100.0 * _kMenuWidthStep;
 const double _kMenuMinWidth = 2.0 * _kMenuWidthStep;
-const double _kMenuVerticalPadding = 0.0;
 const double _kMenuWidthStep = 56.0;
 const double _kMenuScreenPadding = 1.0;
 
@@ -414,7 +413,6 @@ class _PopupMenuRouteLayout extends SingleChildLayoutDelegate {
     // childSize: The size of the menu, when fully open, as determined by
     // getConstraintsForChild.
 
-    final double buttonHeight = size.height - position.top - position.bottom;
     // Find the ideal vertical position.
     double y = position.top;
     /*if (selectedItemIndex != null && itemSizes != null) {
