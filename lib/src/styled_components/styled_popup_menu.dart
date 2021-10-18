@@ -21,6 +21,7 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
     Key? key,
     this.value,
     this.enabled = true,
+    this.selected = false,
     required this.style,
     this.selectedStyle,
     this.hoveredStyle,
@@ -37,7 +38,7 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
   /// touches.
   final bool enabled;
 
-  bool selected = false;
+  final bool selected;
 
   /// The minimum height of the menu item.
   ///
@@ -67,6 +68,14 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
 
 class StyledPopupMenuItemState<T, W extends StyledPopupMenuItem<T>>
     extends State<W> {
+  bool selected = false;
+
+  @override
+  void initState() {
+    selected = widget.selected;
+    super.initState();
+  }
+
   /// The menu item contents.
   ///
   /// Used by the [build] method.
@@ -91,7 +100,7 @@ class StyledPopupMenuItemState<T, W extends StyledPopupMenuItem<T>>
   Widget build(BuildContext context) {
     return StyledToggleable(
       onChanged: handleTap,
-      selected: widget.selected,
+      selected: selected,
       style: widget.style,
       selectedStyle: widget.selectedStyle,
       hoveredStyle: widget.hoveredStyle,
@@ -303,8 +312,17 @@ class _PopupMenu<T> extends StatelessWidget {
           route.items[i].represents(route.initialValue)) {
         if (route.items[i] is StyledPopupMenuItem) {
           StyledPopupMenuItem temp = route.items[i] as StyledPopupMenuItem;
-          temp.selected = true;
-          item = Material(color: Colors.transparent, child: temp);
+          StyledPopupMenuItem newTemp = StyledPopupMenuItem(
+            key: temp.key,
+            enabled: temp.enabled,
+            selected: true,
+            style: temp.style,
+            selectedStyle: temp.selectedStyle,
+            hoveredStyle: temp.hoveredStyle,
+            disabledStyle: temp.hoveredStyle,
+            child: temp.child,
+          );
+          item = Material(color: Colors.transparent, child: newTemp);
         }
       }
       children.add(

@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class StaggeredAnimationsPage extends StatelessWidget {
-  var animationPool = {
+  final animationPool = {
     "animation":
         GlobalAnimation(control: CustomAnimationControl.mirror, sequences: {
       "Container1": SlideOutAnimation(
