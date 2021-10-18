@@ -8,7 +8,6 @@ const double _kMenuCloseIntervalEnd = 2.0 / 3.0;
 const double _kMenuDividerHeight = 16.0;
 const double _kMenuMaxWidth = 100.0 * _kMenuWidthStep;
 const double _kMenuMinWidth = 2.0 * _kMenuWidthStep;
-const double _kMenuVerticalPadding = 0.0;
 const double _kMenuWidthStep = 56.0;
 const double _kMenuScreenPadding = 1.0;
 
@@ -22,13 +21,13 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
     Key? key,
     this.value,
     this.enabled = true,
+    this.selected = false,
     required this.style,
     this.selectedStyle,
     this.hoveredStyle,
     this.disabledStyle,
     required this.child,
-  })  : assert(enabled != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// The value that will be returned by [showMenu] if this entry is selected.
   final T? value;
@@ -39,7 +38,7 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
   /// touches.
   final bool enabled;
 
-  bool selected = false;
+  final bool selected;
 
   /// The minimum height of the menu item.
   ///
@@ -69,6 +68,14 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
 
 class StyledPopupMenuItemState<T, W extends StyledPopupMenuItem<T>>
     extends State<W> {
+  bool selected = false;
+
+  @override
+  void initState() {
+    selected = widget.selected;
+    super.initState();
+  }
+
   /// The menu item contents.
   ///
   /// Used by the [build] method.
@@ -93,7 +100,7 @@ class StyledPopupMenuItemState<T, W extends StyledPopupMenuItem<T>>
   Widget build(BuildContext context) {
     return StyledToggleable(
       onChanged: handleTap,
-      selected: widget.selected,
+      selected: selected,
       style: widget.style,
       selectedStyle: widget.selectedStyle,
       hoveredStyle: widget.hoveredStyle,
@@ -120,10 +127,7 @@ class StyledPopupMenuButton<T> extends StatefulWidget {
     this.disabledStyle,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.linear,
-  })  : assert(itemBuilder != null),
-        assert(offset != null),
-        assert(enabled != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// Called when the button is pressed to create the items to show in the menu.
   final PopupMenuItemBuilder<T> itemBuilder;
@@ -234,8 +238,7 @@ class _MenuItem extends SingleChildRenderObjectWidget {
     Key? key,
     required this.onLayout,
     required Widget? child,
-  })  : assert(onLayout != null),
-        super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   final ValueChanged<Size> onLayout;
 
@@ -252,9 +255,7 @@ class _MenuItem extends SingleChildRenderObjectWidget {
 }
 
 class _RenderMenuItem extends RenderShiftedBox {
-  _RenderMenuItem(this.onLayout, [RenderBox? child])
-      : assert(onLayout != null),
-        super(child);
+  _RenderMenuItem(this.onLayout, [RenderBox? child]) : super(child);
 
   ValueChanged<Size> onLayout;
 
@@ -311,8 +312,17 @@ class _PopupMenu<T> extends StatelessWidget {
           route.items[i].represents(route.initialValue)) {
         if (route.items[i] is StyledPopupMenuItem) {
           StyledPopupMenuItem temp = route.items[i] as StyledPopupMenuItem;
-          temp.selected = true;
-          item = Material(color: Colors.transparent, child: temp);
+          StyledPopupMenuItem newTemp = StyledPopupMenuItem(
+            key: temp.key,
+            enabled: temp.enabled,
+            selected: true,
+            style: temp.style,
+            selectedStyle: temp.selectedStyle,
+            hoveredStyle: temp.hoveredStyle,
+            disabledStyle: temp.hoveredStyle,
+            child: temp.child,
+          );
+          item = Material(color: Colors.transparent, child: newTemp);
         }
       }
       children.add(
@@ -421,7 +431,6 @@ class _PopupMenuRouteLayout extends SingleChildLayoutDelegate {
     // childSize: The size of the menu, when fully open, as determined by
     // getConstraintsForChild.
 
-    final double buttonHeight = size.height - position.top - position.bottom;
     // Find the ideal vertical position.
     double y = position.top;
     /*if (selectedItemIndex != null && itemSizes != null) {
@@ -442,7 +451,6 @@ class _PopupMenuRouteLayout extends SingleChildLayoutDelegate {
       x = position.left;
     } else {
       // Menu button is equidistant from both edges, so grow in reading direction.
-      assert(textDirection != null);
       switch (textDirection) {
         case TextDirection.rtl:
           x = size.width - position.right - childSize.width;
@@ -579,10 +587,7 @@ Future<T?> showMenu<T>({
   required Duration duration,
   required Curve curve,
 }) {
-  assert(context != null);
-  assert(position != null);
-  assert(useRootNavigator != null);
-  assert(items != null && items.isNotEmpty);
+  assert(items.isNotEmpty);
   assert(debugCheckHasMaterialLocalizations(context));
 
   switch (Theme.of(context).platform) {

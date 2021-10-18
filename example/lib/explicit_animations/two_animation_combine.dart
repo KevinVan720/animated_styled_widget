@@ -22,7 +22,7 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
   void initState() {
     animationName1 = "Rainbow";
     animationName2 = "Wobble";
-    control = CustomAnimationControl.MIRROR;
+    control = CustomAnimationControl.mirror;
     isMerge = true;
     isSelected = [isMerge, !isMerge];
     super.initState();
@@ -158,7 +158,7 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
                 value: control,
                 onChanged: (CustomAnimationControl? newValue) {
                   setState(() {
-                    control = newValue ?? CustomAnimationControl.MIRROR;
+                    control = newValue ?? CustomAnimationControl.mirror;
                   });
                 },
                 items: CustomAnimationControl.values.map((e) {

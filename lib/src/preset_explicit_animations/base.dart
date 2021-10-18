@@ -16,7 +16,7 @@ abstract class PresetAnimation {
       {this.delay = Duration.zero,
       this.duration = Duration.zero,
       this.curve = Curves.linear,
-      this.control = CustomAnimationControl.PLAY});
+      this.control = CustomAnimationControl.play});
 
   MultiAnimationSequence getAnimationSequence();
 }

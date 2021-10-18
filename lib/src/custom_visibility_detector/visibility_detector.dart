@@ -34,9 +34,7 @@ class VisibilityDetector extends SingleChildRenderObjectWidget {
     required Key key,
     required Widget child,
     required this.onVisibilityChanged,
-  })   : assert(key != null),
-        assert(child != null),
-        super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   /// The callback to invoke when this widget's visibility changes.
   final VisibilityChangedCallback? onVisibilityChanged;
@@ -74,8 +72,7 @@ class VisibilityInfo {
   /// will indicate that the corresponding widget is competely hidden.
   const VisibilityInfo(
       {required this.key, Size? size, Rect? visibleBounds, Rect? widgetBounds})
-      : assert(key != null),
-        size = size ?? Size.zero,
+      : size = size ?? Size.zero,
         visibleBounds = visibleBounds ?? Rect.zero,
         widgetBounds = widgetBounds ?? Rect.zero;
 
@@ -89,9 +86,6 @@ class VisibilityInfo {
     required Rect widgetBounds,
     required Rect clipRect,
   }) {
-    assert(widgetBounds != null);
-    assert(clipRect != null);
-
     // Compute the intersection in the widget's local coordinates.
     final visibleBounds = widgetBounds.overlaps(clipRect)
         ? widgetBounds.intersect(clipRect).shift(-widgetBounds.topLeft)
@@ -155,7 +149,6 @@ class VisibilityInfo {
     // from whether two [VisibilityInfo] objects are sufficiently similar
     // that we don't need to fire callbacks for both.  This could be pertinent
     // if other properties are added.
-    assert(info != null);
     return size == info.size && visibleBounds == info.visibleBounds;
   }
 }
@@ -166,7 +159,6 @@ const _kDefaultTolerance = 0.01;
 
 /// Computes the area of a rectangle of the specified dimensions.
 double _area(Size size) {
-  assert(size != null);
   assert(size.width >= 0);
   assert(size.height >= 0);
   return size.width * size.height;
