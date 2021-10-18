@@ -113,3 +113,7 @@ Update dependence
 ## [0.2.9] - 05/09/2021
 
 Update license
+
+## [0.3.0] - 10/18/2021
+
+Update dependence and remove some redundant code.
