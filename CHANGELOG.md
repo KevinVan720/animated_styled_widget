@@ -121,3 +121,7 @@ Update dependence and remove some redundant code.
 ## [0.3.1] - 02/18/2022
 
 Update dependencies.
+
+## [0.3.2] - 02/22/2022
+
+Update dependencies.

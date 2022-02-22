@@ -25,7 +25,7 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
   @override
   void initState() {
     super.initState();
-
+/*
     outBeginStyle = Style(
         width: 440.toPXLength,
         height: 440.toPXLength,
@@ -78,6 +78,7 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
             offset: Offset(20, 20)),
       ],
     );
+    */
 
     beginStyle = Style(
         width: 400.toPXLength,
@@ -93,18 +94,16 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
         ),
-        insetShadows: [
-          ShapeShadow(
-              blurRadius: 20,
-              spreadRadius: -5,
-              color: Colors.grey.shade400,
-              offset: Offset(-20, -20)),
+        shadows: [                      ShapeShadow(
+            blurRadius: 20,
+            spreadRadius: -5,
+            color: Colors.grey.shade400,
+            offset: Offset(20, 20)),
           ShapeShadow(
               blurRadius: 20,
               spreadRadius: -5,
               color: Color(0xFFFEFEFE),
-              offset: Offset(20, 20)),
-        ],
+              offset: Offset(-20, -20)),],
         textStyle: DynamicTextStyle(
           letterSpacing: 0.8.toVWLength,
           fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
@@ -118,17 +117,18 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
       backgroundDecoration: BoxDecoration(
         color: Color(0xFFE0E0E0),
       ),
+      shadows: [],
       insetShadows: [
         ShapeShadow(
-            blurRadius: 30,
-            spreadRadius: 1,
-            color: Color(0xFFFFFFFF),
-            offset: Offset(-30, -30)),
+            blurRadius: 20,
+            spreadRadius: -5,
+            color: Colors.grey.shade400,
+            offset: Offset(20, 20)),
         ShapeShadow(
-            blurRadius: 30,
-            spreadRadius: 1,
-            color: Color(0xFFBEBEBE),
-            offset: Offset(30, 30)),
+            blurRadius: 20,
+            spreadRadius: -5,
+            color: Color(0xFFFEFEFE),
+            offset: Offset(-20, -20)),
       ],
     );
 
@@ -166,13 +166,10 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
             });
           },
           child: AnimatedStyledContainer(
-            duration: Duration(milliseconds: 100),
-            style: toggleStyle ? outBeginStyle : outEndStyle,
-            child: AnimatedStyledContainer(
                 duration: Duration(milliseconds: 100),
                 style: toggleStyle ? beginStyle : endStyle,
                 child: Container()),
-          ),
+
         ),
       )),
       // This trailing comma makes auto-formatting nicer for build methods.

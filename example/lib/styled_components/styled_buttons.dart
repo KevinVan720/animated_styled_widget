@@ -161,7 +161,7 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
         ],
         insetShadows: [
           ShapeShadow(
-            offset: Offset(0, 0),
+            offset: Offset(1, 1),
             blurRadius: 3,
             color: Color(0xFFCECFD1),
           )
@@ -284,15 +284,15 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
                 shadows: [],
                 insetShadows: [
                   ShapeShadow(
-                      blurRadius: 10,
-                      spreadRadius: 1,
-                      color: Color(0xFFFFFFFF),
-                      offset: Offset(-10, -10)),
+                      blurRadius: 20,
+                      spreadRadius: -5,
+                      color: Colors.grey.shade400,
+                      offset: Offset(20, 20)),
                   ShapeShadow(
-                      blurRadius: 10,
-                      spreadRadius: 1,
-                      color: Color(0xFFBEBEBE),
-                      offset: Offset(10, 10)),
+                      blurRadius: 20,
+                      spreadRadius: -5,
+                      color: Color(0xFFFEFEFE),
+                      offset: Offset(-20, -20)),
                 ],
               ),
               hoveredStyle: neumorphicStyle.copyWith(
@@ -444,16 +444,17 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
                 insetShadows: [
                   ShapeShadow(
                     offset: Offset(0, 0),
+                    blurRadius: 3,
+                    spreadRadius: 1,
+                    color: Color(0xFF888888),
+                  ),
+                  ShapeShadow(
+                    offset: Offset(0, 0),
                     blurRadius: 10,
                     spreadRadius: 3,
                     color: Color(0xFFCECFD1),
                   ),
-                  ShapeShadow(
-                    offset: Offset(0, 0),
-                    blurRadius: 3,
-                    spreadRadius: 1,
-                    color: Color(0xFF888888),
-                  )
+
                 ],
               ),
               hoveredStyle: skeumorphismStyle.copyWith(

@@ -72,46 +72,21 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         textAlign: TextAlign.center,
         mouseCursor: SystemMouseCursors.click);
 
-    endStyle = beginStyle.copyWith(
-      shapeBorder:
-          (beginStyle.shapeBorder as RoundedRectangleShapeBorder)
-              .copyWith(
-                  borders:
-                      RectangleBorderSides.only(
-                          top: DynamicBorderSide(
-                              gradient: LinearGradient(colors: [
-                                Colors.cyanAccent.shade100,
-                                Colors.purpleAccent.shade100
-                              ]),
-                              width: 20),
-                          bottom: DynamicBorderSide(
-                              gradient: LinearGradient(
-                                  colors: [Colors.cyan, Colors.purple]),
-                              width: 20),
-                          left: DynamicBorderSide(
-                              color: Colors.cyanAccent.shade200, width: 20),
-                          right: DynamicBorderSide(
-                              color: Colors.purpleAccent, width: 20))),
-      shadows: [
-        ShapeShadow(
-            blurRadius: 40,
-            gradient: LinearGradient(
-                colors: [Colors.cyanAccent, Colors.purpleAccent]),
-            offset: Offset(0, 0)),
-      ],
-      textAlign: TextAlign.center,
+    endStyle = Style( alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        margin: EdgeInsets.symmetric(vertical: 20),backgroundDecoration: BoxDecoration(
+        color: Colors.green),
       textStyle: DynamicTextStyle(
-        letterSpacing: 1.0.toVWLength,
+        letterSpacing: 0.8.toVWLength,
         fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
         fontWeight: FontWeight.w900,
         color: Colors.white,
         shadows: [
-          Shadow(blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
-          Shadow(blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
-          Shadow(blurRadius: 2, color: Colors.white70, offset: Offset(0, 0))
+          Shadow(blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 20, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
         ],
-      ),
-    );
+      ),);
 
     /*printWrapped(
         parsePossibleStyleMap(json.decode(json.encode(beginStyle.toJson())))
@@ -147,7 +122,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
               });
             },
             child: AnimatedStyledContainer(
-                duration: Duration(milliseconds: 100),
+                duration: Duration(milliseconds: 1000),
                 style: toggleStyle ? beginStyle : endStyle,
                 child: Text("TAP ME")),
           )
