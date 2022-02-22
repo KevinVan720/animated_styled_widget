@@ -129,3 +129,7 @@ Update dependencies.
 ## [0.3.3] - 02/22/2022
 
 Update dependencies.
+
+## [0.3.4] - 02/22/2022
+
+Remove a redundant print statement;

@@ -92,8 +92,6 @@ class _StyledButtonState extends State<StyledButton> {
   Widget build(BuildContext context) {
     dynamic resolvedStyle = resolveStyle();
 
-    print((resolvedStyle as Style).insetShadows);
-
     return GestureDetector(
       onTapDown: (TapDownDetails details) {
         hasTapUp = false;
