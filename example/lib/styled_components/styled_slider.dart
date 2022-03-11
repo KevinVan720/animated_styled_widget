@@ -37,6 +37,10 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
   late Style iosTrackVerticalStyle;
   late Style iosActiveTrackVerticalStyle;
 
+  late Style neumorphicThumbStyle;
+  late Style neumorphicTrackStyle;
+  late Style neumorphicActiveTrackStyle;
+
   double _value = 0.5;
 
   @override
@@ -257,6 +261,61 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
               DynamicBorderRadius.all(DynamicRadius.circular(25.toPXLength)),
         ),
         mouseCursor: SystemMouseCursors.click);
+
+    neumorphicTrackStyle = Style(
+      width: 88.toPercentLength,
+      height: 20.toPXLength,
+      backgroundDecoration: const BoxDecoration(
+        color: Color(0xFFE0E0E0),
+      ),
+      shapeBorder: RectangleShapeBorder(
+        borderRadius:
+            DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
+      ),
+      insetShadows: [
+        ShapeShadow(
+            blurRadius: 6,
+            spreadRadius: -3,
+            color: Colors.grey.shade400,
+            offset: const Offset(6, 6)),
+        const ShapeShadow(
+            blurRadius: 6,
+            spreadRadius: -3,
+            color: Color(0xFFFEFEFE),
+            offset: Offset(-6, -6)),
+      ],
+    );
+
+    neumorphicActiveTrackStyle = Style(
+      height: 20.toPXLength,
+      backgroundDecoration: const BoxDecoration(
+        color: Color(0xFFA0A0A0),
+      ),
+      shapeBorder: RectangleShapeBorder(
+        borderRadius:
+            DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
+      ),
+      shadows: [
+        ShapeShadow(
+            blurRadius: 6,
+            spreadRadius: -3,
+            color: Colors.grey.shade400,
+            offset: const Offset(-6, -6)),
+        const ShapeShadow(
+            blurRadius: 6,
+            spreadRadius: -3,
+            color: Color(0xFFFEFEFE),
+            offset: Offset(6, 6)),
+      ],
+    );
+
+    neumorphicThumbStyle = Style(
+        shapeBorder: CircleShapeBorder(),
+        backgroundDecoration: BoxDecoration(
+          color: Color(0xFFA0A0A0),
+        ),
+        width: 20.toPXLength,
+        height: 20.toPXLength);
   }
 
   @override
@@ -305,6 +364,23 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
                 trackStyle: simple2TrackStyle,
                 activeTrackStyle: simple2ActiveTrackStyle,
                 thumbChild: Icon(Icons.code),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Center(
+              child: StyledSlider(
+                value: _value,
+                onChanged: (double value) {
+                  setState(() {
+                    _value = value;
+                  });
+                },
+                thumbStyle: neumorphicThumbStyle,
+                trackStyle: neumorphicTrackStyle,
+                activeTrackStyle: neumorphicActiveTrackStyle,
+                isTrackContained: true,
               ),
             ),
             SizedBox(

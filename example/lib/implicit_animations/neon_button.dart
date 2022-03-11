@@ -70,12 +70,19 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
           ],
         ),
         textAlign: TextAlign.center,
+        shaderGradient: LinearGradient(colors: [
+          Colors.cyan,
+          Colors.amberAccent,
+          Colors.amberAccent,
+          Colors.cyan,
+        ]),
         mouseCursor: SystemMouseCursors.click);
 
-    endStyle = Style( alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        margin: EdgeInsets.symmetric(vertical: 20),backgroundDecoration: BoxDecoration(
-        color: Colors.green),
+    endStyle = Style(
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: EdgeInsets.symmetric(vertical: 20),
+      backgroundDecoration: BoxDecoration(color: Colors.green),
       textStyle: DynamicTextStyle(
         letterSpacing: 0.8.toVWLength,
         fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
@@ -86,7 +93,8 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
           Shadow(blurRadius: 20, color: Colors.white, offset: Offset(0, 0)),
           Shadow(blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
         ],
-      ),);
+      ),
+    );
 
     /*printWrapped(
         parsePossibleStyleMap(json.decode(json.encode(beginStyle.toJson())))

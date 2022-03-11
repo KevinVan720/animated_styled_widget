@@ -39,8 +39,9 @@ class _ButtonTransform3PageState extends State<ButtonTransform3Page> {
     endStyle = beginStyle.copyWith(
         shapeBorder: RectangleShapeBorder(
             border: DynamicBorderSide(width: 12, color: Colors.teal),
-            borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength))),
+            cornerStyles: RectangleCornerStyles.all(CornerStyle.concave),
+            borderRadius: DynamicBorderRadius.all(
+                DynamicRadius.circular(100.toPXLength))),
         shadows: preDefinedShapeShadow[12]);
   }
 

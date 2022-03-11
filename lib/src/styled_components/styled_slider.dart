@@ -35,6 +35,10 @@ class StyledSlider extends StatefulWidget {
 
   final Axis direction;
 
+  ///If track is contained, then the thumb will align its left side to the left of the slider and right side to the right of the track.
+  ///Otherwise the thumb will align its center to the left and right of the track.
+  final bool isTrackContained;
+
   StyledSlider({
     Key? key,
     required this.value,
@@ -56,6 +60,7 @@ class StyledSlider extends StatefulWidget {
     this.max = 1.0,
     this.divisions,
     this.label,
+    this.isTrackContained = false,
   })  : assert(
             (direction == Axis.horizontal && trackStyle.width != null) ||
                 (direction == Axis.vertical && trackStyle.height != null),
@@ -134,11 +139,14 @@ class _StyledSliderState extends State<StyledSlider> {
         widget.thumbStyle.width!.toPX(screenSize: MediaQuery.of(context).size);
     Style outerTrackStyle = Style();
     outerTrackStyle.height = null;
-    outerTrackStyle.width =
-        widget.trackStyle.width! + (widget.thumbStyle.width ?? 0.toPXLength);
+    outerTrackStyle.width = widget.trackStyle.width! + widget.thumbStyle.width!;
 
     Style innerTrackStyle = widget.trackStyle.copyWith();
-    innerTrackStyle.width = 100.toPercentLength - thumbWidth.toPXLength;
+    if (widget.isTrackContained) {
+      innerTrackStyle.width = 100.toPercentLength;
+    } else {
+      innerTrackStyle.width = 100.toPercentLength - thumbWidth.toPXLength;
+    }
 
     return StyledPlainContainer(
         style: getStyleOuterContainer(outerTrackStyle),
@@ -166,18 +174,33 @@ class _StyledSliderState extends State<StyledSlider> {
                 ),
                 widget.activeTrackStyle != null
                     ? Positioned(
-                        left: thumbWidth / 2,
+                        left: widget.isTrackContained ? 0 : thumbWidth / 2,
                         child: ClipRect(
                           child: Align(
                               alignment: Alignment.centerLeft,
                               widthFactor: widget.divisions == null
-                                  ? _percent
-                                  : _roundedPercent,
+                                  ? widget.isTrackContained
+                                      ? percentToActiveTrackPercent(
+                                          _percent,
+                                          thumbWidth / 2 / constraints.maxWidth,
+                                          (constraints.maxWidth -
+                                                  thumbWidth / 2) /
+                                              constraints.maxWidth)
+                                      : _percent
+                                  : widget.isTrackContained
+                                      ? percentToActiveTrackPercent(
+                                          _roundedPercent,
+                                          thumbWidth / 2 / constraints.maxWidth,
+                                          (constraints.maxWidth -
+                                                  thumbWidth / 2) /
+                                              constraints.maxWidth)
+                                      : _roundedPercent,
                               child: ConstrainedBox(
                                   constraints: BoxConstraints(
                                       maxHeight: constraints.maxHeight,
-                                      maxWidth:
-                                          constraints.maxWidth - thumbWidth),
+                                      maxWidth: widget.isTrackContained
+                                          ? constraints.maxWidth
+                                          : constraints.maxWidth - thumbWidth),
                                   child: GestureDetector(
                                     onTapUp: (TapUpDetails details) {
                                       final newPercent =
@@ -221,6 +244,10 @@ class _StyledSliderState extends State<StyledSlider> {
         ));
   }
 
+  double percentToActiveTrackPercent(double x, double a, double b) {
+    return (b - a) * x + a;
+  }
+
   Widget _buildVerticalSlider() {
     double thumbHeight =
         widget.thumbStyle.height!.toPX(screenSize: MediaQuery.of(context).size);
@@ -230,7 +257,12 @@ class _StyledSliderState extends State<StyledSlider> {
         widget.trackStyle.height! + (widget.thumbStyle.height ?? 0.toPXLength);
 
     Style innerTrackStyle = widget.trackStyle.copyWith();
-    innerTrackStyle.height = 100.toPercentLength - thumbHeight.toPXLength;
+
+    if (widget.isTrackContained) {
+      innerTrackStyle.height = 100.toPercentLength;
+    } else {
+      innerTrackStyle.height = 100.toPercentLength - thumbHeight.toPXLength;
+    }
 
     return StyledPlainContainer(
         style: getStyleOuterContainer(outerTrackStyle),
@@ -261,13 +293,31 @@ class _StyledSliderState extends State<StyledSlider> {
                 ),
                 widget.activeTrackStyle != null
                     ? Positioned(
-                        bottom: thumbHeight / 2,
+                        bottom: widget.isTrackContained ? 0 : thumbHeight / 2,
                         child: ClipRect(
                             child: Align(
                                 alignment: Alignment.bottomCenter,
                                 heightFactor: widget.divisions == null
-                                    ? _percent
-                                    : _roundedPercent,
+                                    ? widget.isTrackContained
+                                        ? percentToActiveTrackPercent(
+                                            _percent,
+                                            thumbHeight /
+                                                2 /
+                                                constraints.maxHeight,
+                                            (constraints.maxHeight -
+                                                    thumbHeight / 2) /
+                                                constraints.maxHeight)
+                                        : _percent
+                                    : widget.isTrackContained
+                                        ? percentToActiveTrackPercent(
+                                            _roundedPercent,
+                                            thumbHeight /
+                                                2 /
+                                                constraints.maxHeight,
+                                            (constraints.maxHeight -
+                                                    thumbHeight / 2) /
+                                                constraints.maxHeight)
+                                        : _roundedPercent,
                                 child: ConstrainedBox(
                                     constraints: BoxConstraints(
                                         maxWidth: constraints.maxWidth,
