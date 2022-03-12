@@ -137,3 +137,7 @@ Remove a redundant print statement;
 ## [0.3.5] - 03/11/2022
 
 Let the styled slider able to contain the thumb within itself;
+
+## [0.3.6] - 03/11/2022
+
+Update dependencies.
