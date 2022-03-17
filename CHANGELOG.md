@@ -141,3 +141,7 @@ Let the styled slider able to contain the thumb within itself;
 ## [0.3.6] - 03/11/2022
 
 Update dependencies.
+
+## [0.3.7] - 03/16/2022
+
+Update dependencies.

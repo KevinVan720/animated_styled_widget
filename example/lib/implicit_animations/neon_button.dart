@@ -31,8 +31,10 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         margin: EdgeInsets.symmetric(vertical: 20),
         backgroundDecoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.cyanAccent, Colors.purpleAccent])),
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                    "https://images.unsplash.com/photo-1557409239-720ef57b99d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"))),
         shapeBorder: RoundedRectangleShapeBorder(
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
@@ -82,7 +84,11 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       margin: EdgeInsets.symmetric(vertical: 20),
-      backgroundDecoration: BoxDecoration(color: Colors.green),
+      backgroundDecoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage(
+                  "https://images.unsplash.com/photo-1647369098673-94c0590a15a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=802&q=80"))),
       textStyle: DynamicTextStyle(
         letterSpacing: 0.8.toVWLength,
         fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
@@ -130,7 +136,7 @@ class _NeonButtonPageState extends State<NeonButtonPage> {
               });
             },
             child: AnimatedStyledContainer(
-                duration: Duration(milliseconds: 1000),
+                duration: Duration(milliseconds: 10000),
                 style: toggleStyle ? beginStyle : endStyle,
                 child: Text("TAP ME")),
           )

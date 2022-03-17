@@ -405,6 +405,7 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
                   trackStyle: trackStyle,
                   activeTrackStyle: activeTrackStyle,
                   toolTipStyle: toolTipStyle,
+                  isTrackContained: true,
                 ),
               ),
             ),
