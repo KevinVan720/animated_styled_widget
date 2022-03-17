@@ -153,3 +153,7 @@ Update dependencies.
 ## [0.3.9] - 03/16/2022
 
 Update dependencies.
+
+## [0.4.0] - 03/16/2022
+
+Update dependencies.
