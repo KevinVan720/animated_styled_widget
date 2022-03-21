@@ -23,8 +23,8 @@ class Style {
   EdgeInsets? margin;
   EdgeInsets? padding;
 
-  BoxDecoration? foregroundDecoration;
-  BoxDecoration? backgroundDecoration;
+  Decoration? foregroundDecoration;
+  Decoration? backgroundDecoration;
   List<ShapeShadow>? shadows;
   List<ShapeShadow>? insetShadows;
 
@@ -117,8 +117,15 @@ class Style {
 
     rst.updateNotNull("visible", visible);
     rst.updateNotNull("opacity", opacity);
-    rst.updateNotNull("backgroundDecoration", backgroundDecoration?.toJson());
-    rst.updateNotNull("foregroundDecoration", foregroundDecoration?.toJson());
+    if (backgroundDecoration != null && backgroundDecoration is BoxDecoration) {
+      rst.updateNotNull("backgroundDecoration",
+          (backgroundDecoration as BoxDecoration).toJson());
+    }
+    if (foregroundDecoration != null && foregroundDecoration is BoxDecoration) {
+      rst.updateNotNull("foregroundDecoration",
+          (foregroundDecoration as BoxDecoration).toJson());
+    }
+
     rst.updateNotNull("shapeBorder", shapeBorder?.toJson());
     rst.updateNotNull("shadows", shadows?.map((e) => e.toJson()).toList());
     rst.updateNotNull(
@@ -147,8 +154,8 @@ class Style {
     EdgeInsets? padding,
     bool? visible,
     double? opacity,
-    BoxDecoration? backgroundDecoration,
-    BoxDecoration? foregroundDecoration,
+    Decoration? backgroundDecoration,
+    Decoration? foregroundDecoration,
     List<ShapeShadow>? shadows,
     List<ShapeShadow>? insetShadows,
     MorphableShapeBorder? shapeBorder,

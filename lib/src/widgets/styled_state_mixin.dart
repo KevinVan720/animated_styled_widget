@@ -21,8 +21,8 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
 
   bool visible = true;
   double opacity = 1;
-  BoxDecoration backgroundDecoration = BoxDecoration();
-  BoxDecoration foregroundDecoration = BoxDecoration();
+  Decoration backgroundDecoration = BoxDecoration();
+  Decoration foregroundDecoration = BoxDecoration();
 
   MorphableShapeBorder shapeBorder = RectangleShapeBorder();
 

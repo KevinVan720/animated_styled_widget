@@ -157,3 +157,11 @@ Update dependencies.
 ## [0.4.0] - 03/16/2022
 
 Update dependencies.
+
+## [0.4.1] - 03/18/2022
+
+Decoration can be not just BoxDecoration.
+
+## [0.4.2] - 03/21/2022
+
+Update dependencies.
