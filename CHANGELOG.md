@@ -165,3 +165,7 @@ Decoration can be not just BoxDecoration.
 ## [0.4.2] - 03/21/2022
 
 Update dependencies.
+
+## [0.4.3] - 03/22/2022
+
+Update dependencies.
