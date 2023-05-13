@@ -16,7 +16,7 @@ class FlipAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
@@ -74,7 +74,7 @@ class PulseAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
@@ -107,7 +107,7 @@ class SwingAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
@@ -159,7 +159,7 @@ class WobbleAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
@@ -208,7 +208,7 @@ class RainbowAnimation extends PresetAnimation {
       {Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
@@ -256,7 +256,7 @@ class RainbowLinearGradientAnimation extends PresetAnimation {
       {Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
@@ -315,7 +315,7 @@ class ElevateAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {

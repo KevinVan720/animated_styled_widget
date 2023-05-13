@@ -10,7 +10,7 @@ import 'package:simple_animations/simple_animations.dart';
 class StaggeredAnimationsPage extends StatelessWidget {
   final animationPool = {
     "animation":
-        GlobalAnimation(control: CustomAnimationControl.mirror, sequences: {
+        GlobalAnimation(control: Control.mirror, sequences: {
       "Container1": SlideOutAnimation(
               curve: Curves.bounceIn,
               duration: Duration(seconds: 2),
@@ -215,11 +215,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (isRunning) {
                   Provider.of<GlobalAnimationNotifier>(context, listen: false)
                       .updateAnimationStatus(
-                          "animation", CustomAnimationControl.mirror);
+                          "animation", Control.mirror);
                 } else {
                   Provider.of<GlobalAnimationNotifier>(context, listen: false)
                       .updateAnimationStatus(
-                          "animation", CustomAnimationControl.stop);
+                          "animation", Control.stop);
                 }
               },
               style: Style(

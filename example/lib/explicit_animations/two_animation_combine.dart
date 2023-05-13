@@ -16,13 +16,13 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
   late String animationName2;
   late bool isMerge;
   late List<bool> isSelected;
-  late CustomAnimationControl control;
+  late Control control;
 
   @override
   void initState() {
     animationName1 = "Rainbow";
     animationName2 = "Wobble";
-    control = CustomAnimationControl.mirror;
+    control = Control.mirror;
     isMerge = true;
     isSelected = [isMerge, !isMerge];
     super.initState();
@@ -152,17 +152,17 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
               SizedBox(
                 height: 20,
               ),
-              DropdownButton<CustomAnimationControl>(
+              DropdownButton<Control>(
                 iconSize: 18,
                 isDense: true,
                 value: control,
-                onChanged: (CustomAnimationControl? newValue) {
+                onChanged: (Control? newValue) {
                   setState(() {
-                    control = newValue ?? CustomAnimationControl.mirror;
+                    control = newValue ?? Control.mirror;
                   });
                 },
-                items: CustomAnimationControl.values.map((e) {
-                  return DropdownMenuItem<CustomAnimationControl>(
+                items: Control.values.map((e) {
+                  return DropdownMenuItem<Control>(
                     value: e,
                     child: Text(
                       e.toJson(),

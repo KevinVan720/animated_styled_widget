@@ -14,7 +14,7 @@ class SlideOutAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
@@ -45,7 +45,7 @@ class FadeOutAnimation extends PresetAnimation {
       {Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {
@@ -64,7 +64,7 @@ class ZoomOutAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
 
   MultiAnimationSequence getAnimationSequence() {

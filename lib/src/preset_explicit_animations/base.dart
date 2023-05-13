@@ -10,13 +10,13 @@ abstract class PresetAnimation {
   final Duration delay;
   final Duration duration;
   final Curve curve;
-  final CustomAnimationControl control;
+  final Control control;
 
   const PresetAnimation(
       {this.delay = Duration.zero,
       this.duration = Duration.zero,
       this.curve = Curves.linear,
-      this.control = CustomAnimationControl.play});
+      this.control = Control.play});
 
   MultiAnimationSequence getAnimationSequence();
 }

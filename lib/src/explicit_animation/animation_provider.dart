@@ -9,7 +9,7 @@ class GlobalAnimationNotifier extends ChangeNotifier {
 
   Map<String, String> currentAnimationNames = {};
   Map<String, MultiAnimationSequence> currentAnimations = {};
-  Map<String, CustomAnimationControl> currentAnimationsControl = {};
+  Map<String, Control> currentAnimationsControl = {};
 
   Map<String, MultiAnimationSequence> currentContinuousAnimations = {};
   Map<String, String> currentContinuousAnimationNames = {};
@@ -18,7 +18,7 @@ class GlobalAnimationNotifier extends ChangeNotifier {
   GlobalAnimationNotifier({required this.animationPool});
 
   void updateAnimationStatus(
-      String animationId, CustomAnimationControl newStatus) {
+      String animationId, Control newStatus) {
     animationPool[animationId]?.sequences.forEach((applier, value) {
       currentAnimations[applier] = value;
       currentAnimationsControl[applier] = newStatus;
@@ -42,7 +42,7 @@ class GlobalAnimationNotifier extends ChangeNotifier {
 
 class LocalAnimationNotifier extends ChangeNotifier {
   MultiAnimationSequence? currentAnimation;
-  CustomAnimationControl? currentAnimationControl;
+  Control? currentAnimationControl;
 
   MultiAnimationSequence? currentContinuousAnimation;
   ContinuousAnimationProgressNotifier? animationProgressNotifier;
@@ -50,7 +50,7 @@ class LocalAnimationNotifier extends ChangeNotifier {
   LocalAnimationNotifier();
 
   void updateAnimationStatus(MultiAnimationSequence animationSequence,
-      CustomAnimationControl newStatus) {
+      Control newStatus) {
     currentAnimation = animationSequence;
     currentAnimationControl = newStatus;
     notifyListeners();

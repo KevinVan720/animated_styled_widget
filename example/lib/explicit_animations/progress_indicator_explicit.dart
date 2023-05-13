@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               localAnimations: {
                 AnimationTrigger.visible: MultiAnimationSequence(
-                    control: CustomAnimationControl.loop,
+                    control: Control.loop,
                     sequences: {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()
@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               localAnimations: {
                 AnimationTrigger.visible: MultiAnimationSequence(
-                    control: CustomAnimationControl.loop,
+                    control: Control.loop,
                     sequences: {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()
@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               localAnimations: {
                 AnimationTrigger.visible: MultiAnimationSequence(
-                    control: CustomAnimationControl.loop,
+                    control: Control.loop,
                     sequences: {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()
@@ -199,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               localAnimations: {
                 AnimationTrigger.visible: MultiAnimationSequence(
-                    control: CustomAnimationControl.loop,
+                    control: Control.loop,
                     sequences: {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()
@@ -236,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               localAnimations: {
                 AnimationTrigger.visible: MultiAnimationSequence(
-                    control: CustomAnimationControl.loop,
+                    control: Control.loop,
                     sequences: {
                       AnimationProperty.shapeBorder: AnimationSequence<
                           MorphableShapeBorder>()
@@ -275,7 +275,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               localAnimations: {
                 AnimationTrigger.visible: MultiAnimationSequence(
-                    control: CustomAnimationControl.loop,
+                    control: Control.loop,
                     sequences: {
                       AnimationProperty.shapeBorder:
                           AnimationSequence<MorphableShapeBorder>()

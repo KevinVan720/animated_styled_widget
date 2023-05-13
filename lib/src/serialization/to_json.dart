@@ -2,7 +2,7 @@ import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-extension CustomAnimationControlToJson on CustomAnimationControl {
+extension CustomAnimationControlToJson on Control {
   String toJson() {
     return this.toString().stripFirstDot();
   }

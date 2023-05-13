@@ -259,7 +259,7 @@ class AnimationSequence<T> {
 
 class MultiAnimationSequence {
   late Map<AnimationProperty, AnimationSequence> sequences = {};
-  CustomAnimationControl control = CustomAnimationControl.play;
+  Control control = Control.play;
   double beginShift = 0.0;
   double endShift = 0.0;
 
@@ -267,11 +267,11 @@ class MultiAnimationSequence {
       {required this.sequences,
       this.beginShift = 0.0,
       this.endShift = 0.0,
-      this.control = CustomAnimationControl.play});
+      this.control = Control.play});
 
   MultiAnimationSequence.fromJson(Map map) {
     control = parseCustomAnimationControl(map["control"]) ??
-        CustomAnimationControl.play;
+        Control.play;
     beginShift = map['beginShift'];
     endShift = map['endShift'];
     sequences = (map["sequences"] as Map).map((key, value) {
@@ -383,11 +383,11 @@ class MultiAnimationSequence {
     });
   }
 
-  MultiTween<AnimationProperty> getAnimationTween(
+  MovieTween getAnimationTween(
       {required Map<AnimationProperty, dynamic> initialValues,
       required double parentFontSize,
       required Size screenSize}) {
-    MultiTween<AnimationProperty> multiTween = MultiTween<AnimationProperty>();
+    MovieTween multiTween = MovieTween();
     sequences.forEach((property, animationSequence) {
       var animations = animationSequence.data;
       dynamic begin, end;
@@ -451,10 +451,10 @@ class MultiAnimationSequence {
             break;
         }
         if (animations[index].delay.inMilliseconds > 0) {
-          multiTween.add(property, delayTween, animations[index].delay);
+          multiTween.tween(property, delayTween, begin: animations[index].delay);
         }
-        multiTween.add(property, tween, animations[index].duration,
-            animations[index].curve);
+        multiTween.tween(property, tween, duration: animations[index].duration,
+            curve: animations[index].curve);
         begin = end;
       }
     });

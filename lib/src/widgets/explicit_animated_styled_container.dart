@@ -133,14 +133,14 @@ class _ExplicitAnimatedStyledContainerState
   void triggerTapAnimation(BuildContext context) {
     if (widget.globalAnimationIds.containsKey(AnimationTrigger.tap)) {
       String animationId = widget.globalAnimationIds[AnimationTrigger.tap]!;
-      CustomAnimationControl? control =
+      Control? control =
           Provider.of<GlobalAnimationNotifier>(context, listen: false)
               .animationPool[animationId]
               ?.control;
       Provider.of<GlobalAnimationNotifier>(context, listen: false)
           .updateAnimationStatus(
               widget.globalAnimationIds[AnimationTrigger.tap]!,
-              control ?? CustomAnimationControl.play);
+              control ?? Control.play);
     }
     if (widget.localAnimations.containsKey(AnimationTrigger.tap)) {
       Provider.of<LocalAnimationNotifier>(context, listen: false)
@@ -153,14 +153,14 @@ class _ExplicitAnimatedStyledContainerState
     if (widget.globalAnimationIds.containsKey(AnimationTrigger.mouseEnter)) {
       String animationId =
           widget.globalAnimationIds[AnimationTrigger.mouseEnter]!;
-      CustomAnimationControl? control =
+      Control? control =
           Provider.of<GlobalAnimationNotifier>(context, listen: false)
               .animationPool[animationId]
               ?.control;
       Provider.of<GlobalAnimationNotifier>(context, listen: false)
           .updateAnimationStatus(
               widget.globalAnimationIds[AnimationTrigger.mouseEnter]!,
-              control ?? CustomAnimationControl.play);
+              control ?? Control.play);
     }
     if (widget.localAnimations.containsKey(AnimationTrigger.mouseEnter)) {
       Provider.of<LocalAnimationNotifier>(context, listen: false)
@@ -174,14 +174,14 @@ class _ExplicitAnimatedStyledContainerState
     if (widget.globalAnimationIds.containsKey(AnimationTrigger.mouseExit)) {
       String animationId =
           widget.globalAnimationIds[AnimationTrigger.mouseExit]!;
-      CustomAnimationControl? control =
+      Control? control =
           Provider.of<GlobalAnimationNotifier>(context, listen: false)
               .animationPool[animationId]
               ?.control;
       Provider.of<GlobalAnimationNotifier>(context, listen: false)
           .updateAnimationStatus(
               widget.globalAnimationIds[AnimationTrigger.mouseExit]!,
-              control ?? CustomAnimationControl.play);
+              control ?? Control.play);
     }
     if (widget.localAnimations.containsKey(AnimationTrigger.mouseExit)) {
       Provider.of<LocalAnimationNotifier>(context, listen: false)
@@ -197,7 +197,7 @@ class _ExplicitAnimatedStyledContainerState
       if (widget.globalAnimationIds.containsKey(AnimationTrigger.visible)) {
         String animationId =
             widget.globalAnimationIds[AnimationTrigger.visible]!;
-        CustomAnimationControl? control =
+        Control? control =
             Provider.of<GlobalAnimationNotifier>(context, listen: false)
                 .animationPool[animationId]
                 ?.control;
@@ -205,7 +205,7 @@ class _ExplicitAnimatedStyledContainerState
         Provider.of<GlobalAnimationNotifier>(context, listen: false)
             .updateAnimationStatus(
                 widget.globalAnimationIds[AnimationTrigger.visible]!,
-                control ?? CustomAnimationControl.play);
+                control ?? Control.play);
       }
       if (widget.localAnimations.containsKey(AnimationTrigger.visible)) {
         Provider.of<LocalAnimationNotifier>(context, listen: false)
@@ -342,7 +342,7 @@ class _ExplicitAnimatedStyledContainerState
     }
   }
 
-  MultiTween<AnimationProperty> getMultiTweenFromAnimationSequences(
+  MovieTween getMultiTweenFromAnimationSequences(
       MultiAnimationSequence sequences) {
     return sequences.getAnimationTween(
         initialValues: {
@@ -368,13 +368,13 @@ class _ExplicitAnimatedStyledContainerState
   Widget buildGlobalAnimationWidget({required Widget child}) {
     if (!onlyLocal) {
       return Selector<GlobalAnimationNotifier,
-              Tuple2<CustomAnimationControl?, MultiAnimationSequence?>>(
+              Tuple2<Control?, MultiAnimationSequence?>>(
           selector: (_, notifier) => Tuple2(
               notifier.currentAnimationsControl[widget.id],
               notifier.currentAnimations[widget.id]),
           child: child,
           builder: (context, tuple, child) {
-            CustomAnimationControl? control = tuple.item1;
+            Control? control = tuple.item1;
             MultiAnimationSequence? sequences = tuple.item2;
             if (control == null || sequences == null) {
               return child!;
@@ -392,12 +392,12 @@ class _ExplicitAnimatedStyledContainerState
 
   Widget buildLocalAnimationWidget({required Widget child}) {
     return Selector<LocalAnimationNotifier,
-            Tuple2<CustomAnimationControl?, MultiAnimationSequence?>>(
+            Tuple2<Control?, MultiAnimationSequence?>>(
         selector: (_, notifier) =>
             Tuple2(notifier.currentAnimationControl, notifier.currentAnimation),
         child: child,
         builder: (context, tuple, child) {
-          CustomAnimationControl? control = tuple.item1;
+          Control? control = tuple.item1;
           MultiAnimationSequence? sequences = tuple.item2;
           if (control == null || sequences == null) {
             return child!;
@@ -421,7 +421,7 @@ class _ExplicitAnimatedStyledContainerState
               return child!;
             }
 
-            MultiTween<AnimationProperty> multiTween =
+            MovieTween multiTween =
                 getMultiTweenFromAnimationSequences(sequences);
 
             return buildCustomContinuousAnimation(
@@ -441,7 +441,7 @@ class _ExplicitAnimatedStyledContainerState
             return child!;
           }
 
-          MultiTween<AnimationProperty> multiTween =
+          MovieTween multiTween =
               getMultiTweenFromAnimationSequences(sequences);
 
           return buildCustomContinuousAnimation(
@@ -452,9 +452,9 @@ class _ExplicitAnimatedStyledContainerState
   Widget buildCustomAnimation(
       { //required Duration delay,
       var multiTween,
-      required CustomAnimationControl control,
+      required Control control,
       required Widget child}) {
-    return CustomAnimation<MultiTweenValues<AnimationProperty>>(
+    return CustomAnimationBuilder<Movie>(
       key: UniqueKey(),
       control: control, // <
       duration: multiTween.duration, // -- bind state variable to parameter
@@ -466,7 +466,7 @@ class _ExplicitAnimatedStyledContainerState
 
   //TODO: currently only use scrollcontrollers
   Widget buildCustomContinuousAnimation(
-      {required MultiTween<AnimationProperty> multiTween,
+      {required MovieTween multiTween,
       required bool isGlobal,
       required Widget child}) {
     return Builder(builder: (BuildContext context) {
@@ -489,35 +489,35 @@ class _ExplicitAnimatedStyledContainerState
         animation: progressNotifier,
         child: child,
         builder: (BuildContext context, Widget? child) {
-          MultiTweenValues<AnimationProperty> values =
+          Movie values =
               multiTween.transform(progressNotifier.value.clamp(0.0, 1.0));
-          return animatedWidgetBuilder(context, child!, values);
+          return animatedWidgetBuilder(context, values,  child!,);
         },
       );
     });
   }
 
-  Widget animatedWidgetBuilder(BuildContext context, Widget? child,
-      MultiTweenValues<AnimationProperty> values) {
-    opacity = values.getOrElse(AnimationProperty.opacity, opacity);
-    alignment = values.getOrElse(AnimationProperty.alignment, alignment);
-    width = values.getOrElse(AnimationProperty.width, width);
-    height = values.getOrElse(AnimationProperty.height, height);
-    margin = values.getOrElse(AnimationProperty.margin, margin);
-    padding = values.getOrElse(AnimationProperty.padding, padding);
-    backgroundDecoration = values.getOrElse(
-        AnimationProperty.backgroundDecoration, backgroundDecoration);
-    shadows = values.getOrElse(AnimationProperty.shadows, shadows);
+  Widget animatedWidgetBuilder(BuildContext context,
+      Movie values, Widget? child,) {
+    opacity = values.get(AnimationProperty.opacity);
+    alignment = values.get(AnimationProperty.alignment);
+    width = values.get(AnimationProperty.width);
+    height = values.get(AnimationProperty.height);
+    margin = values.get(AnimationProperty.margin);
+    padding = values.get(AnimationProperty.padding);
+    backgroundDecoration = values.get(
+        AnimationProperty.backgroundDecoration);
+    shadows = values.get(AnimationProperty.shadows);
     insetShadows =
-        values.getOrElse(AnimationProperty.insetShadows, insetShadows);
-    shapeBorder = values.getOrElse(AnimationProperty.shapeBorder, shapeBorder);
+        values.get(AnimationProperty.insetShadows);
+    shapeBorder = values.get(AnimationProperty.shapeBorder);
 
-    transform = values.getOrElse(AnimationProperty.transform, transform);
-    transformAlignment = values.getOrElse(
-        AnimationProperty.transformAlignment, transformAlignment);
+    transform = values.get(AnimationProperty.transform);
+    transformAlignment = values.get(
+        AnimationProperty.transformAlignment);
     childAlignment =
-        values.getOrElse(AnimationProperty.childAlignment, childAlignment);
-    textStyle = values.getOrElse(AnimationProperty.textStyle, textStyle);
+        values.get(AnimationProperty.childAlignment);
+    textStyle = values.get(AnimationProperty.textStyle);
 
     return buildStyledContainerWithMouseEvent(context);
   }

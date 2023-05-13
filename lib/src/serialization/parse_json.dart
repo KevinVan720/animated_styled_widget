@@ -85,9 +85,9 @@ AnimationProperty parseAnimationProperty(String str) {
   return property;
 }
 
-CustomAnimationControl? parseCustomAnimationControl(String str) {
-  CustomAnimationControl? control;
-  CustomAnimationControl.values.forEach((element) {
+Control? parseCustomAnimationControl(String str) {
+  Control? control;
+  Control.values.forEach((element) {
     if (element.toJson() == str) control = element;
   });
   return control;

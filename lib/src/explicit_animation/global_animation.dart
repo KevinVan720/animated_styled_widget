@@ -5,7 +5,7 @@ import 'package:simple_animations/simple_animations.dart';
 import 'animation_sequence.dart';
 
 class GlobalAnimation {
-  CustomAnimationControl control = CustomAnimationControl.play;
+  Control control = Control.play;
   double beginShift = 0.0;
   double endShift = 1.0;
 
@@ -15,11 +15,11 @@ class GlobalAnimation {
       {required this.sequences,
       this.beginShift = 0.0,
       this.endShift = 0.0,
-      this.control = CustomAnimationControl.play});
+      this.control = Control.play});
 
   GlobalAnimation.fromJson(Map map) {
     control = parseCustomAnimationControl(map["control"]) ??
-        CustomAnimationControl.play;
+        Control.play;
     beginShift = map['beginShift'];
     endShift = map['endShift'];
     sequences = (map["sequences"] as Map).map((key, value) {
