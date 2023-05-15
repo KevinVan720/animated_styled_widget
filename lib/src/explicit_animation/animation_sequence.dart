@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
@@ -270,8 +272,7 @@ class MultiAnimationSequence {
       this.control = Control.play});
 
   MultiAnimationSequence.fromJson(Map map) {
-    control = parseCustomAnimationControl(map["control"]) ??
-        Control.play;
+    control = parseCustomAnimationControl(map["control"]) ?? Control.play;
     beginShift = map['beginShift'];
     endShift = map['endShift'];
     sequences = (map["sequences"] as Map).map((key, value) {
@@ -388,72 +389,96 @@ class MultiAnimationSequence {
       required double parentFontSize,
       required Size screenSize}) {
     MovieTween multiTween = MovieTween();
+    MovieScene movieScene =
+        multiTween.scene(begin: Duration.zero, duration: Duration(microseconds: 1));
+    for (final property in animationPropertyTypeMap.keys) {
+      if (!sequences.keys.contains(property)) {
+        sequences[property] = AnimationSequence(data: []);
+      }
+    }
+
     sequences.forEach((property, animationSequence) {
       var animations = animationSequence.data;
       dynamic begin, end;
       begin =
           initialValues[property] ?? animationPropertyDefaultInitMap[property];
+      if (animations.length == 0) {
+        if (property == AnimationProperty.transform) {
+          animations.add(AnimationData(
+              value: initialValues[property], duration: Duration.zero));
+        } else if (property == AnimationProperty.textStyle) {
+          animations.add(AnimationData(
+              value: initialValues[property], duration: Duration.zero));
+        } else {
+          animations.add(AnimationData(value: begin, duration: Duration.zero));
+        }
+      }
       for (int index = 0; index < animations.length; index++) {
-        Tween delayTween;
         Tween tween;
         switch (property) {
           case AnimationProperty.opacity:
             end = animations[index].value;
-            delayTween = Tween(begin: begin, end: begin);
             tween = Tween(begin: begin, end: end);
             break;
           case AnimationProperty.alignment:
           case AnimationProperty.transformAlignment:
           case AnimationProperty.childAlignment:
             end = animations[index].value;
-            delayTween = AlignmentTween(begin: begin, end: begin);
+
             tween = AlignmentTween(begin: begin, end: end);
             break;
           case AnimationProperty.width:
           case AnimationProperty.height:
-            end = (animations[index].value as Dimension);
-            delayTween = DimensionTween(begin: begin, end: begin);
+            end = (animations[index].value as Dimension?);
+
             tween = DimensionTween(begin: begin, end: end);
             break;
           case AnimationProperty.margin:
           case AnimationProperty.padding:
-            end = (animations[index].value as EdgeInsets);
-            delayTween = EdgeInsetsTween(begin: begin, end: begin);
+            end = (animations[index].value as EdgeInsets?);
+
             tween = EdgeInsetsTween(begin: begin, end: end);
             break;
           case AnimationProperty.backgroundDecoration:
           case AnimationProperty.foregroundDecoration:
             end = animations[index].value;
-            delayTween = DecorationTween(begin: begin, end: begin);
+
             tween = DecorationTween(begin: begin, end: end);
             break;
           case AnimationProperty.shadows:
           case AnimationProperty.insetShadows:
             end = (animations[index].value as List).cast<ShapeShadow>();
-            delayTween = ListShapeShadowTween(begin: begin, end: begin);
+
             tween = ListShapeShadowTween(begin: begin, end: end);
             break;
           case AnimationProperty.shapeBorder:
             end = animations[index].value;
-            delayTween = MorphableShapeBorderTween(begin: begin, end: begin);
+
             tween = MorphableShapeBorderTween(begin: begin, end: end);
             break;
           case AnimationProperty.transform:
-            end = animations[index].value.toMatrix4(screenSize: screenSize);
-            delayTween = Matrix4Tween(begin: begin, end: begin);
+            if (animations[index].value is SmoothMatrix4) {
+              end = animations[index].value.toMatrix4(screenSize: screenSize);
+            } else {
+              end = animations[index].value;
+            }
+
             tween = Matrix4Tween(begin: begin, end: end);
             break;
           case AnimationProperty.textStyle:
-            end = (animations[index].value as DynamicTextStyle).toTextStyle(
-                parentFontSize: parentFontSize, screenSize: screenSize);
-            delayTween = TextStyleTween(begin: begin, end: begin);
+            if (animations[index].value is DynamicTextStyle) {
+              end = (animations[index].value as DynamicTextStyle).toTextStyle(
+                  parentFontSize: parentFontSize, screenSize: screenSize);
+            } else {
+              end = animations[index].value;
+            }
+
             tween = TextStyleTween(begin: begin, end: end);
             break;
         }
-        if (animations[index].delay.inMilliseconds > 0) {
-          multiTween.tween(property, delayTween, begin: animations[index].delay);
-        }
-        multiTween.tween(property, tween, duration: animations[index].duration,
+        movieScene.thenTween(property, tween,
+            duration: animations[index].duration,
+            delay: animations[index].delay,
             curve: animations[index].curve);
         begin = end;
       }

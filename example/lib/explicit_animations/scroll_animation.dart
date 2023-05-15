@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 controller: scrollController2,
+                physics: AlwaysScrollableScrollPhysics(),
                 children: [
                   Container(
                     width: dimension,
