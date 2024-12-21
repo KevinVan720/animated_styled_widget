@@ -185,3 +185,7 @@ Update dependencies.
 ## [0.4.7] - 05/12/2023
 
 Update dependencies.
+
+## [0.5.0] - 12/21/2024
+
+Update dependencies.
