@@ -225,7 +225,7 @@ class Style {
   }
 
   @override
-  int get hashCode => hashList([
+  int get hashCode => Object.hashAll([
         visible,
         alignment,
         width,
