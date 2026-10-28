@@ -1,19 +1,13 @@
-import 'dart:ui';
-
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class StyledSliderPage extends StatefulWidget {
-  StyledSliderPage({this.title = "Styled Buttons"});
+  const StyledSliderPage({super.key, this.title = "Styled Buttons"});
 
   final String title;
 
   @override
-  _StyledSliderPageState createState() => _StyledSliderPageState();
+  State<StyledSliderPage> createState() => _StyledSliderPageState();
 }
 
 class _StyledSliderPageState extends State<StyledSliderPage> {
@@ -387,11 +381,11 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
               height: 50,
             ),
             Center(
-              child: Container(
+              child: SizedBox(
                 height: 150,
                 child: StyledSlider(
                   //divisions: 25,
-                  label: (_value * 100).roundWithPrecision(0).toString() + "%",
+                  label: "${(_value * 100).roundWithPrecision(0)}%",
                   value: _value,
                   onChanged: (double value) {
                     setState(() {
@@ -414,7 +408,7 @@ class _StyledSliderPageState extends State<StyledSliderPage> {
             ),
             StyledSlider(
               divisions: 5,
-              label: (_value * 100).roundWithPrecision(0).toString() + "%",
+              label: "${(_value * 100).roundWithPrecision(0)}%",
               value: _value,
               onChanged: (double value) {
                 setState(() {

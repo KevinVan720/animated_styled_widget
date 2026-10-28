@@ -1,13 +1,10 @@
 import 'dart:ui';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:morphable_shape/morphable_shape.dart';
+import 'package:flutter/widgets.dart';
 
+/// Resolves a [Style] to the values used to build the styled widgets.
 mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
   late Style style;
   late Size screenSize;
@@ -16,15 +13,15 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
   Dimension? width;
   Dimension? height;
 
-  EdgeInsets margin = EdgeInsets.all(0);
-  EdgeInsets padding = EdgeInsets.all(0);
+  EdgeInsets margin = EdgeInsets.zero;
+  EdgeInsets padding = EdgeInsets.zero;
 
   bool visible = true;
   double opacity = 1;
-  Decoration backgroundDecoration = BoxDecoration();
-  Decoration foregroundDecoration = BoxDecoration();
+  Decoration backgroundDecoration = const BoxDecoration();
+  Decoration foregroundDecoration = const BoxDecoration();
 
-  MorphableShapeBorder shapeBorder = RectangleShapeBorder();
+  MorphableShapeBorder shapeBorder = const RectangleShapeBorder();
 
   List<ShapeShadow>? shadows = <ShapeShadow>[];
   List<ShapeShadow>? insetShadows = <ShapeShadow>[];
@@ -49,21 +46,21 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
   void resolveProperties() {
     alignment = style.alignment;
 
-    padding = style.padding ?? EdgeInsets.all(0);
+    padding = style.padding ?? EdgeInsets.zero;
 
-    margin = style.margin ?? EdgeInsets.all(0);
+    margin = style.margin ?? EdgeInsets.zero;
 
     width = style.width;
     height = style.height;
 
     visible = style.visible ?? true;
     opacity = style.opacity ?? 1;
-    backgroundDecoration = style.backgroundDecoration ?? BoxDecoration();
-    foregroundDecoration = style.foregroundDecoration ?? BoxDecoration();
+    backgroundDecoration = style.backgroundDecoration ?? const BoxDecoration();
+    foregroundDecoration = style.foregroundDecoration ?? const BoxDecoration();
 
     shadows = style.shadows;
     insetShadows = style.insetShadows;
-    shapeBorder = style.shapeBorder ?? RectangleShapeBorder();
+    shapeBorder = style.shapeBorder ?? const RectangleShapeBorder();
 
     transform = style.transform?.toMatrix4(screenSize: screenSize) ??
         Matrix4.identity();
@@ -93,7 +90,11 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
       {required Widget child,
       required Duration duration,
       required Curve curve}) {
-    TextStyle finalTextStyle = textStyle;
+    // Text styles can only be interpolated if they all inherit (like the ones
+    // of a DynamicTextStyle) or not. The inherit flag of the default text
+    // style makes no difference to the text below it.
+    TextStyle finalTextStyle =
+        textStyle.inherit ? textStyle : textStyle.copyWith(inherit: true);
     return AnimatedDefaultTextStyle(
         style: finalTextStyle,
         textAlign: textAlign,
@@ -161,9 +162,9 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
       shape: shapeBorder,
       shadows: shadows,
       insetShadows: insetShadows,
-      child: child,
       duration: duration,
       curve: curve,
+      child: child,
     );
   }
 
@@ -172,8 +173,8 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
       PointerEnterEventListener? onMouseEnter,
       PointerExitEventListener? onMouseExit}) {
     Widget innerContainer = DimensionSizedBox(
-      width: style.width,
-      height: style.height,
+      width: width,
+      height: height,
       child: Container(
           padding: padding.add(shapeBorder.dimensions),
           alignment: childAlignment,
@@ -199,8 +200,8 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
             onExit: onMouseExit,
             cursor: mouseCursor,
             child: DimensionSizedBox(
-              width: style.width,
-              height: style.height,
+              width: width,
+              height: height,
               child: Container(
                   padding: padding.add(shapeBorder.dimensions),
                   alignment: childAlignment,
@@ -232,7 +233,7 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
       Curve curve = Curves.linear,
       PointerEnterEventListener? onMouseEnter,
       PointerExitEventListener? onMouseExit,
-      Function()? onEnd}) {
+      VoidCallback? onEnd}) {
     Widget innerContainer = buildBackdropFilter(
         child: MouseRegion(
             onEnter: onMouseEnter,
@@ -285,7 +286,7 @@ mixin StyledStateMixin<T extends StatefulWidget> on State<T> {
       Curve curve = Curves.linear,
       PointerEnterEventListener? onMouseEnter,
       PointerExitEventListener? onMouseExit,
-      Function()? onEnd}) {
+      VoidCallback? onEnd}) {
     Widget innerContainer = buildBackdropFilter(
         child: AnimatedDimensionSizedBox(
       duration: duration,

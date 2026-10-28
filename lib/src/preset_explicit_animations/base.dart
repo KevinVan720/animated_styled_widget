@@ -1,11 +1,8 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/animation.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import 'attention_seeker.dart';
-import 'entrance.dart';
-import 'exit.dart';
-
+/// A predefined explicit animation, see [getAnimationSequence].
 abstract class PresetAnimation {
   final Duration delay;
   final Duration duration;
@@ -33,6 +30,7 @@ Map<String, PresetAnimation> presetExitAnimations = {
   "ZoomOut": ZoomOutAnimation(),
 };
 
+// The misspelled name is part of the public API.
 Map<String, PresetAnimation> presetAttensionSeekerAnimations = {
   "Flip": FlipAnimation(),
   "Flash": FlashAnimation(),
@@ -44,6 +42,8 @@ Map<String, PresetAnimation> presetAttensionSeekerAnimations = {
   "Elevate": ElevateAnimation(),
 };
 
-Map<String, PresetAnimation> presetAllAnimations = presetEntranceAnimations
-  ..addAll(presetExitAnimations)
-  ..addAll(presetAttensionSeekerAnimations);
+Map<String, PresetAnimation> presetAllAnimations = {
+  ...presetEntranceAnimations,
+  ...presetExitAnimations,
+  ...presetAttensionSeekerAnimations,
+};

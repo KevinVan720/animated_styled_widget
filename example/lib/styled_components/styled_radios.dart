@@ -1,17 +1,13 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class StyledRadiosPage extends StatefulWidget {
-  StyledRadiosPage({this.title = "Styled Radios"});
+  const StyledRadiosPage({super.key, this.title = "Styled Radios"});
 
   final String title;
 
   @override
-  _StyledRadiosPageState createState() => _StyledRadiosPageState();
+  State<StyledRadiosPage> createState() => _StyledRadiosPageState();
 }
 
 class _StyledRadiosPageState extends State<StyledRadiosPage> {

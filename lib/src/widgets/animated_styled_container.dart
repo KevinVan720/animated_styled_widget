@@ -1,8 +1,8 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
+/// A [StyledContainer] that implicitly animates to a new style.
 class AnimatedStyledContainer extends StyledWidget {
   final Widget child;
   final Duration duration;
@@ -11,21 +11,17 @@ class AnimatedStyledContainer extends StyledWidget {
   final PointerExitEventListener? onMouseExit;
   final VoidCallback? onEnd;
 
-  AnimatedStyledContainer({
-    Key? key,
-    String? id,
-    required Style style,
+  const AnimatedStyledContainer({
+    super.key,
+    super.id,
+    required super.style,
     required this.duration,
     this.curve = Curves.linear,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
     this.onEnd,
-  }) : super(
-          key: key,
-          id: id,
-          style: style,
-        );
+  });
 
   @override
   State<StatefulWidget> createState() {

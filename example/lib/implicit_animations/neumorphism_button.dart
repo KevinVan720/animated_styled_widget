@@ -1,17 +1,13 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class NeumorphismPage extends StatefulWidget {
-  NeumorphismPage({this.title = "Neumorphism Button"});
+  const NeumorphismPage({super.key, this.title = "Neumorphism Button"});
 
   final String title;
 
   @override
-  _NeumorphismPageState createState() => _NeumorphismPageState();
+  State<NeumorphismPage> createState() => _NeumorphismPageState();
 }
 
 class _NeumorphismPageState extends State<NeumorphismPage> {
@@ -94,16 +90,18 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
         ),
-        shadows: [                      ShapeShadow(
-            blurRadius: 20,
-            spreadRadius: -5,
-            color: Colors.grey.shade400,
-            offset: Offset(20, 20)),
+        shadows: [
+          ShapeShadow(
+              blurRadius: 20,
+              spreadRadius: -5,
+              color: Colors.grey.shade400,
+              offset: Offset(20, 20)),
           ShapeShadow(
               blurRadius: 20,
               spreadRadius: -5,
               color: Color(0xFFFEFEFE),
-              offset: Offset(-20, -20)),],
+              offset: Offset(-20, -20)),
+        ],
         textStyle: DynamicTextStyle(
           letterSpacing: 0.8.toVWLength,
           fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
@@ -166,10 +164,9 @@ class _NeumorphismPageState extends State<NeumorphismPage> {
             });
           },
           child: AnimatedStyledContainer(
-                duration: Duration(milliseconds: 100),
-                style: toggleStyle ? beginStyle : endStyle,
-                child: Container()),
-
+              duration: Duration(milliseconds: 100),
+              style: toggleStyle ? beginStyle : endStyle,
+              child: Container()),
         ),
       )),
       // This trailing comma makes auto-formatting nicer for build methods.

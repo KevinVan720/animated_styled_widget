@@ -1,21 +1,21 @@
 name: animated_styled_widget
 description: Lets you use a serializable style to make customizable and animated widgets.
-version: 0.5.0
+version: 0.5.1
 homepage: https://github.com/KevinVan720/animated_styled_widget
 
 environment:
-  sdk: ">=2.14.0 <4.0.0"
-  flutter: ">=2.10.0"
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.27.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  dimension: ^0.2.0
+  dimension: ^0.2.1
 
-  flutter_class_parser: ^0.2.5
+  flutter_class_parser: ^0.2.6
 
-  morphable_shape: ^2.0.0
+  morphable_shape: ^2.0.1
 
   tuple: ^2.0.0
 
@@ -26,6 +26,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^6.0.0
 
 flutter:
-

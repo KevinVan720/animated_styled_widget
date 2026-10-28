@@ -1,17 +1,14 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class StyledToggleButtonsPage extends StatefulWidget {
-  StyledToggleButtonsPage({this.title = "Styled Toggle Buttons"});
+  const StyledToggleButtonsPage(
+      {super.key, this.title = "Styled Toggle Buttons"});
 
   final String title;
 
   @override
-  _StyledToggleButtonsPageState createState() =>
+  State<StyledToggleButtonsPage> createState() =>
       _StyledToggleButtonsPageState();
 }
 
@@ -180,8 +177,8 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
       Icon(Icons.call),
       Icon(Icons.cake),
     ];
-    var childrenBuilder =
-        (BuildContext context, StyledComponentState state, int index) {
+    AnimatedSwitcher childrenBuilder(
+        BuildContext context, StyledComponentState state, int index) {
       Widget child;
       if (state == StyledComponentState.selected) {
         child = Icon(
@@ -196,7 +193,8 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
         duration: Duration(milliseconds: 400),
         child: child,
       );
-    };
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -259,7 +257,6 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
             Container(
               alignment: Alignment.center,
               child: StyledToggleButtons(
-                children: icons,
                 onPressed: (int index) {
                   setState(() {
                     isSelected[index] = !isSelected[index];
@@ -306,6 +303,7 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
                                 color: Colors.cyanAccent.shade200, width: 13),
                             right: DynamicBorderSide(
                                 color: Colors.purpleAccent, width: 27)))),
+                children: icons,
               ),
             ),
             SizedBox(
@@ -366,7 +364,6 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
             Center(
               child: StyledToggleButtons(
                 direction: Axis.vertical,
-                children: icons,
                 onPressed: (int index) {
                   setState(() {
                     isSelected[index] = !isSelected[index];
@@ -376,7 +373,8 @@ class _StyledToggleButtonsPageState extends State<StyledToggleButtonsPage> {
                 style: materialStyle,
                 selectedStyle: materialStyle.copyWith(
                     backgroundDecoration: BoxDecoration(
-                        color: Colors.deepPurpleAccent.withOpacity(0.3))),
+                        color: Colors.deepPurpleAccent.withValues(alpha: 0.3))),
+                children: icons,
               ),
             ),
             SizedBox(

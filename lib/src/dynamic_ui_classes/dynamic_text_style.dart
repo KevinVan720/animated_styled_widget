@@ -1,7 +1,12 @@
 import 'package:dimension/dimension.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
 
+/// A text style whose sizes are [Dimension]s, so they can be relative to the
+/// parent font size (percent) or to the screen size (vw, vh, vmin, vmax).
+///
+/// Converted to a [TextStyle] with [toTextStyle].
 class DynamicTextStyle {
   const DynamicTextStyle({
     this.color,
@@ -64,6 +69,9 @@ class DynamicTextStyle {
     return rst;
   }
 
+  /// Returns a copy with the given values replaced.
+  ///
+  /// [foreground] and [background] are not supported and ignored.
   DynamicTextStyle copyWith({
     Color? color,
     Color? backgroundColor,
@@ -100,9 +108,12 @@ class DynamicTextStyle {
     );
   }
 
+  /// Converts the dimensions to px, percentages are relative to
+  /// [parentFontSize]. The font size is 10 if [fontSize] is null.
+  ///
+  /// [constraintWidth] is not used.
   TextStyle toTextStyle(
       {required Size screenSize,
-      //required Size constraintSize,
       required double parentFontSize,
       double constraintWidth = 100}) {
     double fontSize = this
@@ -133,4 +144,42 @@ class DynamicTextStyle {
       shadows: shadows,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is DynamicTextStyle &&
+        other.color == color &&
+        other.backgroundColor == backgroundColor &&
+        other.fontFamily == fontFamily &&
+        other.fontSize == fontSize &&
+        other.fontWeight == fontWeight &&
+        other.fontStyle == fontStyle &&
+        other.letterSpacing == letterSpacing &&
+        other.wordSpacing == wordSpacing &&
+        other.height == height &&
+        other.decoration == decoration &&
+        other.decorationColor == decorationColor &&
+        other.decorationStyle == decorationStyle &&
+        other.decorationThickness == decorationThickness &&
+        listEquals(other.shadows, shadows);
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        color,
+        backgroundColor,
+        fontFamily,
+        fontSize,
+        fontWeight,
+        fontStyle,
+        letterSpacing,
+        wordSpacing,
+        height,
+        decoration,
+        decorationColor,
+        decorationStyle,
+        decorationThickness,
+        shadows == null ? null : Object.hashAll(shadows!),
+      );
 }

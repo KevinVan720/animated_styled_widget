@@ -1,5 +1,5 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 ///states a styled component can be in
 enum StyledComponentState {
@@ -14,12 +14,14 @@ enum StyledComponentState {
   disabled,
 }
 
-typedef Widget? StyledComponentStateChildBuilder(
+typedef StyledComponentStateChildBuilder = Widget? Function(
     BuildContext context, StyledComponentState state);
 
-typedef Widget? StyledComponentStateIndexedChildBuilder(
+typedef StyledComponentStateIndexedChildBuilder = Widget? Function(
     BuildContext context, StyledComponentState state, int index);
 
+/// A new style with the properties of [style] that position and size the
+/// outer container of a component.
 Style getStyleOuterContainer(Style style) {
   return Style(
       width: style.width,

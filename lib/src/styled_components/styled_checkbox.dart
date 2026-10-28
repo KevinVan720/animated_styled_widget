@@ -1,5 +1,5 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class StyledCheckbox extends StatelessWidget {
   final Style style;
@@ -9,14 +9,14 @@ class StyledCheckbox extends StatelessWidget {
 
   final Curve curve;
   final Duration duration;
-  late final StyledComponentStateChildBuilder builder;
+  final StyledComponentStateChildBuilder builder;
 
   final bool value;
 
   final ValueChanged<bool>? onChanged;
 
   StyledCheckbox({
-    Key? key,
+    super.key,
     required this.value,
     required this.onChanged,
     required this.style,
@@ -26,14 +26,10 @@ class StyledCheckbox extends StatelessWidget {
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
     Widget? child,
-  }) {
-    builder = (context, state) {
-      return child;
-    };
-  }
+  }) : builder = ((context, state) => child);
 
-  StyledCheckbox.builder(
-      {Key? key,
+  const StyledCheckbox.builder(
+      {super.key,
       required this.value,
       required this.onChanged,
       required this.style,

@@ -1,17 +1,13 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class StyledSwitchPage extends StatefulWidget {
-  StyledSwitchPage({this.title = "Styled Buttons"});
+  const StyledSwitchPage({super.key, this.title = "Styled Buttons"});
 
   final String title;
 
   @override
-  _StyledSwitchPageState createState() => _StyledSwitchPageState();
+  State<StyledSwitchPage> createState() => _StyledSwitchPageState();
 }
 
 class _StyledSwitchPageState extends State<StyledSwitchPage> {
@@ -185,7 +181,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
 
   @override
   Widget build(BuildContext context) {
-    var childBuilder = (context, state) {
+    AnimatedSwitcher childBuilder(context, state) {
       Widget child;
       switch (state) {
         case StyledComponentState.selected:
@@ -205,7 +201,7 @@ class _StyledSwitchPageState extends State<StyledSwitchPage> {
         duration: Duration(milliseconds: 200),
         child: child,
       );
-    };
+    }
 
     return Scaffold(
       appBar: AppBar(

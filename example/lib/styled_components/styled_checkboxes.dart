@@ -1,17 +1,13 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class StyledCheckboxesPage extends StatefulWidget {
-  StyledCheckboxesPage({this.title = "Styled Buttons"});
+  const StyledCheckboxesPage({super.key, this.title = "Styled Buttons"});
 
   final String title;
 
   @override
-  _StyledCheckboxesPageState createState() => _StyledCheckboxesPageState();
+  State<StyledCheckboxesPage> createState() => _StyledCheckboxesPageState();
 }
 
 class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
@@ -280,7 +276,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
 
   @override
   Widget build(BuildContext context) {
-    var childBuilder = (context, state) {
+    Widget childBuilder(context, state) {
       Widget child = FittedBox(
         fit: BoxFit.fitHeight,
         child: Row(
@@ -288,18 +284,16 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.check),
-            Container(
-              child: AnimatedOpacity(
+            AnimatedOpacity(
+              duration: Duration(milliseconds: 500),
+              opacity: state == StyledComponentState.selected ? 1 : 0,
+              child: AnimatedAlign(
                 duration: Duration(milliseconds: 500),
-                opacity: state == StyledComponentState.selected ? 1 : 0,
-                child: AnimatedAlign(
-                  duration: Duration(milliseconds: 500),
-                  alignment: Alignment.centerRight,
-                  widthFactor: state == StyledComponentState.selected ? 1 : 0,
-                  child: Text(
-                    "CHECKED",
-                    key: UniqueKey(),
-                  ),
+                alignment: Alignment.centerRight,
+                widthFactor: state == StyledComponentState.selected ? 1 : 0,
+                child: Text(
+                  "CHECKED",
+                  key: UniqueKey(),
                 ),
               ),
             ),
@@ -308,7 +302,7 @@ class _StyledCheckboxesPageState extends State<StyledCheckboxesPage> {
       );
 
       return child;
-    };
+    }
 
     return Scaffold(
       appBar: AppBar(

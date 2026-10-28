@@ -1,13 +1,12 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class TwoAnimationCombinePage extends StatefulWidget {
+  const TwoAnimationCombinePage({super.key});
+
   @override
-  _TwoAnimationCombinePageState createState() =>
+  State<TwoAnimationCombinePage> createState() =>
       _TwoAnimationCombinePageState();
 }
 
@@ -174,6 +173,18 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
                 height: 20,
               ),
               ToggleButtons(
+                isSelected: isSelected,
+                onPressed: (int index) {
+                  setState(() {
+                    isSelected[index] = !isSelected[index];
+                    if (index == 0) {
+                      isSelected[1] = !isSelected[index];
+                    } else {
+                      isSelected[0] = !isSelected[index];
+                    }
+                    isMerge = isSelected[0];
+                  });
+                },
                 children: [
                   Container(
                     width: 100,
@@ -191,18 +202,6 @@ class _TwoAnimationCombinePageState extends State<TwoAnimationCombinePage> {
                         style: TextStyle(letterSpacing: 2),
                       ))
                 ],
-                isSelected: isSelected,
-                onPressed: (int index) {
-                  setState(() {
-                    isSelected[index] = !isSelected[index];
-                    if (index == 0) {
-                      isSelected[1] = !isSelected[index];
-                    } else {
-                      isSelected[0] = !isSelected[index];
-                    }
-                    isMerge = isSelected[0];
-                  });
-                },
               )
             ],
           ),

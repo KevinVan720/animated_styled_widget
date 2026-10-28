@@ -1,34 +1,42 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:tuple/tuple.dart';
 
+/// Provides the scroll controller and direction of the scroll view that
+/// drives the [AnimationTrigger.scroll] animations below it.
 class ParentScroll extends InheritedWidget {
-  static of(BuildContext context) =>
+  /// The closest [ParentScroll] ancestor, or null.
+  // The return type is dynamic for compatibility.
+  static dynamic of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<ParentScroll>();
 
   final ScrollController controller;
   final Axis direction;
 
-  ParentScroll({
-    Key? key,
-    required Widget child,
+  const ParentScroll({
+    super.key,
+    required super.child,
     required this.controller,
     required this.direction,
-  }) : super(key: key, child: child);
+  });
 
   @override
   bool updateShouldNotify(ParentScroll oldWidget) {
-    return this.controller != oldWidget.controller ||
-        this.direction != oldWidget.direction;
+    return controller != oldWidget.controller ||
+        direction != oldWidget.direction;
   }
 }
 
+/// A styled container that plays explicit animations when it is tapped,
+/// hovered, becomes visible or is scrolled.
+///
+/// [localAnimations] are played by this widget only, [globalAnimationIds]
+/// are ids of the animations of a [GlobalAnimationNotifier] ancestor, which
+/// animate all the widgets of the animation (identified by their [id]).
 class ExplicitAnimatedStyledContainer extends StyledWidget {
   final Widget child;
   final GestureTapCallback? onTap;
@@ -38,25 +46,21 @@ class ExplicitAnimatedStyledContainer extends StyledWidget {
   final Map<AnimationTrigger, MultiAnimationSequence> localAnimations;
   final Map<AnimationTrigger, String> globalAnimationIds;
 
-  ExplicitAnimatedStyledContainer({
-    Key? key,
-    required Style style,
+  const ExplicitAnimatedStyledContainer({
+    super.key,
+    required super.style,
     required this.child,
-    String? id,
+    super.id,
     this.onMouseEnter,
     this.onMouseExit,
     this.onTap,
     this.onVisible,
     this.localAnimations = const {},
     this.globalAnimationIds = const {},
-  }) : super(
-          key: key,
-          id: id,
-          style: style,
-        );
+  });
 
   @override
-  _ExplicitAnimatedStyledContainerState createState() =>
+  StyledWidgetState<ExplicitAnimatedStyledContainer> createState() =>
       _ExplicitAnimatedStyledContainerState();
 }
 
@@ -71,11 +75,48 @@ class _ExplicitAnimatedStyledContainerState
   double endOffset = 1.0;
   double currentScrollOffset = 0.0;
 
+  /// The scroll controller that [_scrollListeners] were added to.
+  ScrollController? _scrollController;
+  final List<VoidCallback> _scrollListeners = [];
+
+  /// Whether the mouse is inside the container. The mouse region is rebuilt
+  /// when an animation starts, which reports the mouse entering again.
+  bool _mouseInside = false;
+
   @override
   void initState() {
     onlyLocal = widget.id == null;
     super.initState();
   }
+
+  @override
+  void didUpdateWidget(ExplicitAnimatedStyledContainer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    onlyLocal = widget.id == null;
+  }
+
+  @override
+  void dispose() {
+    _removeScrollListeners();
+    super.dispose();
+  }
+
+  void _removeScrollListeners() {
+    for (final VoidCallback listener in _scrollListeners) {
+      _scrollController?.removeListener(listener);
+    }
+    _scrollListeners.clear();
+    _scrollController = null;
+  }
+
+  void _addScrollListener(ScrollController controller, VoidCallback listener) {
+    if (_scrollController != controller) _removeScrollListeners();
+    _scrollController = controller;
+    _scrollListeners.add(listener);
+    controller.addListener(listener);
+  }
+
+  ParentScroll? _parentScroll(BuildContext context) => ParentScroll.of(context);
 
   @override
   Widget build(BuildContext context) {
@@ -114,15 +155,21 @@ class _ExplicitAnimatedStyledContainerState
   }
 
   Widget buildStyledContainerWithMouseEvent(BuildContext context) {
+    // An invisible container has no mouse region, so it can't report the
+    // mouse leaving.
+    if (!visible) _mouseInside = false;
     return buildStyledContainer(
         child: widget.child,
         onMouseEnter: (PointerEnterEvent event) {
+          if (_mouseInside) return;
+          _mouseInside = true;
           triggerMouseEnterAnimation(context);
           if (widget.onMouseEnter != null) {
             widget.onMouseEnter!(event);
           }
         },
         onMouseExit: (PointerExitEvent event) {
+          _mouseInside = false;
           triggerMouseExitAnimation(context);
           if (widget.onMouseExit != null) {
             widget.onMouseExit!(event);
@@ -218,128 +265,90 @@ class _ExplicitAnimatedStyledContainerState
 
   void triggerScrollAnimation(
       BuildContext context, VisibilityInfo visibilityInfo) {
-    if (!mounted || ParentScroll.of(context) == null) return;
+    final ParentScroll? parentScroll = mounted ? _parentScroll(context) : null;
+    if (parentScroll == null || visibilityDetected) return;
+    final ScrollController controller = parentScroll.controller;
+
+    double progress() =>
+        (endOffset -
+            (currentOffset - controller.offset + currentScrollOffset)) /
+        (endOffset - beginOffset);
+
     String globalScrollAnimationName = "";
-    void Function() globalScrollProgressCallBack = () {};
-    void Function() localScrollProgressCallBack = () {};
     if (widget.globalAnimationIds.containsKey(AnimationTrigger.scroll)) {
       globalScrollAnimationName =
           widget.globalAnimationIds[AnimationTrigger.scroll]!;
-      globalScrollProgressCallBack = () {
-        if (mounted) {
-          Provider.of<GlobalAnimationNotifier>(context, listen: false)
-              .animationProgressNotifiers[globalScrollAnimationName]
-              ?.value = (endOffset -
-                  (currentOffset -
-                      ParentScroll.of(context).controller.offset +
-                      currentScrollOffset)) /
-              (endOffset - beginOffset);
-        }
-      };
+    }
+
+    double beginShift = 0.0, endShift = 0.0;
+    if (widget.globalAnimationIds.containsKey(AnimationTrigger.scroll)) {
+      String animationId = widget.globalAnimationIds[AnimationTrigger.scroll]!;
+      beginShift = Provider.of<GlobalAnimationNotifier>(context, listen: false)
+              .animationPool[animationId]
+              ?.beginShift ??
+          0.0;
+      endShift = Provider.of<GlobalAnimationNotifier>(context, listen: false)
+              .animationPool[animationId]
+              ?.endShift ??
+          0.0;
     }
     if (widget.localAnimations.containsKey(AnimationTrigger.scroll)) {
-      localScrollProgressCallBack = () {
-        if (mounted) {
-          Provider.of<LocalAnimationNotifier>(context, listen: false)
-              .animationProgressNotifier
-              ?.value = (endOffset -
-                  (currentOffset -
-                      ParentScroll.of(context).controller.offset +
-                      currentScrollOffset)) /
-              (endOffset - beginOffset);
-        }
-      };
+      beginShift =
+          widget.localAnimations[AnimationTrigger.scroll]?.beginShift ?? 0.0;
+      endShift =
+          widget.localAnimations[AnimationTrigger.scroll]?.endShift ?? 0.0;
     }
 
-    if (mounted) {
-      if (!visibilityDetected) {
-        double beginShift = 0.0, endShift = 0.0;
-        if (widget.globalAnimationIds.containsKey(AnimationTrigger.scroll)) {
-          String animationId =
-              widget.globalAnimationIds[AnimationTrigger.scroll]!;
-          beginShift =
-              Provider.of<GlobalAnimationNotifier>(context, listen: false)
-                      .animationPool[animationId]
-                      ?.beginShift ??
-                  0.0;
-          endShift =
-              Provider.of<GlobalAnimationNotifier>(context, listen: false)
-                      .animationPool[animationId]
-                      ?.endShift ??
-                  0.0;
-        }
-        if (widget.localAnimations.containsKey(AnimationTrigger.scroll)) {
-          beginShift =
-              widget.localAnimations[AnimationTrigger.scroll]?.beginShift ??
-                  0.0;
-          endShift =
-              widget.localAnimations[AnimationTrigger.scroll]?.endShift ?? 0.0;
-        }
-
-        if (ParentScroll.of(context).direction == Axis.vertical) {
-          setState(() {
-            beginOffset = 0.0 + beginShift * visibilityInfo.widgetBounds.height;
-            endOffset = MediaQuery.of(context).size.height +
-                endShift * visibilityInfo.widgetBounds.height;
-            currentOffset = visibilityInfo.widgetBounds.top;
-            currentScrollOffset = ParentScroll.of(context).controller.offset;
-          });
-        } else {
-          setState(() {
-            beginOffset = 0.0 + beginShift * visibilityInfo.widgetBounds.width;
-            endOffset = MediaQuery.of(context).size.width +
-                endShift * visibilityInfo.widgetBounds.width;
-
-            currentOffset = visibilityInfo.widgetBounds.left;
-            currentScrollOffset = ParentScroll.of(context).controller.offset;
-          });
-        }
-
-        if (widget.globalAnimationIds.containsKey(AnimationTrigger.scroll)) {
-          Provider.of<GlobalAnimationNotifier>(context, listen: false)
-                  .animationProgressNotifiers[globalScrollAnimationName] =
-              ContinuousAnimationProgressNotifier(
-                  (endOffset - currentOffset) / (endOffset - beginOffset));
-          Provider.of<GlobalAnimationNotifier>(context, listen: false)
-              .updateContinuousAnimationStatus(globalScrollAnimationName, true);
-          (ParentScroll.of(context).controller)
-              ?.addListener(globalScrollProgressCallBack);
-        }
-        if (widget.localAnimations.containsKey(AnimationTrigger.scroll)) {
-          Provider.of<LocalAnimationNotifier>(context, listen: false)
-                  .animationProgressNotifier =
-              ContinuousAnimationProgressNotifier(
-                  (endOffset - currentOffset) / (endOffset - beginOffset));
-          Provider.of<LocalAnimationNotifier>(context, listen: false)
-              .updateContinuousAnimationStatus(
-                  widget.localAnimations[AnimationTrigger.scroll], true);
-          (ParentScroll.of(context).controller)
-              ?.addListener(localScrollProgressCallBack);
-        }
-        setState(() {
-          visibilityDetected = true;
-        });
-      }
-    } else {
-      Provider.of<GlobalAnimationNotifier>(context, listen: false)
-          .animationProgressNotifiers
-          .remove(globalScrollAnimationName);
-      Provider.of<GlobalAnimationNotifier>(context, listen: false)
-          .updateContinuousAnimationStatus(
-              widget.globalAnimationIds[globalScrollAnimationName]!, false);
-      (ParentScroll.of(context).controller)
-          ?.removeListener(globalScrollProgressCallBack);
-
-      Provider.of<LocalAnimationNotifier>(context, listen: false)
-          .animationProgressNotifier = null;
-      Provider.of<LocalAnimationNotifier>(context, listen: false)
-          .updateContinuousAnimationStatus(null, false);
-      (ParentScroll.of(context).controller)
-          ?.removeListener(localScrollProgressCallBack);
+    final Size screenSize = MediaQuery.sizeOf(context);
+    if (parentScroll.direction == Axis.vertical) {
       setState(() {
-        visibilityDetected = false;
+        beginOffset = 0.0 + beginShift * visibilityInfo.widgetBounds.height;
+        endOffset =
+            screenSize.height + endShift * visibilityInfo.widgetBounds.height;
+        currentOffset = visibilityInfo.widgetBounds.top;
+        currentScrollOffset = controller.offset;
+      });
+    } else {
+      setState(() {
+        beginOffset = 0.0 + beginShift * visibilityInfo.widgetBounds.width;
+        endOffset =
+            screenSize.width + endShift * visibilityInfo.widgetBounds.width;
+
+        currentOffset = visibilityInfo.widgetBounds.left;
+        currentScrollOffset = controller.offset;
       });
     }
+
+    if (widget.globalAnimationIds.containsKey(AnimationTrigger.scroll)) {
+      final GlobalAnimationNotifier notifier =
+          Provider.of<GlobalAnimationNotifier>(context, listen: false);
+      notifier.animationProgressNotifiers[globalScrollAnimationName] =
+          ContinuousAnimationProgressNotifier(
+              (endOffset - currentOffset) / (endOffset - beginOffset));
+      notifier.updateContinuousAnimationStatus(globalScrollAnimationName, true);
+      _addScrollListener(controller, () {
+        if (mounted) {
+          notifier.animationProgressNotifiers[globalScrollAnimationName]
+              ?.value = progress();
+        }
+      });
+    }
+    if (widget.localAnimations.containsKey(AnimationTrigger.scroll)) {
+      final LocalAnimationNotifier notifier =
+          Provider.of<LocalAnimationNotifier>(context, listen: false);
+      notifier.animationProgressNotifier = ContinuousAnimationProgressNotifier(
+          (endOffset - currentOffset) / (endOffset - beginOffset));
+      notifier.updateContinuousAnimationStatus(
+          widget.localAnimations[AnimationTrigger.scroll], true);
+      _addScrollListener(controller, () {
+        if (mounted) {
+          notifier.animationProgressNotifier?.value = progress();
+        }
+      });
+    }
+    setState(() {
+      visibilityDetected = true;
+    });
   }
 
   MovieTween getMultiTweenFromAnimationSequences(
@@ -353,6 +362,7 @@ class _ExplicitAnimatedStyledContainerState
           AnimationProperty.margin: margin,
           AnimationProperty.padding: padding,
           AnimationProperty.backgroundDecoration: backgroundDecoration,
+          AnimationProperty.foregroundDecoration: foregroundDecoration,
           AnimationProperty.shadows: shadows,
           AnimationProperty.insetShadows: insetShadows,
           AnimationProperty.shapeBorder: shapeBorder,
@@ -361,7 +371,7 @@ class _ExplicitAnimatedStyledContainerState
           AnimationProperty.childAlignment: childAlignment,
           AnimationProperty.textStyle: textStyle,
         },
-        screenSize: MediaQuery.of(context).size,
+        screenSize: MediaQuery.sizeOf(context),
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
   }
 
@@ -450,14 +460,13 @@ class _ExplicitAnimatedStyledContainerState
   }
 
   Widget buildCustomAnimation(
-      { //required Duration delay,
-      var multiTween,
+      {required MovieTween multiTween,
       required Control control,
       required Widget child}) {
     return CustomAnimationBuilder<Movie>(
       key: UniqueKey(),
-      control: control, // <
-      duration: multiTween.duration, // -- bind state variable to parameter
+      control: control,
+      duration: multiTween.duration,
       tween: multiTween,
       builder: animatedWidgetBuilder,
       child: child,
@@ -491,32 +500,29 @@ class _ExplicitAnimatedStyledContainerState
         builder: (BuildContext context, Widget? child) {
           Movie values =
               multiTween.transform(progressNotifier.value.clamp(0.0, 1.0));
-          return animatedWidgetBuilder(context, values,  child!,);
+          return animatedWidgetBuilder(context, values, child!);
         },
       );
     });
   }
 
-  Widget animatedWidgetBuilder(BuildContext context,
-      Movie values, Widget? child,) {
+  Widget animatedWidgetBuilder(
+      BuildContext context, Movie values, Widget? child) {
     opacity = values.get(AnimationProperty.opacity);
     alignment = values.get(AnimationProperty.alignment);
     width = values.get(AnimationProperty.width);
     height = values.get(AnimationProperty.height);
     margin = values.get(AnimationProperty.margin);
     padding = values.get(AnimationProperty.padding);
-    backgroundDecoration = values.get(
-        AnimationProperty.backgroundDecoration);
+    backgroundDecoration = values.get(AnimationProperty.backgroundDecoration);
+    foregroundDecoration = values.get(AnimationProperty.foregroundDecoration);
     shadows = values.get(AnimationProperty.shadows);
-    insetShadows =
-        values.get(AnimationProperty.insetShadows);
+    insetShadows = values.get(AnimationProperty.insetShadows);
     shapeBorder = values.get(AnimationProperty.shapeBorder);
 
     transform = values.get(AnimationProperty.transform);
-    transformAlignment = values.get(
-        AnimationProperty.transformAlignment);
-    childAlignment =
-        values.get(AnimationProperty.childAlignment);
+    transformAlignment = values.get(AnimationProperty.transformAlignment);
+    childAlignment = values.get(AnimationProperty.childAlignment);
     textStyle = values.get(AnimationProperty.textStyle);
 
     return buildStyledContainerWithMouseEvent(context);

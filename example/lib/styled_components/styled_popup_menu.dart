@@ -1,8 +1,5 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 enum SimpleValue {
   one,
@@ -11,12 +8,13 @@ enum SimpleValue {
 }
 
 class StyledPopupMenuButtonPage extends StatefulWidget {
-  StyledPopupMenuButtonPage({this.title = "Styled Navigation Bar"});
+  const StyledPopupMenuButtonPage(
+      {super.key, this.title = "Styled Navigation Bar"});
 
   final String title;
 
   @override
-  _StyledPopupMenuButtonPageState createState() =>
+  State<StyledPopupMenuButtonPage> createState() =>
       _StyledPopupMenuButtonPageState();
 }
 
@@ -31,7 +29,7 @@ class _StyledPopupMenuButtonPageState extends State<StyledPopupMenuButtonPage> {
     setState(() {
       _simpleValue = value;
     });
-    print(_simpleValue);
+    debugPrint(_simpleValue.toString());
   }
 
   String simpleValueToString(BuildContext context, SimpleValue value) => {
@@ -67,7 +65,7 @@ class _StyledPopupMenuButtonPageState extends State<StyledPopupMenuButtonPage> {
         width: 50.toVWLength,
         height: 50.toPXLength,
         backgroundDecoration:
-            BoxDecoration(color: Colors.redAccent.withOpacity(0.3)),
+            BoxDecoration(color: Colors.redAccent.withValues(alpha: 0.3)),
         //alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 10),
         textStyle: DynamicTextStyle(

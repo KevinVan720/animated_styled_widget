@@ -1,8 +1,9 @@
+// The menu uses the material PopupMenuEntry, Material, MaterialLocalizations
+// and Theme, so this file keeps using the material library.
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 const double _kMenuCloseIntervalEnd = 2.0 / 3.0;
 const double _kMenuDividerHeight = 16.0;
@@ -11,14 +12,13 @@ const double _kMenuMinWidth = 2.0 * _kMenuWidthStep;
 const double _kMenuWidthStep = 56.0;
 const double _kMenuScreenPadding = 1.0;
 
+/// An item of a [StyledPopupMenuButton].
 class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
   /// Creates an item for a popup menu.
   ///
   /// By default, the item is [enabled].
-  ///
-  /// The `enabled` and `height` arguments must not be null.
-  StyledPopupMenuItem({
-    Key? key,
+  const StyledPopupMenuItem({
+    super.key,
     this.value,
     this.enabled = true,
     this.selected = false,
@@ -27,7 +27,7 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
     this.hoveredStyle,
     this.disabledStyle,
     required this.child,
-  }) : super(key: key);
+  });
 
   /// The value that will be returned by [showMenu] if this entry is selected.
   final T? value;
@@ -35,7 +35,7 @@ class StyledPopupMenuItem<T> extends PopupMenuEntry<T> {
   /// Whether the user is permitted to select this item.
   ///
   /// Defaults to true. If this is false, then the item will not react to
-  /// touches.
+  /// touches and uses the [disabledStyle].
   final bool enabled;
 
   final bool selected;
@@ -87,8 +87,6 @@ class StyledPopupMenuItemState<T, W extends StyledPopupMenuItem<T>>
 
   /// The handler for when the user selects the menu item.
   ///
-  /// Used by the [InkWell] inserted by the [build] method.
-  ///
   /// By default, uses [Navigator.pop] to return the [StyledPopupMenuItem.value] from
   /// the menu route.
   @protected
@@ -99,7 +97,7 @@ class StyledPopupMenuItemState<T, W extends StyledPopupMenuItem<T>>
   @override
   Widget build(BuildContext context) {
     return StyledToggleable(
-      onChanged: handleTap,
+      onChanged: widget.enabled ? handleTap : null,
       selected: selected,
       style: widget.style,
       selectedStyle: widget.selectedStyle,
@@ -110,9 +108,10 @@ class StyledPopupMenuItemState<T, W extends StyledPopupMenuItem<T>>
   }
 }
 
+/// A styled button that shows a menu of [StyledPopupMenuItem]s when pressed.
 class StyledPopupMenuButton<T> extends StatefulWidget {
   const StyledPopupMenuButton({
-    Key? key,
+    super.key,
     required this.itemBuilder,
     this.menuStyle,
     this.initialValue,
@@ -127,7 +126,7 @@ class StyledPopupMenuButton<T> extends StatefulWidget {
     this.disabledStyle,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.linear,
-  }) : super(key: key);
+  });
 
   /// Called when the button is pressed to create the items to show in the menu.
   final PopupMenuItemBuilder<T> itemBuilder;
@@ -180,7 +179,7 @@ class StyledPopupMenuButton<T> extends StatefulWidget {
   final Curve curve;
 
   @override
-  _StyledPopupMenuButtonState<T> createState() =>
+  State<StyledPopupMenuButton<T>> createState() =>
       _StyledPopupMenuButtonState<T>();
 }
 
@@ -210,10 +209,10 @@ class _StyledPopupMenuButtonState<T> extends State<StyledPopupMenuButton<T>> {
         duration: widget.duration,
         curve: widget.curve,
       ).then<void>((T? newValue) {
-        if (!mounted) return null;
+        if (!mounted) return;
         if (newValue == null) {
           widget.onCanceled?.call();
-          return null;
+          return;
         }
         widget.onSelected?.call(newValue);
       });
@@ -227,18 +226,17 @@ class _StyledPopupMenuButtonState<T> extends State<StyledPopupMenuButton<T>> {
       pressedStyle: widget.pressedStyle,
       hoveredStyle: widget.hoveredStyle,
       disabledStyle: widget.disabledStyle,
-      child: widget.child,
       onPressed: widget.enabled ? showButtonMenu : null,
+      child: widget.child,
     );
   }
 }
 
 class _MenuItem extends SingleChildRenderObjectWidget {
   const _MenuItem({
-    Key? key,
     required this.onLayout,
-    required Widget? child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final ValueChanged<Size> onLayout;
 
@@ -283,11 +281,11 @@ class _RenderMenuItem extends RenderShiftedBox {
 
 class _PopupMenu<T> extends StatelessWidget {
   const _PopupMenu({
-    Key? key,
+    super.key,
     required this.route,
     required this.semanticLabel,
     this.menuStyle,
-  }) : super(key: key);
+  });
 
   final _PopupMenuRoute<T> route;
   final String? semanticLabel;
@@ -310,19 +308,21 @@ class _PopupMenu<T> extends StatelessWidget {
       Widget item = Material(color: Colors.transparent, child: route.items[i]);
       if (route.initialValue != null &&
           route.items[i].represents(route.initialValue)) {
-        if (route.items[i] is StyledPopupMenuItem) {
-          StyledPopupMenuItem temp = route.items[i] as StyledPopupMenuItem;
-          StyledPopupMenuItem newTemp = StyledPopupMenuItem(
-            key: temp.key,
-            enabled: temp.enabled,
+        final PopupMenuEntry<T> entry = route.items[i];
+        if (entry is StyledPopupMenuItem<T>) {
+          // the initial value is shown as selected
+          StyledPopupMenuItem<T> selectedItem = StyledPopupMenuItem<T>(
+            key: entry.key,
+            value: entry.value,
+            enabled: entry.enabled,
             selected: true,
-            style: temp.style,
-            selectedStyle: temp.selectedStyle,
-            hoveredStyle: temp.hoveredStyle,
-            disabledStyle: temp.hoveredStyle,
-            child: temp.child,
+            style: entry.style,
+            selectedStyle: entry.selectedStyle,
+            hoveredStyle: entry.hoveredStyle,
+            disabledStyle: entry.disabledStyle,
+            child: entry.child,
           );
-          item = Material(color: Colors.transparent, child: newTemp);
+          item = Material(color: Colors.transparent, child: selectedItem);
         }
       }
       children.add(
@@ -463,15 +463,17 @@ class _PopupMenuRouteLayout extends SingleChildLayoutDelegate {
 
     // Avoid going outside an area defined as the rectangle 8.0 pixels from the
     // edge of the screen in every direction.
-    if (x < _kMenuScreenPadding)
+    if (x < _kMenuScreenPadding) {
       x = _kMenuScreenPadding;
-    else if (x + childSize.width > size.width - _kMenuScreenPadding)
+    } else if (x + childSize.width > size.width - _kMenuScreenPadding) {
       x = size.width - childSize.width - _kMenuScreenPadding;
-    if (y < _kMenuScreenPadding + topPadding)
+    }
+    if (y < _kMenuScreenPadding + topPadding) {
       y = _kMenuScreenPadding + topPadding;
-    else if (y + childSize.height >
-        size.height - _kMenuScreenPadding - bottomPadding)
+    } else if (y + childSize.height >
+        size.height - _kMenuScreenPadding - bottomPadding) {
       y = size.height - bottomPadding - _kMenuScreenPadding - childSize.height;
+    }
     return Offset(x, y);
   }
 
@@ -515,13 +517,21 @@ class _PopupMenuRoute<T> extends PopupRoute<T> {
   final Duration duration;
   final Curve curve;
 
+  CurvedAnimation? _animation;
+
   @override
   Animation<double> createAnimation() {
-    return CurvedAnimation(
+    return _animation ??= CurvedAnimation(
       parent: super.createAnimation(),
       curve: curve,
       reverseCurve: const Interval(0.0, _kMenuCloseIntervalEnd),
     );
+  }
+
+  @override
+  void dispose() {
+    _animation?.dispose();
+    super.dispose();
   }
 
   @override
@@ -573,6 +583,10 @@ class _PopupMenuRoute<T> extends PopupRoute<T> {
   }
 }
 
+/// Shows a menu of [items] at [position], used by [StyledPopupMenuButton].
+///
+/// [elevation], [shape] and [color] are not used, the menu is styled by
+/// [menuStyle].
 Future<T?> showMenu<T>({
   required BuildContext context,
   required RelativeRect position,

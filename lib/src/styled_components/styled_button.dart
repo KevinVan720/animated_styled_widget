@@ -1,6 +1,6 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 ///A button that can be pressed, hovered or disabled while showing the corresponding styling.
 class StyledButton extends StatefulWidget {
@@ -11,10 +11,10 @@ class StyledButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final Curve curve;
   final Duration duration;
-  late final StyledComponentStateChildBuilder builder;
+  final StyledComponentStateChildBuilder builder;
 
   StyledButton(
-      {Key? key,
+      {super.key,
       this.onPressed,
       required this.style,
       this.hoveredStyle,
@@ -22,14 +22,11 @@ class StyledButton extends StatefulWidget {
       this.disabledStyle,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      Widget? child}) {
-    builder = (context, state) {
-      return child;
-    };
-  }
+      Widget? child})
+      : builder = ((context, state) => child);
 
-  StyledButton.builder(
-      {Key? key,
+  const StyledButton.builder(
+      {super.key,
       this.onPressed,
       required this.style,
       this.hoveredStyle,
@@ -42,7 +39,7 @@ class StyledButton extends StatefulWidget {
   bool get enabled => onPressed != null;
 
   @override
-  _StyledButtonState createState() => _StyledButtonState();
+  State<StyledButton> createState() => _StyledButtonState();
 }
 
 class _StyledButtonState extends State<StyledButton> {
@@ -84,13 +81,8 @@ class _StyledButtonState extends State<StyledButton> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    dynamic resolvedStyle = resolveStyle();
+    Style resolvedStyle = resolveStyle();
 
     return GestureDetector(
       onTapDown: (TapDownDetails details) {
@@ -128,7 +120,7 @@ class _StyledButtonState extends State<StyledButton> {
     );
   }
 
-  dynamic resolveStyle() {
+  Style resolveStyle() {
     if (_disabled) {
       return disabledStyle;
     }

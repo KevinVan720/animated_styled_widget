@@ -189,3 +189,31 @@ Update dependencies.
 ## [0.5.0] - 12/21/2024
 
 Update dependencies.
+
+## [0.5.1] - 10/28/2026
+
+Support the latest Flutter stable (requires Flutter 3.27 / Dart 3.6 or newer): fixes the compile error on Flutter 3.27 and newer (`hashList` was removed, #5) and replaces deprecated Flutter APIs.
+The package only uses the Flutter widgets library, except for StyledPopupMenuButton, which is built on the material popup menu.
+Update dependencies (morphable_shape 2.0.1, dimension 0.2.1, flutter_class_parser 0.2.6). The JSON format is unchanged.
+
+Fixes:
+- The steps of an AnimationSequence play one after another again (since 0.4.7 they all started at the same time), so multi-step explicit animations and the Flash, Pulse, Swing, Wobble and Rainbow animations work as documented.
+- Width, height and foregroundDecoration animations of ExplicitAnimatedStyledContainer take effect.
+- Entrance animations (e.g. FadeIn, SlideIn) no longer show the widget without the animation for one frame.
+- Playing an explicit animation no longer modifies its MultiAnimationSequence, so it uses the current values when played again and its JSON does not change.
+- MultiAnimationSequence.extend no longer modifies the other animation and accepts empty sequences, addDelay and rescaleTime no longer throw for empty sequences or animations without duration.
+- Animating a text style no longer throws "Failed to interpolate TextStyles with different inherit values" when the surrounding text style does not inherit (e.g. inside a Scaffold).
+- Scroll animations no longer leak scroll listeners when the widget is removed.
+- The onMouseEnter callback of ExplicitAnimatedStyledContainer is no longer called twice when a mouse enter animation starts.
+- Style, DynamicTextStyle and SmoothMatrix4 have value equality (styles with equal shadows, transforms or text styles were not equal).
+- The styles of a NamedStyleMap are applied to the widgets with their id.
+- JSON parsing tolerates missing keys and whole numbers written as ints (e.g. by Flutter web), Style.fromJson accepts the output of toJson without encoding it, text styles keep their font weight (w100 to w900) and no longer get a normal font weight and style when none is given, and animations of shadows are serialized (they were written as null).
+- SmoothMatrix4 operations without values no longer throw.
+- presetEntranceAnimations no longer contains the exit and attention seeker animations after presetAllAnimations is used.
+- The styled components use their key (it was ignored).
+- StyledSwitch uses the size of the hovered and disabled (and in vertical direction the selected) track styles, and no longer modifies the thumb styles.
+- StyledSlider shows the disabled thumb style from the start, follows value changes of its parent, no longer modifies the thumb style, removes its tooltip when it is removed and no longer prints debug output.
+- StyledPopupMenuButton calls onSelected (instead of onCanceled) when the initially selected item is selected again, and disabled items can not be selected and use their disabled style.
+- ContinuousAnimationProgressNotifier notifies its listeners once per change.
+
+Add tests.

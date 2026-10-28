@@ -6,7 +6,6 @@
 
 import 'dart:math' show max;
 
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import 'render_visibility_detector.dart';

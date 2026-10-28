@@ -1,4 +1,5 @@
-library animated_styled_widget;
+/// Serializable styles for customizable, responsive and animated widgets.
+library;
 
 export 'package:dimension/dimension.dart';
 export 'package:morphable_shape/morphable_shape.dart';

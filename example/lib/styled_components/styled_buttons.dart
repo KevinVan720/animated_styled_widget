@@ -1,16 +1,13 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class StyledButtonsPage extends StatefulWidget {
-  StyledButtonsPage({this.title = "Styled Buttons"});
+  const StyledButtonsPage({super.key, this.title = "Styled Buttons"});
 
   final String title;
 
   @override
-  _StyledButtonsPageState createState() => _StyledButtonsPageState();
+  State<StyledButtonsPage> createState() => _StyledButtonsPageState();
 }
 
 class _StyledButtonsPageState extends State<StyledButtonsPage> {
@@ -310,7 +307,7 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
                 ],
               ),
               onPressed: () {
-                print("Tapped!");
+                debugPrint("Tapped!");
               },
               builder: (context, state) {
                 Widget child;
@@ -344,7 +341,6 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
               height: 50,
             ),
             StyledButton(
-              child: Text("TAP ME"),
               style: neonStyle,
               pressedStyle: neonStyle.copyWith(
                   padding: EdgeInsets.all(23),
@@ -386,14 +382,14 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
                           right: DynamicBorderSide(
                               color: Colors.purpleAccent, width: 27)))),
               onPressed: () {
-                print("Tapped!");
+                debugPrint("Tapped!");
               },
+              child: Text("TAP ME"),
             ),
             SizedBox(
               height: 50,
             ),
             StyledButton(
-              child: Text("TAP ME"),
               style: comicStyle,
               pressedStyle: comicStyle.copyWith(
                 shadows: [
@@ -417,14 +413,14 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
               ),
               duration: Duration(milliseconds: 50),
               onPressed: () {
-                print("Tapped!");
+                debugPrint("Tapped!");
               },
+              child: Text("TAP ME"),
             ),
             SizedBox(
               height: 50,
             ),
             StyledButton(
-              child: Text("TAP ME"),
               style: skeumorphismStyle,
               pressedStyle: skeumorphismStyle.copyWith(
                 backgroundDecoration: BoxDecoration(
@@ -454,7 +450,6 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
                     spreadRadius: 3,
                     color: Color(0xFFCECFD1),
                   ),
-
                 ],
               ),
               hoveredStyle: skeumorphismStyle.copyWith(
@@ -468,14 +463,14 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
                 ],
               ),
               onPressed: () {
-                print("Tapped!");
+                debugPrint("Tapped!");
               },
+              child: Text("TAP ME"),
             ),
             SizedBox(
               height: 50,
             ),
             StyledButton(
-              child: Text("TAP ME"),
               style: keyboardStyle,
               pressedStyle: keyboardStyle.copyWith(
                 shadows: [
@@ -516,14 +511,14 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
               curve: Curves.elasticOut,
               duration: Duration(milliseconds: 300),
               onPressed: () {
-                print("Tapped!");
+                debugPrint("Tapped!");
               },
+              child: Text("TAP ME"),
             ),
             SizedBox(
               height: 50,
             ),
             StyledButton(
-              child: Text("command"),
               style: macKeyboardStyle,
               pressedStyle: macKeyboardStyle.copyWith(
                 shadows: [
@@ -562,8 +557,9 @@ class _StyledButtonsPageState extends State<StyledButtonsPage> {
               curve: Curves.easeInOut,
               duration: Duration(milliseconds: 200),
               onPressed: () {
-                print("Tapped!");
+                debugPrint("Tapped!");
               },
+              child: Text("command"),
             ),
             SizedBox(
               height: 50,

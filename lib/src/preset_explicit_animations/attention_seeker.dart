@@ -1,11 +1,7 @@
 import 'dart:math';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations.dart';
-
-import 'base.dart';
+import 'package:flutter/widgets.dart';
 
 class FlipAnimation extends PresetAnimation {
   final Axis direction;
@@ -13,12 +9,12 @@ class FlipAnimation extends PresetAnimation {
   const FlipAnimation(
       {this.direction = Axis.vertical,
       this.angle = pi,
-      Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
     SmoothMatrix4 transform = SmoothMatrix4();
     switch (direction) {
@@ -41,11 +37,11 @@ class FlashAnimation extends PresetAnimation {
   final int repeats;
   const FlashAnimation(
       {this.repeats = 3,
-      Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear})
-      : super(duration: duration, delay: delay, curve: curve);
+      super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
@@ -71,12 +67,12 @@ class PulseAnimation extends PresetAnimation {
   final double scale;
   const PulseAnimation(
       {this.scale = 1.5,
-      Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
     SmoothMatrix4 transform = SmoothMatrix4();
     transform.scale(scale);
@@ -104,12 +100,12 @@ class SwingAnimation extends PresetAnimation {
       {this.alignment = Alignment.topCenter,
       this.repeats = 2,
       this.angle = pi / 12,
-      Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
@@ -156,12 +152,12 @@ class WobbleAnimation extends PresetAnimation {
       this.repeats = 3,
       this.angle = pi / 30,
       this.translation = const Length(5),
-      Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / repeats / 2).round());
@@ -203,45 +199,55 @@ class WobbleAnimation extends PresetAnimation {
   }
 }
 
+// The primary colors of the material color swatches, which were used before.
+const Color _red = Color(0xFFF44336);
+const Color _orange = Color(0xFFFF9800);
+const Color _yellow = Color(0xFFFFEB3B);
+const Color _green = Color(0xFF4CAF50);
+const Color _blue = Color(0xFF2196F3);
+const Color _indigo = Color(0xFF3F51B5);
+const Color _purple = Color(0xFF9C27B0);
+
 class RainbowAnimation extends PresetAnimation {
   const RainbowAnimation(
-      {Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      {super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
+    // Characterization: the six transitions take 6/7 of the duration.
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / 7).round());
     var sequence = AnimationSequence<BoxDecoration>();
 
     sequence.add(
-        value: BoxDecoration(color: Colors.red),
+        value: const BoxDecoration(color: _red),
         duration: Duration.zero,
         delay: delay);
     sequence.add(
-        value: BoxDecoration(color: Colors.orange),
+        value: const BoxDecoration(color: _orange),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(color: Colors.yellow),
+        value: const BoxDecoration(color: _yellow),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(color: Colors.green),
+        value: const BoxDecoration(color: _green),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(color: Colors.blue),
+        value: const BoxDecoration(color: _blue),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(color: Colors.indigo),
+        value: const BoxDecoration(color: _indigo),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(color: Colors.purple),
+        value: const BoxDecoration(color: _purple),
         duration: singleDuration,
         curve: curve);
 
@@ -253,50 +259,51 @@ class RainbowAnimation extends PresetAnimation {
 
 class RainbowLinearGradientAnimation extends PresetAnimation {
   const RainbowLinearGradientAnimation(
-      {Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      {super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
+    // Characterization: the six transitions take 6/7 of the duration.
     Duration singleDuration =
         Duration(milliseconds: (duration.inMilliseconds / 7).round());
     var sequence = AnimationSequence<BoxDecoration>();
 
     sequence.add(
-        value: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.red, Colors.orange])),
+        value: const BoxDecoration(
+            gradient: LinearGradient(colors: [_red, _orange])),
         duration: Duration.zero,
         delay: delay);
     sequence.add(
-        value: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.orange, Colors.yellow])),
+        value: const BoxDecoration(
+            gradient: LinearGradient(colors: [_orange, _yellow])),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.yellow, Colors.green])),
+        value: const BoxDecoration(
+            gradient: LinearGradient(colors: [_yellow, _green])),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.green, Colors.blue])),
+        value: const BoxDecoration(
+            gradient: LinearGradient(colors: [_green, _blue])),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.blue, Colors.indigo])),
+        value: const BoxDecoration(
+            gradient: LinearGradient(colors: [_blue, _indigo])),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.indigo, Colors.purple])),
+        value: const BoxDecoration(
+            gradient: LinearGradient(colors: [_indigo, _purple])),
         duration: singleDuration,
         curve: curve);
     sequence.add(
-        value: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.purple, Colors.red])),
+        value: const BoxDecoration(
+            gradient: LinearGradient(colors: [_purple, _red])),
         duration: singleDuration,
         curve: curve);
 
@@ -312,14 +319,14 @@ class ElevateAnimation extends PresetAnimation {
   const ElevateAnimation(
       {this.beginElevation = 1,
       this.endElevation = 6,
-      Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
-    var sequence = AnimationSequence<List<Shadow>>();
+    var sequence = AnimationSequence<List<ShapeShadow>>();
 
     sequence.add(
         value: preDefinedShapeShadow[beginElevation] ?? [],

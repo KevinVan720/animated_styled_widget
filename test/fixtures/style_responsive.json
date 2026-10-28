@@ -1,0 +1,38 @@
+{
+  "width": {
+    "method": "min",
+    "value1": "50.0vw",
+    "value2": "300.0px"
+  },
+  "height": [
+    "10.0px",
+    "30.0vh"
+  ],
+  "margin": {
+    "left": 10.0,
+    "right": 10.0,
+    "top": 10.0,
+    "bottom": 10.0
+  },
+  "shapeBorder": {
+    "type": "Circle",
+    "border": {
+      "color": "ff000000",
+      "width": 0.0,
+      "style": "none",
+      "strokeCap": "butt",
+      "strokeJoin": "miter"
+    }
+  },
+  "transform": [
+    {
+      "operation": "translate",
+      "translateX": "10.0vw",
+      "translateY": "5.0vh"
+    }
+  ],
+  "textStyle": {
+    "fontSize": "150.0%",
+    "letterSpacing": "1.0vw"
+  }
+}

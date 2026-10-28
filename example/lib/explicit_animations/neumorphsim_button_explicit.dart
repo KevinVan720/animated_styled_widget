@@ -1,11 +1,9 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class NeumorphismButtonExplicitPage extends StatelessWidget {
+  const NeumorphismButtonExplicitPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     VisibilityDetectorController.instance.updateInterval =
@@ -29,10 +27,10 @@ class NeumorphismButtonExplicitPage extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {

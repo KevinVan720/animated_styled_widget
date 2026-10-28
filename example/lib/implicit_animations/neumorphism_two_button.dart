@@ -1,16 +1,13 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class NeumorphismTwoPage extends StatefulWidget {
-  NeumorphismTwoPage({this.title = "Neumorphism Two Button"});
+  const NeumorphismTwoPage({super.key, this.title = "Neumorphism Two Button"});
 
   final String title;
 
   @override
-  _NeumorphismTwoPageState createState() => _NeumorphismTwoPageState();
+  State<NeumorphismTwoPage> createState() => _NeumorphismTwoPageState();
 }
 
 class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
@@ -212,7 +209,7 @@ class _NeumorphismTwoPageState extends State<NeumorphismTwoPage> {
           child: Container(
               color: Color(0xFFE0E0E0),
               alignment: Alignment.center,
-              child: Container(
+              child: SizedBox(
                 width: 400,
                 height: 400,
                 child: Stack(

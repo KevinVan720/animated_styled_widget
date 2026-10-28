@@ -1,5 +1,5 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class StyledRadio<T> extends StatelessWidget {
   final Style style;
@@ -9,7 +9,7 @@ class StyledRadio<T> extends StatelessWidget {
 
   final Curve curve;
   final Duration duration;
-  late final StyledComponentStateChildBuilder builder;
+  final StyledComponentStateChildBuilder builder;
 
   final T value;
 
@@ -18,7 +18,7 @@ class StyledRadio<T> extends StatelessWidget {
   final ValueChanged<T?>? onChanged;
 
   StyledRadio(
-      {Key? key,
+      {super.key,
       required this.value,
       required this.groupValue,
       required this.onChanged,
@@ -28,14 +28,11 @@ class StyledRadio<T> extends StatelessWidget {
       this.disabledStyle,
       this.curve = Curves.linear,
       this.duration = const Duration(milliseconds: 100),
-      Widget? child}) {
-    builder = (context, state) {
-      return child;
-    };
-  }
+      Widget? child})
+      : builder = ((context, state) => child);
 
-  StyledRadio.builder(
-      {Key? key,
+  const StyledRadio.builder(
+      {super.key,
       required this.value,
       required this.groupValue,
       required this.onChanged,

@@ -1,10 +1,14 @@
-import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:dimension/dimension.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
+
+import '../serialization/parse_json.dart';
+import '../serialization/to_json.dart';
 
 enum SmoothMatrix4OperationType { scale, rotate, translate }
 
+/// A single operation of a [SmoothMatrix4].
 class SmoothOperation {
   SmoothMatrix4OperationType? operation;
   double? rotationX;
@@ -30,13 +34,13 @@ class SmoothOperation {
   factory SmoothOperation.fromJson(Map<String, dynamic> map) {
     return SmoothOperation(
         operation: parseSmoothSupportedOperations(map["operation"]),
-        rotationX: map["rotationX"],
-        rotationY: map["rotationY"],
-        rotationZ: map["rotationZ"],
-        scaleX: map["scaleX"],
-        scaleY: map["scaleY"],
-        translateX: parseLength(map["translateX"]),
-        translateY: parseLength(map["translateY"]));
+        rotationX: (map["rotationX"] as num?)?.toDouble(),
+        rotationY: (map["rotationY"] as num?)?.toDouble(),
+        rotationZ: (map["rotationZ"] as num?)?.toDouble(),
+        scaleX: (map["scaleX"] as num?)?.toDouble(),
+        scaleY: (map["scaleY"] as num?)?.toDouble(),
+        translateX: parseDimension(map["translateX"]),
+        translateY: parseDimension(map["translateY"]));
   }
 
   Map<String, dynamic> toJson() {
@@ -47,12 +51,34 @@ class SmoothOperation {
     rst.updateNotNull("rotationZ", rotationZ);
     rst.updateNotNull("scaleX", scaleX);
     rst.updateNotNull("scaleY", scaleY);
-    rst.updateNotNull("translateX", translateX);
-    rst.updateNotNull("translateY", translateY);
+    rst.updateNotNull("translateX", translateX?.toJson());
+    rst.updateNotNull("translateY", translateY?.toJson());
     return rst;
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is SmoothOperation &&
+        other.operation == operation &&
+        other.rotationX == rotationX &&
+        other.rotationY == rotationY &&
+        other.rotationZ == rotationZ &&
+        other.scaleX == scaleX &&
+        other.scaleY == scaleY &&
+        other.translateX == translateX &&
+        other.translateY == translateY;
+  }
+
+  @override
+  int get hashCode => Object.hash(operation, rotationX, rotationY, rotationZ,
+      scaleX, scaleY, translateX, translateY);
 }
 
+/// A list of rotations, scalings and translations that can be smoothly
+/// interpolated, as opposed to the values of a [Matrix4].
+///
+/// Translations can use viewport units, which are resolved by [toMatrix4].
 class SmoothMatrix4 {
   late List<SmoothOperation> operations;
 
@@ -70,27 +96,39 @@ class SmoothMatrix4 {
     return operations.map((e) => e.toJson()).toList();
   }
 
+  /// The matrix of the operations, applied in order.
+  ///
+  /// Operations without values (e.g. a scale without [SmoothOperation.scaleX]
+  /// and [SmoothOperation.scaleY]) are skipped.
   Matrix4 toMatrix4({required Size screenSize}) {
-    Matrix4 _matrix4 = Matrix4.identity();
-    operations.forEach((element) {
+    Matrix4 matrix4 = Matrix4.identity();
+    for (final SmoothOperation element in operations) {
       if (element.operation == SmoothMatrix4OperationType.rotate) {
         if (element.rotationX != null) {
-          _matrix4.rotateX(element.rotationX!);
+          matrix4.rotateX(element.rotationX!);
         } else if (element.rotationY != null) {
-          _matrix4.rotateY(element.rotationY!);
+          matrix4.rotateY(element.rotationY!);
         } else if (element.rotationZ != null) {
-          _matrix4.rotateZ(element.rotationZ!);
+          matrix4.rotateZ(element.rotationZ!);
         }
       } else if (element.operation == SmoothMatrix4OperationType.scale) {
-        _matrix4.scale(element.scaleX, element.scaleY);
+        final double? scaleX = element.scaleX;
+        final double? scaleY = element.scaleY;
+        if (scaleX == null && scaleY == null) continue;
+        // Same as the deprecated Matrix4.scale(x, y): a single value also
+        // scales y and z, and z is scaled by x.
+        matrix4.multiply(Matrix4.diagonal3Values(
+            scaleX ?? 1.0, scaleY ?? scaleX!, scaleX ?? 1.0));
       } else if (element.operation == SmoothMatrix4OperationType.translate) {
-        _matrix4.translate(
+        // Same as the deprecated Matrix4.translate(x, y).
+        matrix4.multiply(Matrix4.translationValues(
           element.translateX?.toPX(screenSize: screenSize) ?? 0.0,
           element.translateY?.toPX(screenSize: screenSize) ?? 0.0,
-        );
+          0.0,
+        ));
       }
-    });
-    return _matrix4;
+    }
+    return matrix4;
   }
 
   void rotateX(double angle) {
@@ -129,4 +167,13 @@ class SmoothMatrix4 {
           translateY: y),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is SmoothMatrix4 && listEquals(other.operations, operations);
+  }
+
+  @override
+  int get hashCode => Object.hashAll(operations);
 }

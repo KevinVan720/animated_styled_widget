@@ -1,9 +1,8 @@
 import 'dart:ui';
 
-import 'package:dimension/dimension.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 
@@ -11,6 +10,11 @@ import 'dynamic_ui_classes/dynamic_text_style.dart';
 import 'dynamic_ui_classes/smooth_matrix4.dart';
 import 'serialization/parse_json.dart';
 
+/// A serializable collection of the properties used by the styled widgets,
+/// for example [StyledContainer] and [AnimatedStyledContainer].
+///
+/// Null properties use the default value of the widget, or the value of the
+/// other style when styles are merged.
 class Style {
   bool? visible;
   double? opacity;
@@ -78,15 +82,12 @@ class Style {
     padding = parseEdgeInsets(map["padding"]);
 
     visible = map["visible"];
-    opacity = map["opacity"];
+    opacity = (map["opacity"] as num?)?.toDouble();
     backgroundDecoration = parseBoxDecoration(map["backgroundDecoration"]);
     foregroundDecoration = parseBoxDecoration(map["foregroundDecoration"]);
 
-    shadows =
-        (map["shadows"] as List?)?.map((e) => parseShapeShadow(e)!).toList();
-    insetShadows = (map["insetShadows"] as List?)
-        ?.map((e) => parseShapeShadow(e)!)
-        .toList();
+    shadows = _parseShapeShadows(map["shadows"]);
+    insetShadows = _parseShapeShadows(map["insetShadows"]);
 
     shapeBorder = parseMorphableShapeBorder(map["shapeBorder"]);
 
@@ -105,6 +106,14 @@ class Style {
     mouseCursor = parseSystemMouseCursor(map["mouseCursor"]);
   }
 
+  static List<ShapeShadow>? _parseShapeShadows(dynamic list) {
+    return (list as List?)
+        ?.map((e) => parseShapeShadow(e))
+        .whereType<ShapeShadow>()
+        .toList();
+  }
+
+  /// Only [BoxDecoration]s are serialized, other decorations are left out.
   Map<String, dynamic> toJson() {
     Map<String, dynamic> rst = {};
 
@@ -117,13 +126,13 @@ class Style {
 
     rst.updateNotNull("visible", visible);
     rst.updateNotNull("opacity", opacity);
-    if (backgroundDecoration != null && backgroundDecoration is BoxDecoration) {
-      rst.updateNotNull("backgroundDecoration",
-          (backgroundDecoration as BoxDecoration).toJson());
+    final Decoration? backgroundDecoration = this.backgroundDecoration;
+    if (backgroundDecoration is BoxDecoration) {
+      rst.updateNotNull("backgroundDecoration", backgroundDecoration.toJson());
     }
-    if (foregroundDecoration != null && foregroundDecoration is BoxDecoration) {
-      rst.updateNotNull("foregroundDecoration",
-          (foregroundDecoration as BoxDecoration).toJson());
+    final Decoration? foregroundDecoration = this.foregroundDecoration;
+    if (foregroundDecoration is BoxDecoration) {
+      rst.updateNotNull("foregroundDecoration", foregroundDecoration.toJson());
     }
 
     rst.updateNotNull("shapeBorder", shapeBorder?.toJson());
@@ -194,6 +203,8 @@ class Style {
     );
   }
 
+  /// Returns a copy of this style where the non-null properties of [style]
+  /// replace the ones of this style.
   Style merge(Style? style) {
     if (style == null) {
       return this;
@@ -235,8 +246,8 @@ class Style {
         opacity,
         foregroundDecoration,
         backgroundDecoration,
-        shadows,
-        insetShadows,
+        shadows == null ? null : Object.hashAll(shadows!),
+        insetShadows == null ? null : Object.hashAll(insetShadows!),
         shapeBorder,
         transform,
         transformAlignment,
@@ -250,7 +261,8 @@ class Style {
       ]);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
     return other is Style &&
         other.visible == visible &&
         other.alignment == alignment &&
@@ -261,8 +273,8 @@ class Style {
         other.opacity == opacity &&
         other.foregroundDecoration == foregroundDecoration &&
         other.backgroundDecoration == backgroundDecoration &&
-        other.shadows == shadows &&
-        other.insetShadows == insetShadows &&
+        listEquals(other.shadows, shadows) &&
+        listEquals(other.insetShadows, insetShadows) &&
         other.shapeBorder == shapeBorder &&
         other.transform == transform &&
         other.transformAlignment == transformAlignment &&

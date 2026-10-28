@@ -1,0 +1,29 @@
+{
+  "beginShift": 0.0,
+  "endShift": 0.0,
+  "control": "play",
+  "sequences": {
+    "transform": {
+      "data": [
+        {
+          "duration": 0,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "translate",
+              "translateX": "-100.0vmax",
+              "translateY": "0.0px"
+            }
+          ]
+        },
+        {
+          "duration": 600,
+          "delay": 0,
+          "curve": "linear",
+          "value": []
+        }
+      ]
+    }
+  }
+}

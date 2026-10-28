@@ -1,16 +1,14 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class StyledNavigationBarPage extends StatefulWidget {
-  StyledNavigationBarPage({this.title = "Styled Navigation Bar"});
+  const StyledNavigationBarPage(
+      {super.key, this.title = "Styled Navigation Bar"});
 
   final String title;
 
   @override
-  _StyledNavigationBarPageState createState() =>
+  State<StyledNavigationBarPage> createState() =>
       _StyledNavigationBarPageState();
 }
 
@@ -162,8 +160,8 @@ class _StyledNavigationBarPageState extends State<StyledNavigationBarPage> {
             onTap: _onItemTapped,
             currentIndex: _selectedIndex,
             style: defaultStyle.copyWith(
-                backgroundDecoration:
-                    BoxDecoration(color: Color(0xFFE0E0E0).withOpacity(0.01))),
+                backgroundDecoration: BoxDecoration(
+                    color: Color(0xFFE0E0E0).withValues(alpha: 0.01))),
             selectedStyle: defaultStyle.copyWith(
               textStyle: DynamicTextStyle(
                 letterSpacing: 0.1.toVWLength,
@@ -205,8 +203,8 @@ class _StyledNavigationBarPageState extends State<StyledNavigationBarPage> {
             onTap: _onItemTapped,
             currentIndex: _selectedIndex,
             style: defaultStyle.copyWith(
-                backgroundDecoration:
-                    BoxDecoration(color: Color(0xFFE0E0E0).withOpacity(0.01))),
+                backgroundDecoration: BoxDecoration(
+                    color: Color(0xFFE0E0E0).withValues(alpha: 0.01))),
             selectedStyle: defaultStyle.copyWith(
               transform: SmoothMatrix4()..scale(1.2),
               textStyle: DynamicTextStyle(
@@ -243,25 +241,23 @@ class _StyledNavigationBarPageState extends State<StyledNavigationBarPage> {
                         color: DefaultTextStyle.of(context).style.color,
                       ),
                     ),
-                    Container(
-                      child: AnimatedOpacity(
+                    AnimatedOpacity(
+                      duration: Duration(milliseconds: 300),
+                      opacity: state == StyledComponentState.selected ? 1 : 0,
+                      child: AnimatedAlign(
                         duration: Duration(milliseconds: 300),
-                        opacity: state == StyledComponentState.selected ? 1 : 0,
-                        child: AnimatedAlign(
+                        alignment: Alignment.centerRight,
+                        widthFactor:
+                            state == StyledComponentState.selected ? 1 : 0,
+                        child: AnimatedContainer(
                           duration: Duration(milliseconds: 300),
-                          alignment: Alignment.centerRight,
-                          widthFactor:
-                              state == StyledComponentState.selected ? 1 : 0,
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 300),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                "Option",
-                                maxLines: 1,
-                                overflow: TextOverflow.clip,
-                              ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              "Option",
+                              maxLines: 1,
+                              overflow: TextOverflow.clip,
                             ),
                           ),
                         ),
@@ -276,8 +272,8 @@ class _StyledNavigationBarPageState extends State<StyledNavigationBarPage> {
             currentIndex: _selectedIndex,
             style: googleStyle.copyWith(
                 // width: 30.toPXLength,
-                backgroundDecoration:
-                    BoxDecoration(color: Color(0xFFE0E0E0).withOpacity(0.01))),
+                backgroundDecoration: BoxDecoration(
+                    color: Color(0xFFE0E0E0).withValues(alpha: 0.01))),
             selectedStyle: googleStyle.copyWith(
                 textStyle: DynamicTextStyle(
                     color: Colors.grey,

@@ -1,0 +1,28 @@
+[
+  {
+    "operation": "rotate",
+    "rotationX": 0.1
+  },
+  {
+    "operation": "rotate",
+    "rotationY": 0.2
+  },
+  {
+    "operation": "rotate",
+    "rotationZ": 0.7853981633974483
+  },
+  {
+    "operation": "scale",
+    "scaleX": 2.0
+  },
+  {
+    "operation": "scale",
+    "scaleX": 1.5,
+    "scaleY": 0.5
+  },
+  {
+    "operation": "translate",
+    "translateX": "10.0px",
+    "translateY": "5.0vw"
+  }
+]

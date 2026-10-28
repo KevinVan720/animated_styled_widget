@@ -1,14 +1,12 @@
 import 'dart:math';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class ProgressIndicatorExplicitPage extends StatelessWidget {
+  const ProgressIndicatorExplicitPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     VisibilityDetectorController.instance.updateInterval =
@@ -32,10 +30,10 @@ class ProgressIndicatorExplicitPage extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -97,20 +95,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 shapeBorder: CircleShapeBorder(border: startBorder),
               ),
               localAnimations: {
-                AnimationTrigger.visible: MultiAnimationSequence(
-                    control: Control.loop,
-                    sequences: {
-                      AnimationProperty.shapeBorder:
-                          AnimationSequence<MorphableShapeBorder>()
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: CircleShapeBorder(border: middleBorder),
-                            )
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: CircleShapeBorder(border: endBorder),
-                            ),
-                    }),
+                AnimationTrigger.visible:
+                    MultiAnimationSequence(control: Control.loop, sequences: {
+                  AnimationProperty.shapeBorder:
+                      AnimationSequence<MorphableShapeBorder>()
+                        ..add(
+                          duration: Duration(milliseconds: 2000),
+                          value: CircleShapeBorder(border: middleBorder),
+                        )
+                        ..add(
+                          duration: Duration(milliseconds: 2000),
+                          value: CircleShapeBorder(border: endBorder),
+                        ),
+                }),
               },
               child: Text("ROUND CAP"),
             ),
@@ -126,24 +123,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: startBorder.copyWith(strokeCap: StrokeCap.square)),
               ),
               localAnimations: {
-                AnimationTrigger.visible: MultiAnimationSequence(
-                    control: Control.loop,
-                    sequences: {
-                      AnimationProperty.shapeBorder:
-                          AnimationSequence<MorphableShapeBorder>()
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: RectangleShapeBorder(
-                                  border: middleBorder.copyWith(
-                                      strokeCap: StrokeCap.square)),
-                            )
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: RectangleShapeBorder(
-                                  border: endBorder.copyWith(
-                                      strokeCap: StrokeCap.square)),
-                            ),
-                    }),
+                AnimationTrigger.visible:
+                    MultiAnimationSequence(control: Control.loop, sequences: {
+                  AnimationProperty.shapeBorder:
+                      AnimationSequence<MorphableShapeBorder>()
+                        ..add(
+                          duration: Duration(milliseconds: 2000),
+                          value: RectangleShapeBorder(
+                              border: middleBorder.copyWith(
+                                  strokeCap: StrokeCap.square)),
+                        )
+                        ..add(
+                          duration: Duration(milliseconds: 2000),
+                          value: RectangleShapeBorder(
+                              border: endBorder.copyWith(
+                                  strokeCap: StrokeCap.square)),
+                        ),
+                }),
               },
               child: Text("SQUARE CAP"),
             ),
@@ -161,26 +157,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: startBorder),
               ),
               localAnimations: {
-                AnimationTrigger.visible: MultiAnimationSequence(
-                    control: Control.loop,
-                    sequences: {
-                      AnimationProperty.shapeBorder:
-                          AnimationSequence<MorphableShapeBorder>()
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: PolygonShapeBorder(
-                                  sides: 6,
-                                  cornerRadius: 30.toPercentLength,
-                                  border: middleBorder),
-                            )
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: PolygonShapeBorder(
-                                  sides: 6,
-                                  cornerRadius: 30.toPercentLength,
-                                  border: endBorder),
-                            ),
-                    }),
+                AnimationTrigger.visible:
+                    MultiAnimationSequence(control: Control.loop, sequences: {
+                  AnimationProperty.shapeBorder:
+                      AnimationSequence<MorphableShapeBorder>()
+                        ..add(
+                          duration: Duration(milliseconds: 2000),
+                          value: PolygonShapeBorder(
+                              sides: 6,
+                              cornerRadius: 30.toPercentLength,
+                              border: middleBorder),
+                        )
+                        ..add(
+                          duration: Duration(milliseconds: 2000),
+                          value: PolygonShapeBorder(
+                              sides: 6,
+                              cornerRadius: 30.toPercentLength,
+                              border: endBorder),
+                        ),
+                }),
               },
               child: Text("LOADING"),
             ),
@@ -198,26 +193,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: startBorder),
               ),
               localAnimations: {
-                AnimationTrigger.visible: MultiAnimationSequence(
-                    control: Control.loop,
-                    sequences: {
-                      AnimationProperty.shapeBorder:
-                          AnimationSequence<MorphableShapeBorder>()
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: RectangleShapeBorder(
-                                  borderRadius: DynamicBorderRadius.all(
-                                      DynamicRadius.circular(50.toPXLength)),
-                                  border: middleBorder),
-                            )
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: RectangleShapeBorder(
-                                  borderRadius: DynamicBorderRadius.all(
-                                      DynamicRadius.circular(50.toPXLength)),
-                                  border: endBorder),
-                            ),
-                    }),
+                AnimationTrigger.visible:
+                    MultiAnimationSequence(control: Control.loop, sequences: {
+                  AnimationProperty.shapeBorder:
+                      AnimationSequence<MorphableShapeBorder>()
+                        ..add(
+                          duration: Duration(milliseconds: 2000),
+                          value: RectangleShapeBorder(
+                              borderRadius: DynamicBorderRadius.all(
+                                  DynamicRadius.circular(50.toPXLength)),
+                              border: middleBorder),
+                        )
+                        ..add(
+                          duration: Duration(milliseconds: 2000),
+                          value: RectangleShapeBorder(
+                              borderRadius: DynamicBorderRadius.all(
+                                  DynamicRadius.circular(50.toPXLength)),
+                              border: endBorder),
+                        ),
+                }),
               },
               child: Text("LOADING"),
             ),
@@ -235,11 +229,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: startBorder),
               ),
               localAnimations: {
-                AnimationTrigger.visible: MultiAnimationSequence(
-                    control: Control.loop,
-                    sequences: {
-                      AnimationProperty.shapeBorder: AnimationSequence<
-                          MorphableShapeBorder>()
+                AnimationTrigger.visible:
+                    MultiAnimationSequence(control: Control.loop, sequences: {
+                  AnimationProperty.shapeBorder:
+                      AnimationSequence<MorphableShapeBorder>()
                         ..add(
                           duration: Duration(milliseconds: 2000),
                           value: RectangleShapeBorder(
@@ -254,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   DynamicRadius.circular(50.toPercentLength)),
                               border: endBorder),
                         ),
-                    }),
+                }),
               },
               child: Text("LOADING"),
             ),
@@ -274,30 +267,29 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: startBorder),
               ),
               localAnimations: {
-                AnimationTrigger.visible: MultiAnimationSequence(
-                    control: Control.loop,
-                    sequences: {
-                      AnimationProperty.shapeBorder:
-                          AnimationSequence<MorphableShapeBorder>()
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: RectangleShapeBorder(
-                                  cornerStyles: RectangleCornerStyles.all(
-                                      CornerStyle.straight),
-                                  borderRadius: DynamicBorderRadius.all(
-                                      DynamicRadius.circular(0.toPXLength)),
-                                  border: middleBorder),
-                            )
-                            ..add(
-                              duration: Duration(milliseconds: 2000),
-                              value: RectangleShapeBorder(
-                                  cornerStyles: RectangleCornerStyles.all(
-                                      CornerStyle.straight),
-                                  borderRadius: DynamicBorderRadius.all(
-                                      DynamicRadius.circular(50.toPXLength)),
-                                  border: endBorder),
-                            ),
-                    }),
+                AnimationTrigger.visible:
+                    MultiAnimationSequence(control: Control.loop, sequences: {
+                  AnimationProperty
+                      .shapeBorder: AnimationSequence<MorphableShapeBorder>()
+                    ..add(
+                      duration: Duration(milliseconds: 2000),
+                      value: RectangleShapeBorder(
+                          cornerStyles:
+                              RectangleCornerStyles.all(CornerStyle.straight),
+                          borderRadius: DynamicBorderRadius.all(
+                              DynamicRadius.circular(0.toPXLength)),
+                          border: middleBorder),
+                    )
+                    ..add(
+                      duration: Duration(milliseconds: 2000),
+                      value: RectangleShapeBorder(
+                          cornerStyles:
+                              RectangleCornerStyles.all(CornerStyle.straight),
+                          borderRadius: DynamicBorderRadius.all(
+                              DynamicRadius.circular(50.toPXLength)),
+                          border: endBorder),
+                    ),
+                }),
               },
               child: Text("LOADING"),
             ),

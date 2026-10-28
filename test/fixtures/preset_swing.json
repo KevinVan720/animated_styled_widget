@@ -1,0 +1,76 @@
+{
+  "beginShift": 0.0,
+  "endShift": 0.0,
+  "control": "play",
+  "sequences": {
+    "transformAlignment": {
+      "data": [
+        {
+          "duration": 0,
+          "delay": 0,
+          "curve": "linear",
+          "value": "topCenter"
+        }
+      ]
+    },
+    "transform": {
+      "data": [
+        {
+          "duration": 0,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "rotate",
+              "rotationZ": 0.2617993877991494
+            }
+          ]
+        },
+        {
+          "duration": 250,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "rotate",
+              "rotationZ": -0.2617993877991494
+            }
+          ]
+        },
+        {
+          "duration": 250,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "rotate",
+              "rotationZ": 0.1308996938995747
+            }
+          ]
+        },
+        {
+          "duration": 250,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "rotate",
+              "rotationZ": -0.1308996938995747
+            }
+          ]
+        },
+        {
+          "duration": 250,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "rotate",
+              "rotationZ": 0.0
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

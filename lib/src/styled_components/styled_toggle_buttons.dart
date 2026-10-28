@@ -1,9 +1,9 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class StyledToggleButtons extends StatelessWidget {
   StyledToggleButtons({
-    Key? key,
+    super.key,
     required List<Widget> children,
     required this.isSelected,
     this.onPressed,
@@ -14,14 +14,11 @@ class StyledToggleButtons extends StatelessWidget {
     this.disabledStyle,
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
-  }) : assert(children.length == isSelected.length) {
-    builder = (context, state, index) {
-      return children[index];
-    };
-  }
+  })  : assert(children.length == isSelected.length),
+        builder = ((context, state, index) => children[index]);
 
-  StyledToggleButtons.builder({
-    Key? key,
+  const StyledToggleButtons.builder({
+    super.key,
     required this.builder,
     required this.isSelected,
     this.onPressed,
@@ -34,7 +31,7 @@ class StyledToggleButtons extends StatelessWidget {
     this.duration = const Duration(milliseconds: 100),
   });
 
-  late final StyledComponentStateIndexedChildBuilder builder;
+  final StyledComponentStateIndexedChildBuilder builder;
 
   final List<bool> isSelected;
 

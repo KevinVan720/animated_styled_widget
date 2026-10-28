@@ -113,10 +113,20 @@ class VisibilityDetectorLayer extends ContainerLayer {
     return r.shift(paintOffset + _layerOffset);
   }
 
+  /// The size of the [RenderView] this layer is shown in.
+  Size _viewSize() {
+    // The root layer of a RenderView, and therefore every layer below it, is
+    // attached to the RenderView.
+    final Object? owner = this.owner;
+    if (owner is RenderView) return owner.size;
+    final Iterable<RenderView> renderViews =
+        RendererBinding.instance.renderViews;
+    return renderViews.isEmpty ? Size.zero : renderViews.first.size;
+  }
+
   /// Computes the accumulated clipping bounds, in global coordinates.
   Rect _computeClipRect() {
-    assert(RendererBinding.instance?.renderView != null);
-    var clipRect = Offset.zero & RendererBinding.instance!.renderView.size;
+    var clipRect = Offset.zero & _viewSize();
 
     var parentLayer = parent;
     while (parentLayer != null) {
@@ -159,7 +169,7 @@ class VisibilityDetectorLayer extends ContainerLayer {
       if (isFirstUpdate) {
         // We're about to render a frame, so a post-frame callback is guaranteed
         // to fire and will give us the better immediacy than `scheduleTask<T>`.
-        SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+        SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
           _processCallbacks();
         });
       }
@@ -182,7 +192,7 @@ class VisibilityDetectorLayer extends ContainerLayer {
     // of `addPostFrameCallback` or `scheduleFrameCallback` so that work will
     // be done even if a new frame isn't scheduled and without unnecessarily
     // scheduling a new frame.
-    SchedulerBinding.instance!
+    SchedulerBinding.instance
         .scheduleTask<void>(_processCallbacks, Priority.touch);
   }
 
@@ -261,14 +271,14 @@ class VisibilityDetectorLayer extends ContainerLayer {
     super.addToScene(builder);
   }
 
-  /// See [AbstractNode.attach].
+  /// See [Layer.attach].
   @override
   void attach(Object owner) {
     super.attach(owner);
     _scheduleUpdate();
   }
 
-  /// See [AbstractNode.detach].
+  /// See [Layer.detach].
   @override
   void detach() {
     super.detach();

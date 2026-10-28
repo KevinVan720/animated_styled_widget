@@ -1,0 +1,25 @@
+{
+  "color": "fff44336",
+  "backgroundColor": "11223344",
+  "fontSize": "16.0px",
+  "fontFamily": "Roboto",
+  "fontWeight": "w700",
+  "fontStyle": "italic",
+  "height": 1.5,
+  "letterSpacing": "2.0px",
+  "wordSpacing": "10.0%",
+  "decoration": "underline",
+  "decorationColor": "ff2196f3",
+  "decorationStyle": "dashed",
+  "decorationThickness": 2.0,
+  "shadows": [
+    {
+      "color": "ff4caf50",
+      "offset": {
+        "dx": 1.0,
+        "dy": 2.0
+      },
+      "blurRadius": 3.0
+    }
+  ]
+}

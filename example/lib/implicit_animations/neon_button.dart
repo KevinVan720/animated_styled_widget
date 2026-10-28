@@ -1,18 +1,13 @@
-import 'dart:ui';
-
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class NeonButtonPage extends StatefulWidget {
-  NeonButtonPage({this.title = "Neon Button"});
+  const NeonButtonPage({super.key, this.title = "Neon Button"});
 
   final String title;
 
   @override
-  _NeonButtonPageState createState() => _NeonButtonPageState();
+  State<NeonButtonPage> createState() => _NeonButtonPageState();
 }
 
 class _NeonButtonPageState extends State<NeonButtonPage> {

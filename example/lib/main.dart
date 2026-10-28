@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import 'explicit_animations/long_animated_button.dart';
 import 'explicit_animations/neon_button_explicit.dart';
@@ -28,10 +26,11 @@ import 'styled_components/styled_toggle_buttons.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
         title: 'Responsive Styled Widget',
         theme: ThemeData(
@@ -42,8 +41,10 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         title: Text("Responsive Styled Widget"),
       ),
       body: Center(
-          child: Container(
+          child: SizedBox(
               width: 300,
               child: ListView(
                 children: [

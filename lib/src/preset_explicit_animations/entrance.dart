@@ -1,9 +1,5 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations.dart';
-
-import 'base.dart';
+import 'package:flutter/widgets.dart';
 
 class SlideInAnimation extends PresetAnimation {
   final AxisDirection direction;
@@ -11,12 +7,12 @@ class SlideInAnimation extends PresetAnimation {
   const SlideInAnimation(
       {this.distance = const Length(100, unit: LengthUnit.vmax),
       this.direction = AxisDirection.up,
-      Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
     SmoothMatrix4 transform = SmoothMatrix4();
     switch (direction) {
@@ -47,12 +43,12 @@ class SlideInAnimation extends PresetAnimation {
 
 class FadeInAnimation extends PresetAnimation {
   const FadeInAnimation(
-      {Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      {super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
     return MultiAnimationSequence(control: control, sequences: {
       AnimationProperty.opacity: AnimationSequence<double>()
@@ -66,12 +62,12 @@ class ZoomInAnimation extends PresetAnimation {
   final double scale;
   const ZoomInAnimation(
       {this.scale = 0.001,
-      Duration duration = const Duration(seconds: 1),
-      Duration delay = Duration.zero,
-      Curve curve = Curves.linear,
-      Control control = Control.play})
-      : super(duration: duration, delay: delay, curve: curve, control: control);
+      super.duration = const Duration(seconds: 1),
+      super.delay,
+      super.curve,
+      super.control});
 
+  @override
   MultiAnimationSequence getAnimationSequence() {
     SmoothMatrix4 transform = SmoothMatrix4();
     transform.scale(scale);

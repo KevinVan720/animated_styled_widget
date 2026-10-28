@@ -1,25 +1,21 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
+/// A container that is styled by a [Style].
 class StyledContainer extends StyledWidget {
   final Widget child;
   final PointerEnterEventListener? onMouseEnter;
   final PointerExitEventListener? onMouseExit;
 
-  StyledContainer({
-    Key? key,
-    String? id,
-    required Style style,
+  const StyledContainer({
+    super.key,
+    super.id,
+    required super.style,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
-  }) : super(
-          key: key,
-          id: id,
-          style: style,
-        );
+  });
 
   @override
   State<StatefulWidget> createState() {

@@ -1,24 +1,23 @@
-import 'dart:ui';
-
-import 'package:flutter/animation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class GradientTween extends Tween<Gradient?> {
   /// Provide a begin and end Gradient. To fade between.
   GradientTween({
-    Gradient? begin,
-    Gradient? end,
-  }) : super(begin: begin, end: end);
+    super.begin,
+    super.end,
+  });
 
   @override
   Gradient? lerp(double t) => Gradient.lerp(begin, end, t);
 }
 
+/// Like [DecorationTween] for [BoxDecoration]s, but also interpolates between
+/// a color and a gradient (see [lerpGradientWithColor]).
 class BoxDecorationTween extends Tween<BoxDecoration?> {
   BoxDecorationTween({
-    BoxDecoration? begin,
-    BoxDecoration? end,
-  }) : super(begin: begin, end: end);
+    super.begin,
+    super.end,
+  });
 
   @override
   BoxDecoration? lerp(double t) {
@@ -44,6 +43,11 @@ class BoxDecorationTween extends Tween<BoxDecoration?> {
   }
 }
 
+/// Interpolates between two gradients, a missing gradient is replaced by a
+/// gradient of the same type with the color of the other end.
+///
+/// Only [LinearGradient]s, [RadialGradient]s and [SweepGradient]s can be
+/// interpolated with a color, null is returned for other gradients.
 Gradient? lerpGradientWithColor(Gradient? beginGradient, Gradient? endGradient,
     Color? beginColor, Color? endColor, double t) {
   if (beginGradient == null) {
@@ -89,4 +93,5 @@ Gradient? lerpGradientWithColor(Gradient? beginGradient, Gradient? endGradient,
       return Gradient.lerp(beginGradient, endGradient, t);
     }
   }
+  return null;
 }

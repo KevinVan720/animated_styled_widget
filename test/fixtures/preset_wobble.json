@@ -1,0 +1,123 @@
+{
+  "beginShift": 0.0,
+  "endShift": 0.0,
+  "control": "play",
+  "sequences": {
+    "transformAlignment": {
+      "data": [
+        {
+          "duration": 0,
+          "delay": 0,
+          "curve": "linear",
+          "value": "bottomCenter"
+        }
+      ]
+    },
+    "transform": {
+      "data": [
+        {
+          "duration": 0,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "translate",
+              "translateX": "5.0px",
+              "translateY": "0.0px"
+            },
+            {
+              "operation": "rotate",
+              "rotationZ": 0.10471975511965977
+            }
+          ]
+        },
+        {
+          "duration": 167,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "translate",
+              "translateX": "-5.0px",
+              "translateY": "0.0px"
+            },
+            {
+              "operation": "rotate",
+              "rotationZ": -0.10471975511965977
+            }
+          ]
+        },
+        {
+          "duration": 167,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "translate",
+              "translateX": "5.0px",
+              "translateY": "0.0px"
+            },
+            {
+              "operation": "rotate",
+              "rotationZ": 0.06981317007977318
+            }
+          ]
+        },
+        {
+          "duration": 167,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "translate",
+              "translateX": "-5.0px",
+              "translateY": "0.0px"
+            },
+            {
+              "operation": "rotate",
+              "rotationZ": -0.06981317007977318
+            }
+          ]
+        },
+        {
+          "duration": 167,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "translate",
+              "translateX": "5.0px",
+              "translateY": "0.0px"
+            },
+            {
+              "operation": "rotate",
+              "rotationZ": 0.0349065850398866
+            }
+          ]
+        },
+        {
+          "duration": 167,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "translate",
+              "translateX": "-5.0px",
+              "translateY": "0.0px"
+            },
+            {
+              "operation": "rotate",
+              "rotationZ": -0.0349065850398866
+            }
+          ]
+        },
+        {
+          "duration": 167,
+          "delay": 0,
+          "curve": "linear",
+          "value": []
+        }
+      ]
+    }
+  }
+}

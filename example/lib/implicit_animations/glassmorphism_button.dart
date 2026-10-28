@@ -1,19 +1,16 @@
 import 'dart:ui';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 
 class GlassmorphismButtonPage extends StatefulWidget {
-  GlassmorphismButtonPage({this.title = "Glassmorphism Button"});
+  const GlassmorphismButtonPage(
+      {super.key, this.title = "Glassmorphism Button"});
 
   final String title;
 
   @override
-  _GlassmorphismButtonPageState createState() =>
+  State<GlassmorphismButtonPage> createState() =>
       _GlassmorphismButtonPageState();
 }
 
@@ -38,8 +35,14 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    stops: [0, 0.2],
-                    colors: [Colors.white70, Colors.white.withOpacity(0.05)])),
+                    stops: [
+                      0,
+                      0.2
+                    ],
+                    colors: [
+                      Colors.white70,
+                      Colors.white.withValues(alpha: 0.05)
+                    ])),
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
         backgroundDecoration: BoxDecoration(color: Colors.white38),
@@ -61,8 +64,8 @@ class _GlassmorphismButtonPageState extends State<GlassmorphismButtonPage> {
               begin: 50.toPercentLength,
               end: 60.toPercentLength,
               gradient: LinearGradient(colors: [
-                Colors.white.withOpacity(0.01),
-                Colors.white.withOpacity(0.01)
+                Colors.white.withValues(alpha: 0.01),
+                Colors.white.withValues(alpha: 0.01)
               ])),
           borderRadius:
               DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),

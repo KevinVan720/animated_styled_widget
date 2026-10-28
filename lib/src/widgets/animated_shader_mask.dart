@@ -1,31 +1,29 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../custom_tweens.dart';
 
+/// A [ShaderMask] with a gradient that animates implicitly. Without a
+/// gradient, the child is not masked.
 class AnimatedShaderMask extends ImplicitlyAnimatedWidget {
-  /// Creates a widget that insets its child by a value that animates
-  /// implicitly.
-  ///
-  /// The [padding], [curve], and [duration] arguments must not be null.
-  AnimatedShaderMask({
-    Key? key,
+  /// Creates a shader mask whose [shaderGradient] animates implicitly.
+  const AnimatedShaderMask({
+    super.key,
     required this.shaderGradient,
     this.child,
-    Curve curve = Curves.linear,
-    required Duration duration,
-    VoidCallback? onEnd,
-  }) : super(key: key, curve: curve, duration: duration, onEnd: onEnd);
+    super.curve,
+    required super.duration,
+    super.onEnd,
+  });
 
-  /// The amount of space by which to inset the child.
+  /// The gradient of the mask.
   final Gradient? shaderGradient;
 
   /// The widget below this widget in the tree.
-  ///
-  /// {@macro flutter.src.widgets.ProxyWidget.child}
   final Widget? child;
 
   @override
-  _AnimatedShaderMaskState createState() => _AnimatedShaderMaskState();
+  AnimatedWidgetBaseState<AnimatedShaderMask> createState() =>
+      _AnimatedShaderMaskState();
 }
 
 class _AnimatedShaderMaskState

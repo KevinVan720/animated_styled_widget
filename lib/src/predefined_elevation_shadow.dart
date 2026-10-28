@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:morphable_shape/morphable_shape.dart';
 
 const Color _kKeyUmbraOpacity = Color(0x33000000); // alpha = 0.2

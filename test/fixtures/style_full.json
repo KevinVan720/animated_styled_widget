@@ -1,0 +1,209 @@
+{
+  "alignment": "topRight",
+  "width": "120.0px",
+  "height": "50.0%",
+  "margin": {
+    "left": 1.0,
+    "right": 3.0,
+    "top": 2.0,
+    "bottom": 4.0
+  },
+  "padding": {
+    "left": 8.0,
+    "right": 8.0,
+    "top": 4.0,
+    "bottom": 4.0
+  },
+  "visible": true,
+  "opacity": 0.8,
+  "backgroundDecoration": {
+    "gradient": {
+      "stops": [
+        0.25,
+        0.75
+      ],
+      "colors": [
+        "fff44336",
+        "ff2196f3"
+      ],
+      "type": "LinearGradient",
+      "begin": "topLeft",
+      "end": "bottomRight",
+      "tileMode": "clamp"
+    }
+  },
+  "foregroundDecoration": {
+    "color": "33000000"
+  },
+  "shapeBorder": {
+    "type": "RoundedRectangle",
+    "borderRadius": {
+      "topLeft": {
+        "x": "12.0px",
+        "y": "12.0px"
+      },
+      "topRight": {
+        "x": "12.0px",
+        "y": "12.0px"
+      },
+      "bottomLeft": {
+        "x": "12.0px",
+        "y": "12.0px"
+      },
+      "bottomRight": {
+        "x": "12.0px",
+        "y": "12.0px"
+      }
+    },
+    "borderSides": {
+      "top": {
+        "color": "ff4caf50",
+        "width": 2.0,
+        "style": "solid",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      },
+      "bottom": {
+        "color": "ff4caf50",
+        "width": 2.0,
+        "style": "solid",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      },
+      "left": {
+        "color": "ff4caf50",
+        "width": 2.0,
+        "style": "solid",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      },
+      "right": {
+        "color": "ff4caf50",
+        "width": 2.0,
+        "style": "solid",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      }
+    }
+  },
+  "shadows": [
+    {
+      "color": "80000000",
+      "offset": {
+        "dx": 2.0,
+        "dy": 3.0
+      },
+      "blurRadius": 4.0,
+      "spreadRadius": 1.0
+    },
+    {
+      "color": "ff000000",
+      "offset": {
+        "dx": -1.0,
+        "dy": -1.0
+      },
+      "blurRadius": 2.0,
+      "gradient": {
+        "colors": [
+          "fff44336",
+          "ff4caf50"
+        ],
+        "type": "LinearGradient",
+        "begin": "centerLeft",
+        "end": "centerRight",
+        "tileMode": "clamp"
+      },
+      "spreadRadius": 0.0
+    }
+  ],
+  "insetShadows": [
+    {
+      "color": "ff123456",
+      "offset": {
+        "dx": 1.0,
+        "dy": 1.0
+      },
+      "blurRadius": 0.0,
+      "spreadRadius": 0.0
+    }
+  ],
+  "transform": [
+    {
+      "operation": "rotate",
+      "rotationX": 0.1
+    },
+    {
+      "operation": "rotate",
+      "rotationY": 0.2
+    },
+    {
+      "operation": "rotate",
+      "rotationZ": 0.7853981633974483
+    },
+    {
+      "operation": "scale",
+      "scaleX": 2.0
+    },
+    {
+      "operation": "scale",
+      "scaleX": 1.5,
+      "scaleY": 0.5
+    },
+    {
+      "operation": "translate",
+      "translateX": "10.0px",
+      "translateY": "5.0vw"
+    }
+  ],
+  "transformAlignment": "bottomLeft",
+  "childAlignment": "center",
+  "textAlign": "center",
+  "textStyle": {
+    "color": "fff44336",
+    "backgroundColor": "11223344",
+    "fontSize": "16.0px",
+    "fontFamily": "Roboto",
+    "fontWeight": "w700",
+    "fontStyle": "italic",
+    "height": 1.5,
+    "letterSpacing": "2.0px",
+    "wordSpacing": "10.0%",
+    "decoration": "underline",
+    "decorationColor": "ff2196f3",
+    "decorationStyle": "dashed",
+    "decorationThickness": 2.0,
+    "shadows": [
+      {
+        "color": "ff4caf50",
+        "offset": {
+          "dx": 1.0,
+          "dy": 2.0
+        },
+        "blurRadius": 3.0
+      }
+    ]
+  },
+  "shaderGradient": {
+    "colors": [
+      "fff44336",
+      "ff2196f3"
+    ],
+    "type": "RadialGradient",
+    "center": "center",
+    "radius": 0.7,
+    "tileMode": "clamp"
+  },
+  "imageFilter": {
+    "sigmaX": 2.0,
+    "sigmaY": 3.0,
+    "tileMode": "clamp",
+    "type": "ImageFilter"
+  },
+  "backdropFilter": {
+    "sigmaX": 5.0,
+    "sigmaY": 5.0,
+    "tileMode": "mirror",
+    "type": "ImageFilter"
+  },
+  "mouseCursor": "click"
+}

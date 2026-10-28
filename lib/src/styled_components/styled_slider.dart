@@ -1,10 +1,12 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'styled_plain_container.dart';
 
+/// A slider with a styled track, active track, thumb and tooltip.
+///
+/// Like a material Slider, the slider is controlled: [onChanged] is called
+/// with the new value, and the parent rebuilds the slider with it.
 class StyledSlider extends StatefulWidget {
   final Style trackStyle;
   final Style thumbStyle;
@@ -40,7 +42,7 @@ class StyledSlider extends StatefulWidget {
   final bool isTrackContained;
 
   StyledSlider({
-    Key? key,
+    super.key,
     required this.value,
     required this.onChanged,
     required this.trackStyle,
@@ -75,7 +77,7 @@ class StyledSlider extends StatefulWidget {
   bool get enabled => onChanged != null;
 
   @override
-  _StyledSliderState createState() => _StyledSliderState();
+  State<StyledSlider> createState() => _StyledSliderState();
 }
 
 class _StyledSliderState extends State<StyledSlider> {
@@ -98,17 +100,26 @@ class _StyledSliderState extends State<StyledSlider> {
     value ? _thumbStates.add(state) : _thumbStates.remove(state);
   }
 
-  late dynamic thumbStyle;
-  late dynamic thumbHoveredStyle;
-  late dynamic thumbSelectedStyle;
-  late dynamic thumbDisabledStyle;
+  late Style thumbStyle;
+  late Style thumbHoveredStyle;
+  late Style thumbSelectedStyle;
+  late Style thumbDisabledStyle;
+
+  /// The last value passed to [StyledSlider.onChanged].
+  double? _reportedValue;
+
+  void _updatePercentFromValue() {
+    _percent = (((widget.value.clamp(widget.min, widget.max)) - widget.min) /
+        ((widget.max - widget.min)));
+    if (widget.divisions != null) {
+      _roundedPercent = roundPercentWithDivisions(_percent);
+    }
+  }
 
   @override
   void initState() {
-    _percent = (((widget.value.clamp(widget.min, widget.max)) - widget.min) /
-        ((widget.max - widget.min)));
-    if (widget.divisions != null)
-      _roundedPercent = roundPercentWithDivisions(_percent);
+    _updatePercentFromValue();
+    _updateThumbState(StyledComponentState.disabled, !widget.enabled);
     super.initState();
   }
 
@@ -117,6 +128,18 @@ class _StyledSliderState extends State<StyledSlider> {
     super.didUpdateWidget(oldWidget);
     _updateThumbState(StyledComponentState.disabled, !widget.enabled);
     updateThumbStyle();
+    // Follow values that were not set by dragging or tapping this slider.
+    if (widget.min != oldWidget.min ||
+        widget.max != oldWidget.max ||
+        (widget.value != oldWidget.value && widget.value != _reportedValue)) {
+      _updatePercentFromValue();
+    }
+  }
+
+  @override
+  void dispose() {
+    hideIndicator();
+    super.dispose();
   }
 
   @override
@@ -279,9 +302,6 @@ class _StyledSliderState extends State<StyledSlider> {
                     final newPercent = 1 -
                         (details.localPosition.dy / constraints.maxHeight)
                             .clamp(0.0, 1.0);
-                    print(details.localPosition.dy);
-                    print(constraints.maxHeight);
-                    print(newPercent);
                     handlePercentUpdate(newPercent);
                   },
                   child: AnimatedStyledContainer(
@@ -374,6 +394,7 @@ class _StyledSliderState extends State<StyledSlider> {
 
   void showIndicator() {
     if (widget.label != null && widget.toolTipStyle != null) {
+      hideIndicator();
       overlayEntry = OverlayEntry(
         builder: (BuildContext context) {
           return Positioned(
@@ -391,12 +412,13 @@ class _StyledSliderState extends State<StyledSlider> {
               ));
         },
       );
-      Overlay.of(context)?.insert(overlayEntry!);
+      Overlay.of(context).insert(overlayEntry!);
     }
   }
 
   void hideIndicator() {
     overlayEntry?.remove();
+    overlayEntry?.dispose();
     overlayEntry = null;
   }
 
@@ -405,6 +427,7 @@ class _StyledSliderState extends State<StyledSlider> {
       final newValue = ((widget.min + (widget.max - widget.min) * newPercent))
           .clamp(widget.min, widget.max);
       if (widget.onChanged != null) {
+        _reportedValue = newValue;
         widget.onChanged!(newValue);
       }
     } else {
@@ -414,6 +437,7 @@ class _StyledSliderState extends State<StyledSlider> {
             ((widget.min + (widget.max - widget.min) * newRoundPercent))
                 .clamp(widget.min, widget.max);
         if (widget.onChanged != null) {
+          _reportedValue = newValue;
           widget.onChanged!(newValue);
         }
         _roundedPercent = newRoundPercent;
@@ -509,7 +533,7 @@ class _StyledSliderState extends State<StyledSlider> {
         child: AnimatedStyledContainer(
           duration: widget.duration,
           curve: widget.curve,
-          style: resolveThumbStyle()..alignment = null,
+          style: resolveThumbStyle().copyWith()..alignment = null,
           child: widget.thumbChild ?? Container(),
           onEnd: () {
             if (isOverlayShown && _thumbSelected) {

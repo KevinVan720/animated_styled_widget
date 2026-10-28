@@ -1,6 +1,6 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'styled_plain_container.dart';
 
@@ -14,10 +14,10 @@ class StyledToggleable extends StatefulWidget {
   final bool? selected;
   final Curve curve;
   final Duration duration;
-  late final StyledComponentStateChildBuilder builder;
+  final StyledComponentStateChildBuilder builder;
 
   StyledToggleable({
-    Key? key,
+    super.key,
     this.onChanged,
     this.selected,
     required this.style,
@@ -27,14 +27,11 @@ class StyledToggleable extends StatefulWidget {
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
     Widget? child,
-  }) : assert(selected != null || onChanged != null) {
-    builder = (context, state) {
-      return child;
-    };
-  }
+  })  : assert(selected != null || onChanged != null),
+        builder = ((context, state) => child);
 
-  StyledToggleable.builder(
-      {Key? key,
+  const StyledToggleable.builder(
+      {super.key,
       this.onChanged,
       this.selected,
       required this.style,
@@ -49,7 +46,7 @@ class StyledToggleable extends StatefulWidget {
   bool get enabled => onChanged != null;
 
   @override
-  _StyledToggleableState createState() => _StyledToggleableState();
+  State<StyledToggleable> createState() => _StyledToggleableState();
 }
 
 class _StyledToggleableState extends State<StyledToggleable> {
@@ -75,16 +72,18 @@ class _StyledToggleableState extends State<StyledToggleable> {
   void initState() {
     super.initState();
     _updateState(StyledComponentState.disabled, !widget.enabled);
-    if (widget.selected != null)
+    if (widget.selected != null) {
       _updateState(StyledComponentState.selected, widget.selected!);
+    }
   }
 
   @override
   void didUpdateWidget(StyledToggleable oldWidget) {
     super.didUpdateWidget(oldWidget);
     _updateState(StyledComponentState.disabled, !widget.enabled);
-    if (widget.selected != null)
+    if (widget.selected != null) {
       _updateState(StyledComponentState.selected, widget.selected!);
+    }
     updateStyle();
   }
 
@@ -95,13 +94,8 @@ class _StyledToggleableState extends State<StyledToggleable> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    dynamic resolvedStyle = resolveStyle();
+    Style resolvedStyle = resolveStyle();
 
     return GestureDetector(
       onTap: () {
@@ -130,7 +124,7 @@ class _StyledToggleableState extends State<StyledToggleable> {
     );
   }
 
-  dynamic resolveStyle() {
+  Style resolveStyle() {
     if (_disabled) {
       return disabledStyle;
     }
@@ -174,10 +168,10 @@ class PlainToggleable extends StatefulWidget {
   final bool? selected;
   final Curve curve;
   final Duration duration;
-  late final StyledComponentStateChildBuilder builder;
+  final StyledComponentStateChildBuilder builder;
 
   PlainToggleable({
-    Key? key,
+    super.key,
     this.onChanged,
     this.selected,
     required this.style,
@@ -187,14 +181,11 @@ class PlainToggleable extends StatefulWidget {
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
     Widget? child,
-  }) : assert(selected != null || onChanged != null) {
-    builder = (context, state) {
-      return child;
-    };
-  }
+  })  : assert(selected != null || onChanged != null),
+        builder = ((context, state) => child);
 
-  PlainToggleable.builder(
-      {Key? key,
+  const PlainToggleable.builder(
+      {super.key,
       this.onChanged,
       this.selected,
       required this.style,
@@ -209,7 +200,7 @@ class PlainToggleable extends StatefulWidget {
   bool get enabled => onChanged != null;
 
   @override
-  _PlainToggleableState createState() => _PlainToggleableState();
+  State<PlainToggleable> createState() => _PlainToggleableState();
 }
 
 class _PlainToggleableState extends State<PlainToggleable> {
@@ -235,16 +226,18 @@ class _PlainToggleableState extends State<PlainToggleable> {
   void initState() {
     super.initState();
     _updateState(StyledComponentState.disabled, !widget.enabled);
-    if (widget.selected != null)
+    if (widget.selected != null) {
       _updateState(StyledComponentState.selected, widget.selected!);
+    }
   }
 
   @override
   void didUpdateWidget(PlainToggleable oldWidget) {
     super.didUpdateWidget(oldWidget);
     _updateState(StyledComponentState.disabled, !widget.enabled);
-    if (widget.selected != null)
+    if (widget.selected != null) {
       _updateState(StyledComponentState.selected, widget.selected!);
+    }
     updateStyle();
   }
 
@@ -255,13 +248,8 @@ class _PlainToggleableState extends State<PlainToggleable> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    dynamic resolvedStyle = resolveStyle();
+    Style resolvedStyle = resolveStyle();
 
     return GestureDetector(
       onTap: () {
@@ -290,7 +278,7 @@ class _PlainToggleableState extends State<PlainToggleable> {
     );
   }
 
-  dynamic resolveStyle() {
+  Style resolveStyle() {
     if (_disabled) {
       return disabledStyle;
     }

@@ -1,21 +1,26 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'style.dart';
 
+/// Provides [styles] to the [StyledWidget]s below it: a widget whose
+/// [StyledWidget.id] is a key of [styles] is styled by its own style merged
+/// with that style.
 class NamedStyleMap extends InheritedWidget {
-  static of(BuildContext context) =>
+  /// The closest [NamedStyleMap] ancestor, or null.
+  // The return type is dynamic for compatibility.
+  static dynamic of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<NamedStyleMap>();
 
   final Map<String, Style> styles;
 
-  NamedStyleMap({
-    Key? key,
-    required Widget child,
+  const NamedStyleMap({
+    super.key,
+    required super.child,
     required this.styles,
-  }) : super(key: key, child: child);
+  });
 
   @override
   bool updateShouldNotify(NamedStyleMap oldWidget) {
-    return this.styles != oldWidget.styles;
+    return styles != oldWidget.styles;
   }
 }

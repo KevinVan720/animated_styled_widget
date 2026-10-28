@@ -1,0 +1,141 @@
+{
+  "beginShift": 0.2,
+  "endShift": 0.5,
+  "control": "mirror",
+  "sequences": {
+    "opacity": {
+      "data": [
+        {
+          "duration": 300,
+          "delay": 0,
+          "curve": "linear",
+          "value": 0.5
+        },
+        {
+          "duration": 200,
+          "delay": 100,
+          "curve": "easeIn",
+          "value": 1.0
+        }
+      ]
+    },
+    "width": {
+      "data": [
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "easeOut",
+          "value": "100.0px"
+        },
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": "50.0vw"
+        }
+      ]
+    },
+    "alignment": {
+      "data": [
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": "bottomCenter"
+        }
+      ]
+    },
+    "margin": {
+      "data": [
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "left": 4.0,
+            "right": 4.0,
+            "top": 4.0,
+            "bottom": 4.0
+          }
+        }
+      ]
+    },
+    "backgroundDecoration": {
+      "data": [
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "fff44336"
+          }
+        },
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "gradient": {
+              "colors": [
+                "fff44336",
+                "ff2196f3"
+              ],
+              "type": "LinearGradient",
+              "begin": "centerLeft",
+              "end": "centerRight",
+              "tileMode": "clamp"
+            }
+          }
+        }
+      ]
+    },
+    "shapeBorder": {
+      "data": [
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "type": "Circle",
+            "border": {
+              "color": "ff000000",
+              "width": 0.0,
+              "style": "none",
+              "strokeCap": "butt",
+              "strokeJoin": "miter"
+            }
+          }
+        }
+      ]
+    },
+    "transform": {
+      "data": [
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": [
+            {
+              "operation": "rotate",
+              "rotationZ": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    "textStyle": {
+      "data": [
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "ff2196f3",
+            "fontSize": "20.0px",
+            "height": 1.2
+          }
+        }
+      ]
+    }
+  }
+}

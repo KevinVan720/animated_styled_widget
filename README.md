@@ -152,7 +152,7 @@ A button can be in one of the four states: idle, hovered, pressed, disabled. You
 builder: (context, state) {
       Widget child;
       switch (state) {
-         case StyledState.pressed:
+         case StyledComponentState.pressed:
             child = Text("TAPPED", key: UniqueKey());
             break;
                 
@@ -242,7 +242,7 @@ where AnimationProperty is an enum class corresponding to every animatable prope
 
 ```dart
 MultiAnimationSequence(sequences: {
-AnimationProperty.width: AnimationSequence()
+AnimationProperty.width: AnimationSequence<Dimension>()
   ..add(
       delay: Duration(seconds: 1),
       duration: Duration(milliseconds: 200),
@@ -302,7 +302,7 @@ class SlideInAnimation extends PresetAnimation {
       Duration duration = const Duration(seconds: 1),
       Duration delay = Duration.zero,
       Curve curve = Curves.linear,
-      CustomAnimationControl control = CustomAnimationControl.play})
+      Control control = Control.play})
       : super(duration: duration, delay: delay, curve: curve, control: control);
   ...
 }
@@ -333,7 +333,7 @@ Widget widget = ExplicitAnimatedStyledContainer(
   style: style,
   child: child,
   localAnimations: {
-  AnimationTrigger.visible: FadeInAnimation().getAnimationSequences()
+  AnimationTrigger.visible: FadeInAnimation().getAnimationSequence()
   }
 );
 ```
@@ -345,8 +345,8 @@ Widget widget = ExplicitAnimatedStyledContainer(
   style: style,
   child: child,
   localAnimations: {
-  AnimationTrigger.visible: FadeInAnimation().getAnimationSequences()..merge(
-SlideInAnimation().getAnimationSequences())
+  AnimationTrigger.visible: FadeInAnimation().getAnimationSequence()..merge(
+SlideInAnimation().getAnimationSequence())
   }
 );
 ```

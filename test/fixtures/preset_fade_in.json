@@ -1,0 +1,23 @@
+{
+  "beginShift": 0.0,
+  "endShift": 0.0,
+  "control": "play",
+  "sequences": {
+    "opacity": {
+      "data": [
+        {
+          "duration": 0,
+          "delay": 0,
+          "curve": "linear",
+          "value": 0.0
+        },
+        {
+          "duration": 1000,
+          "delay": 0,
+          "curve": "linear",
+          "value": 1.0
+        }
+      ]
+    }
+  }
+}

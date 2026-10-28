@@ -1,9 +1,9 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class StyledNavigationBar extends StatelessWidget {
   StyledNavigationBar({
-    Key? key,
+    super.key,
     required List<Widget> children,
     required this.currentIndex,
     this.onTap,
@@ -15,14 +15,11 @@ class StyledNavigationBar extends StatelessWidget {
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
   })  : assert(children.length > currentIndex),
-        itemCount = children.length {
-    itemBuilder = (context, state, int index) {
-      return children[index];
-    };
-  }
+        itemCount = children.length,
+        itemBuilder = ((context, state, int index) => children[index]);
 
-  StyledNavigationBar.builder({
-    Key? key,
+  const StyledNavigationBar.builder({
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
     required this.currentIndex,
@@ -38,7 +35,7 @@ class StyledNavigationBar extends StatelessWidget {
 
   final int itemCount;
 
-  late final StyledComponentStateIndexedChildBuilder itemBuilder;
+  final StyledComponentStateIndexedChildBuilder itemBuilder;
 
   final int currentIndex;
 

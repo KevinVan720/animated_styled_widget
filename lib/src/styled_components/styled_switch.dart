@@ -1,5 +1,5 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class StyledSwitch extends StatefulWidget {
   final Style thumbStyle;
@@ -18,12 +18,12 @@ class StyledSwitch extends StatefulWidget {
   final bool value;
 
   final ValueChanged<bool>? onChanged;
-  late final StyledComponentStateChildBuilder thumbChildBuilder;
+  final StyledComponentStateChildBuilder thumbChildBuilder;
 
   final Axis direction;
 
   StyledSwitch({
-    Key? key,
+    super.key,
     required this.value,
     required this.onChanged,
     required this.thumbStyle,
@@ -38,14 +38,10 @@ class StyledSwitch extends StatefulWidget {
     this.curve = Curves.linear,
     this.duration = const Duration(milliseconds: 100),
     Widget? thumbChild,
-  }) {
-    thumbChildBuilder = (context, state) {
-      return thumbChild;
-    };
-  }
+  }) : thumbChildBuilder = ((context, state) => thumbChild);
 
-  StyledSwitch.builder(
-      {Key? key,
+  const StyledSwitch.builder(
+      {super.key,
       required this.value,
       required this.onChanged,
       required this.thumbStyle,
@@ -62,10 +58,26 @@ class StyledSwitch extends StatefulWidget {
       required this.thumbChildBuilder});
 
   @override
-  _StyledSwitchState createState() => _StyledSwitchState();
+  State<StyledSwitch> createState() => _StyledSwitchState();
 }
 
 class _StyledSwitchState extends State<StyledSwitch> {
+  /// The outer container of the track: the size in the direction of the
+  /// switch and the position of [trackStyle].
+  Style? _outerTrackStyle(Style? trackStyle) {
+    if (trackStyle == null) return null;
+    final Style style = getStyleOuterContainer(trackStyle);
+    if (widget.direction == Axis.horizontal) {
+      style.height = null;
+    } else {
+      style.width = null;
+    }
+    return style;
+  }
+
+  /// A copy of [style] without alignment, the thumb is aligned by the switch.
+  Style? _thumbStyle(Style? style) => style?.copyWith()?..alignment = null;
+
   @override
   Widget build(BuildContext context) {
     return PlainToggleable(
@@ -77,29 +89,10 @@ class _StyledSwitchState extends State<StyledSwitch> {
           : null,
       duration: widget.duration,
       curve: widget.curve,
-      style: widget.direction == Axis.horizontal
-          ? (getStyleOuterContainer(widget.trackStyle)..height = null)
-          : (getStyleOuterContainer(widget.trackStyle)..width = null),
-      selectedStyle: widget.trackSelectedStyle != null
-          ? widget.direction == Axis.horizontal
-              ? (getStyleOuterContainer(widget.trackSelectedStyle!)
-                ..height = null)
-              : (getStyleOuterContainer(widget.trackSelectedStyle!).width =
-                  null)
-          : null,
-      hoveredStyle: widget.trackHoveredStyle != null
-          ? widget.direction == Axis.horizontal
-              ? (getStyleOuterContainer(widget.trackHoveredStyle!).height =
-                  null)
-              : (getStyleOuterContainer(widget.trackHoveredStyle!).width = null)
-          : null,
-      disabledStyle: widget.trackDisabledStyle != null
-          ? widget.direction == Axis.horizontal
-              ? (getStyleOuterContainer(widget.trackDisabledStyle!).height =
-                  null)
-              : (getStyleOuterContainer(widget.trackDisabledStyle!).width =
-                  null)
-          : null,
+      style: _outerTrackStyle(widget.trackStyle)!,
+      selectedStyle: _outerTrackStyle(widget.trackSelectedStyle),
+      hoveredStyle: _outerTrackStyle(widget.trackHoveredStyle),
+      disabledStyle: _outerTrackStyle(widget.trackDisabledStyle),
       child: Stack(
         alignment: Alignment.center,
         clipBehavior: Clip.none,
@@ -133,10 +126,10 @@ class _StyledSwitchState extends State<StyledSwitch> {
                   : null,
               duration: widget.duration,
               curve: widget.curve,
-              style: widget.thumbStyle..alignment = null,
-              selectedStyle: widget.thumbSelectedStyle?..alignment = null,
-              hoveredStyle: widget.thumbHoveredStyle?..alignment = null,
-              disabledStyle: widget.thumbDisabledStyle?..alignment = null,
+              style: _thumbStyle(widget.thumbStyle)!,
+              selectedStyle: _thumbStyle(widget.thumbSelectedStyle),
+              hoveredStyle: _thumbStyle(widget.thumbHoveredStyle),
+              disabledStyle: _thumbStyle(widget.thumbDisabledStyle),
             ),
           )
         ],

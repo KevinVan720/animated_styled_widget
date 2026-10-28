@@ -1,14 +1,12 @@
 import 'dart:math';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 import 'package:provider/provider.dart';
 
 class ScrollAnimationPage extends StatelessWidget {
+  const ScrollAnimationPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     VisibilityDetectorController.instance.updateInterval =
@@ -32,10 +30,10 @@ class ScrollAnimationPage extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -178,11 +176,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ? AnimatedBuilder(
                                 animation: progressNotifier,
                                 builder: (BuildContext context, Widget? child) {
-                                  return Text("Progress: " +
-                                      (progressNotifier.value * 100)
-                                          .roundWithPrecision(2)
-                                          .toString() +
-                                      "%");
+                                  return Text(
+                                      "Progress: ${(progressNotifier.value * 100).roundWithPrecision(2)}%");
                                 })
                             : Container();
                       },

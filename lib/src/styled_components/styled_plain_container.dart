@@ -1,25 +1,20 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 class StyledPlainContainer extends StyledWidget {
   final Widget child;
   final PointerEnterEventListener? onMouseEnter;
   final PointerExitEventListener? onMouseExit;
 
-  StyledPlainContainer({
-    Key? key,
-    String? id,
-    required Style style,
+  const StyledPlainContainer({
+    super.key,
+    super.id,
+    required super.style,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
-  }) : super(
-          key: key,
-          id: id,
-          style: style,
-        );
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -49,21 +44,17 @@ class AnimatedStyledPlainContainer extends StyledWidget {
   final PointerExitEventListener? onMouseExit;
   final VoidCallback? onEnd;
 
-  AnimatedStyledPlainContainer({
-    Key? key,
-    String? id,
-    required Style style,
+  const AnimatedStyledPlainContainer({
+    super.key,
+    super.id,
+    required super.style,
     required this.duration,
     this.curve = Curves.linear,
     required this.child,
     this.onMouseEnter,
     this.onMouseExit,
     this.onEnd,
-  }) : super(
-          key: key,
-          id: id,
-          style: style,
-        );
+  });
 
   @override
   State<StatefulWidget> createState() {

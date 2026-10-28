@@ -1,16 +1,11 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class StaggeredAnimationsPage extends StatelessWidget {
   final animationPool = {
-    "animation":
-        GlobalAnimation(control: Control.mirror, sequences: {
+    "animation": GlobalAnimation(control: Control.mirror, sequences: {
       "Container1": SlideOutAnimation(
               curve: Curves.bounceIn,
               duration: Duration(seconds: 2),
@@ -97,6 +92,8 @@ class StaggeredAnimationsPage extends StatelessWidget {
     })
   };
 
+  StaggeredAnimationsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     /*printWrapped(animationPool["animation"]?.toJson()?.toString() ?? "");*/
@@ -126,10 +123,10 @@ class StaggeredAnimationsPage extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -214,12 +211,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
                 if (isRunning) {
                   Provider.of<GlobalAnimationNotifier>(context, listen: false)
-                      .updateAnimationStatus(
-                          "animation", Control.mirror);
+                      .updateAnimationStatus("animation", Control.mirror);
                 } else {
                   Provider.of<GlobalAnimationNotifier>(context, listen: false)
-                      .updateAnimationStatus(
-                          "animation", Control.stop);
+                      .updateAnimationStatus("animation", Control.stop);
                 }
               },
               style: Style(

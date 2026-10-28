@@ -1,10 +1,6 @@
-import 'dart:math';
-
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:dimension/dimension.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_class_parser/flutter_class_parser.dart';
-import 'package:morphable_shape/morphable_shape.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 extension Typing<T> on List<T> {
@@ -62,6 +58,8 @@ const Map<AnimationProperty, Type> animationPropertyTypeMap = {
   AnimationProperty.textStyle: DynamicTextStyle,
 };
 
+/// The values used by [MultiAnimationSequence.getAnimationTween] for the
+/// properties that are missing in its initial values.
 Map<AnimationProperty, dynamic> animationPropertyDefaultInitMap = {
   AnimationProperty.opacity: 1.0,
   AnimationProperty.alignment: Alignment.center,
@@ -69,17 +67,26 @@ Map<AnimationProperty, dynamic> animationPropertyDefaultInitMap = {
   AnimationProperty.height: null,
   AnimationProperty.margin: EdgeInsets.zero,
   AnimationProperty.padding: EdgeInsets.zero,
-  AnimationProperty.backgroundDecoration: BoxDecoration(),
-  AnimationProperty.foregroundDecoration: BoxDecoration(),
+  AnimationProperty.backgroundDecoration: const BoxDecoration(),
+  AnimationProperty.foregroundDecoration: const BoxDecoration(),
   AnimationProperty.shadows: <ShapeShadow>[],
   AnimationProperty.insetShadows: <ShapeShadow>[],
-  AnimationProperty.shapeBorder: RectangleShapeBorder(),
+  AnimationProperty.shapeBorder: const RectangleShapeBorder(),
   AnimationProperty.transform: Matrix4.identity(),
   AnimationProperty.transformAlignment: Alignment.center,
   AnimationProperty.childAlignment: Alignment.center,
-  AnimationProperty.textStyle: TextStyle(),
+  AnimationProperty.textStyle: const TextStyle(),
 };
 
+typedef _ShapeShadowList = List<ShapeShadow>;
+typedef _ShadowList = List<Shadow>;
+
+/// The duration used for steps without a duration, so that the animation
+/// never has to be evaluated in the middle of a step without a length.
+const Duration _kMinStepDuration = Duration(microseconds: 1);
+
+/// A step of an [AnimationSequence]: wait for [delay], then animate to
+/// [value] in [duration] using [curve].
 class AnimationData<T> {
   late Duration duration;
   late Duration delay;
@@ -92,12 +99,23 @@ class AnimationData<T> {
       this.curve = Curves.linear,
       required this.value});
 
+  /// Parses the output of [toJson]. A missing duration is one second, a
+  /// missing delay zero and a missing curve [Curves.linear].
   AnimationData.fromJson(Map<String, dynamic> map) {
     value = parse(map["value"]);
-    duration = Duration(milliseconds: map["duration"]);
-    delay = Duration(milliseconds: map["delay"]);
+    duration =
+        Duration(milliseconds: (map["duration"] as num?)?.round() ?? 1000);
+    delay = Duration(milliseconds: (map["delay"] as num?)?.round() ?? 0);
     curve = parseCurve(map["curve"]) ?? Curves.linear;
   }
+
+  AnimationData<T> _copy() {
+    return AnimationData<T>(
+        duration: duration, delay: delay, curve: curve, value: value);
+  }
+
+  static bool _isShadowList(Type type) =>
+      type == _ShapeShadowList || type == _ShadowList;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> rst = {};
@@ -139,16 +157,23 @@ class AnimationData<T> {
     if (T == DynamicTextStyle) {
       return (value as DynamicTextStyle).toJson();
     }
-    if (T == List) {
-      if ((T as List).genericType == ShapeShadow) {
-        return (value as List<ShapeShadow>).map((e) => e.toJson()).toList();
-      }
+    if (_isShadowList(T)) {
+      return (value as List)
+          .map((e) => e is ShapeShadow
+              ? e.toJson()
+              : ShapeShadow(
+                      color: (e as Shadow).color,
+                      offset: e.offset,
+                      blurRadius: e.blurRadius)
+                  .toJson())
+          .toList();
     }
+    return null;
   }
 
   dynamic parse(dynamic value) {
     if (T == double) {
-      return value;
+      return (value as num?)?.toDouble();
     }
     if (T == Dimension) {
       return parseDimension(value);
@@ -178,14 +203,19 @@ class AnimationData<T> {
     if (T == DynamicTextStyle) {
       return parseDynamicTextStyle(value);
     }
-    if (T == List) {
-      if ((T as List).genericType == ShapeShadow) {
-        return (value as List).map((e) => parseShapeShadow(e)).toList();
-      }
+    if (_isShadowList(T)) {
+      return (value as List?)
+              ?.map((e) => parseShapeShadow(e))
+              .whereType<ShapeShadow>()
+              .toList() ??
+          <ShapeShadow>[];
     }
+    return null;
   }
 }
 
+/// The steps of the animation of one [AnimationProperty], played one after
+/// another.
 class AnimationSequence<T> {
   late List<AnimationData<T>> data = [];
 
@@ -198,8 +228,10 @@ class AnimationSequence<T> {
   }
 
   AnimationSequence.fromJson(Map map) {
-    data =
-        (map["data"] as List).map((e) => AnimationData<T>.fromJson(e)).toList();
+    data = (map["data"] as List?)
+            ?.map((e) => AnimationData<T>.fromJson(e))
+            .toList() ??
+        [];
   }
 
   Map<String, dynamic> toJson() {
@@ -220,11 +252,11 @@ class AnimationSequence<T> {
   double getMaxValue({double initialValue = -double.infinity}) {
     double max = initialValue;
     if (T == double) {
-      data.forEach((element) {
+      for (final AnimationData<T> element in data) {
         if ((element.value as double) > max) {
           max = element.value as double;
         }
-      });
+      }
     }
     return max;
   }
@@ -232,33 +264,37 @@ class AnimationSequence<T> {
   double getMinValue({double initialValue = double.infinity}) {
     double min = initialValue;
     if (T == double) {
-      data.forEach((element) {
+      for (final AnimationData<T> element in data) {
         if ((element.value as double) < min) {
           min = element.value as double;
         }
-      });
+      }
     }
     return min;
   }
 
+  /// The begin and end times of the steps in milliseconds, sorted.
   List<double> getAllTimeStamps() {
     double time = 0.0;
     List<double> timeStamps = [time];
-    data.forEach((data) {
-      time += data.delay.inMilliseconds;
+    for (final AnimationData<T> step in data) {
+      time += step.delay.inMilliseconds;
       if (!timeStamps.contains(time)) {
         timeStamps.add(time);
       }
-      time += data.duration.inMilliseconds;
+      time += step.duration.inMilliseconds;
       if (!timeStamps.contains(time)) {
         timeStamps.add(time);
       }
-    });
+    }
     timeStamps.sort();
     return timeStamps;
   }
+
+  AnimationSequence<T> _emptyCopy() => AnimationSequence<T>();
 }
 
+/// The animations of several [AnimationProperty]s, played at the same time.
 class MultiAnimationSequence {
   late Map<AnimationProperty, AnimationSequence> sequences = {};
   Control control = Control.play;
@@ -271,11 +307,13 @@ class MultiAnimationSequence {
       this.endShift = 0.0,
       this.control = Control.play});
 
+  /// Parses the output of [toJson], missing values use the defaults of the
+  /// constructor.
   MultiAnimationSequence.fromJson(Map map) {
     control = parseCustomAnimationControl(map["control"]) ?? Control.play;
-    beginShift = map['beginShift'];
-    endShift = map['endShift'];
-    sequences = (map["sequences"] as Map).map((key, value) {
+    beginShift = (map['beginShift'] as num?)?.toDouble() ?? 0.0;
+    endShift = (map['endShift'] as num?)?.toDouble() ?? 0.0;
+    sequences = ((map["sequences"] as Map?) ?? {}).map((key, value) {
       AnimationProperty property = parseAnimationProperty(key);
       switch (property) {
         case AnimationProperty.opacity:
@@ -329,6 +367,10 @@ class MultiAnimationSequence {
     sequences.addAll(secondSequence.sequences);
   }
 
+  /// Adds the sequences of [secondSequence] after the end of the sequences of
+  /// this animation, so that they play after this animation.
+  ///
+  /// [secondSequence] is not modified.
   void extend(MultiAnimationSequence secondSequence) {
     double currentMaxTime = 0;
     sequences.forEach((key, value) {
@@ -339,176 +381,170 @@ class MultiAnimationSequence {
     });
 
     secondSequence.sequences.forEach((key, value) {
-      if (!sequences.containsKey(key)) {
-        switch (key) {
-          case AnimationProperty.opacity:
-            sequences[key] = AnimationSequence<double>();
-            break;
-          case AnimationProperty.alignment:
-          case AnimationProperty.transformAlignment:
-          case AnimationProperty.childAlignment:
-            sequences[key] = AnimationSequence<Alignment>();
-            break;
-          case AnimationProperty.width:
-          case AnimationProperty.height:
-            sequences[key] = AnimationSequence<Dimension>();
-            break;
-          case AnimationProperty.margin:
-          case AnimationProperty.padding:
-            sequences[key] = AnimationSequence<EdgeInsets>();
-            break;
-          case AnimationProperty.backgroundDecoration:
-          case AnimationProperty.foregroundDecoration:
-            sequences[key] = AnimationSequence<BoxDecoration>();
-            break;
-          case AnimationProperty.shadows:
-          case AnimationProperty.insetShadows:
-            sequences[key] = AnimationSequence<List<ShapeShadow>>();
-            break;
-          case AnimationProperty.shapeBorder:
-            sequences[key] = AnimationSequence<MorphableShapeBorder>();
-            break;
-          case AnimationProperty.transform:
-            sequences[key] = AnimationSequence<SmoothMatrix4>();
-            break;
-          case AnimationProperty.textStyle:
-            sequences[key] = AnimationSequence<DynamicTextStyle>();
-            break;
+      if (value.data.isEmpty) return;
+      final AnimationSequence sequence =
+          sequences.putIfAbsent(key, () => value._emptyCopy());
+      final double lastTime = sequence.getAllTimeStamps().last;
+      for (int i = 0; i < value.data.length; i++) {
+        final AnimationData step = value.data[i]._copy();
+        if (i == 0) {
+          step.delay +=
+              Duration(milliseconds: (currentMaxTime - lastTime).round());
         }
+        sequence.data.add(step);
       }
-
-      double lastTime = (sequences[key]?.getAllTimeStamps().last) ?? 0.0;
-      value.data[0].delay +=
-          Duration(milliseconds: (currentMaxTime - lastTime).round());
-      sequences[key]?.data.addAll(value.data);
     });
   }
 
+  /// The tween of the animation, starting from [initialValues] (or
+  /// [animationPropertyDefaultInitMap] for missing values).
+  ///
+  /// The steps of each sequence are played one after another, properties
+  /// without a sequence keep their initial value. Does not modify the
+  /// sequences.
   MovieTween getAnimationTween(
       {required Map<AnimationProperty, dynamic> initialValues,
       required double parentFontSize,
       required Size screenSize}) {
     MovieTween multiTween = MovieTween();
-    MovieScene movieScene =
-        multiTween.scene(begin: Duration.zero, duration: Duration(microseconds: 1));
-    for (final property in animationPropertyTypeMap.keys) {
-      if (!sequences.keys.contains(property)) {
-        sequences[property] = AnimationSequence(data: []);
-      }
-    }
+    MovieScene startScene = multiTween.scene(
+        begin: Duration.zero, duration: const Duration(microseconds: 1));
 
-    sequences.forEach((property, animationSequence) {
-      var animations = animationSequence.data;
+    final Map<AnimationProperty, List<AnimationData>> propertySteps = {
+      for (final MapEntry<AnimationProperty, AnimationSequence> entry
+          in sequences.entries)
+        entry.key: entry.value.data,
+      for (final AnimationProperty property in animationPropertyTypeMap.keys)
+        if (!sequences.containsKey(property)) property: const [],
+    };
+
+    propertySteps.forEach((property, data) {
       dynamic begin, end;
       begin =
           initialValues[property] ?? animationPropertyDefaultInitMap[property];
-      if (animations.length == 0) {
-        if (property == AnimationProperty.transform) {
-          animations.add(AnimationData(
-              value: initialValues[property], duration: Duration.zero));
-        } else if (property == AnimationProperty.textStyle) {
-          animations.add(AnimationData(
-              value: initialValues[property], duration: Duration.zero));
-        } else {
-          animations.add(AnimationData(value: begin, duration: Duration.zero));
-        }
-      }
-      for (int index = 0; index < animations.length; index++) {
-        Tween tween;
+      final List<AnimationData> animations = data.isNotEmpty
+          ? data
+          : [AnimationData(value: begin, duration: Duration.zero)];
+      MovieScene scene = startScene;
+      for (final AnimationData animation in animations) {
+        Animatable tween;
         switch (property) {
           case AnimationProperty.opacity:
-            end = animations[index].value;
+            end = animation.value;
             tween = Tween(begin: begin, end: end);
             break;
           case AnimationProperty.alignment:
           case AnimationProperty.transformAlignment:
           case AnimationProperty.childAlignment:
-            end = animations[index].value;
+            end = animation.value;
 
             tween = AlignmentTween(begin: begin, end: end);
             break;
           case AnimationProperty.width:
           case AnimationProperty.height:
-            end = (animations[index].value as Dimension?);
+            end = (animation.value as Dimension?);
 
             tween = DimensionTween(begin: begin, end: end);
             break;
           case AnimationProperty.margin:
           case AnimationProperty.padding:
-            end = (animations[index].value as EdgeInsets?);
+            end = (animation.value as EdgeInsets?);
 
             tween = EdgeInsetsTween(begin: begin, end: end);
             break;
           case AnimationProperty.backgroundDecoration:
           case AnimationProperty.foregroundDecoration:
-            end = animations[index].value;
+            end = animation.value;
 
             tween = DecorationTween(begin: begin, end: end);
             break;
           case AnimationProperty.shadows:
           case AnimationProperty.insetShadows:
-            end = (animations[index].value as List).cast<ShapeShadow>();
+            end = (animation.value as List).cast<ShapeShadow>();
 
             tween = ListShapeShadowTween(begin: begin, end: end);
             break;
           case AnimationProperty.shapeBorder:
-            end = animations[index].value;
+            end = animation.value;
 
             tween = MorphableShapeBorderTween(begin: begin, end: end);
             break;
           case AnimationProperty.transform:
-            if (animations[index].value is SmoothMatrix4) {
-              end = animations[index].value.toMatrix4(screenSize: screenSize);
+            if (animation.value is SmoothMatrix4) {
+              end = (animation.value as SmoothMatrix4)
+                  .toMatrix4(screenSize: screenSize);
             } else {
-              end = animations[index].value;
+              end = animation.value;
             }
 
             tween = Matrix4Tween(begin: begin, end: end);
             break;
           case AnimationProperty.textStyle:
-            if (animations[index].value is DynamicTextStyle) {
-              end = (animations[index].value as DynamicTextStyle).toTextStyle(
+            if (animation.value is DynamicTextStyle) {
+              end = (animation.value as DynamicTextStyle).toTextStyle(
                   parentFontSize: parentFontSize, screenSize: screenSize);
             } else {
-              end = animations[index].value;
+              end = animation.value;
+            }
+            // TextStyles can only be interpolated if both inherit or not.
+            if (begin is TextStyle &&
+                end is TextStyle &&
+                begin.inherit != end.inherit) {
+              end = end.copyWith(inherit: begin.inherit);
             }
 
             tween = TextStyleTween(begin: begin, end: end);
             break;
         }
-        movieScene.thenTween(property, tween,
-            duration: animations[index].duration,
-            delay: animations[index].delay,
-            curve: animations[index].curve);
+        // A step without duration and delay at the start is applied
+        // immediately, also in the first frame of the animation.
+        if (identical(animation, animations.first) &&
+            animation.duration <= Duration.zero &&
+            animation.delay <= Duration.zero) {
+          tween = ConstantTween(end);
+        }
+        scene = scene.thenTween(property, tween,
+            duration: animation.duration > Duration.zero
+                ? animation.duration
+                : _kMinStepDuration,
+            delay: animation.delay,
+            curve: animation.curve);
         begin = end;
       }
     });
     return multiTween;
   }
 
+  /// The begin and end times of the steps of all sequences in milliseconds,
+  /// sorted.
   List<double> getAllTimeStamps() {
     List<double> timeStamps = [];
-    sequences.forEach((property, sequence) {
-      sequence.getAllTimeStamps().forEach((time) {
+    for (final AnimationSequence sequence in sequences.values) {
+      for (final double time in sequence.getAllTimeStamps()) {
         if (!timeStamps.contains(time)) {
           timeStamps.add(time);
         }
-      });
-    });
+      }
+    }
     timeStamps.sort();
     return timeStamps;
   }
 
+  /// Delays the start of every sequence by [delay].
   void addDelay(Duration delay) {
-    sequences.forEach((property, sequence) {
-      sequence.data.first.delay += delay;
-    });
+    for (final AnimationSequence sequence in sequences.values) {
+      if (sequence.data.isNotEmpty) sequence.data.first.delay += delay;
+    }
   }
 
+  /// Scales the durations and delays so that the animation takes
+  /// [maxDuration]. An animation without duration is not changed.
   void rescaleTime(Duration maxDuration) {
-    double currentMaxTime = getAllTimeStamps().last;
+    final List<double> timeStamps = getAllTimeStamps();
+    if (timeStamps.isEmpty || timeStamps.last <= 0) return;
+    double currentMaxTime = timeStamps.last;
     sequences.forEach((property, sequence) {
-      sequence.data.forEach((data) {
+      for (final AnimationData data in sequence.data) {
         data.delay = Duration(
             milliseconds: (data.delay.inMilliseconds /
                     currentMaxTime *
@@ -519,7 +555,7 @@ class MultiAnimationSequence {
                     currentMaxTime *
                     maxDuration.inMilliseconds)
                 .round());
-      });
+      }
     });
   }
 }

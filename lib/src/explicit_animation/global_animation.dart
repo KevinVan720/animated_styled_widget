@@ -1,9 +1,9 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import 'animation_sequence.dart';
-
+/// Animations of several widgets, the keys of [sequences] are the ids of the
+/// widgets (see [ExplicitAnimatedStyledContainer.id]).
 class GlobalAnimation {
   Control control = Control.play;
   double beginShift = 0.0;
@@ -17,13 +17,14 @@ class GlobalAnimation {
       this.endShift = 0.0,
       this.control = Control.play});
 
+  /// Parses the output of [toJson], missing values use the defaults of the
+  /// constructor.
   GlobalAnimation.fromJson(Map map) {
-    control = parseCustomAnimationControl(map["control"]) ??
-        Control.play;
-    beginShift = map['beginShift'];
-    endShift = map['endShift'];
-    sequences = (map["sequences"] as Map).map((key, value) {
-      return MapEntry(key, MultiAnimationSequence.fromJson(value));
+    control = parseCustomAnimationControl(map["control"]) ?? Control.play;
+    beginShift = (map['beginShift'] as num?)?.toDouble() ?? 0.0;
+    endShift = (map['endShift'] as num?)?.toDouble() ?? 0.0;
+    sequences = ((map["sequences"] as Map?) ?? {}).map((key, value) {
+      return MapEntry(key as String, MultiAnimationSequence.fromJson(value));
     });
   }
 
@@ -39,34 +40,30 @@ class GlobalAnimation {
 
   List<double> getAllTimeStamps() {
     List<double> timeStamps = [];
-    sequences.forEach((name, value) {
-      value.getAllTimeStamps().forEach((time) {
+    for (final MultiAnimationSequence sequence in sequences.values) {
+      for (final double time in sequence.getAllTimeStamps()) {
         if (!timeStamps.contains(time)) {
           timeStamps.add(time);
         }
-      });
-    });
+      }
+    }
     timeStamps.sort();
     return timeStamps;
   }
 
   void rescaleTime(Duration maxDuration) {
-    sequences.forEach((name, value) {
-      value.rescaleTime(maxDuration);
-    });
+    for (final MultiAnimationSequence sequence in sequences.values) {
+      sequence.rescaleTime(maxDuration);
+    }
   }
 }
 
+/// The progress of a scroll animation, clamped to between 0 and 1.
 class ContinuousAnimationProgressNotifier extends ValueNotifier<double> {
-  ContinuousAnimationProgressNotifier(value) : super(value);
-
-  @override
-  double get value => super.value;
+  ContinuousAnimationProgressNotifier(super.value);
 
   @override
   set value(double newValue) {
-    if (super.value == newValue) return;
     super.value = newValue.clamp(0.0, 1.0);
-    notifyListeners();
   }
 }

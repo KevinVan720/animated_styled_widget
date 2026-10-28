@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import 'animation_sequence.dart';
 import 'global_animation.dart';
 
+/// Provides the [GlobalAnimation]s of [animationPool] to the
+/// [ExplicitAnimatedStyledContainer]s below it.
 class GlobalAnimationNotifier extends ChangeNotifier {
   Map<String, GlobalAnimation> animationPool = {};
 
@@ -17,8 +19,7 @@ class GlobalAnimationNotifier extends ChangeNotifier {
       {};
   GlobalAnimationNotifier({required this.animationPool});
 
-  void updateAnimationStatus(
-      String animationId, Control newStatus) {
+  void updateAnimationStatus(String animationId, Control newStatus) {
     animationPool[animationId]?.sequences.forEach((applier, value) {
       currentAnimations[applier] = value;
       currentAnimationsControl[applier] = newStatus;
@@ -38,8 +39,18 @@ class GlobalAnimationNotifier extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    for (final ContinuousAnimationProgressNotifier notifier
+        in animationProgressNotifiers.values) {
+      notifier.dispose();
+    }
+    super.dispose();
+  }
 }
 
+/// The local animations of an [ExplicitAnimatedStyledContainer].
 class LocalAnimationNotifier extends ChangeNotifier {
   MultiAnimationSequence? currentAnimation;
   Control? currentAnimationControl;
@@ -49,8 +60,8 @@ class LocalAnimationNotifier extends ChangeNotifier {
 
   LocalAnimationNotifier();
 
-  void updateAnimationStatus(MultiAnimationSequence animationSequence,
-      Control newStatus) {
+  void updateAnimationStatus(
+      MultiAnimationSequence animationSequence, Control newStatus) {
     currentAnimation = animationSequence;
     currentAnimationControl = newStatus;
     notifyListeners();
@@ -65,5 +76,11 @@ class LocalAnimationNotifier extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    animationProgressNotifier?.dispose();
+    super.dispose();
   }
 }

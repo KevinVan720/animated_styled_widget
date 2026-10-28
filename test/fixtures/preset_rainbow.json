@@ -1,0 +1,67 @@
+{
+  "beginShift": 0.0,
+  "endShift": 0.0,
+  "control": "play",
+  "sequences": {
+    "backgroundDecoration": {
+      "data": [
+        {
+          "duration": 0,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "fff44336"
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "ffff9800"
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "ffffeb3b"
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "ff4caf50"
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "ff2196f3"
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "ff3f51b5"
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "color": "ff9c27b0"
+          }
+        }
+      ]
+    }
+  }
+}

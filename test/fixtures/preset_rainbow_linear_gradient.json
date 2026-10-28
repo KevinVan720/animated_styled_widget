@@ -1,0 +1,130 @@
+{
+  "beginShift": 0.0,
+  "endShift": 0.0,
+  "control": "play",
+  "sequences": {
+    "backgroundDecoration": {
+      "data": [
+        {
+          "duration": 0,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "gradient": {
+              "colors": [
+                "fff44336",
+                "ffff9800"
+              ],
+              "type": "LinearGradient",
+              "begin": "centerLeft",
+              "end": "centerRight",
+              "tileMode": "clamp"
+            }
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "gradient": {
+              "colors": [
+                "ffff9800",
+                "ffffeb3b"
+              ],
+              "type": "LinearGradient",
+              "begin": "centerLeft",
+              "end": "centerRight",
+              "tileMode": "clamp"
+            }
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "gradient": {
+              "colors": [
+                "ffffeb3b",
+                "ff4caf50"
+              ],
+              "type": "LinearGradient",
+              "begin": "centerLeft",
+              "end": "centerRight",
+              "tileMode": "clamp"
+            }
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "gradient": {
+              "colors": [
+                "ff4caf50",
+                "ff2196f3"
+              ],
+              "type": "LinearGradient",
+              "begin": "centerLeft",
+              "end": "centerRight",
+              "tileMode": "clamp"
+            }
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "gradient": {
+              "colors": [
+                "ff2196f3",
+                "ff3f51b5"
+              ],
+              "type": "LinearGradient",
+              "begin": "centerLeft",
+              "end": "centerRight",
+              "tileMode": "clamp"
+            }
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "gradient": {
+              "colors": [
+                "ff3f51b5",
+                "ff9c27b0"
+              ],
+              "type": "LinearGradient",
+              "begin": "centerLeft",
+              "end": "centerRight",
+              "tileMode": "clamp"
+            }
+          }
+        },
+        {
+          "duration": 143,
+          "delay": 0,
+          "curve": "linear",
+          "value": {
+            "gradient": {
+              "colors": [
+                "ff9c27b0",
+                "fff44336"
+              ],
+              "type": "LinearGradient",
+              "begin": "centerLeft",
+              "end": "centerRight",
+              "tileMode": "clamp"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
